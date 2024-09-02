@@ -32,7 +32,7 @@ opt.cursorline = true -- show cursorline
 opt.relativenumber = true -- show relative line number
 opt.number = true -- show line number of current
 opt.signcolumn = "yes:1" -- sign column default size
-opt.conceallevel = 0 -- `` is visible in markdown files
+opt.conceallevel = 1 -- `` is visible in markdown files
 opt.termguicolors = true -- enable gui colors
 
 -- new window direction

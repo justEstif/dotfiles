@@ -174,3 +174,8 @@ later(function()
 end)
 
 -- Obsidian
+later(function()
+	add("nvim-lua/plenary.nvim")
+	add("epwalsh/obsidian.nvim")
+	source("plugins/obsidian.lua")
+end)
