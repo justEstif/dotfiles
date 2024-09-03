@@ -19,6 +19,11 @@ _G.Config.leader_group_clues = {
 		keys = "<Leader>v",
 		desc = "+Visits",
 	},
+	{
+		mode = "n",
+		keys = "<Leader>o",
+		desc = "+Obsidian",
+	},
 }
 
 -- Create `<Leader>` mappings
@@ -57,3 +62,8 @@ xmap_leader("lf", formatting_cmd, "Format selection")
 nmap_leader("vl", "<Cmd>lua MiniVisits.add_label()<CR>", "Add label")
 nmap_leader("vL", "<Cmd>lua MiniVisits.remove_label()<CR>", "Remove label")
 nmap_leader("vv", "<Cmd>Pick visit_labels<CR>", "Select label (cwd)")
+
+-- o is for 'obsidian'
+nmap_leader("on", "<Cmd>ObsidianNew<CR>", "New note")
+nmap_leader("od", "<Cmd>ObsidianDailies<CR>", "Daily notes")
+nmap_leader("os", "<Cmd>ObsidianSearch<CR>", "Search notes")

@@ -10,5 +10,6 @@ conform.setup({
 		typescriptreact = { "prettier" },
 		typescript = { "prettier" },
 		lua = { "stylua" },
+		go = { "gofmt" },
 	},
 })

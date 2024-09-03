@@ -18,6 +18,7 @@ local ensure_installed = {
 	"tsx",
 	"typescript",
 	"ruby",
+  "go"
 }
 
 require("nvim-treesitter.configs").setup({

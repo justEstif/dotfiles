@@ -91,6 +91,7 @@ end
 lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
 lspconfig.cssls.setup({ on_attach = on_attach_custom })
 lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
+lspconfig.gopls.setup({ on_attach = on_attach_custom })
 
 lspconfig.denols.setup {
   on_attach = on_attach_custom,
