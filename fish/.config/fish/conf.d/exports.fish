@@ -1,1 +1,1 @@
-source ~/.asdf/asdf.fish
+# source ~/.asdf/asdf.fish
