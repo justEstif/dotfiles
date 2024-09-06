@@ -12,14 +12,14 @@ end
 
 local platform = utils.platform()
 
+config.font = wezterm.font("Iosevka")
 if platform.is_mac then
-	config.font = wezterm.font("Iosevka Nerd Font")
 	config.font_size = 18
 else
-	config.font = wezterm.font("Iosevka Term")
 	config.font_size = 12
 end
 
+-- command palette
 config.command_palette_font_size = config.font_size
 config.command_palette_rows = 10
 local scheme = wezterm.get_builtin_color_schemes()[config.color_scheme]
@@ -45,6 +45,7 @@ config.keys = {
 	{ key = "l", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(1) },
 	{ key = "h", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
 	{ key = "P", mods = "CTRL|SHIFT", action = act.ActivateCommandPalette },
+
 	-- Font Size
 	{ key = "+", mods = "CTRL|SHIFT", action = act.IncreaseFontSize },
 	{ key = "_", mods = "CTRL|SHIFT", action = act.DecreaseFontSize },
