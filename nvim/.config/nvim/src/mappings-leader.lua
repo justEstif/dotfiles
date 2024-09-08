@@ -1,29 +1,9 @@
 _G.Config.leader_group_clues = {
-	{
-		mode = "n",
-		keys = "<Leader>f",
-		desc = "+Files",
-	},
-	{
-		mode = "n",
-		keys = "<Leader>b",
-		desc = "+Buffers",
-	},
-	{
-		mode = "n",
-		keys = "<Leader>l",
-		desc = "+Lsp",
-	},
-	{
-		mode = "n",
-		keys = "<Leader>v",
-		desc = "+Visits",
-	},
-	{
-		mode = "n",
-		keys = "<Leader>o",
-		desc = "+Obsidian",
-	},
+	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
+	{ mode = "n", keys = "<Leader>b", desc = "+Buffers" },
+	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
+	{ mode = "n", keys = "<Leader>v", desc = "+Visits" },
+	{ mode = "n", keys = "<Leader>o", desc = "+Obsidian" },
 }
 
 -- Create `<Leader>` mappings
@@ -53,7 +33,8 @@ nmap_leader("li", "<Cmd>lua vim.lsp.buf.hover()<CR>", "Information")
 nmap_leader("lr", "<Cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 nmap_leader("lR", '<Cmd>Pick lsp scope="references"<CR>', "References")
 nmap_leader("ls", '<Cmd>Pick lsp scope="definition"<CR>', "Source Definition")
-
+-- TODO I think there is a better way to map conform
+-- Is there a need for lsp_fallback? I think its set by default
 local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR>'
 nmap_leader("lf", formatting_cmd, "Format")
 xmap_leader("lf", formatting_cmd, "Format selection")
@@ -64,6 +45,5 @@ nmap_leader("vL", "<Cmd>lua MiniVisits.remove_label()<CR>", "Remove label")
 nmap_leader("vv", "<Cmd>Pick visit_labels<CR>", "Select label (cwd)")
 
 -- o is for 'obsidian'
-nmap_leader("on", "<Cmd>ObsidianNew<CR>", "New note")
-nmap_leader("od", "<Cmd>ObsidianDailies<CR>", "Daily notes")
-nmap_leader("os", "<Cmd>ObsidianSearch<CR>", "Search notes")
+nmap_leader("on", ":lua _G.Note.CreateNewNote()<CR>", "New note")
+nmap_leader("od", ":lua _G.Note.OpenTodaysNote()<CR>", "Daily notes")

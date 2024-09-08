@@ -34,6 +34,9 @@ end)
 now(function()
 	source("mappings-leader.lua")
 end)
+now(function()
+	source("obsidian.lua")
+end)
 
 add({ name = "mini.nvim" })
 
@@ -171,11 +174,4 @@ end)
 later(function()
 	add("stevearc/quicker.nvim")
 	require("quicker").setup()
-end)
-
--- Obsidian
-later(function()
-	add("nvim-lua/plenary.nvim")
-	add("epwalsh/obsidian.nvim")
-	source("plugins/obsidian.lua")
 end)
