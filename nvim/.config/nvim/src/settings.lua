@@ -73,26 +73,3 @@ autocmd("FileType", {
 	end,
 	desc = [[Ensure proper 'formatoptions']],
 })
-
-autocmd("CmdlineEnter", {
-	group = augroup,
-	command = "command! Term :botright split term://$SHELL",
-})
-
-autocmd("TermOpen", {
-	group = augroup,
-	desc = "Enter insert mode when switching to terminal",
-	command = "setlocal listchars= nonumber norelativenumber nocursorline",
-})
-
-autocmd("TermOpen", {
-	group = augroup,
-	pattern = "",
-	command = "startinsert",
-})
-
-autocmd("BufLeave", {
-	group = augroup,
-	pattern = "term://*",
-	command = "stopinsert",
-})
