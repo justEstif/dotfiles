@@ -1,11 +1,17 @@
-# # Add my 'web' type.
---type-add
-web:*.{html,css,js}*
-
-# # Using glob patterns to include/exclude files or folders
+# Searches case insensitively.
 --smart-case
 
---glob
-!.git/*
+# Sort by file path.
+--sort=path
 
-# TODO ignore package-lock
+# search in hidden files
+--hidden
+
+# Exclude directories.
+--glob=!{.git,.svn,node_modules,tealdeer,Trash,vendor,.next}
+
+# Exclude file types.
+--glob=!*.{lock}
+
+# Exclude files.
+--glob=!{package-lock.json}
