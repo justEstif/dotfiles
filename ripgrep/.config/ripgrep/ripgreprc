@@ -1,0 +1,11 @@
+# # Add my 'web' type.
+--type-add
+web:*.{html,css,js}*
+
+# # Using glob patterns to include/exclude files or folders
+--smart-case
+
+--glob
+!.git/*
+
+# TODO ignore package-lock
