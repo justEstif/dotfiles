@@ -34,9 +34,6 @@ end)
 now(function()
 	source("mappings-leader.lua")
 end)
-now(function()
-	source("obsidian.lua")
-end)
 
 add({ name = "mini.nvim" })
 

@@ -32,7 +32,7 @@ opt.cursorline = true -- show cursorline
 opt.relativenumber = true -- show relative line number
 opt.number = true -- show line number of current
 opt.signcolumn = "yes:1" -- sign column default size
-opt.conceallevel = 1 -- `` is visible in markdown files
+opt.conceallevel = 0 -- `` is visible in markdown files
 opt.termguicolors = true -- enable gui colors
 
 -- new window direction
@@ -64,12 +64,9 @@ opt.autoread = true -- auto read files changes
 -- fix markdown indentation settings
 g.markdown_recommended_style = 0
 
-local augroup = vim.api.nvim_create_augroup("CustomSettings", { clear = true })
-local autocmd = vim.api.nvim_create_autocmd
-autocmd("FileType", {
-	group = augroup,
-	callback = function()
-		vim.cmd("setlocal formatoptions-=c formatoptions-=o")
-	end,
-	desc = [[Ensure proper 'formatoptions']],
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ 'r', 'o' })
+  end,
 })
