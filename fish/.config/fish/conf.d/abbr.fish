@@ -2,6 +2,7 @@
 abbr -a v nvim
 abbr -a lz lazygit
 abbr -a killnode "killall -9 node" # kill all node apps
+abbr -a lf 'cd (xplr --print-pwd-as-result)'
 
 set -l os (uname)
 
