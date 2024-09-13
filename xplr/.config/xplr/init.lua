@@ -8,7 +8,7 @@ xplr.config.modes.builtin.default.key_bindings.on_key.q = {
 	},
 }
 
-xplr.config.modes.builtin["default"].key_bindings.on_key["Z"] = {
+xplr.config.modes.builtin.default.key_bindings.on_key.z = {
 	help = "zoxide jump",
 	messages = {
 		{
