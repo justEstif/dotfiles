@@ -19,5 +19,6 @@ conform.setup({
 		end,
 		lua = { "stylua" },
 		go = { "gofmt" },
+		fish = { "fish_indent" },
 	},
 })
