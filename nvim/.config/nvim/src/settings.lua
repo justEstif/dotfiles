@@ -1,72 +1,46 @@
-local sysname = vim.loop.os_uname().sysname
 vim.g.mapleader = ","
 
-local g = vim.g -- global variables
 local opt = vim.opt -- set options (global/buffer/windows-scoped)
 
 -- general
-opt.swapfile = false -- don't modify file open in another nvim processs
-opt.iskeyword:append("-") -- treat dash separated words as a word text object
-
+local sysname = vim.loop.os_uname().sysname
 if sysname ~= "Linux" then
 	opt.clipboard = "unnamed"
 else
 	opt.clipboard = "unnamedplus"
 end
 
--- completion
+opt.swapfile = false -- don't use swapfile
 opt.completeopt = "menuone,noinsert,noselect" -- customize completions
-opt.switchbuf = "usetab"
-
--- case-insenstive, unless it has uppercase
-opt.ignorecase = true
-opt.infercase = true
-opt.smartcase = true
-
--- pop-up menu ui
-opt.pumheight = 10 -- pop up menu height
-opt.pumblend = 10 -- slight transparent
 
 -- ui
-opt.cursorline = true -- show cursorline
-opt.relativenumber = true -- show relative line number
-opt.number = true -- show line number of current
-opt.signcolumn = "yes:1" -- sign column default size
-opt.conceallevel = 0 -- `` is visible in markdown files
-opt.termguicolors = true -- enable gui colors
-
--- new window direction
-opt.splitright = true
-opt.splitbelow = true
-
--- fold
-opt.fillchars = { fold = " " }
-opt.foldmethod = "indent"
-opt.foldenable = false
-opt.foldlevel = 99
-g.markdown_folding = 1 -- enable markdown folding
+opt.number = true -- Show line number
+opt.showmatch = true -- Highlight matching parenthesis
+opt.foldmethod = "marker" -- Enable folding (default 'foldmarker')
+opt.splitright = true -- Vertical split to the right
+opt.splitbelow = true -- Horizontal split to the bottom
+opt.ignorecase = true -- Ignore case letters when search
+opt.smartcase = true -- Ignore lowercase for the whole pattern
+opt.linebreak = true -- Wrap on word boundary
+opt.termguicolors = true -- Enable 24-bit RGB colors
+opt.laststatus = 3 -- Set global statusline
 
 -- tabs, indent
-opt.expandtab = true -- convert tabs to spaces
-opt.tabstop = 2 -- insert 2 spaces for a tab
-opt.smarttab = true -- make tabbing smarter (will realize you have 2 vs 4)
-opt.shiftwidth = 2 -- use this number of spaces for indentation
-opt.smartindent = true -- make indenting smart
+opt.expandtab = true -- Use spaces instead of tabs
+opt.shiftwidth = 2 -- Shift 2 spaces when tab
+opt.tabstop = 2 -- 1 tab == 2 spaces
+opt.smartindent = true -- Autoindent new lines
 
 -- memory, cpu
-opt.hidden = true -- enable background buffers
-opt.history = 200 -- remember n lines in history
-opt.synmaxcol = 240 -- max column for syntax highlight
-opt.updatetime = 300 -- ms to wait for trigger an event
-opt.undofile = true -- enable persistent undo
-opt.autoread = true -- auto read files changes
-
--- fix markdown indentation settings
-g.markdown_recommended_style = 0
+opt.hidden = true -- Enable background buffers
+opt.history = 100 -- Remember N lines in history
+opt.lazyredraw = true -- Faster scrolling
+opt.synmaxcol = 240 -- Max column for syntax highlight
+opt.updatetime = 250 -- ms to wait for trigger an event
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  callback = function()
-    vim.opt_local.formatoptions:remove({ 'r', 'o' })
-  end,
+	pattern = "*",
+	callback = function()
+		vim.opt_local.formatoptions:remove({ "r", "o" })
+	end,
 })
