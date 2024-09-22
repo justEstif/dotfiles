@@ -38,9 +38,6 @@ end)
 add({ name = "mini.nvim" })
 
 now(function()
-	require("mini.statusline").setup()
-end)
-now(function()
 	require("mini.icons").setup()
 end)
 now(function()
@@ -171,4 +168,13 @@ end)
 later(function()
 	add("stevearc/quicker.nvim")
 	require("quicker").setup()
+end)
+
+-- Statusline
+now(function()
+	add({
+		source = "nvim-lualine/lualine.nvim",
+		depends = { "nvim-tree/nvim-web-devicons" },
+	})
+	require("lualine").setup()
 end)
