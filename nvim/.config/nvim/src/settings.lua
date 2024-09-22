@@ -37,6 +37,7 @@ opt.history = 100 -- Remember N lines in history
 opt.lazyredraw = true -- Faster scrolling
 opt.synmaxcol = 240 -- Max column for syntax highlight
 opt.updatetime = 250 -- ms to wait for trigger an event
+opt.autoread = true -- enable auto reload of files
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
