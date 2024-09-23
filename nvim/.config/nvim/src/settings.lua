@@ -15,6 +15,7 @@ opt.completeopt = "menuone,noinsert,noselect" -- customize completions
 
 -- ui
 opt.number = true -- Show line number
+opt.relativenumber = true -- Show relative line number
 opt.showmatch = true -- Highlight matching parenthesis
 opt.splitright = true -- Vertical split to the right
 opt.splitbelow = true -- Horizontal split to the bottom
@@ -22,7 +23,7 @@ opt.ignorecase = true -- Ignore case letters when search
 opt.smartcase = true -- Ignore lowercase for the whole pattern
 opt.linebreak = true -- Wrap on word boundary
 opt.termguicolors = true -- Enable 24-bit RGB colors
-opt.signcolumn = "no" -- sign column default size
+opt.signcolumn = "yes:1" -- sign column default size
 
 -- tabs, indent
 opt.expandtab = true -- Use spaces instead of tabs
