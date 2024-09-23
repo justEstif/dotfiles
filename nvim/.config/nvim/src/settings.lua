@@ -14,7 +14,7 @@ opt.swapfile = false -- don't use swapfile
 opt.completeopt = "menuone,noinsert,noselect" -- customize completions
 
 -- ui
-opt.number = true -- Show line number
+opt.number = false -- Show line number
 opt.relativenumber = true -- Show relative line number
 opt.showmatch = true -- Highlight matching parenthesis
 opt.splitright = true -- Vertical split to the right
