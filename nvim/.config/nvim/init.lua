@@ -43,6 +43,9 @@ end)
 now(function()
 	require("mini.tabline").setup()
 end)
+now(function()
+	require("mini.statusline").setup()
+end)
 later(function()
 	require("mini.bracketed").setup()
 end)
@@ -165,13 +168,4 @@ end)
 later(function()
 	add("stevearc/quicker.nvim")
 	require("quicker").setup()
-end)
-
--- Statusline
-now(function()
-	add({
-		source = "nvim-lualine/lualine.nvim",
-		depends = { "nvim-tree/nvim-web-devicons" },
-	})
-	require("lualine").setup()
 end)
