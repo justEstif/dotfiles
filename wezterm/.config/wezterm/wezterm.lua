@@ -1,6 +1,5 @@
 local wezterm = require("wezterm")
 local utils = require("utils")
-local act = wezterm.action
 
 local config = {}
 
@@ -12,7 +11,7 @@ end
 
 local platform = utils.platform()
 
-config.font = wezterm.font("Iosevka")
+config.font = wezterm.font("Iosevka Nerd Font")
 if platform.is_mac then
 	config.font_size = 18
 else
@@ -35,46 +34,10 @@ config.window_padding = {
 	bottom = 0,
 }
 
-config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
+config.enable_tab_bar = false
 
 config.disable_default_key_bindings = true
 config.use_dead_keys = false
-config.keys = {
-	-- Tab and Pane Navigation
-	{ key = "l", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(1) },
-	{ key = "h", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
-	{ key = "P", mods = "CTRL|SHIFT", action = act.ActivateCommandPalette },
-
-	-- Font Size
-	{ key = "+", mods = "CTRL|SHIFT", action = act.IncreaseFontSize },
-	{ key = "_", mods = "CTRL|SHIFT", action = act.DecreaseFontSize },
-	{ key = ")", mods = "CTRL|SHIFT", action = act.ResetFontSize },
-
-	-- Copy and Paste
-	{ key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
-	{ key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
-
-	-- Reload and Configuration
-	{ key = "n", mods = "CTRL|SHIFT", action = act.SpawnWindow },
-
-	-- Split Panes
-	{ key = "s", mods = "CTRL|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ key = "|", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = "t", mods = "CTRL|SHIFT", action = act.SpawnTab("CurrentPaneDomain") },
-
-	-- Tab Management
-	{ key = "j", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
-	{ key = "k", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(1) },
-	{ key = "w", mods = "CTRL|SHIFT", action = act.CloseCurrentTab({ confirm = false }) },
-	{ key = "x", mods = "CTRL|SHIFT", action = act.CloseCurrentPane({ confirm = false }) },
-	{ key = "r", mods = "CTRL|SHIFT", action = utils.rename_tab() },
-
-	-- Pane Direction
-	{ key = "LeftArrow", mods = "CTRL|SHIFT", action = act.ActivatePaneDirection("Left") },
-	{ key = "RightArrow", mods = "CTRL|SHIFT", action = act.ActivatePaneDirection("Right") },
-	{ key = "UpArrow", mods = "CTRL|SHIFT", action = act.ActivatePaneDirection("Up") },
-	{ key = "DownArrow", mods = "CTRL|SHIFT", action = act.ActivatePaneDirection("Down") },
-}
 
 return config
