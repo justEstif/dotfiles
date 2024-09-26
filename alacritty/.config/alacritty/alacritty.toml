@@ -1,0 +1,13 @@
+import = [
+  "/Users/ebeyene/.config/alacritty/tokyo-night.toml"
+]
+
+[env]
+EDITOR = "nvim"
+
+[font]
+normal = { family = "Iosevka Nerd Font", style = "Regular" }
+size = 18
+
+[window]
+option_as_alt = "Both"

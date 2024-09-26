@@ -2,7 +2,6 @@ _G.Config.leader_group_clues = {
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
 	{ mode = "n", keys = "<Leader>b", desc = "+Buffers" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
-	{ mode = "n", keys = "<Leader>v", desc = "+Visits" },
 }
 
 -- Create `<Leader>` mappings
@@ -36,8 +35,3 @@ nmap_leader("ls", '<Cmd>Pick lsp scope="definition"<CR>', "Source Definition")
 local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR>'
 nmap_leader("lf", formatting_cmd, "Format")
 xmap_leader("lf", formatting_cmd, "Format selection")
-
--- v is for 'visits'
-nmap_leader("vl", "<Cmd>lua MiniVisits.add_label()<CR>", "Add label")
-nmap_leader("vL", "<Cmd>lua MiniVisits.remove_label()<CR>", "Remove label")
-nmap_leader("vv", "<Cmd>Pick visit_labels<CR>", "Select label (cwd)")
