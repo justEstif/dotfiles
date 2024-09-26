@@ -6,7 +6,7 @@ import = [
 EDITOR = "nvim"
 
 [font]
-normal = { family = "UbuntuMono Nerd Font", style = "Regular" }
+normal = { family = "Iosevka Nerd Font", style = "Regular" }
 size = 18
 
 [window]
