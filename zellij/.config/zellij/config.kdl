@@ -1,0 +1,12 @@
+keybinds {
+    session {
+        unbind "q"
+        bind "Ctrl q" { Quit; }
+      }
+
+    shared_except "locked" {
+      unbind "Ctrl q"
+    }
+  }
+
+  theme "tokyo-night-storm"
