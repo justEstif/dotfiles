@@ -42,7 +42,10 @@ add({ name = "mini.nvim" })
 
 now(function()
 	require("mini.icons").setup()
+  MiniIcons.mock_nvim_web_devicons()
 end)
+later(MiniIcons.tweak_lsp_kind)
+
 now(function()
 	require("mini.tabline").setup()
 end)
