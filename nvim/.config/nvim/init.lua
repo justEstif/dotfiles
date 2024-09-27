@@ -34,6 +34,9 @@ end)
 now(function()
 	source("mappings-leader.lua")
 end)
+later(function()
+  source("custom-commands.lua")
+end)
 
 add({ name = "mini.nvim" })
 
