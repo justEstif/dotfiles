@@ -12,7 +12,7 @@ function install_git
 end
 
 function install_nvim
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nightly/nvim.appimage
     chmod u+x nvim.appimage
     sudo mv ./nvim.appimage /usr/local/bin/nvim
 end
