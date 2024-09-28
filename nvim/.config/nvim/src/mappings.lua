@@ -13,9 +13,6 @@ keymap("n", "<C-p>", "<Cmd>Pick files<CR>", {
 keymap("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
 	desc = "live grep",
 })
-keymap("n", "<C-s>", "<Cmd>Pick buf_lines scope='current'<cr>", {
-	desc = "live grep buffer",
-})
 keymap("n", "<space>", "<Cmd>lua MiniJump2d.start(MiniJump2d.builtin_opts.query)<CR>", {
 	desc = "jump",
 })

@@ -6,4 +6,8 @@ basics.setup({
 		extra_ui = true,
 		win_borders = "double",
 	},
+  mappings = {
+    basic = true,
+    move_with_alt = true,
+  }
 })
