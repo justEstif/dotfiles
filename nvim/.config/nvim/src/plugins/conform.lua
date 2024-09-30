@@ -9,7 +9,7 @@ conform.setup({
 		json = { "prettier" },
 		typescriptreact = { "prettier" },
 		typescript = function(bufnr)
-			local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+			local clients = vim.lsp.get_clients({ bufnr = bufnr })
 			for _, client in ipairs(clients) do
 				if client.name == "denols" then
 					return { "deno_fmt" }
