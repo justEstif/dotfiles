@@ -1,8 +1,12 @@
 local lspconfig = require("lspconfig")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
 -- Preconfiguration ===========================================================
 local on_attach_custom = function(client, buf_id)
-	vim.bo[buf_id].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
+	-- vim.bo[buf_id].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
 
 	-- Mappings are created globally for simplicity
 

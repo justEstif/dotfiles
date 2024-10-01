@@ -35,7 +35,7 @@ now(function()
 	source("mappings-leader.lua")
 end)
 later(function()
-  source("custom-commands.lua")
+	source("custom-commands.lua")
 end)
 
 add({ name = "mini.nvim" })
@@ -60,7 +60,7 @@ later(function()
 end)
 
 now(function()
-  source("plugins/mini/icons.lua")
+	source("plugins/mini/icons.lua")
 end)
 later(function()
 	require("mini.align").setup()
@@ -98,7 +98,7 @@ later(function()
 	source("plugins/mini/clue.lua")
 end)
 later(function()
-	source("plugins/mini/completion.lua")
+	-- source("plugins/mini/completion.lua")
 end)
 now(function()
 	source("plugins/mini/files.lua")
@@ -156,6 +156,21 @@ end)
 later(function()
 	add("stevearc/conform.nvim")
 	source("plugins/conform.lua")
+end)
+
+-- Completion
+later(function()
+	add({
+		source = "hrsh7th/nvim-cmp",
+		depends = {
+			"L3MON4D3/LuaSnip",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-buffer",
+			"saadparwaiz1/cmp_luasnip",
+		},
+	})
+	source("plugins/nvim-cmp.lua")
 end)
 
 -- Language server configurations
