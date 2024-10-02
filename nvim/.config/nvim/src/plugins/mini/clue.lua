@@ -14,6 +14,7 @@ clue.setup({
 		{ mode = "x", keys = "g" },
 		{ mode = "n", keys = "'" }, -- Marks
 		{ mode = "n", keys = "`" },
+		{ mode = "n", keys = "m" }, -- Marks
 		{ mode = "x", keys = "'" },
 		{ mode = "x", keys = "`" },
 		{ mode = "n", keys = '"' }, -- Registers

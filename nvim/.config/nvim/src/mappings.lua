@@ -13,9 +13,6 @@ keymap("n", "<C-p>", "<Cmd>Pick files<CR>", {
 keymap("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
 	desc = "live grep",
 })
-keymap("n", "<space>", "<Cmd>lua MiniJump2d.start(MiniJump2d.builtin_opts.query)<CR>", {
-	desc = "jump",
-})
 keymap("v", "p", [["_dP]], { desc = "Keep the yanked text when pasting in visual  mode" })
 
 -- use 'cl' instead of 's'
@@ -26,3 +23,4 @@ keymap("n", "z=", ":Pick spellsuggest<cr>", { desc = "Spell suggest" })
 
 keymap("n", "m.", "<Plug>(VesselSetLocalMark)", { desc = "Set local mark" })
 keymap("n", "m,", "<Plug>(VesselSetGlobalMark)", { desc = "Set global mark" })
+keymap("n", "gm", "<Plug>(VesselViewGlobalMarks)", { desc = "View global marks" })
