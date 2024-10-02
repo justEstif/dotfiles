@@ -12,6 +12,7 @@ end
 
 opt.swapfile = false -- don't use swapfile
 opt.completeopt = "menuone,noinsert,noselect" -- customize completions
+vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- treesitter fold
 
 -- ui
 opt.number = false -- Show line number
