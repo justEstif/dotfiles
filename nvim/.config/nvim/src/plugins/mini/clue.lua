@@ -12,8 +12,6 @@ clue.setup({
 		{ mode = "i", keys = "<C-x>" },
 		{ mode = "n", keys = "g" }, -- `g` key
 		{ mode = "x", keys = "g" },
-		{ mode = "n", keys = "'" }, -- Marks
-		{ mode = "n", keys = "`" },
 		{ mode = "n", keys = "m" }, -- Marks
 		{ mode = "x", keys = "'" },
 		{ mode = "x", keys = "`" },

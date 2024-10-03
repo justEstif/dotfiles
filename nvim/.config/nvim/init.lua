@@ -84,7 +84,6 @@ later(function()
 	require("mini.operators").setup()
 end)
 
-
 later(function()
 	add({ source = "folke/ts-comments.nvim" })
 	require("ts-comments").setup()
@@ -172,7 +171,7 @@ later(function()
 end)
 
 -- Marks
-later(function()
+now(function()
 	add("gcmt/vessel.nvim")
-  source("plugins/vessel.lua")
+	source("plugins/vessel.lua")
 end)
