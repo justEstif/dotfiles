@@ -80,6 +80,10 @@ end)
 later(function()
 	require("mini.git").setup()
 end)
+later(function()
+	require("mini.operators").setup()
+end)
+
 
 later(function()
 	add({ source = "folke/ts-comments.nvim" })

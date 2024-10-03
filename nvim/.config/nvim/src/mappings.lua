@@ -23,4 +23,4 @@ keymap("n", "z=", ":Pick spellsuggest<cr>", { desc = "Spell suggest" })
 
 keymap("n", "m.", "<Plug>(VesselSetLocalMark)", { desc = "Set local mark" })
 keymap("n", "m,", "<Plug>(VesselSetGlobalMark)", { desc = "Set global mark" })
-keymap("n", "gm", "<Plug>(VesselViewGlobalMarks)", { desc = "View global marks" })
+keymap("n", "m<Space>", ":Marks<cr>", { desc = "View marks" })
