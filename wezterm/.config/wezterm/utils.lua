@@ -27,15 +27,4 @@ utils.is_dark = function()
 	return true
 end
 
-utils.rename_tab = function()
-	return act.PromptInputLine({
-		description = "Enter new name for tab",
-		action = wezterm.action_callback(function(window, _, line)
-			if line then
-				window:active_tab():set_title(line)
-			end
-		end),
-	})
-end
-
 return utils

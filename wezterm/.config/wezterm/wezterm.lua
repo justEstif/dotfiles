@@ -40,4 +40,10 @@ config.enable_tab_bar = false
 config.disable_default_key_bindings = true
 config.use_dead_keys = false
 
+config.keys = {
+	-- Copy and Paste
+	{ key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("Clipboard") },
+	{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+}
+
 return config
