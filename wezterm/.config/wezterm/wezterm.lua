@@ -44,6 +44,10 @@ config.keys = {
 	-- Copy and Paste
 	{ key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+	-- Font size
+	{ key = "+", mods = "CTRL|SHIFT", action = wezterm.action.IncreaseFontSize },
+	{ key = "_", mods = "CTRL|SHIFT", action = wezterm.action.DecreaseFontSize },
+	{ key = ")", mods = "CTRL|SHIFT", action = wezterm.action.ResetFontSize },
 }
 
 return config
