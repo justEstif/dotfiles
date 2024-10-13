@@ -25,6 +25,7 @@ opt.smartcase = true -- Ignore lowercase for the whole pattern
 opt.linebreak = true -- Wrap on word boundary
 opt.termguicolors = true -- Enable 24-bit RGB colors
 opt.signcolumn = "yes:1" -- sign column default size
+opt.list = false
 
 -- tabs, indent
 opt.expandtab = true -- Use spaces instead of tabs
