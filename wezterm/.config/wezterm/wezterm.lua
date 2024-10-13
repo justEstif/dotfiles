@@ -11,7 +11,7 @@ end
 
 local platform = utils.platform()
 
-config.font = wezterm.font("Iosevka Nerd Font")
+config.font = wezterm.font("Comic Code Ligatures")
 if platform.is_mac then
 	config.font_size = 18
 else
