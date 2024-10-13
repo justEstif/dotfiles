@@ -18,15 +18,6 @@ else
 	config.font_size = 12
 end
 
--- command palette
-config.command_palette_font_size = config.font_size
-config.command_palette_rows = 10
-local scheme = wezterm.get_builtin_color_schemes()[config.color_scheme]
-config.command_palette_bg_color = scheme.background
-config.window_frame = {
-	font = config.font,
-}
-
 config.window_padding = {
 	left = 0,
 	right = 0,
