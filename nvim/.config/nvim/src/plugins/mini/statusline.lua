@@ -1,7 +1,7 @@
 local statusline = require("mini.statusline")
 statusline.setup({
-	-- use_icons = false,
-	-- set_vim_settings = false,
+	use_icons = false,
+	set_vim_settings = false,
 	content = {
 		active = function()
 			local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 50 })
