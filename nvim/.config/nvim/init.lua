@@ -126,6 +126,7 @@ end)
 -- Theme
 now(function()
 	add("folke/tokyonight.nvim")
+  add("catppuccin/nvim")
 	source("theme.lua")
 end)
 

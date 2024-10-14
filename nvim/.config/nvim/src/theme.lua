@@ -1,10 +1,5 @@
-local theme = require("tokyonight")
+local theme = require("catppuccin")
 
-theme.setup({
-	styles = {
-		comments = { italic = false },
-		keywords = { italic = false },
-	},
-})
+theme.setup()
 
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("catppuccin")
