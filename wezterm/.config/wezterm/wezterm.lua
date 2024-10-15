@@ -4,7 +4,7 @@ local utils = require("utils")
 local config = {}
 
 if utils.is_dark() then
-	config.color_scheme = "Catppuccin Mocha"
+	config.color_scheme = "Catppuccin Macchiato"
 else
 	config.color_scheme = "Catppuccin Latte"
 end
@@ -13,7 +13,7 @@ local platform = utils.platform()
 
 config.font = wezterm.font("Comic Code Ligatures")
 if platform.is_mac then
-	config.font_size = 14
+	config.font_size = 14.5
 else
 	config.font_size = 11
 end

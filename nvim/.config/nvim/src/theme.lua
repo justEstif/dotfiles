@@ -2,4 +2,4 @@ local theme = require("catppuccin")
 
 theme.setup()
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("catppuccin-macchiato")
