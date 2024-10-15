@@ -13,9 +13,9 @@ local platform = utils.platform()
 
 config.font = wezterm.font("Comic Code Ligatures")
 if platform.is_mac then
-	config.font_size = 14.5
+	config.font_size = 14
 else
-	config.font_size = 12
+	config.font_size = 11
 end
 
 config.window_padding = {
