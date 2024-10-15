@@ -21,6 +21,7 @@ end
 nmap_leader("fd", "<Cmd>lua MiniFiles.open()<CR>", "Directory")
 nmap_leader("ff", "<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", "File directory")
 nmap_leader("fh", "<Cmd>Pick help<CR>", "Help")
+nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep string under cursor")
 
 -- b is for 'buffer'
 nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
