@@ -125,7 +125,6 @@ end)
 
 -- Theme
 now(function()
-	add("folke/tokyonight.nvim")
   add("catppuccin/nvim")
 	source("theme.lua")
 end)
@@ -172,7 +171,7 @@ end)
 -- Quickfix
 later(function()
 	add("stevearc/quicker.nvim")
-	require("quicker").setup()
+	source("plugins/quicker.lua")
 end)
 
 -- Marks

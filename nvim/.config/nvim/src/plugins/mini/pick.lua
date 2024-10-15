@@ -5,9 +5,11 @@ local choose_all = function()
 end
 
 local pick = require("mini.pick")
+
 pick.setup({
 	mappings = {
 		choose_all = { char = "<C-q>", func = choose_all },
 	},
 })
+
 vim.ui.select = pick.ui_select
