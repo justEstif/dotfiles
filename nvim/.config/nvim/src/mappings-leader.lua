@@ -25,6 +25,7 @@ nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep string under cur
 
 -- b is for 'buffer'
 nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
+nmap_leader("bl", "<Plug>(VesselViewBuffers)", "List")
 
 -- git is for 'git'
 nmap_leader("go", "<Cmd>lua MiniDiff.toggle_overlay()<CR>", "Toggle overlay")
