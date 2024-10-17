@@ -3,6 +3,7 @@ _G.Config.leader_group_clues = {
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
 	{ mode = "n", keys = "<Leader>g", desc = "+Git" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
+	{ mode = "n", keys = "<Leader>v", desc = "+Visits" },
 }
 
 -- Create `<Leader>` mappings
@@ -22,6 +23,8 @@ nmap_leader("fd", "<Cmd>lua MiniFiles.open()<CR>", "Directory")
 nmap_leader("ff", "<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", "File directory")
 nmap_leader("fh", "<Cmd>Pick help<CR>", "Help")
 nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep string under cursor")
+nmap_leader("fv", "<Cmd>Pick visit_paths<CR>", "Visit paths (cwd)")
+nmap_leader("fV", '<Cmd>Pick visit_paths cwd=""<CR>', "Visit paths (all)")
 
 -- b is for 'buffer'
 nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
@@ -41,3 +44,34 @@ nmap_leader("ls", '<Cmd>Pick lsp scope="definition"<CR>', "Source Definition")
 local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR>'
 nmap_leader("lf", formatting_cmd, "Format")
 xmap_leader("lf", formatting_cmd, "Format selection")
+
+-- v is for 'visits'
+nmap_leader("vv", '<Cmd>lua MiniVisits.add_label("core")<CR>', 'Add "core" label')
+nmap_leader("vV", '<Cmd>lua MiniVisits.remove_label("core")<CR>', 'Remove "core" label')
+nmap_leader("vl", "<Cmd>lua MiniVisits.add_label()<CR>", "Add label")
+nmap_leader("vL", "<Cmd>lua MiniVisits.remove_label()<CR>", "Remove label")
+
+local map_pick_core = function(keys, cwd, desc)
+	local rhs = function()
+		local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
+		MiniExtra.pickers.visit_paths({ cwd = cwd, filter = "core", sort = sort_latest }, { source = { name = desc } })
+	end
+	nmap_leader(keys, rhs, desc)
+end
+map_pick_core("vC", "", "Core visits (all)")
+map_pick_core("vc", nil, "Core visits (cwd)")
+
+local map_branch = function(keys, action, desc)
+	local rhs = function()
+		local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+		if vim.v.shell_error ~= 0 then
+			return nil
+		end
+		branch = vim.trim(branch)
+		require("mini.visits")[action](branch)
+	end
+	vim.keymap.set("n", "<Leader>" .. keys, rhs, { desc = desc })
+end
+
+map_branch("vb", "add_label", "Add branch label")
+map_branch("vB", "remove_label", "Remove branch label")
