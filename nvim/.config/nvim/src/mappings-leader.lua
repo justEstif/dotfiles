@@ -45,44 +45,32 @@ local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true
 nmap_leader("lf", formatting_cmd, "Format")
 xmap_leader("lf", formatting_cmd, "Format selection")
 
--- v is for 'visits'
+-- 'v' stands for 'visits'
+local map_vis = function(keys, call, desc)
+	local rhs = "<Cmd>lua MiniVisits." .. call .. "<CR>"
+	vim.keymap.set("n", "<Leader>" .. keys, rhs, { desc = desc })
+end
+
+-- General label operations
+map_vis("vl", "add_label()", "Add label")
+map_vis("vL", "remove_label()", "Remove label")
+
+-- Core visit operations
+map_vis("vc", 'select_path("", { filter = "core" })', "Select core visits (all)")
+map_vis("vC", 'select_path(nil, { filter = "core" })', "Select core visits (cwd)")
+map_vis("vv", 'add_label("core")', 'Add "core" label')
+map_vis("vV", 'remove_label("core")', 'Remove "core" label')
+
+-- Function to get the current Git branch name
 local get_branch_name = function()
 	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
 	if vim.v.shell_error ~= 0 then
 		return nil
 	end
-	branch = vim.trim(branch)
-	return branch
+	return vim.trim(branch)
 end
 
-local get_paths_filter = function(cwd, filter)
-	local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
-	return MiniExtra.pickers.visit_paths(
-		{ cwd = cwd, filter = filter, sort = sort_latest },
-		{ source = { name = filter } }
-	)
-end
-
-nmap_leader("vv", '<Cmd>lua MiniVisits.add_label("core")<CR>', 'Add "core" label')
-nmap_leader("vV", '<Cmd>lua MiniVisits.remove_label("core")<CR>', 'Remove "core" label')
-nmap_leader("vl", "<Cmd>lua MiniVisits.add_label()<CR>", "Add label")
-nmap_leader("vL", "<Cmd>lua MiniVisits.remove_label()<CR>", "Remove label")
-
-nmap_leader("vc", function()
-	get_paths_filter(nil, "core")
-end, "Core visits (cwd)")
-nmap_leader("vC", function()
-	get_paths_filter("", "core")
-end, "Core visits (all)")
-
-nmap_leader("vb", function()
-	local branch = get_branch_name()
-	MiniVisits.add_label(branch)
-end, 'Add "branch" label')
-nmap_leader("vB", function()
-	local branch = get_branch_name()
-	MiniVisits.remove_label(branch)
-end, 'Remove "branch" label')
-nmap_leader("v<space>", function()
-	get_paths_filter(nil, get_branch_name())
-end, "Branch visits (all)")
+-- Branch-specific label operations
+map_vis("vb", 'add_label("' .. get_branch_name() .. '")', "Add current branch label")
+map_vis("vB", 'remove_label("' .. get_branch_name() .. '")', "Remove current branch label")
+map_vis("v<Space>", 'select_path(nil, { filter = "' .. get_branch_name() .. '" })', "Select branch visits (cwd)")
