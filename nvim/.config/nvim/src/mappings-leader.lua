@@ -66,8 +66,7 @@ local get_branch_name = function()
 	if vim.v.shell_error ~= 0 then
 		return nil
 	end
-	branch = vim.trim(branch)
-	return branch
+	return vim.trim(branch)
 end
 
 local map_branch = function(keys, action, desc)
