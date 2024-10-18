@@ -61,17 +61,32 @@ end
 map_pick_core("vC", "", "Core visits (all)")
 map_pick_core("vc", nil, "Core visits (cwd)")
 
+local get_branch_name = function()
+	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+	if vim.v.shell_error ~= 0 then
+		return nil
+	end
+	branch = vim.trim(branch)
+	return branch
+end
+
 local map_branch = function(keys, action, desc)
 	local rhs = function()
-		local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
-		if vim.v.shell_error ~= 0 then
-			return nil
-		end
-		branch = vim.trim(branch)
+		local branch = get_branch_name()
 		require("mini.visits")[action](branch)
 	end
 	vim.keymap.set("n", "<Leader>" .. keys, rhs, { desc = desc })
 end
-
 map_branch("vb", "add_label", "Add branch label")
 map_branch("vB", "remove_label", "Remove branch label")
+
+local pick_branch = function(keys, cwd, desc)
+	local rhs = function()
+		local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
+		local branch = get_branch_name()
+		MiniExtra.pickers.visit_paths({ cwd = cwd, filter = branch, sort = sort_latest }, { source = { name = desc } })
+	end
+	nmap_leader(keys, rhs, desc)
+end
+
+pick_branch("v<space>", "", "Branch visits (cwd)")
