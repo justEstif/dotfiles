@@ -47,3 +47,5 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.formatoptions:remove({ "r", "o" })
 	end,
 })
+
+vim.g.man = 1
