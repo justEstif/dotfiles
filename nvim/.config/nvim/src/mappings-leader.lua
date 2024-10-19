@@ -48,11 +48,6 @@ nmap_leader("lf", formatting_cmd, "Format")
 xmap_leader("lf", formatting_cmd, "Format selection")
 
 -- v is for 'visits'
-nmap_leader("vv", '<Cmd>lua MiniVisits.add_label("core")<CR>', 'Add "core" label')
-nmap_leader("vV", '<Cmd>lua MiniVisits.remove_label("core")<CR>', 'Remove "core" label')
-nmap_leader("vl", "<Cmd>lua MiniVisits.add_label()<CR>", "Add label")
-nmap_leader("vL", "<Cmd>lua MiniVisits.remove_label()<CR>", "Remove label")
-
 local get_branch_name = function()
 	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
 	if vim.v.shell_error ~= 0 then
@@ -61,24 +56,34 @@ local get_branch_name = function()
 	return vim.trim(branch)
 end
 
-local map_pick = function(keys, filter, cwd, desc)
-	local rhs = function()
-		local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
-		MiniExtra.pickers.visit_paths({ cwd = cwd, filter = filter, sort = sort_latest }, { source = { name = desc } })
-	end
-	nmap_leader(keys, rhs, desc)
+local select_label = function(label)
+	local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
+	MiniExtra.pickers.visit_paths({
+		cwd = nil,
+		filter = label,
+		sort = sort_latest,
+	}, { source = { name = desc } })
 end
 
-map_pick("vC", "", "core", "Core visits (all)")
-map_pick("vc", nil, "core", "Core visits (cwd)")
-map_pick("v<space>", "", get_branch_name(), "Branch visits (cwd)")
+nmap_leader("vv", function()
+	MiniVisits.add_label("core")
+end, 'Add "core" label')
+nmap_leader("vV", function()
+	MiniVisits.remove_label("core")
+end, 'Remove "core" label')
+nmap_leader("vc", function()
+	select_label("core")
+end, "Core visits (cwd)")
 
-local map_pick_branch = function(keys, action, desc)
-	local rhs = function()
-		local branch = get_branch_name()
-		require("mini.visits")[action](branch)
-	end
-	vim.keymap.set("n", "<Leader>" .. keys, rhs, { desc = desc })
-end
-map_pick_branch("vb", "add_label", "Add branch label")
-map_pick_branch("vB", "remove_label", "Remove branch label")
+nmap_leader("vb", function()
+	local branch = get_branch_name()
+	MiniVisits.add_label(branch)
+end, "Add branch label")
+nmap_leader("vB", function()
+	local branch = get_branch_name()
+	MiniVisits.remove_label(branch)
+end, "Remove branch label")
+nmap_leader("v<space>", function()
+	local branch = get_branch_name()
+	select_label(branch)
+end, "Branch visits (cwd)")
