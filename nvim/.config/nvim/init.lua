@@ -123,13 +123,13 @@ end)
 
 -- Comment Strings
 later(function()
-	add({ source = "folke/ts-comments.nvim" })
+	add("folke/ts-comments.nvim")
 	require("ts-comments").setup()
 end)
 
 -- Theme
 now(function()
-  add("catppuccin/nvim")
+	add("catppuccin/nvim")
 	source("theme.lua")
 end)
 
