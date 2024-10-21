@@ -88,9 +88,6 @@ if vim.fn.isdirectory(luals_root) == 1 then
 	})
 end
 
-lspconfig.cssls.setup({ on_attach = on_attach_custom })
-lspconfig.gopls.setup({ on_attach = on_attach_custom })
-
 lspconfig.denols.setup({
 	on_attach = on_attach_custom,
 	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
@@ -102,5 +99,7 @@ lspconfig.ts_ls.setup({
 	single_file_support = false,
 })
 
--- lspconfig.astro.setup({ on_attach = on_attach_custom })
+lspconfig.cssls.setup({ on_attach = on_attach_custom })
+lspconfig.gopls.setup({ on_attach = on_attach_custom })
+lspconfig.astro.setup({ on_attach = on_attach_custom })
 -- lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })

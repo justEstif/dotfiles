@@ -32,11 +32,11 @@ nmap_leader("bl", "<Plug>(VesselViewBuffers)", "List")
 
 -- git is for 'git'
 nmap_leader("go", "<Cmd>lua MiniDiff.toggle_overlay()<CR>", "Toggle overlay")
+nmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
+xmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
 
 -- l is for 'LSP' (Language Server Protocol)
-nmap_leader("ld", "<Cmd>lua vim.diagnostic.open_float()<CR>", "Diagnostics popup")
 nmap_leader("lD", '<Cmd>Pick diagnostic scope="all"<CR>', "Diagnostic workspace")
-nmap_leader("li", "<Cmd>lua vim.lsp.buf.hover()<CR>", "Information")
 nmap_leader("lr", "<Cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 nmap_leader("lR", '<Cmd>Pick lsp scope="references"<CR>', "References")
 nmap_leader("ls", '<Cmd>Pick lsp scope="definition"<CR>', "Source Definition")
@@ -45,23 +45,7 @@ local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true
 nmap_leader("lf", formatting_cmd, "Format")
 xmap_leader("lf", formatting_cmd, "Format selection")
 
--- 'v' stands for 'visits'
-local map_vis = function(keys, call, desc)
-	local rhs = "<Cmd>lua MiniVisits." .. call .. "<CR>"
-	vim.keymap.set("n", "<Leader>" .. keys, rhs, { desc = desc })
-end
-
--- General label operations
-map_vis("vl", "add_label()", "Add label")
-map_vis("vL", "remove_label()", "Remove label")
-
--- Core visit operations
-map_vis("vc", 'select_path("", { filter = "core" })', "Select core visits (all)")
-map_vis("vC", 'select_path(nil, { filter = "core" })', "Select core visits (cwd)")
-map_vis("vv", 'add_label("core")', 'Add "core" label')
-map_vis("vV", 'remove_label("core")', 'Remove "core" label')
-
--- Function to get the current Git branch name
+-- v is for 'visits'
 local get_branch_name = function()
 	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
 	if vim.v.shell_error ~= 0 then
@@ -70,7 +54,34 @@ local get_branch_name = function()
 	return vim.trim(branch)
 end
 
--- Branch-specific label operations
-map_vis("vb", 'add_label("' .. get_branch_name() .. '")', "Add current branch label")
-map_vis("vB", 'remove_label("' .. get_branch_name() .. '")', "Remove current branch label")
-map_vis("v<Space>", 'select_path(nil, { filter = "' .. get_branch_name() .. '" })', "Select branch visits (cwd)")
+local select_label = function(label)
+	local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
+	MiniExtra.pickers.visit_paths({
+		cwd = nil,
+		filter = label,
+		sort = sort_latest,
+	}, { source = { name = desc } })
+end
+
+nmap_leader("vv", function()
+	MiniVisits.add_label("core")
+end, 'Add "core" label')
+nmap_leader("vV", function()
+	MiniVisits.remove_label("core")
+end, 'Remove "core" label')
+nmap_leader("vc", function()
+	select_label("core")
+end, "Core visits (cwd)")
+
+nmap_leader("vb", function()
+	local branch = get_branch_name()
+	MiniVisits.add_label(branch)
+end, "Add branch label")
+nmap_leader("vB", function()
+	local branch = get_branch_name()
+	MiniVisits.remove_label(branch)
+end, "Remove branch label")
+nmap_leader("v<space>", function()
+	local branch = get_branch_name()
+	select_label(branch)
+end, "Branch visits (cwd)")
