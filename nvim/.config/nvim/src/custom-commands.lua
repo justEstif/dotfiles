@@ -67,8 +67,5 @@ local function NewMark()
 	vim.defer_fn(function()
 		MiniNotify.remove(id)
 	end, 1000)
-
-	-- if you don't use mini notify
-	-- print('Mark set: ' .. vim.g.last_mark)
 end
 vim.api.nvim_create_user_command("NewMark", NewMark, { desc = "Create new global mark" })
