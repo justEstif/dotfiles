@@ -9,12 +9,9 @@ set -l os (uname)
 if test "$os" = Linux
     abbr -a dark_theme "gsettings set org.gnome.desktop.interface color-scheme prefer-dark"
     abbr -a light_theme "gsettings set org.gnome.desktop.interface color-scheme prefer-light"
-    abbr -a update "sudo apt update && sudo apt upgrade"
+    abbr -a apt-up "sudo apt update && sudo apt upgrade"
 end
 
 if test "$os" = Darwin
     abbr -a cohesion 'open "$HOME/Documents/frontier/Cohesion Devkit.app"'
-  abbr -a dark_theme "gsettings set org.gnome.desktop.interface color-scheme prefer-dark"
-  abbr -a light_theme "gsettings set org.gnome.desktop.interface color-scheme prefer-light"
-  abbr -a apt-up "sudo apt update && sudo apt upgrade"
 end
