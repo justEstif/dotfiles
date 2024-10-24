@@ -21,6 +21,5 @@ keymap("x", [[s]], [[<Nop>]])
 
 keymap("n", "z=", ":Pick spellsuggest<cr>", { desc = "Spell suggest" })
 
-keymap("n", "m.", "<Plug>(VesselSetLocalMark)", { desc = "Set local mark" })
-keymap("n", "m,", "<Plug>(VesselSetGlobalMark)", { desc = "Set global mark" })
-keymap("n", "`", ":Marks<cr>", { desc = "View marks" })
+keymap("n", "m.", "NewMark", { desc = "Set global mark" })
+keymap("n", "`", ":Pick marks<cr>", { desc = "View marks" })
