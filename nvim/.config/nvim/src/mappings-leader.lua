@@ -60,7 +60,7 @@ local select_label = function(label)
 		cwd = nil,
 		filter = label,
 		sort = sort_latest,
-	}, { source = { name = desc } })
+	}, { source = { name = label } })
 end
 
 nmap_leader("vv", function()
