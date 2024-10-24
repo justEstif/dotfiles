@@ -20,6 +20,4 @@ keymap("n", [[s]], [[<Nop>]])
 keymap("x", [[s]], [[<Nop>]])
 
 keymap("n", "z=", ":Pick spellsuggest<cr>", { desc = "Spell suggest" })
-
-keymap("n", "m.", "NewMark", { desc = "Set global mark" })
 keymap("n", "`", ":Pick marks<cr>", { desc = "View marks" })
