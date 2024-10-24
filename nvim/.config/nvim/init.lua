@@ -177,9 +177,3 @@ later(function()
 	add("stevearc/quicker.nvim")
 	source("plugins/quicker.lua")
 end)
-
--- Marks
-now(function()
-	add("gcmt/vessel.nvim")
-	source("plugins/vessel.lua")
-end)
