@@ -28,7 +28,7 @@ nmap_leader("fV", '<Cmd>Pick visit_paths cwd=""<CR>', "Visit paths (all)")
 
 -- b is for 'buffer'
 nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
-nmap_leader("bl", "<Plug>(VesselViewBuffers)", "List")
+nmap_leader("bl", ":Pick buffers<CR>", "List")
 
 -- git is for 'git'
 nmap_leader("go", "<Cmd>lua MiniDiff.toggle_overlay()<CR>", "Toggle overlay")
