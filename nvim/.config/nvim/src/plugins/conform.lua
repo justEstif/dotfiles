@@ -4,6 +4,7 @@ conform.setup({
 	formatters_by_ft = {
 		html = { "prettier" },
 		css = { "prettier" },
+		template = { "djlint" },
 		javascript = { "prettier" },
 		markdown = { "prettier" },
 		json = { "prettier" },
