@@ -5,6 +5,7 @@ statusline.setup({
 	content = {
 		active = function()
 			local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 50 })
+			local filename = MiniStatusline.section_filename({ trunc_width = 140 })
 			local git = MiniStatusline.section_git({ trunc_width = 75, icon = "" })
 			local diff = MiniStatusline.section_diff({ trunc_width = 75, icon = "" })
 			local diagnostics = MiniStatusline.section_diagnostics({
@@ -12,9 +13,6 @@ statusline.setup({
 				icon = "",
 				signs = { ERROR = "!", WARN = "?", INFO = "@", HINT = "*" },
 			})
-
-			local pathname = vim.bo.buftype == "terminal" and "%t"
-				or "%#MiniStatuslineFilename#" .. vim.fn.expand("%:t") .. (vim.bo.modified and " [+]" or "")
 
 			local devinfo
 			if git == "" then
@@ -27,7 +25,7 @@ statusline.setup({
 				{ hl = mode_hl, strings = { mode:upper() } },
 				{ hl = "MiniStatuslineDevinfo", strings = { diagnostics } },
 				"%<", -- Mark general truncate point
-				{ hl = "MiniStatuslineFilename", strings = { pathname } },
+				{ hl = "MiniStatuslineFilename", strings = { filename } },
 				"%=", -- End left alignment
 				{ hl = "MiniStatuslineDevinfo", strings = { devinfo } },
 				{ hl = mode_hl, strings = { "%-2l,%-2v" } },
