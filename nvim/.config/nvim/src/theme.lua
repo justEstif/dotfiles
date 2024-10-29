@@ -1,5 +1,10 @@
 local theme = require("catppuccin")
 
-theme.setup()
+theme.setup({
+	background = {
+		dark = "macchiato",
+		light = "latte",
+	},
+})
 
-vim.cmd.colorscheme("catppuccin-macchiato")
+vim.cmd.colorscheme("catppuccin")
