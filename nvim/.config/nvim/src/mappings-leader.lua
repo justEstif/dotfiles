@@ -28,6 +28,7 @@ nmap_leader("fV", '<Cmd>Pick visit_paths cwd=""<CR>', "Visit paths (all)")
 
 -- b is for 'buffer'
 nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
+nmap_leader("b.", ":%bd|e#<CR>", "Close all except current")
 nmap_leader("bl", ":Pick buffers<CR>", "List")
 
 -- git is for 'git'
