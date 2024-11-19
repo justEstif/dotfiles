@@ -102,4 +102,3 @@ lspconfig.ts_ls.setup({
 lspconfig.cssls.setup({ on_attach = on_attach_custom })
 lspconfig.gopls.setup({ on_attach = on_attach_custom })
 lspconfig.astro.setup({ on_attach = on_attach_custom })
--- lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
