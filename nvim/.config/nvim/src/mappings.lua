@@ -10,6 +10,9 @@ end
 keymap("n", "<C-p>", "<Cmd>Pick files<CR>", {
 	desc = "files",
 })
+keymap("n", "<C-q>", "<Cmd>lua MiniBufremove.delete()<CR>", {
+	desc = "close current buffer",
+})
 keymap("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
 	desc = "live grep",
 })

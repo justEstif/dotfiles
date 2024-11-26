@@ -1,5 +1,4 @@
 _G.Config.leader_group_clues = {
-	{ mode = "n", keys = "<Leader>b", desc = "+Buffers" },
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
 	{ mode = "n", keys = "<Leader>g", desc = "+Git" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
@@ -25,11 +24,6 @@ nmap_leader("fh", "<Cmd>Pick help<CR>", "Help")
 nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep string under cursor")
 nmap_leader("fv", "<Cmd>Pick visit_paths<CR>", "Visit paths (cwd)")
 nmap_leader("fV", '<Cmd>Pick visit_paths cwd=""<CR>', "Visit paths (all)")
-
--- b is for 'buffer'
-nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
-nmap_leader("b.", ":%bd|e#<CR>", "Close all except current")
-nmap_leader("bl", ":Pick buffers<CR>", "List")
 
 -- git is for 'git'
 nmap_leader("go", "<Cmd>lua MiniDiff.toggle_overlay()<CR>", "Toggle overlay")
