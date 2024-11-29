@@ -18,11 +18,12 @@ local ensure_installed = {
 	"tsx",
 	"typescript",
 	"ruby",
-  "go"
+	"go",
 }
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = ensure_installed,
+	ignore_install = { "org" },
 	auto_install = true,
 	highlight = { enable = true },
 	incremental_selection = { enable = false },
