@@ -179,9 +179,3 @@ later(function()
 	add("stevearc/quicker.nvim")
 	source("plugins/quicker.lua")
 end)
-
--- Org mode
-later(function()
-	add("nvim-orgmode/orgmode")
-  source("plugins/orgmode.lua")
-end)
