@@ -5,6 +5,10 @@ function install_apps
     install_lazygit & install_xplr
     install_nvim
     install_wezterm
+
+
+    sudo apt install -y git
+    sudo apt install -y stow
 end
 
 function install_git
@@ -53,4 +57,13 @@ end
 
 function install_wezterm
     sudo apt install -y wezterm
+end
+
+function stow_dotfiles
+    for dir in (ls -d */)
+        echo "stow $dir"
+        stow $dir
+    end
+
+    fc-cache -f -v
 end
