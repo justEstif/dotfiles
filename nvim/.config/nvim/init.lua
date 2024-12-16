@@ -186,5 +186,5 @@ later(function()
 		source = "folke/todo-comments.nvim",
 		depends = { "nvim-lua/plenary.nvim" },
 	})
-	require("todo-comments").setup()
+	source("plugins/todo.lua")
 end)
