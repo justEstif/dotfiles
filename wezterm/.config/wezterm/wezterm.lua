@@ -27,7 +27,8 @@ config.window_padding = {
 
 config.use_fancy_tab_bar = false
 config.enable_tab_bar = false
-
+-- disable the title bar but enable the resizable border
+config.window_decorations = "RESIZE"
 config.disable_default_key_bindings = true
 config.use_dead_keys = false
 
