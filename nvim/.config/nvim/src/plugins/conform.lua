@@ -28,14 +28,6 @@ local darwin_conform = {
 	typescriptreact = { "prettier" },
 }
 
-local formatters_by_ft
-
-if sysname ~= "Linux" then
-	formatters_by_ft = linux_conform
-else
-	formatters_by_ft = darwin_conform
-end
-
 conform.setup({
-	formatters_by_ft = formatters_by_ft,
+	formatters_by_ft = darwin_conform
 })

@@ -2,3 +2,6 @@
 deno = "latest"
 go = "1.23"
 node = "20"
+
+[hooks]
+enter = "mise install"
