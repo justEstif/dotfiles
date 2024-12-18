@@ -13,6 +13,11 @@ keymap("n", "<C-p>", "<Cmd>Pick files<CR>", {
 keymap("n", "<C-q>", "<Cmd>lua MiniBufremove.delete()<CR>", {
 	desc = "close current buffer",
 })
+
+local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR><Cmd>w<CR>'
+keymap("n", "<C-s>", formatting_cmd, { desc = "Format and Save" })
+keymap("x", "<C-s>", formatting_cmd, { desc = "Format and Save" })
+
 keymap("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
 	desc = "live grep",
 })
