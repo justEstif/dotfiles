@@ -165,6 +165,12 @@ later(function()
 	source("plugins/conform.lua")
 end)
 
+-- Linting
+later(function()
+	add("mfussenegger/nvim-lint")
+	source("plugins/lint.lua")
+end)
+
 -- Language server configurations
 later(function()
 	add("neovim/nvim-lspconfig")
