@@ -125,6 +125,9 @@ end)
 later(function()
 	source("plugins/mini/ai.lua")
 end)
+later(function()
+	source("plugins/mini/snippets.lua")
+end)
 
 -- Comment Strings
 later(function()
