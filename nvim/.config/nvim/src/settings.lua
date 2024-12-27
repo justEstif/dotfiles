@@ -16,7 +16,7 @@ opt.completeopt = "menuone,noinsert,noselect" -- customize completions
 vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- treesitter fold
 
 -- ui
-opt.number = false -- Show line number
+opt.number = true -- Show line number
 opt.relativenumber = true -- Show relative line number
 opt.showmatch = true -- Highlight matching parenthesis
 opt.splitright = true -- Vertical split to the right

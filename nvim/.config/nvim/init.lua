@@ -159,6 +159,12 @@ later(function()
 	require("mason").setup()
 end)
 
+-- Language server configurations
+later(function()
+	add("neovim/nvim-lspconfig")
+	source("plugins/nvim-lspconfig.lua")
+end)
+
 -- Formatting
 later(function()
 	add("stevearc/conform.nvim")
@@ -169,12 +175,6 @@ end)
 later(function()
 	add("mfussenegger/nvim-lint")
 	source("plugins/lint.lua")
-end)
-
--- Language server configurations
-later(function()
-	add("neovim/nvim-lspconfig")
-	source("plugins/nvim-lspconfig.lua")
 end)
 
 -- Scope tabs
