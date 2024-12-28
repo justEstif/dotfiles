@@ -2,7 +2,6 @@ local conform = require("conform")
 
 conform.setup({
 	formatters_by_ft = {
-		astro = { "biome" },
 		css = { "biome" },
 		fish = { "fish_indent" },
 		go = { "gofmt" },
