@@ -2,6 +2,7 @@ set -gx EDITOR nvim
 set fish_greeting
 
 set -x RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/ripgreprc
+set -x FZF_DEFAULT_OPTS "--preview 'cat {}'"
 
 set -l os (uname)
 
