@@ -1,4 +1,3 @@
-# abbreviations
 abbr -a v nvim
 abbr -a lz lazygit
 abbr -a ls ls -la
