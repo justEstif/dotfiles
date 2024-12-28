@@ -153,7 +153,7 @@ later(function()
 	source("plugins/nvim-treesitter.lua")
 end)
 
--- Install LSP/formatting/linter executables
+-- Executables installer
 later(function()
 	add("williamboman/mason.nvim")
 	require("mason").setup()

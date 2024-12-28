@@ -88,11 +88,6 @@ if vim.fn.isdirectory(luals_root) == 1 then
 	})
 end
 
-lspconfig.denols.setup({
-	on_attach = on_attach_custom,
-	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-})
-
 lspconfig.ts_ls.setup({
 	on_attach = on_attach_custom,
 	root_dir = lspconfig.util.root_pattern("package.json"),
@@ -101,11 +96,3 @@ lspconfig.ts_ls.setup({
 
 lspconfig.cssls.setup({ on_attach = on_attach_custom })
 lspconfig.gopls.setup({ on_attach = on_attach_custom })
-
--- Use make to add project errors to quickfix for TS/TSX projects
-local augroup = vim.api.nvim_create_augroup("strdr4605", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "typescript,typescriptreact",
-	group = augroup,
-	command = "compiler tsc | setlocal makeprg=npx\\ tsc",
-})
