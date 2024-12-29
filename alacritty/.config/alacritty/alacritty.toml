@@ -7,7 +7,7 @@ general.import = [
 EDITOR = "nvim"
 
 [font]
-normal = { family = "Comic Code Ligatures", style = "Regular" }
+normal = { family = "Iosevka Nerd Font", style = "Regular" }
 size = 12
 
 [window]
