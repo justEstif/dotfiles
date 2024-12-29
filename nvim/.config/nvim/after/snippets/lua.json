@@ -1,0 +1,3 @@
+{
+	"do": { "prefix": "do", "body": "do\n\t$0\nend" },
+}
