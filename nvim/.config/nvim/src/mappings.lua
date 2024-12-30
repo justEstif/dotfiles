@@ -18,6 +18,9 @@ local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true
 keymap("n", "<C-s>", formatting_cmd, { desc = "Format and Save" })
 keymap("x", "<C-s>", formatting_cmd, { desc = "Format and Save" })
 
+-- Disable the default 'K' keymap
+keymap("n", "K", "<nop>")
+
 keymap("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
 	desc = "live grep",
 })
