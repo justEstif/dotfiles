@@ -14,6 +14,7 @@ end
 opt.swapfile = false -- don't use swapfile
 opt.completeopt = "menuone,noinsert,noselect" -- customize completions
 vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- treesitter fold
+opt.iskeyword = "@,48-57,_,192-255,-" -- Treat dash separated words as a word text object
 
 -- ui
 opt.number = true -- Show line number
