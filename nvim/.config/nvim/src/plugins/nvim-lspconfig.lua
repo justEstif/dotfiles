@@ -18,7 +18,16 @@ lspconfig.lua_ls.setup({
 	},
 })
 
-lspconfig.ts_ls.setup({ on_attach = on_attach_custom })
+lspconfig.denols.setup({
+	on_attach = on_attach_custom,
+	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+})
+
+lspconfig.ts_ls.setup({
+	on_attach = on_attach_custom,
+	root_dir = lspconfig.util.root_pattern("package.json"),
+	single_file_support = false,
+})
 lspconfig.cssls.setup({ on_attach = on_attach_custom })
 lspconfig.gopls.setup({ on_attach = on_attach_custom })
 lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
