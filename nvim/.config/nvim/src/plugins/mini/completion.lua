@@ -16,20 +16,10 @@ if vim.fn.has("nvim-0.11") == 1 then
 	vim.opt.completeopt:append("fuzzy") -- Use fuzzy matching for built-in completion
 end
 
-local keycode = vim.keycode or function(x)
-	return vim.api.nvim_replace_termcodes(x, true, true, true)
-end
-local keys = {
-	["cr"] = keycode("<CR>"),
-	["ctrl-y"] = keycode("<C-y>"),
-	["ctrl-y_cr"] = keycode("<C-y><CR>"),
-}
-
 _G.cr_action = function()
 	if vim.fn.pumvisible() ~= 0 then
-		-- If popup is visible, confirm selected item or add new line otherwise
 		local item_selected = vim.fn.complete_info()["selected"] ~= -1
-		return item_selected and keys["ctrl-y"] or keys["ctrl-y_cr"]
+		return item_selected and "\25" or "\25\r"
 	else
 		return require("mini.pairs").cr()
 	end
