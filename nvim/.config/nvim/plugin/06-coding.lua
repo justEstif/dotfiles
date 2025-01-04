@@ -1,4 +1,4 @@
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local add, later = MiniDeps.add, MiniDeps.later
 
 later(function()
 	require("mini.pairs").setup()

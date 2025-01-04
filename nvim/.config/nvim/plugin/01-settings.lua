@@ -107,7 +107,7 @@ vim.o.complete = ".,w,b,u,kspell" -- Use spell check and don't use tags for comp
 
 -- Folds ======================================================================
 vim.o.foldmethod = "indent" -- Set 'indent' folding method
-vim.o.foldlevel = 99 -- Display all folds except top ones
+vim.o.foldlevel = 1 -- Display all folds except top ones
 vim.o.foldnestmax = 10 -- Create folds only for some number of nested levels
 vim.g.markdown_folding = 1 -- Use folding by heading in markdown files
 vim.o.foldtext = "" -- Use underlying text with its highlighting
@@ -121,13 +121,23 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Autocmd to remember folds
-vim.cmd([[set viewoptions-=options
-augroup remember_folds
-    autocmd!
-    autocmd BufWinLeave *.* if &ft !=# 'help' | mkview | endif
-    autocmd BufWinEnter *.* if &ft !=# 'help' | silent! loadview | endif
-augroup END]])
+-- Save and restore folds
+vim.opt.viewoptions:remove('options')
 
+vim.api.nvim_create_autocmd({ 'BufWinLeave', 'BufWinEnter' }, {
+  pattern = '*.*',
+  callback = function(ev)
+    if vim.bo[ev.buf].filetype ~= 'help' then
+      if ev.event == 'BufWinLeave' then
+        vim.cmd.mkview()
+      else
+        vim.cmd.loadview({ mods = { silent = true } })
+      end
+    end
+  end,
+  group = vim.api.nvim_create_augroup('remember_folds', { clear = true }),
+})
+--
 -- Disable builtin ========================================================
 local disabled_built_ins = {
 	"getscript",
