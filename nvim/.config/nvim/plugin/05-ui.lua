@@ -40,7 +40,7 @@ now(function()
 	})
 
 	vim.cmd.colorscheme("catppuccin")
-	-- vim.o.background = "dark"
+	vim.o.background = "dark"
 end)
 
 now(function()
