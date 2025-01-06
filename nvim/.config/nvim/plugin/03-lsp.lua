@@ -54,7 +54,7 @@ later(function()
 			javascript = { "biome" },
 			json = { "biome" },
 			lua = { "stylua" },
-			markdown = { "biome" },
+			markdown = { "prettier" },
 			template = { "djlint" },
 			typescript = { "biome" },
 			typescriptreact = { "biome" },

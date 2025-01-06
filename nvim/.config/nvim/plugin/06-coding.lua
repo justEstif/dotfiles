@@ -1,4 +1,4 @@
-local add, later = MiniDeps.add, MiniDeps.later
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 later(function()
 	require("mini.pairs").setup()
@@ -19,4 +19,20 @@ end)
 later(function()
 	add("folke/ts-comments.nvim")
 	require("ts-comments").setup()
+end)
+
+now(function()
+	local basics = require("mini.basics")
+
+	basics.setup({
+		options = {
+			basic = true,
+			extra_ui = true,
+			win_borders = "double",
+		},
+		mappings = {
+			basic = true,
+			move_with_alt = true,
+		},
+	})
 end)

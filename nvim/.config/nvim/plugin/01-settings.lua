@@ -26,7 +26,6 @@ vim.o.breakindent = true -- Indent wrapped lines to match line start
 vim.o.colorcolumn = "+1" -- Draw colored column one step to the right of desired maximum width
 vim.o.cursorline = true -- Enable highlighting of the current line
 vim.o.linebreak = true -- Wrap long lines at 'breakat' (if 'wrap' is set)
-vim.o.list = true -- Show helpful character indicators
 vim.o.number = true -- Show line numbers
 vim.o.relativenumber = true -- Show relative line number
 vim.o.pumheight = 10 -- Make popup menu smaller
@@ -120,24 +119,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Autocmd to remember folds
--- Save and restore folds
-vim.opt.viewoptions:remove('options')
-
-vim.api.nvim_create_autocmd({ 'BufWinLeave', 'BufWinEnter' }, {
-  pattern = '*.*',
-  callback = function(ev)
-    if vim.bo[ev.buf].filetype ~= 'help' then
-      if ev.event == 'BufWinLeave' then
-        vim.cmd.mkview()
-      else
-        vim.cmd.loadview({ mods = { silent = true } })
-      end
-    end
-  end,
-  group = vim.api.nvim_create_augroup('remember_folds', { clear = true }),
-})
---
 -- Disable builtin ========================================================
 local disabled_built_ins = {
 	"getscript",

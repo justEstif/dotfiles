@@ -1,4 +1,5 @@
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+
 -- jump
 later(function()
 	local jump = require("mini.jump")
@@ -182,16 +183,14 @@ later(function()
 	})
 
 	vim.ui.select = pick.ui_select
+	vim.keymap.set("n", "`", ":Pick marks<cr>", { desc = "View marks" })
+	vim.keymap.set("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
+		desc = "live grep",
+	})
+	vim.keymap.set("n", "<C-p>", "<Cmd>Pick files<CR>", {
+		desc = "files",
+	})
 end)
-
-vim.keymap.set("n", "z=", ":Pick spellsuggest<cr>", { desc = "Spell suggest" })
-vim.keymap.set("n", "`", ":Pick marks<cr>", { desc = "View marks" })
-vim.keymap.set("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
-	desc = "live grep",
-})
-vim.keymap.set("n", "<C-p>", "<Cmd>Pick files<CR>", {
-	desc = "files",
-})
 
 later(function()
 	local files = require("mini.files")
@@ -290,44 +289,23 @@ later(function()
 end)
 
 later(function()
-	local clue = require("mini.clue")
+	add("tiagovla/scope.nvim")
+	require("scope").setup()
+end)
 
-	clue.setup({
-		triggers = { -- Leader triggers
-			{ mode = "n", keys = "<Leader>" },
-			{ mode = "x", keys = "<Leader>" }, -- Built-in completion
-			{ mode = "n", keys = [[\]] }, -- mini.basics
-			{ mode = "n", keys = "[" }, -- mini.bracketed
-			{ mode = "n", keys = "]" },
-			{ mode = "x", keys = "[" },
-			{ mode = "x", keys = "]" },
-			{ mode = "i", keys = "<C-x>" },
-			{ mode = "n", keys = "g" }, -- `g` key
-			{ mode = "x", keys = "g" },
-			{ mode = "n", keys = "m" }, -- Marks
-			{ mode = "x", keys = "'" },
-			{ mode = "x", keys = "`" },
-			{ mode = "n", keys = '"' }, -- Registers
-			{ mode = "x", keys = '"' },
-			{ mode = "i", keys = "<C-r>" },
-			{ mode = "c", keys = "<C-r>" },
-			{ mode = "n", keys = "<C-w>" }, -- Window commands
-			{ mode = "n", keys = "z" }, -- `z` key
-			{ mode = "x", keys = "z" },
-		},
-		window = {
-			delay = 0,
-			config = { width = "auto" },
-		},
+later(function()
+	require("mini.extra").setup()
+end)
 
-		clues = {
-			Config.leader_group_clues,
-			clue.gen_clues.builtin_completion(),
-			clue.gen_clues.g(),
-			clue.gen_clues.marks(),
-			clue.gen_clues.registers(),
-			clue.gen_clues.windows(),
-			clue.gen_clues.z(),
-		},
+later(function()
+	local trailspace = require("mini.trailspace")
+	trailspace.setup()
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		group = vim.api.nvim_create_augroup("trim_whitespace", { clear = true }),
+		callback = function()
+			trailspace.trim()
+			trailspace.trim_last_lines()
+		end,
+		desc = [[Trim trailing whitespace and empty lines on save]],
 	})
 end)
