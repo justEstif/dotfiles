@@ -100,7 +100,7 @@ if vim.fn.has("nvim-0.11") == 1 then
 end
 
 -- Spelling ===================================================================
-vim.o.spelllang = "en,uk" -- Define spelling dictionaries
+vim.o.spelllang = "en" -- Define spelling dictionaries
 vim.o.spelloptions = "camel" -- Treat parts of camelCase words as seprate words
 vim.o.complete = ".,w,b,u,kspell" -- Use spell check and don't use tags for completion
 
