@@ -36,3 +36,7 @@ now(function()
 		},
 	})
 end)
+
+later(function()
+	add("yuriescl/minimal-bookmarks.nvim")
+end)
