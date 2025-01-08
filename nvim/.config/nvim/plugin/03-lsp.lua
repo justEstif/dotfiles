@@ -37,7 +37,10 @@ later(function()
 		root_dir = lspconfig.util.root_pattern("package.json"),
 		single_file_support = false,
 	})
-	lspconfig.cssls.setup({ on_attach = on_attach_custom })
+	lspconfig.cssls.setup({
+		on_attach = on_attach_custom,
+		settings = { css = { lint = { unknownAtRules = "ignore" } } },
+	})
 	lspconfig.gopls.setup({ on_attach = on_attach_custom })
 	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
 end)

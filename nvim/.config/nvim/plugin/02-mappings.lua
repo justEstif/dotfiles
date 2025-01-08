@@ -7,6 +7,9 @@ vim.keymap.set("v", "p", [["_dP]], { desc = "Keep the yanked text when pasting i
 vim.keymap.set("n", [[s]], [[<Nop>]])
 vim.keymap.set("x", [[s]], [[<Nop>]])
 
+-- use "Pick" spell suggest
+vim.keymap.set("n", "z=", "<Cmd>lua MiniExtra.pickers.spellsuggest()<CR>", { desc = "Spelling suggest" })
+
 -- Leader mappings ============================================================
 _G.Config.leader_group_clues = {
 	{ mode = "n", keys = "<Leader>b", desc = "+Bookmarks" },
