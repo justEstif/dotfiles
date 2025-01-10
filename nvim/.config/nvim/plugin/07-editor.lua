@@ -87,24 +87,6 @@ later(function()
 	require("mini.diff").setup()
 end)
 
--- todo-comments
-later(function()
-	add({
-		source = "folke/todo-comments.nvim",
-		depends = { "nvim-lua/plenary.nvim" },
-	})
-	local todo = require("todo-comments")
-	todo.setup()
-
-	vim.keymap.set("n", "]t", function()
-		todo.jump_next()
-	end, { desc = "Next todo comment" })
-
-	vim.keymap.set("n", "[t", function()
-		todo.jump_prev()
-	end, { desc = "Previous todo comment" })
-end)
-
 later(function()
 	require("mini.splitjoin").setup()
 end)
