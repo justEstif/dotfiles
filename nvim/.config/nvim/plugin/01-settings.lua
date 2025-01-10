@@ -149,3 +149,25 @@ local disabled_built_ins = {
 for _, plugin in pairs(disabled_built_ins) do
 	vim.g["loaded_" .. plugin] = 1
 end
+
+-- Enable exrc for project-specific settings
+vim.opt.exrc = true
+vim.opt.secure = true -- Security for exrc
+
+-- Setup project-specific shada file
+local workspace_path = vim.fn.getcwd()
+local cache_dir = vim.fn.stdpath("data")
+local project_name = vim.fn.fnamemodify(workspace_path, ":t")
+local project_dir = cache_dir .. "/marks/" .. project_name
+
+-- Create project directory if it doesn't exist
+if vim.fn.isdirectory(project_dir) == 0 then
+	vim.fn.mkdir(project_dir, "p")
+end
+
+-- Set project-specific shada file
+local shadafile = project_dir .. "/" .. vim.fn.sha256(workspace_path):sub(1, 8) .. ".shada"
+vim.opt.shadafile = shadafile
+
+-- Configure marks to be saved in shada file
+vim.opt.shada:append("f1") -- Save global marks (capital letters)

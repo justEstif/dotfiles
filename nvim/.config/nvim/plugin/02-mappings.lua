@@ -9,6 +9,7 @@ vim.keymap.set("x", [[s]], [[<Nop>]])
 
 -- use "Pick" spell suggest
 vim.keymap.set("n", "z=", "<Cmd>lua MiniExtra.pickers.spellsuggest()<CR>", { desc = "Spelling suggest" })
+vim.keymap.set("n", "'", '<Cmd>lua MiniExtra.pickers.marks({ scope = "global" }) <CR>', { desc = "Marks" })
 
 -- Leader mappings ============================================================
 _G.Config.leader_group_clues = {
