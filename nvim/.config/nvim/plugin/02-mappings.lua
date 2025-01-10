@@ -12,7 +12,6 @@ vim.keymap.set("n", "z=", "<Cmd>lua MiniExtra.pickers.spellsuggest()<CR>", { des
 
 -- Leader mappings ============================================================
 _G.Config.leader_group_clues = {
-	{ mode = "n", keys = "<Leader>b", desc = "+Bookmarks" },
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
 	{ mode = "n", keys = "<Leader>g", desc = "+Git" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
@@ -29,13 +28,6 @@ local xmap_leader = function(suffix, rhs, desc, opts)
 	opts.desc = desc
 	vim.keymap.set("x", "<Leader>" .. suffix, rhs, opts)
 end
-
--- b is for bookmarks
-nmap_leader("bb", ":MinimalBookmarksToggle<CR>", "Toggle")
-nmap_leader("be", ":MinimalBookmarksEdit<CR>", "Edit")
-nmap_leader("ba", ":MinimalBookmarksAdd<CR>", "Add")
-nmap_leader("bi", ":MinimalBookmarksInsert<CR>", "Insert")
-nmap_leader("bd", ":MinimalBookmarksDelete<CR>", "Delete")
 
 -- f is for 'explore' and 'edit'
 nmap_leader("fd", "<Cmd>lua MiniFiles.open()<CR>", "Directory")

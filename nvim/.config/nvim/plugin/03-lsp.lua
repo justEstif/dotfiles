@@ -37,12 +37,8 @@ later(function()
 		root_dir = lspconfig.util.root_pattern("package.json"),
 		single_file_support = false,
 	})
-	lspconfig.cssls.setup({
-		on_attach = on_attach_custom,
-		settings = { css = { lint = { unknownAtRules = "ignore" } } },
-	})
+	lspconfig.cssls.setup({ on_attach = on_attach_custom })
 	lspconfig.gopls.setup({ on_attach = on_attach_custom })
-	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
 end)
 
 later(function()
@@ -52,13 +48,11 @@ later(function()
 		formatters_by_ft = {
 			css = { "biome" },
 			fish = { "fish_indent" },
-			go = { "gofmt" },
-			html = { "biome" },
+			html = { "prettier" },
 			javascript = { "biome" },
 			json = { "biome" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
-			template = { "djlint" },
 			typescript = { "biome" },
 			typescriptreact = { "biome" },
 		},
