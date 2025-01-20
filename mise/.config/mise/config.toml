@@ -3,6 +3,11 @@ bun = "latest"
 deno = "latest"
 go = "1.23"
 node = "23"
+rust = "latest"
+uv = "latest"
 
 [hooks]
 enter = "mise install"
+
+[settings]
+experimental = true

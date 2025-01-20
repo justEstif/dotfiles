@@ -27,17 +27,12 @@ later(function()
 		},
 	})
 
-	lspconfig.denols.setup({
+	lspconfig.ts_ls.setup({ on_attach = on_attach_custom })
+	lspconfig.cssls.setup({
 		on_attach = on_attach_custom,
-		root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+		settings = { css = { lint = { unknownAtRules = "ignore" } } },
 	})
-
-	lspconfig.ts_ls.setup({
-		on_attach = on_attach_custom,
-		root_dir = lspconfig.util.root_pattern("package.json"),
-		single_file_support = false,
-	})
-	lspconfig.cssls.setup({ on_attach = on_attach_custom })
+	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
 	lspconfig.gopls.setup({ on_attach = on_attach_custom })
 end)
 
@@ -53,6 +48,7 @@ later(function()
 			json = { "biome" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
+			toml = { "taplo" },
 			typescript = { "biome" },
 			typescriptreact = { "biome" },
 		},
