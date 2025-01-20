@@ -91,7 +91,10 @@ later(function()
 	require("mini.splitjoin").setup()
 end)
 later(function()
-	require("mini.bracketed").setup()
+	require("mini.bracketed").setup({
+		-- Make diagnostic advance only by errors
+		diagnostic = { options = { severity = vim.diagnostic.severity.ERROR } },
+	})
 end)
 later(function()
 	require("mini.move").setup()
