@@ -11,4 +11,5 @@ end
 
 if test "$os" = Darwin
     abbr -a cohesion 'open "$HOME/Documents/frontier/Cohesion Devkit.app"'
+    abbr -a git-pb 'git branch --show-current | pbcopy'
 end
