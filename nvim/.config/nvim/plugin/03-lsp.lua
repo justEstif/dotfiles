@@ -45,7 +45,7 @@ later(function()
 			fish = { "fish_indent" },
 			html = { "prettier" },
 			javascript = { "biome" },
-			json = { "biome" },
+			json = { "prettier" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
 			toml = { "taplo" },
