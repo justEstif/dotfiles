@@ -48,6 +48,7 @@ later(function()
 			json = { "biome" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
+			toml = { "taplo" },
 			typescript = { "biome" },
 			typescriptreact = { "biome" },
 		},
