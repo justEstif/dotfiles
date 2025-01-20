@@ -58,6 +58,24 @@ function M.release_mark(mark)
 	end
 end
 
+function M.remove_current_line_mark()
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+
+	-- Check all marks for a match on the current line
+	for mark, is_set in pairs(file_marks) do
+		if is_set then
+			local pos = vim.api.nvim_get_mark(mark, {})
+			if pos[1] == current_line then
+				M.release_mark(mark)
+				vim.notify(string.format("Mark '%s' removed", mark))
+				return
+			end
+		end
+	end
+
+	vim.notify("No mark found on current line", vim.log.levels.WARN)
+end
+
 function M.clear_all_marks()
 	for mark, _ in pairs(file_marks) do
 		M.release_mark(mark)
@@ -89,8 +107,18 @@ function M.setup(opts)
 		M.clear_all_marks()
 	end, {})
 
+	vim.api.nvim_create_user_command("MarkRemove", function()
+		M.remove_current_line_mark()
+	end, {})
+
 	if opts.keymaps then
 		vim.keymap.set("n", opts.keymaps.mark or "<Leader>m", ":Mark<CR>", { silent = true, desc = "Set project mark" })
+		vim.keymap.set(
+			"n",
+			opts.keymaps.remove_mark or "<Leader>dm",
+			":MarkRemove<CR>",
+			{ silent = true, desc = "Remove mark on current line" }
+		)
 	end
 end
 
@@ -98,6 +126,7 @@ later(function()
 	M.setup({
 		keymaps = {
 			mark = "mm",
+			remove_mark = "mM",
 		},
 	})
 end)
