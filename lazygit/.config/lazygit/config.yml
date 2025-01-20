@@ -4,10 +4,10 @@ os:
   editAtLineAndWait: 'nvim --remote-wait +{{line}} {{filename}}'
   editInTerminal: true
 
-# git:
-#   paging:
-#     colorArg: always
-#     pager: delta --dark --paging=never --syntax-theme base16-256 -s
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --syntax-theme base16-256 -s
 
 keybinding:
   universal:
