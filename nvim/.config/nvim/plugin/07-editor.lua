@@ -168,7 +168,6 @@ later(function()
 	})
 
 	vim.ui.select = pick.ui_select
-	vim.keymap.set("n", "`", ":Pick marks<cr>", { desc = "View marks" })
 	vim.keymap.set("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
 		desc = "live grep",
 	})
