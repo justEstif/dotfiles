@@ -34,6 +34,7 @@ later(function()
 	})
 	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
 	lspconfig.gopls.setup({ on_attach = on_attach_custom })
+	lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
 end)
 
 later(function()
@@ -48,6 +49,7 @@ later(function()
 			json = { "prettier" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
+			ruby = { "rubyfmt" },
 			toml = { "taplo" },
 			typescript = { "biome" },
 			typescriptreact = { "biome" },

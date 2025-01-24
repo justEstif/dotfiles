@@ -3,6 +3,7 @@ bun = "latest"
 deno = "latest"
 go = "1.23"
 node = "23"
+ruby = "3.2"
 rust = "latest"
 uv = "latest"
 
