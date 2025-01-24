@@ -18,7 +18,7 @@ later(function()
 		settings = {
 			Lua = {
 				diagnostics = {
-					globals = { "vim" },
+					globals = { "vim", "MiniDeps" },
 					disable = { "need-check-nil" },
 					-- Don't make workspace diagnostic, as it consumes too much CPU and RAM
 					workspaceDelay = -1,
@@ -28,13 +28,10 @@ later(function()
 	})
 
 	lspconfig.ts_ls.setup({ on_attach = on_attach_custom })
-	lspconfig.cssls.setup({
-		on_attach = on_attach_custom,
-		settings = { css = { lint = { unknownAtRules = "ignore" } } },
-	})
-	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
-	lspconfig.gopls.setup({ on_attach = on_attach_custom })
+	lspconfig.cssls.setup({ on_attach = on_attach_custom })
 	lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
+	-- lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
+	-- lspconfig.gopls.setup({ on_attach = on_attach_custom })
 end)
 
 later(function()
@@ -43,6 +40,7 @@ later(function()
 	conform.setup({
 		formatters_by_ft = {
 			css = { "biome" },
+			eruby = { "erb_format" },
 			fish = { "fish_indent" },
 			html = { "prettier" },
 			javascript = { "biome" },
@@ -62,6 +60,7 @@ later(function()
 	local lint = require("lint")
 	lint.linters_by_ft = {
 		css = { "biome" },
+		eruby = { "erb_lint" },
 		typescript = { "biome" },
 		javascript = { "biome" },
 		json = { "biome" },
