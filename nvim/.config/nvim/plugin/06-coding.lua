@@ -12,6 +12,7 @@ later(function()
 		n_lines = 100,
 		custom_textobjects = {
 			B = gen_ai_spec.buffer(),
+			F = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
 		},
 	})
 end)
@@ -32,7 +33,13 @@ now(function()
 		},
 		mappings = {
 			basic = true,
+			-- cursor moves with Alt-<hjkl> in Insert, Command, Terminal mode
 			move_with_alt = true,
+			-- switch windows: <C-hjkl>
+			-- resize windows: <C-Arrow Keys>
+			windows = true,
 		},
 	})
+
+	vim.keymap.set("n", [[\\]], ":nohlsearch<cr>", { desc = "hlsearch" })
 end)
