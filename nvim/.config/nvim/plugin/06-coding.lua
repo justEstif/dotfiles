@@ -5,6 +5,10 @@ later(function()
 end)
 
 later(function()
+	require("mini.visits").setup()
+end)
+
+later(function()
 	local ai = require("mini.ai")
 	local gen_ai_spec = require("mini.extra").gen_ai_spec
 

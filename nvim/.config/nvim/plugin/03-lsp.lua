@@ -18,7 +18,7 @@ later(function()
 		settings = {
 			Lua = {
 				diagnostics = {
-					globals = { "vim" },
+					globals = { "vim", "MiniDeps", "MiniExtra", "MiniVisits" },
 					disable = { "need-check-nil" },
 					-- Don't make workspace diagnostic, as it consumes too much CPU and RAM
 					workspaceDelay = -1,
