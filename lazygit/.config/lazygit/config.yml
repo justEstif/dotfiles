@@ -1,3 +1,6 @@
+gui:
+  showCommandLog: false
+
 os:
   edit: 'nvim {{filename}}'
   editAtLine: 'nvim +{{line}} {{filename}}'
@@ -7,7 +10,7 @@ os:
 git:
   paging:
     colorArg: always
-    pager: delta --dark --paging=never --syntax-theme base16-256 -s
+    pager: diff-so-fancy
 
 keybinding:
   universal:
