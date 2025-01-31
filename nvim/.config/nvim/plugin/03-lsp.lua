@@ -18,7 +18,7 @@ later(function()
 		settings = {
 			Lua = {
 				diagnostics = {
-					globals = { "vim", "MiniDeps", "MiniExtra", "MiniVisits" },
+					globals = { "vim", "MiniDeps", "MiniExtra" },
 					disable = { "need-check-nil" },
 					-- Don't make workspace diagnostic, as it consumes too much CPU and RAM
 					workspaceDelay = -1,
@@ -39,18 +39,18 @@ later(function()
 	local conform = require("conform")
 	conform.setup({
 		formatters_by_ft = {
-			css = { "biome" },
+			css = { "prettier" },
 			eruby = { "erb_format" },
 			fish = { "fish_indent" },
 			html = { "prettier" },
-			javascript = { "biome" },
+			javascript = { "prettier" },
 			json = { "prettier" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
 			ruby = { "rubyfmt" },
 			toml = { "taplo" },
-			typescript = { "biome" },
-			typescriptreact = { "biome" },
+			typescript = { "prettier" },
+			typescriptreact = { "prettier" },
 		},
 	})
 end)

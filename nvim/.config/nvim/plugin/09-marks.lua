@@ -1,3 +1,67 @@
+-- Enable exrc for project-specific settings
+vim.opt.exrc = true
+vim.opt.secure = true -- Security for exrc
+
+-- Function to get current git branch
+local function get_git_branch()
+	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+	if vim.v.shell_error ~= 0 then
+		return nil
+	end
+	return vim.trim(branch)
+end
+
+-- Setup project and branch specific paths
+local workspace_path = vim.fn.getcwd()
+local cache_dir = vim.fn.stdpath("data")
+local project_name = vim.fn.fnamemodify(workspace_path, ":t")
+local git_branch = get_git_branch()
+
+-- Construct the project directory path
+local project_dir = cache_dir .. "/marks/" .. project_name
+if git_branch then
+	-- Add branch name to path if in a git repository
+	project_dir = project_dir .. "/" .. git_branch
+end
+
+-- Create project directory if it doesn't exist
+if vim.fn.isdirectory(project_dir) == 0 then
+	vim.fn.mkdir(project_dir, "p")
+end
+
+-- Set project and branch specific shada file
+local shadafile = project_dir .. "/" .. vim.fn.sha256(workspace_path):sub(1, 8)
+if git_branch then
+	-- Append branch name to shada file
+	shadafile = shadafile .. "_" .. git_branch
+end
+shadafile = shadafile .. ".shada"
+
+-- Set the shada file path
+vim.opt.shadafile = shadafile
+
+-- Configure marks to be saved in shada file
+vim.opt.shada:append("f1") -- Save global marks (capital letters)
+
+-- Optional: Add autocmd to update shada file on branch change
+vim.api.nvim_create_autocmd("VimEnter", {
+	pattern = "*",
+	callback = function()
+		-- Check if we're in a git repository
+		local current_branch = get_git_branch()
+		if current_branch then
+			-- Update shadafile path if branch changes
+			local new_shadafile = project_dir
+				.. "/"
+				.. vim.fn.sha256(workspace_path):sub(1, 8)
+				.. "_"
+				.. current_branch
+				.. ".shada"
+			vim.opt.shadafile = new_shadafile
+		end
+	end,
+})
+
 local later = MiniDeps.later
 
 local M = {}
