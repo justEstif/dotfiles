@@ -39,6 +39,8 @@ xmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
 
 -- git is for 'git'
 nmap_leader("go", "<Cmd>lua MiniDiff.toggle_overlay()<CR>", "Toggle overlay")
+nmap_leader("ga", "<Cmd>Git add %<CR>", "Add")
+nmap_leader("gc", "<Cmd>silent horizontal Git commit<CR>", "Commit")
 nmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
 xmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
 
