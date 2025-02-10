@@ -43,6 +43,8 @@ nmap_leader("ga", "<Cmd>Git add %<CR>", "Add")
 nmap_leader("gc", "<Cmd>silent horizontal Git commit<CR>", "Commit")
 nmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
 xmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
+nmap_leader("gd", "<Cmd>Git diff<CR>", "Diff")
+nmap_leader("gD", "<Cmd>Git diff -- %<CR>", "Diff buffer")
 
 -- l is for 'LSP' (Language Server Protocol)
 nmap_leader("lD", '<Cmd>Pick diagnostic scope="all"<CR>', "Diagnostic workspace")
