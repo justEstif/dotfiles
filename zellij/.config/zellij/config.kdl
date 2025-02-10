@@ -9,4 +9,13 @@ keybinds {
   }
 }
 
+
+ui {
+  pane_frames {
+    hide_session_name true
+  }
+}
+
+pane_frames false
+
 theme "catppuccin-macchiato"
