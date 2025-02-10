@@ -82,6 +82,18 @@ end)
 -- mini git and diff
 later(function()
 	require("mini.git").setup()
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "MiniGitCommandDone",
+		callback = function(data)
+			if data.data.git_subcommand == "commit" then
+				if data.data.exit_code == 0 then
+					vim.notify("Git commit: Success", vim.log.levels.INFO)
+				else
+					vim.notify("Git commit: Failed", vim.log.levels.ERROR)
+				end
+			end
+		end,
+	})
 end)
 later(function()
 	require("mini.diff").setup()
