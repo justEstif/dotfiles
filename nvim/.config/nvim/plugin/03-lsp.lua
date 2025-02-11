@@ -28,9 +28,12 @@ later(function()
 	})
 
 	lspconfig.ts_ls.setup({ on_attach = on_attach_custom })
-	lspconfig.cssls.setup({ on_attach = on_attach_custom })
-	lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
-	-- lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
+	lspconfig.cssls.setup({
+		on_attach = on_attach_custom,
+		settings = { css = { lint = { unknownAtRules = "ignore" } } },
+	})
+	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
+	-- lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
 	-- lspconfig.gopls.setup({ on_attach = on_attach_custom })
 end)
 
