@@ -16,6 +16,4 @@ ui {
   }
 }
 
-pane_frames false
-
 theme "catppuccin-macchiato"
