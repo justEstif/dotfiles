@@ -18,7 +18,7 @@ later(function()
 		settings = {
 			Lua = {
 				diagnostics = {
-					globals = { "vim", "MiniDeps", "MiniExtra" },
+					globals = { "vim", "MiniDeps", "MiniExtra", "MiniIcons", "MiniNotify" },
 					disable = { "need-check-nil" },
 					-- Don't make workspace diagnostic, as it consumes too much CPU and RAM
 					workspaceDelay = -1,
@@ -28,6 +28,7 @@ later(function()
 	})
 
 	lspconfig.ts_ls.setup({ on_attach = on_attach_custom })
+	lspconfig.prismals.setup({ on_attach = on_attach_custom })
 	lspconfig.cssls.setup({
 		on_attach = on_attach_custom,
 		settings = { css = { lint = { unknownAtRules = "ignore" } } },
