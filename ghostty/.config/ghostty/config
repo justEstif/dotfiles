@@ -1,0 +1,24 @@
+# Clear all keybindings first to avoid conflicts with zellij
+keybind = clear
+keybind = ctrl+shift+r=reload_config
+
+# Disable tabs completely since we're using zellij
+macos-titlebar-style = hidden
+gtk-tabs-location = hidden
+window-decoration = false
+
+# Disable window state saving since zellij manages sessions
+window-save-state = never
+
+# Disable confirmation when closing windows (zellij handles this)
+confirm-close-surface = false
+
+# Quit when last window is closed since zellij manages sessions
+quit-after-last-window-closed = true
+
+# UI
+theme = dark:catppuccin-macchiato,light:catppuccin-latte
+font-family = "Aporetic Sans Mono"
+font-size = 14
+
+shell-integration = fish
