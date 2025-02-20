@@ -19,6 +19,9 @@ quit-after-last-window-closed = true
 # UI
 theme = dark:catppuccin-macchiato,light:catppuccin-latte
 font-family = "Aporetic Sans Mono"
-font-size = 14
 
 shell-integration = fish
+
+# Include OS-specific configs
+config-file = ?macos.conf
+# config-file = ?linux.conf
