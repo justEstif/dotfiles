@@ -185,7 +185,7 @@ later(function()
 	})
 end)
 
-later(function()
+now(function()
 	local files = require("mini.files")
 	files.setup({
 		mappings = {

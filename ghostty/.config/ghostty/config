@@ -22,6 +22,4 @@ font-family = "Aporetic Sans Mono"
 
 shell-integration = fish
 
-# Include OS-specific configs
-config-file = ?macos.conf
-# config-file = ?linux.conf
+config-file = ?font-size.conf
