@@ -17,3 +17,4 @@ ui {
 }
 
 theme "catppuccin-macchiato"
+default_layout "compact"
