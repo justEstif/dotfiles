@@ -1,9 +1,9 @@
 [tools]
 bun = "latest"
 deno = "latest"
-go = "1.23"
+go = "1.24"
 node = "23"
-ruby = "3.2"
+ruby = "3.4"
 rust = "latest"
 uv = "latest"
 
