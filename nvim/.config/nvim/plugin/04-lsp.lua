@@ -33,7 +33,7 @@ later(function()
 		on_attach = on_attach_custom,
 		settings = { css = { lint = { unknownAtRules = "ignore" } } },
 	})
-	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
+	-- lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
 	-- lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
 	-- lspconfig.gopls.setup({ on_attach = on_attach_custom })
 end)
@@ -43,18 +43,18 @@ later(function()
 	local conform = require("conform")
 	conform.setup({
 		formatters_by_ft = {
-			css = { "prettier" },
-			eruby = { "erb_format" },
+			-- eruby = { "erb_format" },
+			-- ruby = { "rubyfmt" },
+			css = { "biome" },
 			fish = { "fish_indent" },
 			html = { "prettier" },
-			javascript = { "prettier" },
-			json = { "prettier" },
+			javascript = { "biome" },
+			json = { "biome" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
-			ruby = { "rubyfmt" },
 			toml = { "taplo" },
-			typescript = { "prettier" },
-			typescriptreact = { "prettier" },
+			typescript = { "biome" },
+			typescriptreact = { "biome" },
 		},
 	})
 end)
@@ -63,11 +63,11 @@ later(function()
 	add("mfussenegger/nvim-lint")
 	local lint = require("lint")
 	lint.linters_by_ft = {
+    -- eruby = { "erb_lint" },
 		css = { "biome" },
-		eruby = { "erb_lint" },
-		typescript = { "biome" },
 		javascript = { "biome" },
 		json = { "biome" },
+		typescript = { "biome" },
 		typescriptreact = { "biome" },
 	}
 end)

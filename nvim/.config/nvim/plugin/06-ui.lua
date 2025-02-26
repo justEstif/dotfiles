@@ -35,7 +35,7 @@ now(function()
 	})
 
 	vim.cmd.colorscheme("catppuccin")
-	vim.o.background = "dark"
+	vim.o.background = _G.Config.is_dark_mode() and "dark" or "light"
 end)
 
 now(function()
