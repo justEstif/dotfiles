@@ -24,17 +24,8 @@ later(function()
 end)
 
 now(function()
-	add("catppuccin/nvim")
-	local theme = require("catppuccin")
-
-	theme.setup({
-		background = {
-			dark = "macchiato",
-			light = "latte",
-		},
-	})
-
-	vim.cmd.colorscheme("catppuccin")
+	add("navarasu/onedark.nvim")
+	vim.cmd([[colorscheme onedark]])
 	vim.o.background = _G.Config.is_dark_mode() and "dark" or "light"
 end)
 

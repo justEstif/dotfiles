@@ -17,7 +17,7 @@ confirm-close-surface = false
 quit-after-last-window-closed = true
 
 # UI
-theme = dark:catppuccin-macchiato,light:catppuccin-latte
+theme = dark:OneHalfDark,light:OneHalfLight
 font-family = "Aporetic Sans Mono"
 
 shell-integration = fish

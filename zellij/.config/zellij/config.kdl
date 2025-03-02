@@ -16,5 +16,5 @@ ui {
   }
 }
 
-theme "catppuccin-macchiato"
+theme "onedark"
 default_layout "compact"
