@@ -34,7 +34,6 @@ later(function()
 		settings = { css = { lint = { unknownAtRules = "ignore" } } },
 	})
 	-- lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
-	-- lspconfig.ruby_lsp.setup({ on_attach = on_attach_custom })
 	-- lspconfig.gopls.setup({ on_attach = on_attach_custom })
 end)
 
@@ -43,8 +42,6 @@ later(function()
 	local conform = require("conform")
 	conform.setup({
 		formatters_by_ft = {
-			-- eruby = { "erb_format" },
-			-- ruby = { "rubyfmt" },
 			css = { "biome" },
 			fish = { "fish_indent" },
 			html = { "prettier" },
@@ -63,7 +60,6 @@ later(function()
 	add("mfussenegger/nvim-lint")
 	local lint = require("lint")
 	lint.linters_by_ft = {
-    -- eruby = { "erb_lint" },
 		css = { "biome" },
 		javascript = { "biome" },
 		json = { "biome" },
