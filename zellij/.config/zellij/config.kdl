@@ -16,6 +16,6 @@ ui {
   }
 }
 
-theme "tokyo-night-dark"
+theme "catppuccin-macchiato"
 default_layout "compact"
 default_mode "locked"
