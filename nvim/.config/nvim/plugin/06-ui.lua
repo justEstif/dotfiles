@@ -24,8 +24,8 @@ later(function()
 end)
 
 now(function()
-	add("navarasu/onedark.nvim")
-	vim.cmd([[colorscheme onedark]])
+	add("folke/tokyonight.nvim")
+	vim.cmd([[colorscheme tokyonight]])
 	vim.o.background = _G.Config.is_dark_mode() and "dark" or "light"
 end)
 

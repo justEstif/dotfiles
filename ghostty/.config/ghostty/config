@@ -17,7 +17,7 @@ confirm-close-surface = false
 quit-after-last-window-closed = true
 
 # UI
-theme = dark:OneHalfDark,light:OneHalfLight
+theme = dark:tokyonight_moon,light:tokyonight_day
 font-family = "Aporetic Sans Mono"
 
 shell-integration = fish
