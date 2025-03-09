@@ -33,7 +33,7 @@ later(function()
 		on_attach = on_attach_custom,
 		settings = { css = { lint = { unknownAtRules = "ignore" } } },
 	})
-	-- lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
+	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
 	-- lspconfig.gopls.setup({ on_attach = on_attach_custom })
 end)
 
