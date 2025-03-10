@@ -1,0 +1,22 @@
+# Font cache and UUID files
+.uuid
+*.uuid
+
+# Font cache directories
+.fonts.cache*
+.fonts.dir
+.fonts.scale
+
+# Font backup files
+*.bak
+*.orig
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux font cache
+.local/share/fonts/.uuid
+.local/share/fonts/*/.uuid
+.local/share/fonts/*/*/.uuid 
