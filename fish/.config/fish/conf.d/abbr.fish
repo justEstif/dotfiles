@@ -6,7 +6,7 @@ abbr -a killnode "killall -9 node" # kill all node apps
 set -l os (uname)
 
 if test "$os" = Linux
-    abbr -a apt-up "sudo apt update && sudo apt upgrade"
+    abbr -a apt-up "sudo apt update && sudo apt upgrade && sudo apt autoremove"
 end
 
 if test "$os" = Darwin
