@@ -10,7 +10,7 @@ end
 
 -- Set up 'mini.deps' immediately to have its `now()` and `later()` helpers
 require("mini.deps").setup()
-MiniDeps.add({ name = "mini.nvim", checkout = "HEAD" })
+MiniDeps.add({ name = "mini.nvim", checkout = "main" })
 
 -- Define main config table to be able to use it in scripts
 _G.Config = {}
