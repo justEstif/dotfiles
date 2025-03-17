@@ -131,6 +131,7 @@ later(function()
 end)
 
 later(function()
+	require("mini.snippets").setup()
 	local completion = require("mini.completion")
 	completion.setup({
 		lsp_completion = {
