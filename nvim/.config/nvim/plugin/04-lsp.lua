@@ -42,16 +42,16 @@ later(function()
 	local conform = require("conform")
 	conform.setup({
 		formatters_by_ft = {
-			css = { "biome" },
+			css = { "prettier" },
 			fish = { "fish_indent" },
 			html = { "prettier" },
-			javascript = { "biome" },
-			json = { "biome" },
+			javascript = { "prettier" },
+			json = { "prettier" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
 			toml = { "taplo" },
-			typescript = { "biome" },
-			typescriptreact = { "biome" },
+			typescript = { "prettier" },
+			typescriptreact = { "prettier" },
 		},
 	})
 end)
