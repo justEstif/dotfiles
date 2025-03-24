@@ -1,0 +1,21 @@
+keybinds {
+  session {
+    unbind "q"
+    bind "Ctrl q" { Quit; }
+  }
+
+  shared_except "locked" {
+    unbind "Ctrl q"
+  }
+}
+
+
+ui {
+  pane_frames {
+    hide_session_name true
+  }
+}
+
+theme "catppuccin-macchiato"
+styled_underlines false
+pane_frames false
