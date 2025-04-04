@@ -7,9 +7,27 @@ set -l os (uname)
 
 if test "$os" = Linux
     abbr -a apt-up "sudo apt update && sudo apt upgrade && sudo apt autoremove"
+
+    # Linux clipboard commands - check available tools
+    if type -q wl-copy
+        # Wayland
+        abbr -a pc wl-copy
+        abbr -a pp wl-paste
+    else if type -q xclip
+        abbr -a pc "xclip -selection clipboard"
+        abbr -a pp "xclip -o -selection clipboard"
+    else if type -q xsel
+        abbr -a pc "xsel --clipboard --input"
+        abbr -a pp "xsel --clipboard --output"
+    end
+
 end
 
 if test "$os" = Darwin
-    abbr -a cohesion 'open "$HOME/Documents/frontier/Cohesion Devkit.app"'
+    # macOS clipboard commands
+    abbr -a pc pbcopy
+    abbr -a pp pbpaste
     abbr -a git-pb 'git branch --show-current | pbcopy'
 end
+
+# c
