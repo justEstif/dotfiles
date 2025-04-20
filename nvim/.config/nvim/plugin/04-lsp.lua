@@ -34,7 +34,6 @@ later(function()
 		settings = { css = { lint = { unknownAtRules = "ignore" } } },
 	})
 	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
-	-- lspconfig.gopls.setup({ on_attach = on_attach_custom })
 end)
 
 later(function()
@@ -60,10 +59,10 @@ later(function()
 	add("mfussenegger/nvim-lint")
 	local lint = require("lint")
 	lint.linters_by_ft = {
-		css = { "biome" },
-		javascript = { "biome" },
-		json = { "biome" },
-		typescript = { "biome" },
-		typescriptreact = { "biome" },
+		css = { "eslint" },
+		javascript = { "eslint" },
+		json = { "eslint" },
+		typescript = { "eslint" },
+		typescriptreact = { "eslint" },
 	}
 end)
