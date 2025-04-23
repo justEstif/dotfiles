@@ -1,0 +1,31 @@
+[alias]
+  # Worktree aliases
+  wt = worktree
+
+  # Add worktree for existing branch in .worktrees folder, replacing slashes with hyphens
+  wta = "!f() { DIRNAME=$(echo $1 | sed 's/\\//-/g'); git worktree add .worktrees/$DIRNAME $1; }; f"
+
+  # Add worktree for remote branch
+  wtar = "!f() { DIRNAME=$(echo $1 | sed 's/\\//-/g'); git fetch origin $1:$1 && git worktree add .worktrees/$DIRNAME $1; }; f"
+
+  # Add worktree with new branch based on main in .worktrees folder, replacing slashes with hyphens
+  wtanb = "!f() { DIRNAME=$(echo $1 | sed 's/\\//-/g'); git worktree add -b $1 .worktrees/$DIRNAME main; }; f"
+
+  # Remove a worktree, converting slashes to hyphens for directory lookup
+  wtr = "!f() { DIRNAME=$(echo $1 | sed 's/\\//-/g'); git worktree remove .worktrees/$DIRNAME; }; f"
+
+  # List all worktrees
+  wtl = worktree list
+
+  # Prune worktrees
+  wtp = worktree prune
+
+  # Create a new worktree with a new branch based on a remote branch
+  # Usage: git wtanbr new-branch-name origin/remote-branch-name [directory-name]
+  # If directory-name is not provided, it defaults to using the branch name
+	wtanbr = "!f() { BRANCH=\"$1\"; REMOTE_BRANCH=\"$2\"; if [ -z \"$3\" ]; then DIRNAME=$(echo $BRANCH | sed 's/\\//\\-/g'); else DIRNAME=\"$3\"; fi; git fetch && git worktree add -b \"$BRANCH\" \".worktrees/$DIRNAME\" \"$REMOTE_BRANCH\"; }; f"
+
+  # Create a new worktree with a new branch based on a remote branch from origin
+  # Usage: git wtanbro new-branch-name remote-branch-name [directory-name]
+  # Example: git wtanbro feature/new-work feature/base-work
+	wtanbro = "!f() { BRANCH=\"$1\"; REMOTE_BRANCH=\"origin/$2\"; if [ -z \"$3\" ]; then DIRNAME=$(echo $BRANCH | sed 's/\\//\\-/g'); else DIRNAME=\"$3\"; fi; git fetch && git worktree add -b \"$BRANCH\" \".worktrees/$DIRNAME\" \"$REMOTE_BRANCH\"; }; f"
