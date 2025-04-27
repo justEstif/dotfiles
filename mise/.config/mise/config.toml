@@ -3,9 +3,8 @@ bun = "latest"
 deno = "latest"
 go = "1.24"
 node = "23.10.0"
-"npm:pnpm" = "latest"
-"npm:@anthropic-ai/claude-code" = "latest"
 python = "3.11"
+"npm:pnpm" = "latest"
 
 [hooks]
 enter = "mise install"
