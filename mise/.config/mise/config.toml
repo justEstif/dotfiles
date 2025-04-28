@@ -5,6 +5,7 @@ go = "1.24"
 node = "23.10.0"
 python = "3.11"
 "npm:pnpm" = "latest"
+"npm:@openai/codex" = "latest"
 
 [hooks]
 enter = "mise install"
