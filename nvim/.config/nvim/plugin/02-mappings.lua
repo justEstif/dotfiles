@@ -49,10 +49,12 @@ nmap_leader("gd", "<Cmd>Git diff<CR>", "Diff")
 nmap_leader("gD", "<Cmd>Git diff -- %<CR>", "Diff buffer")
 
 -- l is for 'LSP' (Language Server Protocol)
+nmap_leader("la", "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Actions")
 nmap_leader("lD", '<Cmd>Pick diagnostic scope="all"<CR>', "Diagnostic workspace")
 nmap_leader("lr", "<Cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 nmap_leader("lR", "<Cmd>lua MiniExtra.pickers.lsp({ scope = 'references' })<CR>", "References")
 nmap_leader("ls", "<Cmd>lua MiniExtra.pickers.lsp({ scope = 'definition' })<CR>", "Source Definition")
+
 vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover" })
 
 local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR><Cmd>w<CR>'

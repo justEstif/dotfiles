@@ -1,39 +1,29 @@
 local add, later = MiniDeps.add, MiniDeps.later
 
-later(function()
-	add("williamboman/mason.nvim")
-	require("mason").setup()
+local diagnostic_opts = {
+	-- Define how diagnostic entries should be shown
+	signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
+	underline = { severity = { min = "HINT", max = "ERROR" } },
+	virtual_lines = false,
+	virtual_text = { current_line = true, severity = { min = "ERROR", max = "ERROR" } },
+
+	-- Don't update diagnostics when typing
+	update_in_insert = false,
+}
+
+MiniDeps.later(function()
+	vim.diagnostic.config(diagnostic_opts)
 end)
 
 later(function()
+	add("mason-org/mason.nvim")
+	add("mason-org/mason-lspconfig.nvim")
 	add("neovim/nvim-lspconfig")
-	local lspconfig = require("lspconfig")
 
-	local on_attach_custom = function(_, buf_id)
-		vim.bo[buf_id].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
-	end
-
-	lspconfig.lua_ls.setup({
-		on_attach = on_attach_custom,
-		settings = {
-			Lua = {
-				diagnostics = {
-					globals = { "vim", "MiniDeps", "MiniExtra", "MiniIcons", "MiniNotify" },
-					disable = { "need-check-nil" },
-					-- Don't make workspace diagnostic, as it consumes too much CPU and RAM
-					workspaceDelay = -1,
-				},
-			},
-		},
+	require("mason").setup()
+	require("mason-lspconfig").setup({
+		ensure_installed = { "lua_ls", "ts_ls", "cssls" },
 	})
-
-	lspconfig.ts_ls.setup({ on_attach = on_attach_custom })
-	lspconfig.prismals.setup({ on_attach = on_attach_custom })
-	lspconfig.cssls.setup({
-		on_attach = on_attach_custom,
-		settings = { css = { lint = { unknownAtRules = "ignore" } } },
-	})
-	lspconfig.tailwindcss.setup({ on_attach = on_attach_custom })
 end)
 
 later(function()
