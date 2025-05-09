@@ -68,9 +68,9 @@ later(function()
 	end
 end)
 
-later(function()
-	require("mini.snippets").setup()
-end)
+-- later(function()
+-- 	require("mini.snippets").setup()
+-- end)
 
 later(function()
 	local map_multistep = require("mini.keymap").map_multistep
