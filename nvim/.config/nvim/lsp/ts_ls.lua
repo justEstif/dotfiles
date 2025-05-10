@@ -8,37 +8,12 @@ return {
 		"typescriptreact",
 		"typescript.tsx",
 	},
-	root_dir = function(fname)
-		return require("lspconfig.util").root_pattern("tsconfig.json", "package.json", ".git")(fname)
-	end,
-	init_options = {
-		hostInfo = "neovim",
-		preferences = {
-			importModuleSpecifierPreference = "non-relative",
-		},
+	root_markers = {
+		".git",
+		"jsconfig.json",
+		"package.json",
+		"tsconfig.json",
 	},
-	settings = {
-		typescript = {
-			inlayHints = {
-				includeInlayEnumMemberValueHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayVariableTypeHints = true,
-			},
-		},
-		javascript = {
-			inlayHints = {
-				includeInlayEnumMemberValueHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayVariableTypeHints = true,
-			},
-		},
-	},
+	init_options = { hostInfo = "neovim" },
+	single_file_support = true,
 }
