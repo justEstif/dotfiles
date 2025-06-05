@@ -4,6 +4,7 @@ deno = "latest"
 go = "1.24"
 node = "23.10.0"
 "npm:pnpm" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
 
 [hooks]
 enter = "mise install"
