@@ -29,5 +29,3 @@ if test "$os" = Darwin
     abbr -a pp pbpaste
     abbr -a git-pb 'git branch --show-current | pbcopy'
 end
-
-# c
