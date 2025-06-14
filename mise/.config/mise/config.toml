@@ -5,6 +5,7 @@ go = "1.24"
 node = "23.10.0"
 "npm:pnpm" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
+python = "3.12.9"
 
 [hooks]
 enter = "mise install"

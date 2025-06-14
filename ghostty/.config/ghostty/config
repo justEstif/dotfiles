@@ -25,3 +25,4 @@ font-family = "Aporetic Sans Mono"
 shell-integration = fish
 
 config-file = ?font-size.conf
+keybind = shift+enter=text:\n
