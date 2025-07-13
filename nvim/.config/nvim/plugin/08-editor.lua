@@ -75,7 +75,10 @@ later(function()
 end)
 
 later(function()
-	require("mini.snippets").setup()
+	local snippets = require("mini.snippets")
+	snippets.setup()
+	-- Start LSP server for snippet integration
+	snippets.start_lsp_server()
 end)
 
 later(function()
