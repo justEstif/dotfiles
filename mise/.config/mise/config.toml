@@ -6,6 +6,7 @@ python = "latest"
 node = "23.10.0"
 "npm:pnpm" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
+"npm:@google/gemini-cli" = "latest"
 
 [hooks]
 enter = "mise install"
