@@ -7,6 +7,9 @@ node = "23.10.0"
 "npm:pnpm" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:@google/gemini-cli" = "latest"
+"npm:@openai/codex" = "latest"
+"npm:opencode-ai" = "latest"
+
 
 [hooks]
 enter = "mise install"
