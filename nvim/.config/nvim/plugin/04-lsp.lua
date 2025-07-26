@@ -17,7 +17,7 @@ later(function()
 
 	require("mason").setup()
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "ts_ls", "cssls", "gopls" },
+		ensure_installed = { "lua_ls", "ts_ls", "cssls", "gopls", "tailwindcss" },
 	})
 end)
 
@@ -30,6 +30,7 @@ later(function()
 			fish = { "fish_indent" },
 			html = { "prettier" },
 			javascript = { "prettier" },
+			javascriptreact = { "prettier" },
 			json = { "prettier" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
@@ -45,7 +46,9 @@ later(function()
 	local lint = require("lint")
 	lint.linters_by_ft = {
 		css = { "eslint" },
+		html = { "eslint" },
 		javascript = { "eslint" },
+		javascriptreact = { "eslint" },
 		json = { "eslint" },
 		typescript = { "eslint" },
 		typescriptreact = { "eslint" },

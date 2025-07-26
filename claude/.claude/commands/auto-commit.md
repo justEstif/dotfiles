@@ -28,4 +28,4 @@ Based on the above changes and commit history context, perform the following ste
    - Deleted files and reasons for removal
    - Type of changes (features, fixes, docs, etc.)
 
-3. **Generate Conventional Commit Messages**: For each logical group of changes, create commit messages following this format:
+3. **Generate Conventional Commit Messages**: For each logical group of changes, create commit messages following this format
