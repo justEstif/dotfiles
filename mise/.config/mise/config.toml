@@ -7,8 +7,10 @@ node = "23.10.0"
 "npm:pnpm" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:@google/gemini-cli" = "latest"
-"npm:@openai/codex" = "latest"
 "npm:opencode-ai" = "latest"
+"go:github.com/jesseduffield/lazygit" = "latest"
+"go:github.com/jesseduffield/lazydocker" = "latest"
+"go:github.com/charmbracelet/glow" = "latest"
 
 [hooks]
 enter = "mise install"
