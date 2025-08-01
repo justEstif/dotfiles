@@ -1,3 +1,4 @@
 {
-  "includeCoAuthoredBy": false
+  "includeCoAuthoredBy": false,
+  "model": "claude-sonnet-4",
 }
