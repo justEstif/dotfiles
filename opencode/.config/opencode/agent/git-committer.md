@@ -1,6 +1,5 @@
 ---
 description: Analyze git changes and generate conventional commit messages based on recent commit history
-model: anthropic/claude-sonnet-4-20250514
 tools:
   bash: true
   read: false
