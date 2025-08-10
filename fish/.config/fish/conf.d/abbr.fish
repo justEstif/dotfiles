@@ -1,5 +1,6 @@
 abbr -a v nvim
 abbr -a lz lazygit
+abbr -a oc opencode
 abbr -a l ls -1hA # ls column view, hidden files
 abbr -a killnode "killall -9 node" # kill all node apps
 
