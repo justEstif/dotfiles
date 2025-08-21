@@ -3,6 +3,7 @@ bun = "latest"
 go = "1.24"
 deno = "latest"
 python = "latest"
+uv = 'latest'
 node = "23.10.0"
 "npm:pnpm" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
