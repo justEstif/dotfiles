@@ -1,5 +1,5 @@
 gui:
-  showCommandLog: false
+  sidePanelWidth: 0.2           # Starting/default width
 
 os:
   edit: 'nvim {{filename}}'
@@ -10,7 +10,7 @@ os:
 git:
   paging:
     colorArg: always
-    pager: diff-so-fancy
+    pager: delta --dark --paging=never --side-by-side
 
 keybinding:
   universal:
