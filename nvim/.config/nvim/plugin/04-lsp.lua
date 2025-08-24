@@ -38,6 +38,7 @@ later(function()
 			toml = { "taplo" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
+      svelte = { "prettier" },
 		},
 	})
 end)
@@ -53,5 +54,6 @@ later(function()
 		json = { "eslint" },
 		typescript = { "eslint" },
 		typescriptreact = { "eslint" },
+    svelte = { "eslint" },
 	}
 end)
