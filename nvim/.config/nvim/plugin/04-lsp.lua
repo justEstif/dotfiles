@@ -29,6 +29,7 @@ later(function()
 			css = { "prettier" },
 			fish = { "fish_indent" },
 			html = { "prettier" },
+			template = { "djlint" },
 			javascript = { "prettier" },
 			javascriptreact = { "prettier" },
 			json = { "prettier" },
