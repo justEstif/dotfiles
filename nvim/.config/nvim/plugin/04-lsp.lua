@@ -29,6 +29,7 @@ later(function()
 			css = { "prettier" },
 			fish = { "fish_indent" },
 			html = { "prettier" },
+			template = { "djlint" },
 			javascript = { "prettier" },
 			javascriptreact = { "prettier" },
 			json = { "prettier" },
@@ -37,6 +38,7 @@ later(function()
 			toml = { "taplo" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
+      svelte = { "prettier" },
 		},
 	})
 end)
@@ -52,5 +54,6 @@ later(function()
 		json = { "eslint" },
 		typescript = { "eslint" },
 		typescriptreact = { "eslint" },
+    svelte = { "eslint" },
 	}
 end)
