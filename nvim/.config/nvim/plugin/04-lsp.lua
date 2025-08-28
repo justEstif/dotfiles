@@ -17,7 +17,7 @@ later(function()
 
 	require("mason").setup()
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "ts_ls", "cssls", "gopls", "tailwindcss" },
+		ensure_installed = { "lua_ls", "ts_ls", "cssls", "gopls" },
 	})
 end)
 
@@ -38,7 +38,7 @@ later(function()
 			toml = { "taplo" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
-      svelte = { "prettier" },
+			svelte = { "prettier" },
 		},
 	})
 end)
@@ -54,6 +54,6 @@ later(function()
 		json = { "eslint" },
 		typescript = { "eslint" },
 		typescriptreact = { "eslint" },
-    svelte = { "eslint" },
+		svelte = { "eslint" },
 	}
 end)
