@@ -1,6 +1,6 @@
 [tools]
 bun = "latest"
-go = "1.24"
+go = "latest"
 deno = "latest"
 python = "latest"
 uv = 'latest'
