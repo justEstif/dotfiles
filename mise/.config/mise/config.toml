@@ -1,17 +1,17 @@
 [tools]
 bun = "latest"
-go = "1.24"
+go = "latest"
 deno = "latest"
 python = "latest"
 uv = 'latest'
 node = "lts"
-"npm:pnpm" = "latest"
-"npm:@anthropic-ai/claude-code" = "latest"
-"npm:@google/gemini-cli" = "latest"
-"npm:opencode-ai" = "latest"
-"go:github.com/jesseduffield/lazygit" = "latest"
-"go:github.com/jesseduffield/lazydocker" = "latest"
-"go:github.com/charmbracelet/glow" = "latest"
+opencode = "latest"
+lazygit = "latest"
+lazydocker = "latest"
+glow = "latest"
+pnpm = "latest"
+"claude-code" = "latest"
+"gemini-cli" = "latest"
 usage = "latest"
 
 [hooks]
