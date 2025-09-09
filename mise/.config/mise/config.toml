@@ -1,17 +1,14 @@
 [tools]
-bun = "latest"
-go = "latest"
-deno = "latest"
-python = "latest"
-uv = 'latest'
 node = "lts"
-opencode = "latest"
+pnpm = "latest"
+go = "latest"
 lazygit = "latest"
 lazydocker = "latest"
 glow = "latest"
-pnpm = "latest"
+python = "latest"
+uv = 'latest'
+opencode = "latest"
 "claude-code" = "latest"
-"gemini-cli" = "latest"
 usage = "latest"
 
 [hooks]
