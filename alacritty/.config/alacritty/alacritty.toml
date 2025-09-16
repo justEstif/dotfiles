@@ -3,8 +3,8 @@ EDITOR = "nvim"
 
 [general]
 import = [
-  "~/.config/alacritty/themes/tokyo-night.toml",
-  "~/.config/alacritty/themes/tokyo-night-day.toml",
+  # "~/.config/alacritty/themes/tokyonight_day.toml",
+  "~/.config/alacritty/themes/tokyonight_night.toml",
 ]
 
 [font]
