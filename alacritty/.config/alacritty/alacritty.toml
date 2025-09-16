@@ -1,0 +1,23 @@
+[env]
+EDITOR = "nvim"
+
+[general]
+import = [
+  "~/.config/alacritty/themes/tokyo-night.toml",
+  "~/.config/alacritty/themes/tokyo-night-day.toml",
+]
+
+[font]
+normal = { family = "AporeticSansMono Nerd Font", style = "Regular" }
+size = 12
+
+[window]
+decorations = "None"
+option_as_alt = "Both"
+
+[terminal]
+shell = "fish"
+
+# two problems
+# 1. the theme does switch between dark/light automatically
+# 2. the nerd font issue
