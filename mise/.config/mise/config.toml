@@ -7,7 +7,7 @@ lazydocker = "latest"
 glow = "latest"
 python = "latest"
 uv = 'latest'
-opencode = "latest"
+"npm:opencode-ai" = "latest" # updates faster than mise registry
 "claude-code" = "latest"
 usage = "latest"
 
