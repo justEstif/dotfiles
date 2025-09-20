@@ -25,7 +25,7 @@ end)
 
 now(function()
   add("folke/tokyonight.nvim")
-  vim.cmd([[colorscheme tokyonight]])
+  vim.cmd([[colorscheme tokyonight-night]])
   vim.o.background = _G.Config.is_dark_mode() and "dark" or "light"
 end)
 
