@@ -17,7 +17,14 @@ later(function()
 
 	require("mason").setup()
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "ts_ls", "cssls", "gopls" },
+		ensure_installed = {
+			"lua_ls",
+			"ts_ls",
+			"cssls",
+			"gopls",
+			"stylua",
+			"eslint",
+		},
 	})
 end)
 
