@@ -1,13 +1,13 @@
 [tools]
 node = "lts"
-pnpm = "latest"
+# pnpm = "latest"
 go = "latest"
 lazygit = "latest"
-lazydocker = "latest"
 glow = "latest"
-python = "latest"
-uv = 'latest'
-"npm:opencode-ai" = "latest" # updates faster than mise registry
+# python = "latest"
+# uv = 'latest'
+# lazydocker = "latest"
+# "npm:opencode-ai" = "latest" # updates faster than mise registry
 "claude-code" = "latest"
 bun = "latest"
 
