@@ -1,15 +1,15 @@
 [tools]
 node = "lts"
-# pnpm = "latest"
-go = "latest"
+bun = "latest"
+"claude-code" = "latest"
 lazygit = "latest"
 glow = "latest"
+# pnpm = "latest"
+# go = "latest"
 # python = "latest"
 # uv = 'latest'
 # lazydocker = "latest"
 # "npm:opencode-ai" = "latest" # updates faster than mise registry
-"claude-code" = "latest"
-bun = "latest"
 
 [hooks]
 enter = "mise install"
