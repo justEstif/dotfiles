@@ -41,3 +41,40 @@ now(function()
 		},
 	})
 end)
+
+later(function()
+	local completion = require("mini.completion")
+	completion.setup({
+		lsp_completion = {
+			source_func = "omnifunc",
+			auto_setup = false,
+		},
+	})
+	-- Set up LSP part of completion
+	local on_attach = function(args)
+		vim.bo[args.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
+	end
+	vim.api.nvim_create_autocmd("LspAttach", { callback = on_attach })
+	if vim.fn.has("nvim-0.11") == 1 then
+		vim.lsp.config("*", { capabilities = MiniCompletion.get_lsp_capabilities() })
+	end
+end)
+
+later(function()
+	local snippets = require("mini.snippets")
+	snippets.setup()
+	-- Start LSP server for snippet integration
+	snippets.start_lsp_server()
+end)
+
+later(function()
+	local map_multistep = require("mini.keymap").map_multistep
+	map_multistep("i", "<Tab>", { "pmenu_next" })
+	map_multistep("i", "<S-Tab>", { "pmenu_prev" })
+	map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
+	map_multistep("i", "<BS>", { "minipairs_bs" })
+end)
+
+later(function()
+	require("mini.extra").setup()
+end)
