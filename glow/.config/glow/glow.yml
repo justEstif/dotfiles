@@ -1,0 +1,3 @@
+all: false
+pager: false
+style: auto
