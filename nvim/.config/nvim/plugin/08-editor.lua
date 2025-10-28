@@ -11,17 +11,15 @@ later(function()
 end)
 
 -- mini git and diff
--- later(function()
--- 	require("mini.git").setup()
--- end)
---
--- later(function()
--- 	require("mini.diff").setup()
--- end)
+later(function()
+	require("mini.git").setup()
+	require("mini.diff").setup()
+end)
 
 later(function()
 	require("mini.splitjoin").setup()
 end)
+
 later(function()
 	require("mini.bracketed").setup({
 		diagnostic = {
