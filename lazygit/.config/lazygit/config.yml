@@ -1,17 +1,14 @@
 gui:
-  sidePanelWidth: 0.2           # Starting/default width
-
+  sidePanelWidth: 0.2 # Starting/default width
 os:
   edit: 'nvim {{filename}}'
   editAtLine: 'nvim +{{line}} {{filename}}'
   editAtLineAndWait: 'nvim --remote-wait +{{line}} {{filename}}'
   editInTerminal: true
-
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never --side-by-side
-
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --side-by-side
 keybinding:
   universal:
     quit: "<c-q>"
