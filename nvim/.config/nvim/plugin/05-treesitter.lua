@@ -19,8 +19,6 @@ local ensure_installed = {
 	"svelte",
 	"tsx",
 	"typescript",
-	"ruby",
-	"go",
 }
 
 local ts_spec = {

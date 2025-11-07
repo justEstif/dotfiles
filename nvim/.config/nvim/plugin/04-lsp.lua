@@ -21,7 +21,6 @@ later(function()
 			"lua_ls",
 			"ts_ls",
 			"cssls",
-			"gopls",
 			"stylua",
 			"eslint",
 		},
