@@ -11,6 +11,7 @@ pnpm = "latest"
 # python = "latest"
 # uv = 'latest'
 # lazydocker = "latest"
+"npm:nb.sh" = "latest"
 
 [hooks]
 enter = "mise install"
