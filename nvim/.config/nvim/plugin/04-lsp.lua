@@ -39,7 +39,7 @@ later(function()
 			javascriptreact = { "prettier" },
 			json = { "prettier" },
 			lua = { "stylua" },
-			markdown = { "prettier" },
+			markdown = { "mdformat" },
 			toml = { "taplo" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
