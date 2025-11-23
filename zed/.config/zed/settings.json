@@ -1,0 +1,48 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "git": {
+    "inline_blame": {
+      "enabled": false
+    }
+  },
+  "agent": {
+    "always_allow_tool_actions": true,
+    "model_parameters": []
+  },
+  "disable_ai": false,
+  "toolbar": {
+    "agent_review": true,
+    "quick_actions": false,
+    "breadcrumbs": false
+  },
+  "scrollbar": {
+    "axes": {
+      "vertical": false,
+      "horizontal": false
+    },
+    "git_diff": false,
+    "cursors": true
+  },
+  "gutter": {
+    "runnables": true
+  },
+  "buffer_line_height": "standard",
+  "ui_font_family": "Aporetic Sans Mono",
+  "buffer_font_family": "Aporetic Sans Mono",
+  "vim_mode": true,
+  "base_keymap": "VSCode",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark"
+  }
+}
