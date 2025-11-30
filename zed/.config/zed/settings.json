@@ -7,12 +7,39 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "prettier": {
+    "allowed": true
+  },
+  "languages": {
+    "Markdown": {
+      "show_edit_predictions": false
+    }
+  },
+  "indent_guides": {
+    "enabled": true
+  },
+  "minimap": {
+    "thumb": "hover"
+  },
+  "show_whitespaces": "none",
+  "tab_size": 2,
+  "git_panel": {
+    "sort_by_path": false
+  },
   "git": {
     "inline_blame": {
       "enabled": false
     }
   },
   "agent": {
+    "inline_assistant_model": {
+      "provider": "google",
+      "model": "gemini-2.5-flash"
+    },
+    "default_model": {
+      "provider": "ollama",
+      "model": "deepseek-r1:1.5b"
+    },
     "always_allow_tool_actions": true,
     "model_parameters": []
   },
