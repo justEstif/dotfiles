@@ -26,6 +26,8 @@ if test "$os" = Linux
 end
 
 if test "$os" = Darwin
+    abbr -a apt-up "brew update && brew upgrade"
+
     # macOS clipboard commands
     abbr -a pc pbcopy
     abbr -a pp pbpaste
