@@ -7,8 +7,14 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "cursor_blink": false,
   "prettier": {
     "allowed": true
+  },
+  "code_actions_on_format": {
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true,
+    "source.removeUnusedImports": true
   },
   "languages": {
     "Markdown": {
