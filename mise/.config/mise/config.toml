@@ -1,17 +1,10 @@
 [tools]
 node = "lts"
-bun = "latest"
-"claude-code" = "latest"
-gemini = "latest"
-lazygit = "latest"
-glow = "latest"
-usage = "latest"
-pnpm = "latest"
-# go = "latest"
-# python = "latest"
-# uv = 'latest'
-# lazydocker = "latest"
-"npm:nb.sh" = "latest"
+bun = "latest" # package manager
+"claude-code" = "latest" # agent cli
+lazygit = "latest" # git tui
+"npm:nb.sh" = "latest" # notebook
+glow = "latest" # markdown preview - used by nb
 
 [hooks]
 enter = "mise install"
