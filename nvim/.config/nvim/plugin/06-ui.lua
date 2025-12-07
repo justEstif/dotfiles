@@ -51,6 +51,7 @@ end)
 later(function()
 	require("mini.animate").setup()
 	require("mini.cursorword").setup()
+	require("mini.cmdline").setup()
 end)
 
 later(function()
