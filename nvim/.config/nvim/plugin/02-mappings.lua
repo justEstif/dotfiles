@@ -14,7 +14,6 @@ vim.keymap.set("n", "'", '<Cmd>lua MiniExtra.pickers.marks({ scope = "global" })
 -- Leader mappings ============================================================
 _G.Config.leader_group_clues = {
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
-	{ mode = "n", keys = "<Leader>g", desc = "+Git" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
 }
 
@@ -37,26 +36,13 @@ nmap_leader("fh", "<Cmd>Pick help<CR>", "Help")
 nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
 xmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
 
--- git is for 'git'
-nmap_leader("go", "<Cmd>lua MiniDiff.toggle_overlay()<CR>", "Toggle overlay")
-nmap_leader("ga", "<Cmd>Git add %<CR>", "Add")
-nmap_leader("gb", "<Cmd>:vert Git blame -- %<CR>", "Blame")
-nmap_leader("gl", "<Cmd>:horizontal Git log --oneline<CR>", "Log")
-nmap_leader("gc", "<Cmd>silent horizontal Git commit<CR>", "Commit")
-nmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
-xmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at cursor")
-nmap_leader("gd", "<Cmd>Git diff<CR>", "Diff")
-nmap_leader("gD", "<Cmd>Git diff -- %<CR>", "Diff buffer")
---
 -- l is for 'LSP' (Language Server Protocol)
 nmap_leader("la", "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Actions")
 nmap_leader("lD", '<Cmd>Pick diagnostic scope="all"<CR>', "Diagnostic workspace")
 nmap_leader("lr", "<Cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 nmap_leader("lR", "<Cmd>lua MiniExtra.pickers.lsp({ scope = 'references' })<CR>", "References")
 nmap_leader("ls", "<Cmd>lua MiniExtra.pickers.lsp({ scope = 'definition' })<CR>", "Source Definition")
+nmap_leader("lf", '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR><Cmd>w<CR>', "Format")
+xmap_leader("lf", '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR><Cmd>w<CR>', "Format selection")
 
 vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover" })
-
-local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR><Cmd>w<CR>'
-nmap_leader("lf", formatting_cmd, "Format")
-xmap_leader("lf", formatting_cmd, "Format selection")

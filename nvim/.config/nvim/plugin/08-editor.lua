@@ -1,4 +1,4 @@
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local later = MiniDeps.later
 
 -- jump
 later(function()
@@ -10,16 +10,6 @@ later(function()
 	})
 end)
 
--- mini git and diff
-later(function()
-	require("mini.git").setup()
-	require("mini.diff").setup()
-end)
-
-later(function()
-	require("mini.splitjoin").setup()
-end)
-
 later(function()
 	require("mini.bracketed").setup({
 		diagnostic = {
@@ -29,15 +19,16 @@ later(function()
 		},
 	})
 end)
+
 later(function()
 	require("mini.move").setup()
-end)
-later(function()
 	require("mini.operators").setup()
-end)
-later(function()
 	require("mini.align").setup()
+	require("mini.splitjoin").setup()
+	require("mini.git").setup()
+	require("mini.diff").setup()
 end)
+
 later(function()
 	local surround = require("mini.surround")
 	surround.setup({

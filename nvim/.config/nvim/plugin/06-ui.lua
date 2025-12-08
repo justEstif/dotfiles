@@ -54,15 +54,9 @@ later(function()
 	require("mini.cmdline").setup()
 end)
 
-later(function()
-	add("MeanderingProgrammer/render-markdown.nvim")
-	require("render-markdown").setup({
-		completions = { lsp = { enabled = true } },
-	})
-end)
-
 now(function()
 	require("mini.tabline").setup()
+	require("mini.statusline").setup()
 end)
 
 local filterout_lua_diagnosing = function(notif_arr)
@@ -77,21 +71,11 @@ now(function()
 	local notify = require("mini.notify")
 
 	notify.setup({
-		content = {
-			sort = filterout_lua_diagnosing,
-		},
-		window = {
-			config = {
-				border = "rounded",
-			},
-		},
+		content = { sort = filterout_lua_diagnosing },
+		window = { config = { border = "rounded" } },
 	})
 
 	vim.notify = notify.make_notify()
-end)
-
-now(function()
-	require("mini.statusline").setup()
 end)
 
 later(function()

@@ -5,7 +5,16 @@ return {
 	settings = {
 		Lua = {
 			diagnostics = {
-				globals = { "vim", "MiniDeps", "MiniExtra", "MiniIcons", "MiniNotify" },
+				globals = {
+					"vim",
+					"MiniDeps",
+					"MiniExtra",
+					"MiniIcons",
+					"MiniNotify",
+					"MiniCompletion",
+					"MiniFiles",
+					"MiniPick",
+				},
 				disable = { "need-check-nil" },
 				workspaceDelay = -1,
 			},
