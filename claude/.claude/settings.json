@@ -1,4 +1,7 @@
 {
   "includeCoAuthoredBy": false,
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "frontend-design@claude-code-plugins": true
+  }
 }
