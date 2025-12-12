@@ -19,6 +19,10 @@
   "languages": {
     "Markdown": {
       "show_edit_predictions": false
+    },
+    "TypeScript": {
+      // tsgo for features it supports and fallback
+      "language_servers": ["tsgo", "vtsls"]
     }
   },
   "indent_guides": {
