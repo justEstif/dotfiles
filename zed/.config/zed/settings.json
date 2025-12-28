@@ -53,7 +53,7 @@
     "always_allow_tool_actions": true,
     "model_parameters": []
   },
-  "disable_ai": true,
+  "disable_ai": false,
   "toolbar": {
     "agent_review": true,
     "quick_actions": false,
