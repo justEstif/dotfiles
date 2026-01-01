@@ -1,12 +1,15 @@
 [tools]
 node = "lts"
 bun = "latest" # package manager
+go = "latest"
 "claude-code" = "latest" # agent cli
 "npm:opencode-ai" = "latest"
 "npm:@beads/bd" = "latest"
 lazygit = "latest" # git tui
 "npm:nb.sh" = "latest" # notebook
 glow = "latest" # markdown preview - used by nb
+"go:golang.org/x/tools/gopls" = "latest"
+
 
 [hooks]
 enter = "mise install"

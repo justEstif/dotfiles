@@ -23,6 +23,7 @@ later(function()
 			"cssls",
 			"stylua",
 			"eslint",
+			"gopls",
 		},
 	})
 end)
@@ -34,6 +35,7 @@ later(function()
 		formatters_by_ft = {
 			css = { "prettier" },
 			fish = { "fish_indent" },
+			go = { "gofmt" },
 			html = { "prettier" },
 			javascript = { "prettier" },
 			javascriptreact = { "prettier" },
