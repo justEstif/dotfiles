@@ -1,2 +1,3 @@
 - IMPORTANT: Use `bd` for task tracking
     - if `bd` isn't available: report back
+    - after the issue is complete - make sure to commit the change using the git convertional style

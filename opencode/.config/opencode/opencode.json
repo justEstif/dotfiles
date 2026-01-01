@@ -4,5 +4,6 @@
   "mcp": {},
   "tools": {
     "lsp": true
-  }
+  },
+  "plugin": ["opencode-beads"]
 }

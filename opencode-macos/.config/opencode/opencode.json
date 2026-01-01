@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-openai-codex-auth@4.2.0"],
+  "plugin": ["opencode-openai-codex-auth@4.2.0", "opencode-beads"],
   "tools": {
     "lsp": true
   },
