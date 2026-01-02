@@ -4,6 +4,11 @@
   "tools": {
     "lsp": true
   },
+  "permission": {
+    "bash": {
+      "bd": "allow"
+    }
+  },
   "provider": {
     "openai": {
       "options": {

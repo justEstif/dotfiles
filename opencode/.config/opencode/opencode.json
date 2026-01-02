@@ -5,5 +5,10 @@
   "tools": {
     "lsp": true
   },
-  "plugin": ["opencode-beads"]
+  "plugin": ["opencode-beads"],
+  "permission": {
+    "bash": {
+      "bd": "allow"
+    }
+  }
 }
