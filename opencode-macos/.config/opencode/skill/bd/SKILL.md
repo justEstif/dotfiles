@@ -1,6 +1,6 @@
 ---
 name: bd
-description: Track issues and dependencies with beads (bd). Use when work spans multiple sessions, has blockers/dependencies, or needs to survive conversation compaction. Triggers: "create task", "what's ready", "show task", "track this", "what's blocking", "update status".
+description: Track issues and dependencies with beads (bd). Use when work spans multiple sessions, has blockers/dependencies, or needs to survive conversation compaction. Triggers - "create task", "what's ready", "show task", "track this", "what's blocking", "update status".
 ---
 
 # Beads (bd) - Persistent Task Memory
