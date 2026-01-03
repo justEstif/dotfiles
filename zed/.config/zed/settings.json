@@ -8,67 +8,64 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "cursor_blink": false,
-  "prettier": {
-    "allowed": true
-  },
   "code_actions_on_format": {
     "source.organizeImports": true,
     "source.fixAll.eslint": true,
-    "source.removeUnusedImports": true
+    "source.removeUnusedImports": true,
   },
   "languages": {
     "Markdown": {
-      "show_edit_predictions": false
+      "show_edit_predictions": false,
     },
     "TypeScript": {
       // tsgo for features it supports and fallback
-      "language_servers": ["tsgo", "vtsls"]
-    }
+      "language_servers": ["tsgo", "vtsls"],
+    },
   },
   "indent_guides": {
-    "enabled": true
+    "enabled": true,
   },
   "minimap": {
-    "thumb": "hover"
+    "thumb": "hover",
   },
   "show_whitespaces": "none",
   "tab_size": 2,
   "git_panel": {
-    "sort_by_path": false
+    "sort_by_path": false,
   },
   "git": {
     "inline_blame": {
-      "enabled": false
-    }
+      "enabled": false,
+    },
   },
   "agent": {
     "inline_assistant_model": {
       "provider": "google",
-      "model": "gemini-2.5-flash"
+      "model": "gemini-2.5-flash",
     },
     "default_model": {
       "provider": "ollama",
-      "model": "deepseek-r1:1.5b"
+      "model": "deepseek-r1:1.5b",
     },
     "always_allow_tool_actions": true,
-    "model_parameters": []
+    "model_parameters": [],
   },
-  "disable_ai": false,
+  "disable_ai": true,
   "toolbar": {
     "agent_review": true,
     "quick_actions": false,
-    "breadcrumbs": false
+    "breadcrumbs": false,
   },
   "scrollbar": {
     "axes": {
       "vertical": false,
-      "horizontal": false
+      "horizontal": false,
     },
     "git_diff": false,
-    "cursors": true
+    "cursors": true,
   },
   "gutter": {
-    "runnables": true
+    "runnables": true,
   },
   "buffer_line_height": "standard",
   "ui_font_family": "Aporetic Sans Mono",
@@ -80,6 +77,6 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "One Dark"
-  }
+    "dark": "One Dark",
+  },
 }
