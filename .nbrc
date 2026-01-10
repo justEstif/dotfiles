@@ -1,4 +1,4 @@
 NB_DIR="$HOME/Documents/notes"
 NB_MARKDOWN_TOOL="glow"
 
-export EDITOR="zed" # Set by `nb` • Fri Dec  5 10:14:26 EST 2025
+export EDITOR="nvim" # Set by `nb` • Thu Jan  8 09:42:23 EST 2026
