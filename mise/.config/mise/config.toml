@@ -2,6 +2,7 @@
 node = "lts"
 bun = "latest" # package manager
 go = "latest"
+usage = "latest"
 # "claude-code" = "latest" # agent cli
 "npm:opencode-ai" = "latest" # ai coding agent
 "npm:@beads/bd" = "latest" # ai task manager
@@ -10,6 +11,7 @@ lazygit = "latest" # git tui
 "npm:nb.sh" = "latest" # notebook
 glow = "latest" # markdown preview - used by nb
 "go:golang.org/x/tools/gopls" = "latest"
+"go:golang.org/x/tools/cmd/gonew" = "latest"
 
 
 [hooks]
