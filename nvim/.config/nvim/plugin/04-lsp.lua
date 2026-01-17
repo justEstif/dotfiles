@@ -24,6 +24,7 @@ later(function()
 			"stylua",
 			"eslint",
 			"gopls",
+			"templ",
 		},
 	})
 end)
@@ -42,6 +43,7 @@ later(function()
 			json = { "prettier" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
+			templ = { "templ" },
 			toml = { "taplo" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
