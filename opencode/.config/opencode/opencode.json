@@ -6,7 +6,6 @@
     "lsp": true
   },
   "plugin": ["@franlol/opencode-md-table-formatter@0.0.3"],
-  "disabled_providers": ["opencode"],
   "permission": {
     "bash": {
       "bd": "allow"
