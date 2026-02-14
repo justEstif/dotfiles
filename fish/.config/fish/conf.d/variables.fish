@@ -5,6 +5,7 @@ set -x RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/ripgreprc
 set -x FZF_DEFAULT_OPTS "--preview 'cat {}'"
 set -x OPENCODE_EXPERIMENTAL_LSP_TOOL true
 set -x OPENCODE_EXPERIMENTAL_PLAN_MODE true
+set -x OPENCODE_EXPERIMENTAL_MARKDOWN true
 
 set -l os (uname)
 
