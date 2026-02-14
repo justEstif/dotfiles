@@ -9,6 +9,7 @@
   "permission": {
     "bash": {
       "bd": "allow"
-    }
+    },
+    "question": "allow"
   }
 }
