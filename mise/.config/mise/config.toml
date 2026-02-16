@@ -1,17 +1,14 @@
 [tools]
 node = "lts"
-bun = "latest" # package manager
+bun = "latest"                 # package manager
 go = "latest"
 usage = "latest"
-"npm:opencode-ai" = "latest" # ai coding agent
-"npm:@beads/bd" = "latest"
-"npm:beads-ui" = "latest"
-lazygit = "latest" # git tui
-"npm:nb.sh" = "latest" # notebook
-glow = "latest" # markdown preview - used by nb
+"npm:opencode-ai" = "latest"   # ai coding agent
+"npm:agent-browser" = "latest" # browser automation cli
+lazygit = "latest"                       # git tui
+glow = "latest"                          # markdown preview - used by nb
 "go:golang.org/x/tools/gopls" = "latest"
-"go:golang.org/x/tools/cmd/gonew" = "latest"
-
+"go:github.com/hmans/beans" = "latest"
 
 [hooks]
 enter = "mise install"
