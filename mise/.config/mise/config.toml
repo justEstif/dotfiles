@@ -4,11 +4,13 @@ bun = "latest"                 # package manager
 go = "latest"
 usage = "latest"
 "npm:opencode-ai" = "latest"   # ai coding agent
-"npm:agent-browser" = "latest" # browser automation cli
+# "npm:@anthropic-ai/claude-code" = "latest"
+# "npm:agent-browser" = "latest" # browser automation cli
 lazygit = "latest"                       # git tui
 glow = "latest"                          # markdown preview - used by nb
 "go:golang.org/x/tools/gopls" = "latest"
 "go:github.com/hmans/beans" = "latest"
+"npm:@mariozechner/pi-coding-agent" = "latest"
 
 [hooks]
 enter = "mise install"
