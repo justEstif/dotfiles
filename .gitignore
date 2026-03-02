@@ -1,2 +1,4 @@
 zed/.config/zed/prompts/prompts-library-db.0.mdb
 /pi/.pi/agent/auth.json
+/pi/.pi/agent/sessions/--home-estifanos-dotfiles--
+/pi/.pi/agent/settings.json
