@@ -52,6 +52,7 @@ curl -s "https://example.com/docs" | cat
 - **Error messages**: Wrap in quotes: `ddgr --json '"ModuleNotFoundError: No module named X"'`
 - **Docs**: `"site:docs.X.com topic"` often gives cleaner results than open search.
 - **Combine with curl/wget**: ddgr finds the URL, then fetch the page for full content.
+- **HTTP Error 202**: Use `--noua` as a workaround. It works as a solution sometimes.
 
 ## Output Structure (JSON)
 
