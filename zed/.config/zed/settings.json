@@ -7,6 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "extend_comment_on_newline": false,
+  "always_treat_brackets_as_autoclosed": true,
   "cursor_blink": false,
   "code_actions_on_format": {
     "source.organizeImports": true,
@@ -39,6 +41,9 @@
     },
   },
   "agent": {
+    "tool_permissions": {
+      "default": "allow"
+    },
     "inline_assistant_model": {
       "provider": "google",
       "model": "gemini-2.5-flash",
@@ -47,7 +52,6 @@
       "provider": "ollama",
       "model": "deepseek-r1:1.5b",
     },
-    "always_allow_tool_actions": true,
     "model_parameters": [],
   },
   "disable_ai": true,
