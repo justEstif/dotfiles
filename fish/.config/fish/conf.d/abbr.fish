@@ -7,7 +7,7 @@ abbr -a killnode "killall -9 node" # kill all node apps
 set -l os (uname)
 
 if test "$os" = Linux
-    abbr -a apt-up "sudo apt update && sudo apt upgrade && sudo apt autoremove && mise up"
+    abbr -a apt-up "sudo apt update && sudo apt upgrade && sudo apt autoremove && mise cache clear && mise up"
 
     # Linux clipboard commands - check available tools
     if type -q wl-copy
@@ -25,7 +25,7 @@ if test "$os" = Linux
 end
 
 if test "$os" = Darwin
-    abbr -a apt-up "brew update && brew upgrade && mise up"
+    abbr -a apt-up "brew update && brew upgrade && mise cache clear && mise up"
 
     # macOS clipboard commands
     abbr -a pc pbcopy
