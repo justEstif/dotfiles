@@ -1,0 +1,9 @@
+[
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "ctrl-f": "buffer_search::Deploy"
+    }
+  }
+]

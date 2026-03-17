@@ -7,6 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "disable_ai": true,
+  "show_edit_predictions": false,
   "extend_comment_on_newline": false,
   "always_treat_brackets_as_autoclosed": true,
   "cursor_blink": false,
@@ -42,7 +44,7 @@
   },
   "agent": {
     "tool_permissions": {
-      "default": "allow"
+      "default": "allow",
     },
     "inline_assistant_model": {
       "provider": "google",
@@ -54,7 +56,6 @@
     },
     "model_parameters": [],
   },
-  "disable_ai": true,
   "toolbar": {
     "agent_review": true,
     "quick_actions": false,
