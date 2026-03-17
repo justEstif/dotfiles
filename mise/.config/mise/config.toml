@@ -21,3 +21,4 @@ enter = "mise install"
 experimental = true
 idiomatic_version_file_enable_tools = ["node"]
 locked = false
+env_shell_expand = true
