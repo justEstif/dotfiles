@@ -11,8 +11,14 @@ glow = "latest"                                # markdown preview - used by nb
 "go:golang.org/x/tools/gopls" = "latest"
 "go:github.com/hmans/beans" = "latest"
 "npm:@mariozechner/pi-coding-agent" = "latest"
-"go:github.com/justestif/qry" = "latest"
+"go:github.com/maaslalani/slides" = "latest"
 "npm:defuddle" = "latest"
+rust = "latest"
+# qry
+"go:github.com/justestif/qry" = "latest"
+"go:github.com/justestif/qry/adapters/qry-adapter-ddg-scrape" = "latest"
+"go:github.com/justestif/qry/adapters/qry-adapter-exa" = "latest"
+"go:github.com/justestif/qry/adapters/qry-adapter-brave-scrape" = "latest"
 
 [hooks]
 enter = "mise install"

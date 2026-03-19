@@ -1,0 +1,17 @@
+[defaults]
+  num     = 5
+  timeout = "10s"
+
+[routing]
+  mode     = "first"
+  pool     = ["ddg-scrape", "brave-scrape", "exa"]
+  fallback = []
+
+[adapters.ddg-scrape]
+  bin = "/home/estifanos/.local/share/mise/shims/qry-adapter-ddg-scrape"
+
+[adapters.brave-scrape]
+  bin = "/home/estifanos/.local/share/mise/shims/qry-adapter-brave-scrape"
+
+[adapters.exa]
+  bin = "/home/estifanos/.local/share/mise/shims/qry-adapter-exa"
