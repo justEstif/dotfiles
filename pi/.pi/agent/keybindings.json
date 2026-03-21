@@ -1,3 +1,6 @@
 {
-  "externalEditor": ["ctrl+g", "ctrl+shift+g"]
+  "app.editor.external": [
+    "ctrl+g",
+    "ctrl+shift+g"
+  ]
 }
