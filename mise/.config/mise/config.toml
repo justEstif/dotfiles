@@ -4,7 +4,6 @@ bun = "latest"               # package manager
 go = "latest"
 usage = "latest"
 "npm:opencode-ai" = "latest" # ai coding agent
-# "npm:@anthropic-ai/claude-code" = "latest"
 # "npm:agent-browser" = "latest" # browser automation cli
 lazygit = "latest"                             # git tui
 glow = "latest"                                # markdown preview - used by nb
@@ -19,6 +18,7 @@ rust = "latest"
 "go:github.com/justestif/qry/adapters/qry-adapter-ddg-scrape" = "latest"
 "go:github.com/justestif/qry/adapters/qry-adapter-exa" = "latest"
 "go:github.com/justestif/qry/adapters/qry-adapter-brave-scrape" = "latest"
+television = "latest"
 
 [hooks]
 enter = "mise install"
