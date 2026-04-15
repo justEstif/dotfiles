@@ -2,3 +2,5 @@ zed/.config/zed/prompts/prompts-library-db.0.mdb
 /pi/.pi/agent/auth.json
 /pi/.pi/agent/settings.json
 /pi/.pi/agent/sessions
+/opencode/.config/opencode/package-lock.json
+/agents-skills/.agents/.skill-lock.json
