@@ -38,7 +38,7 @@ vim.o.complete = ".,w,b,u,kspell" -- Use spell check and don't use tags for comp
 vim.o.foldmethod = "indent" -- Set 'indent' folding method
 vim.o.foldlevel = 99 -- Don't fold by default
 vim.o.foldnestmax = 10 -- Create folds only for some number of nested levels
-vim.g.markdown_folding = 1 -- Use folding by heading in markdown files
+vim.g.markdown_folding = 0 -- Disable built-in heading folds for markdown
 vim.o.foldtext = "" -- Use underlying text with its highlighting
 
 -- -- Custom autocommands ========================================================
@@ -73,7 +73,6 @@ local disabled_built_ins = {
 	"optwin",
 	"compiler",
 	"bugreport",
-	"ftplugin",
 }
 
 for _, plugin in pairs(disabled_built_ins) do

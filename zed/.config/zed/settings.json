@@ -21,6 +21,14 @@
     "Markdown": {
       "show_edit_predictions": false,
     },
+    "SQL": {
+      "formatter": {
+        "external": {
+          "command": "sql-formatter",
+          "arguments": ["--language", "spark"],
+        },
+      },
+    },
     "TypeScript": {
       // tsgo for features it supports and fallback
       "language_servers": ["tsgo", "vtsls"],
