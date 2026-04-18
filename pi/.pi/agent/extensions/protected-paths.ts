@@ -12,7 +12,7 @@ export default function (pi: ExtensionAPI) {
 
   pi.on("tool_call", async (event, ctx) => {
     if (event.toolName !== "write" && event.toolName !== "edit") {
-      return undefined;
+      return;
     }
 
     const path = event.input.path as string;
@@ -25,6 +25,6 @@ export default function (pi: ExtensionAPI) {
       return { block: true, reason: `Path "${path}" is protected` };
     }
 
-    return undefined;
+    return;
   });
 }

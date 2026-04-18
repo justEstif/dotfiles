@@ -5,7 +5,7 @@ status: completed
 type: task
 priority: normal
 created_at: 2026-04-18T01:56:02Z
-updated_at: 2026-04-18T02:01:36Z
+updated_at: 2026-04-18T02:25:45Z
 ---
 
 Implement the strict ESLint constraints and plugins recommended in 'Feedback Loop Is All You Need' to provide deterministic feedback to AI coding agents.
@@ -33,3 +33,5 @@ Key recommendations:
 The philosophy is: "CLAUDE.md explains the why... A lint rule makes sure it can't get it wrong. If you can only have one — take the linter."
 
 \n\nCreated an isolated NPM package `eslint-config-agent-strict` within `~/dotfiles` containing all the recommended rules and limits. This is ready to be published to the NPM registry to be used globally.
+
+Moved ESLint package to `~/Documents/projects/eslint-config-agent-strict` and set up GitHub repository at `justEstif/eslint-config-agent-strict` with OIDC NPM publishing workflow.

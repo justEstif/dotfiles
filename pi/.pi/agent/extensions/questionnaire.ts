@@ -6,81 +6,68 @@
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+
 import { Editor, type EditorTheme, Key, matchesKey, Text, truncateToWidth } from "@mariozechner/pi-tui";
 import { Type } from "@sinclair/typebox";
 
-// Types
-interface QuestionOption {
-	value: string;
+type Answer = {
+	id: string;
+	index?: number;
 	label: string;
+	value: string;
+	wasCustom: boolean;
+}
+
+type Question = {
+	allowOther: boolean;
+	id: string;
+	label: string;
+	options: QuestionOption[];
+	prompt: string;
+}
+
+type QuestionnaireResult = {
+	answers: Answer[];
+	cancelled: boolean;
+	questions: Question[];
+}
+
+// Types
+type QuestionOption = {
 	description?: string;
+	label: string;
+	value: string;
 }
 
 type RenderOption = QuestionOption & { isOther?: boolean };
 
-interface Question {
-	id: string;
-	label: string;
-	prompt: string;
-	options: QuestionOption[];
-	allowOther: boolean;
-}
-
-interface Answer {
-	id: string;
-	value: string;
-	label: string;
-	wasCustom: boolean;
-	index?: number;
-}
-
-interface QuestionnaireResult {
-	questions: Question[];
-	answers: Answer[];
-	cancelled: boolean;
-}
-
 // Schema
 const QuestionOptionSchema = Type.Object({
-	value: Type.String({ description: "The value returned when selected" }),
-	label: Type.String({ description: "Display label for the option" }),
 	description: Type.Optional(Type.String({ description: "Optional description shown below label" })),
+	label: Type.String({ description: "Display label for the option" }),
+	value: Type.String({ description: "The value returned when selected" }),
 });
 
 const QuestionSchema = Type.Object({
+	allowOther: Type.Optional(Type.Boolean({ description: "Allow 'Type something' option (default: true)" })),
 	id: Type.String({ description: "Unique identifier for this question" }),
 	label: Type.Optional(
 		Type.String({
 			description: "Short contextual label for tab bar, e.g. 'Scope', 'Priority' (defaults to Q1, Q2)",
 		}),
 	),
-	prompt: Type.String({ description: "The full question text to display" }),
 	options: Type.Array(QuestionOptionSchema, { description: "Available options to choose from" }),
-	allowOther: Type.Optional(Type.Boolean({ description: "Allow 'Type something' option (default: true)" })),
+	prompt: Type.String({ description: "The full question text to display" }),
 });
 
 const QuestionnaireParams = Type.Object({
 	questions: Type.Array(QuestionSchema, { description: "Questions to ask the user" }),
 });
 
-function errorResult(
-	message: string,
-	questions: Question[] = [],
-): { content: { type: "text"; text: string }[]; details: QuestionnaireResult } {
-	return {
-		content: [{ type: "text", text: message }],
-		details: { questions, answers: [], cancelled: true },
-	};
-}
-
 export default function questionnaire(pi: ExtensionAPI) {
 	pi.registerTool({
-		name: "questionnaire",
-		label: "Questionnaire",
 		description:
 			"Ask the user one or more questions. Use for clarifying requirements, getting preferences, or confirming decisions. For single questions, shows a simple option list. For multiple questions, shows a tab-based interface.",
-		parameters: QuestionnaireParams,
-
 		async execute(_toolCallId, params, _signal, _onUpdate, ctx) {
 			if (!ctx.hasUI) {
 				return errorResult("Error: UI not available (running in non-interactive mode)");
@@ -92,8 +79,8 @@ export default function questionnaire(pi: ExtensionAPI) {
 			// Normalize questions with defaults
 			const questions: Question[] = params.questions.map((q, i) => ({
 				...q,
-				label: q.label || `Q${i + 1}`,
 				allowOther: q.allowOther !== false,
+				label: q.label || `Q${i + 1}`,
 			}));
 
 			const isMulti = questions.length > 1;
@@ -104,7 +91,7 @@ export default function questionnaire(pi: ExtensionAPI) {
 				let currentTab = 0;
 				let optionIndex = 0;
 				let inputMode = false;
-				let inputQuestionId: string | null = null;
+				let inputQuestionId: null | string = null;
 				let cachedLines: string[] | undefined;
 				const answers = new Map<string, Answer>();
 
@@ -112,11 +99,11 @@ export default function questionnaire(pi: ExtensionAPI) {
 				const editorTheme: EditorTheme = {
 					borderColor: (s) => theme.fg("accent", s),
 					selectList: {
+						description: (t) => theme.fg("muted", t),
+						noMatch: (t) => theme.fg("warning", t),
+						scrollInfo: (t) => theme.fg("dim", t),
 						selectedPrefix: (t) => theme.fg("accent", t),
 						selectedText: (t) => theme.fg("accent", t),
-						description: (t) => theme.fg("muted", t),
-						scrollInfo: (t) => theme.fg("dim", t),
-						noMatch: (t) => theme.fg("warning", t),
 					},
 				};
 				const editor = new Editor(tui, editorTheme);
@@ -128,7 +115,7 @@ export default function questionnaire(pi: ExtensionAPI) {
 				}
 
 				function submit(cancelled: boolean) {
-					done({ questions, answers: Array.from(answers.values()), cancelled });
+					done({ answers: [...answers.values()], cancelled, questions });
 				}
 
 				function currentQuestion(): Question | undefined {
@@ -140,7 +127,7 @@ export default function questionnaire(pi: ExtensionAPI) {
 					if (!q) return [];
 					const opts: RenderOption[] = [...q.options];
 					if (q.allowOther) {
-						opts.push({ value: "__other__", label: "Type something.", isOther: true });
+						opts.push({ isOther: true, label: "Type something.", value: "__other__" });
 					}
 					return opts;
 				}
@@ -164,7 +151,7 @@ export default function questionnaire(pi: ExtensionAPI) {
 				}
 
 				function saveAnswer(questionId: string, value: string, label: string, wasCustom: boolean, index?: number) {
-					answers.set(questionId, { id: questionId, value, label, wasCustom, index });
+					answers.set(questionId, { id: questionId, index, label, value, wasCustom });
 				}
 
 				// Editor submit callback
@@ -270,10 +257,10 @@ export default function questionnaire(pi: ExtensionAPI) {
 					// Tab bar (multi-question only)
 					if (isMulti) {
 						const tabs: string[] = ["← "];
-						for (let i = 0; i < questions.length; i++) {
+						for (const [i, question] of questions.entries()) {
 							const isActive = i === currentTab;
-							const isAnswered = answers.has(questions[i].id);
-							const lbl = questions[i].label;
+							const isAnswered = answers.has(question.id);
+							const lbl = question.label;
 							const box = isAnswered ? "■" : "□";
 							const color = isAnswered ? "success" : "muted";
 							const text = ` ${box} ${lbl} `;
@@ -293,8 +280,7 @@ export default function questionnaire(pi: ExtensionAPI) {
 
 					// Helper to render options list
 					function renderOptions() {
-						for (let i = 0; i < opts.length; i++) {
-							const opt = opts[i];
+						for (const [i, opt] of opts.entries()) {
 							const selected = i === optionIndex;
 							const isOther = opt.isOther === true;
 							const prefix = selected ? theme.fg("accent", "> ") : "  ";
@@ -364,17 +350,17 @@ export default function questionnaire(pi: ExtensionAPI) {
 				}
 
 				return {
-					render,
+					handleInput,
 					invalidate: () => {
 						cachedLines = undefined;
 					},
-					handleInput,
+					render,
 				};
 			});
 
 			if (result.cancelled) {
 				return {
-					content: [{ type: "text", text: "User cancelled the questionnaire" }],
+					content: [{ text: "User cancelled the questionnaire", type: "text" }],
 					details: result,
 				};
 			}
@@ -388,17 +374,21 @@ export default function questionnaire(pi: ExtensionAPI) {
 			});
 
 			return {
-				content: [{ type: "text", text: answerLines.join("\n") }],
+				content: [{ text: answerLines.join("\n"), type: "text" }],
 				details: result,
 			};
 		},
+		label: "Questionnaire",
+		name: "questionnaire",
+
+		parameters: QuestionnaireParams,
 
 		renderCall(args, theme, _context) {
 			const qs = (args.questions as Question[]) || [];
 			const count = qs.length;
 			const labels = qs.map((q) => q.label || q.id).join(", ");
 			let text = theme.fg("toolTitle", theme.bold("questionnaire "));
-			text += theme.fg("muted", `${count} question${count !== 1 ? "s" : ""}`);
+			text += theme.fg("muted", `${count} question${count === 1 ? "" : "s"}`);
 			if (labels) {
 				text += theme.fg("dim", ` (${truncateToWidth(labels, 40)})`);
 			}
@@ -424,4 +414,14 @@ export default function questionnaire(pi: ExtensionAPI) {
 			return new Text(lines.join("\n"), 0, 0);
 		},
 	});
+}
+
+function errorResult(
+	message: string,
+	questions: Question[] = [],
+): { content: { text: string; type: "text"; }[]; details: QuestionnaireResult } {
+	return {
+		content: [{ text: message, type: "text" }],
+		details: { answers: [], cancelled: true, questions },
+	};
 }

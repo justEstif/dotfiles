@@ -1,14 +1,15 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
+import * as fs from "node:fs";
+import * as path from "node:path";
+
 type PrimeCache = {
-  text: string;
   configDir: string;
   generatedAt: string;
+  text: string;
 };
 
-function findBeansConfigDir(startCwd: string): string | null {
+function findBeansConfigDir(startCwd: string): null | string {
   if (process.env.BEANS_PATH) {
     const candidate = path.join(process.env.BEANS_PATH, ".beans.yml");
     if (fs.existsSync(candidate)) return process.env.BEANS_PATH;
@@ -25,7 +26,7 @@ function findBeansConfigDir(startCwd: string): string | null {
 }
 
 export default function (pi: ExtensionAPI) {
-  let cache: PrimeCache | null = null;
+  let cache: null | PrimeCache = null;
 
   const refreshPrime = async (
     cwd: string,
@@ -48,7 +49,7 @@ export default function (pi: ExtensionAPI) {
 
     const prime = await pi.exec("beans", ["prime"], {
       cwd: configDir,
-      timeout: 20000,
+      timeout: 20_000,
     });
     if (prime.code !== 0) {
       cache = null;
@@ -65,9 +66,9 @@ export default function (pi: ExtensionAPI) {
     }
 
     cache = {
-      text,
       configDir,
       generatedAt: new Date().toISOString(),
+      text,
     };
 
     return { ok: true };

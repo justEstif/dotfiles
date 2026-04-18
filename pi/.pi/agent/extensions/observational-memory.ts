@@ -1,25 +1,52 @@
-import { complete, estimateTokens } from "@mariozechner/pi-ai";
-import type { ExtensionAPI, Model } from "@mariozechner/pi-coding-agent";
-import {
-  convertToLlm,
-  serializeConversation,
-  DynamicBorder,
-} from "@mariozechner/pi-coding-agent";
+import type { Model } from "@mariozechner/pi-ai";
+import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+
+import { complete } from "@mariozechner/pi-ai";
+import { convertToLlm, serializeConversation } from "@mariozechner/pi-coding-agent";
 import { Container, SelectList, Text } from "@mariozechner/pi-tui";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 // Token limit before we trigger a background Observation
-const OBSERVATION_THRESHOLD = 10000;
+const OBSERVATION_THRESHOLD = 10_000;
 
 export default function (pi: ExtensionAPI) {
-  let observerModel: Model | null = null;
+  let observerModel: Model<any> | null = null;
   let isObserving = false;
+  let resourceMemoryPath = "";
+
+  // Helper to read cross-session memory
+  function readResourceMemory(): string {
+    if (!resourceMemoryPath || !fs.existsSync(resourceMemoryPath)) return "";
+    try {
+      return fs.readFileSync(resourceMemoryPath, "utf8");
+    } catch {
+      return "";
+    }
+  }
+
+  // Helper to write cross-session memory
+  function writeResourceMemory(content: string) {
+    if (!resourceMemoryPath) return;
+    try {
+      const dir = path.dirname(resourceMemoryPath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      fs.writeFileSync(resourceMemoryPath, content, "utf-8");
+    } catch {
+      // Ignore write errors
+    }
+  }
 
   // Helper to update the footer status bar
   function updateStatus(ctx: any, tokens: number) {
     const k = (tokens / 1000).toFixed(1);
     const tk = (OBSERVATION_THRESHOLD / 1000).toFixed(1);
     const text = isObserving ? `Observing...` : `msg ${k}k/${tk}k`;
-    ctx.ui.setStatus("om-status", text);
+    // Force a color to ensure it renders correctly. Let's use accent when over threshold
+    const formattedText = tokens >= OBSERVATION_THRESHOLD ? ctx.ui.theme.fg("warning", text) : ctx.ui.theme.fg("dim", text);
+    ctx.ui.setStatus("00-om-status", formattedText);
   }
 
   // Helper to count tokens of raw messages since our last Observation
@@ -46,19 +73,18 @@ export default function (pi: ExtensionAPI) {
 
     let tokens = 0;
     if (unobservedMessages.length > 0) {
-      try {
-        const llmMessages = convertToLlm(unobservedMessages);
-        tokens = estimateTokens(llmMessages);
-      } catch (e) {
-        // Fallback heuristic if conversion/estimation fails
-        tokens = JSON.stringify(unobservedMessages).length / 4;
-      }
+      // Fallback heuristic if conversion/estimation fails
+      tokens = JSON.stringify(unobservedMessages).length / 4;
     }
-    return { unobservedMessages, tokens };
+    return { tokens, unobservedMessages };
   }
 
   pi.on("session_start", async (_event, ctx) => {
-    observerModel = ctx.modelRegistry.find("google", "gemini-2.5-flash");
+    // Auto-assign default if missing. Try to find a fast configured model.
+    const configured = ctx.modelRegistry.getAll().filter((m: Model<any>) => ctx.modelRegistry.hasConfiguredAuth(m));
+    observerModel = configured.find((m: Model<any>) => m.id.includes("flash") || m.id.includes("haiku") || m.id.includes("mini")) || configured[0];
+    
+    resourceMemoryPath = path.join(ctx.cwd, ".pi", "om-memory.txt");
     const { tokens } = await getUnobservedContext(ctx);
     updateStatus(ctx, tokens);
   });
@@ -69,13 +95,13 @@ export default function (pi: ExtensionAPI) {
       // Group models to make them easier to navigate and only show configured ones
       const models = ctx.modelRegistry
         .getAll()
-        .filter((m: Model) => ctx.modelRegistry.hasConfiguredAuth(m));
-      const items = models.map((m: Model) => {
+        .filter((m: Model<any>) => ctx.modelRegistry.hasConfiguredAuth(m));
+      const items = models.map((m: Model<any>) => {
         const id = `${m.provider}/${m.id}`;
         return { label: id, value: id };
       });
 
-      const choice = await ctx.ui.custom(
+      const choice = (await ctx.ui.custom(
         (tui: any, theme: any, kb: any, done: any) => {
           const container = new Container();
           container.addChild(
@@ -83,11 +109,11 @@ export default function (pi: ExtensionAPI) {
           );
 
           const list = new SelectList(items, 10, {
+            description: (t: string) => theme.fg("muted", t),
+            noMatch: (t: string) => theme.fg("muted", t),
+            scrollInfo: (t: string) => theme.fg("muted", t),
             selectedPrefix: (t: string) => theme.fg("accent", t),
             selectedText: (t: string) => theme.fg("accent", t),
-            description: (t: string) => theme.fg("muted", t),
-            scrollInfo: (t: string) => theme.fg("muted", t),
-            noMatch: (t: string) => theme.fg("muted", t),
           });
 
           const currentId = observerModel
@@ -99,23 +125,24 @@ export default function (pi: ExtensionAPI) {
           }
 
           list.onSelect = (item: any) => done(item.value);
-          list.onCancel = () => done(undefined);
+          list.onCancel = () => done();
 
           container.addChild(list);
-          container.addChild(new DynamicBorder());
+          // Remove dynamic border which is not exported from coding-agent
 
-          container.handleInput = (data: string) => {
-            list.handleInput(data);
+          // Need a wrapper to cast container for input handling
+          (container as any).handleInput = (data: string) => {
+            (list as any).handleInput(data);
           };
 
           return container;
         },
-      );
+      ));
 
       if (choice) {
         const [provider, id] = choice.split("/", 2);
         observerModel =
-          models.find((m: Model) => m.provider === provider && m.id === id) ||
+          models.find((m: Model<any>) => m.provider === provider && m.id === id) ||
           null;
         ctx.ui.notify(`OM Model set to ${observerModel?.id}`, "info");
 
@@ -128,25 +155,42 @@ export default function (pi: ExtensionAPI) {
   // Inject Observational Memory logs into the system prompt before the agent runs
   pi.on("before_agent_start", async (event, ctx) => {
     const branch = ctx.sessionManager.getBranch();
-    const observations = branch
+    const threadObservations = branch
       .filter(
         (e: any) => e.type === "custom" && e.customType === "om-observation",
       )
       .map((e: any) => e.data.summary);
 
-    if (observations.length > 0) {
-      const obsText = "OBSERVATIONAL MEMORY LOG:\n" + observations.join("\n\n");
+    const resourceObservations = readResourceMemory();
+    
+    let obsText = "";
+    if (resourceObservations.trim()) {
+      obsText += "RESOURCE-SCOPED OBSERVATIONS (Cross-session Project Memory):\n" + resourceObservations.trim() + "\n\n";
+    }
+    
+    if (threadObservations.length > 0) {
+      obsText += "THREAD-SCOPED OBSERVATIONS (Current Session Logs):\n" + threadObservations.join("\n\n") + "\n\n";
+    }
+
+    if (obsText) {
       return {
-        systemPrompt: obsText + "\n\n" + event.systemPrompt,
+        systemPrompt: "=== OBSERVATIONAL MEMORY ===\n" + obsText + "===========================\n\n" + event.systemPrompt,
       };
     }
   });
 
-  // Check unobserved tokens after every turn and buffer an observation if needed
   pi.on("turn_end", async (_event, ctx) => {
-    if (!observerModel || isObserving) return;
+    // Ensure observerModel is defined
+    if (!observerModel) {
+       // Auto-assign default if missing. Try to find a fast configured model.
+       const configured = ctx.modelRegistry.getAll().filter((m: Model<any>) => ctx.modelRegistry.hasConfiguredAuth(m));
+       observerModel = configured.find((m: Model<any>) => m.id.includes("flash") || m.id.includes("haiku") || m.id.includes("mini")) || configured[0];
+       if (!observerModel) return;
+    }
+    
+    if (isObserving) return;
 
-    const { unobservedMessages, tokens } = await getUnobservedContext(ctx);
+    const { tokens, unobservedMessages } = await getUnobservedContext(ctx);
     updateStatus(ctx, tokens);
 
     if (tokens >= OBSERVATION_THRESHOLD) {
@@ -159,16 +203,16 @@ export default function (pi: ExtensionAPI) {
         );
         const auth = await ctx.modelRegistry.getApiKeyAndHeaders(observerModel);
 
-        if (auth.ok && auth.apiKey) {
+        if (auth.ok) {
           const summaryMessages = [
             {
-              role: "user" as const,
               content: [
                 {
-                  type: "text" as const,
                   text: `Extract dense observations from this conversation log. Use emojis (🔴 important, 🟡 maybe important, 🟢 info only) to signify importance. Make it concise.\n\n<conversation>\n${conversationText}\n</conversation>`,
+                  type: "text" as const,
                 },
               ],
+              role: "user" as const,
               timestamp: Date.now(),
             },
           ];
@@ -177,7 +221,7 @@ export default function (pi: ExtensionAPI) {
             observerModel,
             { messages: summaryMessages },
             {
-              apiKey: auth.apiKey,
+              apiKey: auth.apiKey || "",
               headers: auth.headers,
               maxTokens: 4096,
             },
@@ -191,9 +235,12 @@ export default function (pi: ExtensionAPI) {
           if (summary.trim()) {
             pi.appendEntry("om-observation", { summary });
           }
+        } else {
+           fs.writeFileSync(path.join(ctx.cwd, ".pi", "om-debug.log"), `Auth failed for ${observerModel.id}: ${JSON.stringify(auth)}`);
         }
-      } catch (e) {
+      } catch (error: any) {
         // Ignore error, will naturally retry next turn
+        fs.writeFileSync(path.join(ctx.cwd, ".pi", "om-debug.log"), `Observation error: ${error.message}\n${error.stack}`);
       } finally {
         isObserving = false;
         // Recalculate tokens (should be near 0 now that an observation was appended)
@@ -205,12 +252,12 @@ export default function (pi: ExtensionAPI) {
 
   // Handle Reflector step via custom compaction
   pi.on("session_before_compact", async (event, ctx) => {
-    const { preparation, branchEntries, signal } = event;
+    const { branchEntries, preparation, signal } = event;
     const {
-      messagesToSummarize,
-      turnPrefixMessages,
-      tokensBefore,
       firstKeptEntryId,
+      messagesToSummarize,
+      tokensBefore,
+      turnPrefixMessages,
     } = preparation;
 
     if (!observerModel) return;
@@ -228,18 +275,28 @@ export default function (pi: ExtensionAPI) {
     const allMessages = [...messagesToSummarize, ...turnPrefixMessages];
     const conversationText = serializeConversation(convertToLlm(allMessages));
 
-    let promptText = `Extract dense observations from this conversation log. Consolidate and refine any existing observations into a cohesive new log. Use emojis (🔴 important, 🟡 maybe important, 🟢 info only) to signify importance.\n\n`;
+    const resourceObs = readResourceMemory();
 
-    if (customObservations) {
-      promptText += `<existing_observations>\n${customObservations}\n</existing_observations>\n\n`;
+    let promptText = `Extract dense observations from this conversation log. Consolidate and refine any existing thread/resource observations into a cohesive new log. Use emojis (🔴 important, 🟡 maybe important, 🟢 info only) to signify importance. Output exactly two sections separated by "---":
+1. RESOURCE OBSERVATIONS: Enduring knowledge about the project/user.
+2. THREAD OBSERVATIONS: Useful context specific to this session.
+
+`;
+
+    if (resourceObs.trim()) {
+      promptText += `<existing_resource_observations>\n${resourceObs}\n</existing_resource_observations>\n\n`;
+    }
+
+    if (customObservations.trim()) {
+      promptText += `<existing_thread_observations>\n${customObservations}\n</existing_thread_observations>\n\n`;
     }
 
     promptText += `<conversation>\n${conversationText}\n</conversation>`;
 
     const summaryMessages = [
       {
+        content: [{ text: promptText, type: "text" as const }],
         role: "user" as const,
-        content: [{ type: "text" as const, text: promptText }],
         timestamp: Date.now(),
       },
     ];
@@ -262,23 +319,38 @@ export default function (pi: ExtensionAPI) {
         },
       );
 
-      const summary = response.content
+      const rawSummary = response.content
         .filter((c: any) => c.type === "text")
         .map((c: any) => c.text)
         .join("\n");
 
       ctx.ui.setStatus("om-reflect", undefined);
+      
+      const sections = rawSummary.split("---");
+      let resourceSummary = "";
+      let threadSummary = "";
+      
+      if (sections.length >= 2) {
+        resourceSummary = sections[0].replace("1. RESOURCE OBSERVATIONS:", "").trim();
+        threadSummary = sections[1].replace("2. THREAD OBSERVATIONS:", "").trim();
+      } else {
+        threadSummary = rawSummary.trim();
+      }
+      
+      if (resourceSummary) {
+        writeResourceMemory(resourceSummary);
+      }
 
-      if (summary.trim()) {
+      if (threadSummary) {
         return {
           compaction: {
-            summary,
             firstKeptEntryId,
+            summary: threadSummary,
             tokensBefore,
           },
         };
       }
-    } catch (e) {
+    } catch {
       ctx.ui.setStatus("om-reflect", undefined);
       // Fallback to default Pi compaction on failure
     }

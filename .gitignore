@@ -4,3 +4,4 @@ zed/.config/zed/prompts/prompts-library-db.0.mdb
 /pi/.pi/agent/sessions
 /opencode/.config/opencode/package-lock.json
 /agents-skills/.agents/.skill-lock.json
+node_modules/

@@ -12,8 +12,9 @@
  * The generated prompt appears as a draft in the editor for review/editing.
  */
 
-import { complete, type Message } from "@mariozechner/pi-ai";
 import type { ExtensionAPI, SessionEntry } from "@mariozechner/pi-coding-agent";
+
+import { complete, type Message } from "@mariozechner/pi-ai";
 import { BorderedLoader, convertToLlm, serializeConversation } from "@mariozechner/pi-coding-agent";
 
 const SYSTEM_PROMPT = `You are a context transfer assistant. Given a conversation history and the user's goal for a new thread, generate a focused prompt that:
@@ -75,7 +76,7 @@ export default function (pi: ExtensionAPI) {
 			const currentSessionFile = ctx.sessionManager.getSessionFile();
 
 			// Generate the handoff prompt with loader UI
-			const result = await ctx.ui.custom<string | null>((tui, theme, _kb, done) => {
+			const result = await ctx.ui.custom<null | string>((tui, theme, _kb, done) => {
 				const loader = new BorderedLoader(tui, theme, `Generating handoff prompt...`);
 				loader.onAbort = () => done(null);
 
@@ -86,19 +87,19 @@ export default function (pi: ExtensionAPI) {
 					}
 
 					const userMessage: Message = {
-						role: "user",
 						content: [
 							{
-								type: "text",
 								text: `## Conversation History\n\n${conversationText}\n\n## User's Goal for New Thread\n\n${goal}`,
+								type: "text",
 							},
 						],
+						role: "user",
 						timestamp: Date.now(),
 					};
 
 					const response = await complete(
 						ctx.model!,
-						{ systemPrompt: SYSTEM_PROMPT, messages: [userMessage] },
+						{ messages: [userMessage], systemPrompt: SYSTEM_PROMPT },
 						{ apiKey: auth.apiKey, headers: auth.headers, signal: loader.signal },
 					);
 
@@ -107,15 +108,15 @@ export default function (pi: ExtensionAPI) {
 					}
 
 					return response.content
-						.filter((c): c is { type: "text"; text: string } => c.type === "text")
+						.filter((c): c is { text: string; type: "text"; } => c.type === "text")
 						.map((c) => c.text)
 						.join("\n");
 				};
 
 				doGenerate()
 					.then(done)
-					.catch((err) => {
-						console.error("Handoff generation failed:", err);
+					.catch((error) => {
+						console.error("Handoff generation failed:", error);
 						done(null);
 					});
 
