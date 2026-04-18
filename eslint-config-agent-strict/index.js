@@ -64,6 +64,30 @@ export default tseslint.config(
       '@typescript-eslint/no-misused-promises': 'error',
 
       // --------------------------------------------------------
+      // TOTAL TYPESCRIPT & PATTERNS.DEV BEST PRACTICES
+      // --------------------------------------------------------
+      // 1. Force `type` instead of `interface` (Total TypeScript recommendation for predictable unions/intersections)
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      
+      // 2. Ban `as Type` casting. Force the AI to actually prove the type or use `satisfies`.
+      '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
+      
+      // 3. Force `import type` where possible to optimize Next.js / Vite bundling
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      
+      // 4. Ban TypeScript `enum` (they have unpredictable runtime bloat; prefer string unions)
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSEnumDeclaration',
+          message: 'Do not use TypeScript enums. Use a union of string literals or a const object instead (Total TypeScript recommendation).',
+        },
+      ],
+      
+      // 5. Ban imperative `for` loops in favor of `map`, `filter`, `reduce` (React/Next.js best practice)
+      'unicorn/no-for-loop': 'error',
+
+      // --------------------------------------------------------
       // 4. REACT & NEXT.JS (Anti-patterns & Rules of Hooks)
       // --------------------------------------------------------
       // AI constantly violates hooks or forgets exhaustive deps
