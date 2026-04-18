@@ -94,6 +94,15 @@ export default tseslint.config(
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'error',
       
+      // Prevent AI from defining components inside other components (destroys state and remounts DOM)
+      'react/no-unstable-nested-components': 'error',
+      
+      // Prevent passing unmemoized objects to Context Providers (causes massive re-renders)
+      'react/jsx-no-constructed-context-values': 'error',
+      
+      // Prevent the classic `{count && <Badge />}` bug where `0` or `NaN` renders to the DOM
+      'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary', 'coerce'] }],
+      
       // Next.js standard optimizations
       '@next/next/no-html-link-for-pages': 'error',
       '@next/next/no-img-element': 'error',

@@ -5,7 +5,7 @@ status: completed
 type: epic
 priority: normal
 created_at: 2026-04-18T02:05:44Z
-updated_at: 2026-04-18T02:12:28Z
+updated_at: 2026-04-18T02:15:41Z
 ---
 
 Investigate common complaints about AI-generated code and map them to strict ESLint rules for Next.js, TypeScript, and Node.js environments.
@@ -53,3 +53,5 @@ Investigate common complaints about AI-generated code and map them to strict ESL
 \n\nConfigured `eslint-config-agent-strict` to include the following ESLint rules to combat common AI code generation issues:\n- React/Hooks tracking (`rules-of-hooks`, `exhaustive-deps`) to prevent infinite renders.\n- Next.js anti-patterns (`no-html-link-for-pages`, `no-img-element`).\n- Explicit `any` or `@ts-ignore` bans so it can't skip type safety.\n- Floating promise bans (`no-floating-promises`) so it doesn't crash Node servers with unhandled DB calls.\n- Circular dependency tracking.
 
 \n\n### 6. Total TypeScript & Patterns.dev Best Practices\n**Complaint:** AI uses outdated or unsafe TypeScript features (like `enums`, `as` casting instead of `satisfies`, or mixing `type` and `interface`). It also doesn't optimize imports for bundlers.\n**ESLint Mitigation:**\n- `@typescript-eslint/consistent-type-definitions`: `['error', 'type']` (Matt Pocock recommends `type` over `interface`).\n- `@typescript-eslint/consistent-type-assertions`: `['error', { assertionStyle: 'never' }]` (Bans `as Type` casting to force the AI to prove types or use `satisfies`).\n- `@typescript-eslint/consistent-type-imports`: `['error', { prefer: 'type-imports' }]` (Forces `import type` for better bundling).\n- `no-restricted-syntax`: Ban `TSEnumDeclaration` (TS enums have bloated runtime behavior, prefer union types).\n- `unicorn/no-for-loop`: `error` (Forces the AI to use `map`, `filter`, `reduce` instead of imperative mutable `for` loops).
+
+\n\n### 7. React Render Optimization Patterns\n**Complaint:** AI writes React code that causes massive re-renders (defining components inside components, subscribing to huge objects instead of primitives, using `&&` with numbers that render `0` to the DOM).\n**ESLint Mitigation:**\n- `react/no-unstable-nested-components`: `error` (Prevents defining components inside other components, which destroys state and remounts the DOM every render).\n- `react/jsx-no-constructed-context-values`: `error` (Prevents passing `value={{...}}` to providers without memoizing, causing massive re-renders).\n- `react/jsx-no-leaked-render`: `['error', { validStrategies: ['ternary', 'coerce'] }]` (Prevents the classic `{count && <Badge />}` bug where `0` is rendered to the UI).
