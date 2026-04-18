@@ -2,7 +2,10 @@ import type { Model } from "@mariozechner/pi-ai";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
 import { complete } from "@mariozechner/pi-ai";
-import { convertToLlm, serializeConversation } from "@mariozechner/pi-coding-agent";
+import {
+  convertToLlm,
+  serializeConversation,
+} from "@mariozechner/pi-coding-agent";
 import { Container, SelectList, Text } from "@mariozechner/pi-tui";
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -45,7 +48,10 @@ export default function (pi: ExtensionAPI) {
     const tk = (OBSERVATION_THRESHOLD / 1000).toFixed(1);
     const text = isObserving ? `Observing...` : `msg ${k}k/${tk}k`;
     // Force a color to ensure it renders correctly. Let's use accent when over threshold
-    const formattedText = tokens >= OBSERVATION_THRESHOLD ? ctx.ui.theme.fg("warning", text) : ctx.ui.theme.fg("dim", text);
+    const formattedText =
+      tokens >= OBSERVATION_THRESHOLD
+        ? ctx.ui.theme.fg("warning", text)
+        : ctx.ui.theme.fg("dim", text);
     ctx.ui.setStatus("00-om-status", formattedText);
   }
 
@@ -81,9 +87,17 @@ export default function (pi: ExtensionAPI) {
 
   pi.on("session_start", async (_event, ctx) => {
     // Auto-assign default if missing. Try to find a fast configured model.
-    const configured = ctx.modelRegistry.getAll().filter((m: Model<any>) => ctx.modelRegistry.hasConfiguredAuth(m));
-    observerModel = configured.find((m: Model<any>) => m.id.includes("flash") || m.id.includes("haiku") || m.id.includes("mini")) || configured[0];
-    
+    const configured = ctx.modelRegistry
+      .getAll()
+      .filter((m: Model<any>) => ctx.modelRegistry.hasConfiguredAuth(m));
+    observerModel =
+      configured.find(
+        (m: Model<any>) =>
+          m.id.includes("flash") ||
+          m.id.includes("haiku") ||
+          m.id.includes("mini"),
+      ) || configured[0];
+
     resourceMemoryPath = path.join(ctx.cwd, ".pi", "om-memory.txt");
     const { tokens } = await getUnobservedContext(ctx);
     updateStatus(ctx, tokens);
@@ -101,7 +115,7 @@ export default function (pi: ExtensionAPI) {
         return { label: id, value: id };
       });
 
-      const choice = (await ctx.ui.custom(
+      const choice = await ctx.ui.custom(
         (tui: any, theme: any, kb: any, done: any) => {
           const container = new Container();
           container.addChild(
@@ -137,13 +151,14 @@ export default function (pi: ExtensionAPI) {
 
           return container;
         },
-      ));
+      );
 
       if (choice) {
         const [provider, id] = choice.split("/", 2);
         observerModel =
-          models.find((m: Model<any>) => m.provider === provider && m.id === id) ||
-          null;
+          models.find(
+            (m: Model<any>) => m.provider === provider && m.id === id,
+          ) || null;
         ctx.ui.notify(`OM Model set to ${observerModel?.id}`, "info");
 
         const { tokens } = await getUnobservedContext(ctx);
@@ -162,19 +177,29 @@ export default function (pi: ExtensionAPI) {
       .map((e: any) => e.data.summary);
 
     const resourceObservations = readResourceMemory();
-    
+
     let obsText = "";
     if (resourceObservations.trim()) {
-      obsText += "RESOURCE-SCOPED OBSERVATIONS (Cross-session Project Memory):\n" + resourceObservations.trim() + "\n\n";
+      obsText +=
+        "RESOURCE-SCOPED OBSERVATIONS (Cross-session Project Memory):\n" +
+        resourceObservations.trim() +
+        "\n\n";
     }
-    
+
     if (threadObservations.length > 0) {
-      obsText += "THREAD-SCOPED OBSERVATIONS (Current Session Logs):\n" + threadObservations.join("\n\n") + "\n\n";
+      obsText +=
+        "THREAD-SCOPED OBSERVATIONS (Current Session Logs):\n" +
+        threadObservations.join("\n\n") +
+        "\n\n";
     }
 
     if (obsText) {
       return {
-        systemPrompt: "=== OBSERVATIONAL MEMORY ===\n" + obsText + "===========================\n\n" + event.systemPrompt,
+        systemPrompt:
+          "=== OBSERVATIONAL MEMORY ===\n" +
+          obsText +
+          "===========================\n\n" +
+          event.systemPrompt,
       };
     }
   });
@@ -182,12 +207,20 @@ export default function (pi: ExtensionAPI) {
   pi.on("turn_end", async (_event, ctx) => {
     // Ensure observerModel is defined
     if (!observerModel) {
-       // Auto-assign default if missing. Try to find a fast configured model.
-       const configured = ctx.modelRegistry.getAll().filter((m: Model<any>) => ctx.modelRegistry.hasConfiguredAuth(m));
-       observerModel = configured.find((m: Model<any>) => m.id.includes("flash") || m.id.includes("haiku") || m.id.includes("mini")) || configured[0];
-       if (!observerModel) return;
+      // Auto-assign default if missing. Try to find a fast configured model.
+      const configured = ctx.modelRegistry
+        .getAll()
+        .filter((m: Model<any>) => ctx.modelRegistry.hasConfiguredAuth(m));
+      observerModel =
+        configured.find(
+          (m: Model<any>) =>
+            m.id.includes("flash") ||
+            m.id.includes("haiku") ||
+            m.id.includes("mini"),
+        ) || configured[0];
+      if (!observerModel) return;
     }
-    
+
     if (isObserving) return;
 
     const { tokens, unobservedMessages } = await getUnobservedContext(ctx);
@@ -236,11 +269,17 @@ export default function (pi: ExtensionAPI) {
             pi.appendEntry("om-observation", { summary });
           }
         } else {
-           fs.writeFileSync(path.join(ctx.cwd, ".pi", "om-debug.log"), `Auth failed for ${observerModel.id}: ${JSON.stringify(auth)}`);
+          fs.writeFileSync(
+            path.join(ctx.cwd, ".pi", "om-debug.log"),
+            `Auth failed for ${observerModel.id}: ${JSON.stringify(auth)}`,
+          );
         }
       } catch (error: any) {
         // Ignore error, will naturally retry next turn
-        fs.writeFileSync(path.join(ctx.cwd, ".pi", "om-debug.log"), `Observation error: ${error.message}\n${error.stack}`);
+        fs.writeFileSync(
+          path.join(ctx.cwd, ".pi", "om-debug.log"),
+          `Observation error: ${error.message}\n${error.stack}`,
+        );
       } finally {
         isObserving = false;
         // Recalculate tokens (should be near 0 now that an observation was appended)
@@ -325,18 +364,22 @@ export default function (pi: ExtensionAPI) {
         .join("\n");
 
       ctx.ui.setStatus("om-reflect", undefined);
-      
+
       const sections = rawSummary.split("---");
       let resourceSummary = "";
       let threadSummary = "";
-      
+
       if (sections.length >= 2) {
-        resourceSummary = sections[0].replace("1. RESOURCE OBSERVATIONS:", "").trim();
-        threadSummary = sections[1].replace("2. THREAD OBSERVATIONS:", "").trim();
+        resourceSummary = sections[0]
+          .replace("1. RESOURCE OBSERVATIONS:", "")
+          .trim();
+        threadSummary = sections[1]
+          .replace("2. THREAD OBSERVATIONS:", "")
+          .trim();
       } else {
         threadSummary = rawSummary.trim();
       }
-      
+
       if (resourceSummary) {
         writeResourceMemory(resourceSummary);
       }
