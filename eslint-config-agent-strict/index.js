@@ -38,8 +38,9 @@ export default tseslint.config(
       // --------------------------------------------------------
       'complexity': ['error', 10],                     
       'max-depth': ['error', 3],                       
+      'max-lines': ['error', { max: 400, skipBlankLines: true, skipComments: true }], // Prevent "God Files" (Information Hiding)
       'max-lines-per-function': ['error', 40],         
-      'max-params': ['error', 4],                      
+      'max-params': ['error', 4], // Prevent "Overexposed Configuration Parameters" (Philosophy of Software Design)
       'max-statements': ['error', 15],                 
       'sonarjs/cognitive-complexity': ['error', 15],
 

@@ -5,7 +5,7 @@ status: completed
 type: epic
 priority: normal
 created_at: 2026-04-18T02:05:44Z
-updated_at: 2026-04-18T02:15:41Z
+updated_at: 2026-04-18T02:19:01Z
 ---
 
 Investigate common complaints about AI-generated code and map them to strict ESLint rules for Next.js, TypeScript, and Node.js environments.
@@ -55,3 +55,5 @@ Investigate common complaints about AI-generated code and map them to strict ESL
 \n\n### 6. Total TypeScript & Patterns.dev Best Practices\n**Complaint:** AI uses outdated or unsafe TypeScript features (like `enums`, `as` casting instead of `satisfies`, or mixing `type` and `interface`). It also doesn't optimize imports for bundlers.\n**ESLint Mitigation:**\n- `@typescript-eslint/consistent-type-definitions`: `['error', 'type']` (Matt Pocock recommends `type` over `interface`).\n- `@typescript-eslint/consistent-type-assertions`: `['error', { assertionStyle: 'never' }]` (Bans `as Type` casting to force the AI to prove types or use `satisfies`).\n- `@typescript-eslint/consistent-type-imports`: `['error', { prefer: 'type-imports' }]` (Forces `import type` for better bundling).\n- `no-restricted-syntax`: Ban `TSEnumDeclaration` (TS enums have bloated runtime behavior, prefer union types).\n- `unicorn/no-for-loop`: `error` (Forces the AI to use `map`, `filter`, `reduce` instead of imperative mutable `for` loops).
 
 \n\n### 7. React Render Optimization Patterns\n**Complaint:** AI writes React code that causes massive re-renders (defining components inside components, subscribing to huge objects instead of primitives, using `&&` with numbers that render `0` to the DOM).\n**ESLint Mitigation:**\n- `react/no-unstable-nested-components`: `error` (Prevents defining components inside other components, which destroys state and remounts the DOM every render).\n- `react/jsx-no-constructed-context-values`: `error` (Prevents passing `value={{...}}` to providers without memoizing, causing massive re-renders).\n- `react/jsx-no-leaked-render`: `['error', { validStrategies: ['ternary', 'coerce'] }]` (Prevents the classic `{count && <Badge />}` bug where `0` is rendered to the UI).
+
+\n\n### 8. Philosophy of Software Design (Ousterhout)\n**Complaint:** AI writes "shallow modules" (functions/classes that do almost nothing but have huge signatures), "pass-through variables", and functions with "overexposed configuration parameters" (too many arguments).\n**ESLint Mitigation:**\n- `max-params`: `['error', 4]` (Already added. Directly combats "overexposed configuration parameters" and "pass-through variables" by forcing the AI to group related data into objects/interfaces).\n- `max-statements`: `['error', 15]` (Already added. Prevents "conjoined methods" from getting too long, forcing extraction).\n- `max-lines`: `['error', 400]` (Prevents files from becoming massive "god objects" that violate information hiding).
