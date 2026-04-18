@@ -9,6 +9,11 @@ type PrimeCache = {
 };
 
 function findBeansConfigDir(startCwd: string): string | null {
+  if (process.env.BEANS_PATH) {
+    const candidate = path.join(process.env.BEANS_PATH, ".beans.yml");
+    if (fs.existsSync(candidate)) return process.env.BEANS_PATH;
+  }
+
   let dir = path.resolve(startCwd);
   while (true) {
     const candidate = path.join(dir, ".beans.yml");
@@ -22,23 +27,35 @@ function findBeansConfigDir(startCwd: string): string | null {
 export default function (pi: ExtensionAPI) {
   let cache: PrimeCache | null = null;
 
-  const refreshPrime = async (cwd: string): Promise<{ ok: boolean; reason?: string }> => {
-    const configDir = findBeansConfigDir(cwd);
-    if (!configDir) {
-      cache = null;
-      return { ok: false, reason: "no .beans.yml found" };
-    }
-
+  const refreshPrime = async (
+    cwd: string,
+  ): Promise<{ ok: boolean; reason?: string }> => {
     const hasBeans = await pi.exec("which", ["beans"]);
     if (hasBeans.code !== 0) {
       cache = null;
       return { ok: false, reason: "beans CLI not found" };
     }
 
-    const prime = await pi.exec("beans", ["prime"], { cwd: configDir, timeout: 20000 });
+    let configDir = findBeansConfigDir(cwd);
+    if (!configDir) {
+      configDir = process.env.BEANS_PATH || cwd;
+      const initResult = await pi.exec("beans", ["init"], { cwd: configDir });
+      if (initResult.code !== 0) {
+        cache = null;
+        return { ok: false, reason: "failed to init beans" };
+      }
+    }
+
+    const prime = await pi.exec("beans", ["prime"], {
+      cwd: configDir,
+      timeout: 20000,
+    });
     if (prime.code !== 0) {
       cache = null;
-      return { ok: false, reason: (prime.stderr || prime.stdout || "beans prime failed").trim() };
+      return {
+        ok: false,
+        reason: (prime.stderr || prime.stdout || "beans prime failed").trim(),
+      };
     }
 
     const text = (prime.stdout || "").trim();
@@ -75,23 +92,4 @@ export default function (pi: ExtensionAPI) {
     };
   });
 
-  pi.registerCommand("beans-refresh", {
-    description: "Refresh beans prime context",
-    handler: async (_args, ctx) => {
-      const result = await refreshPrime(ctx.cwd);
-      if (result.ok) ctx.ui.notify("beans-prime: refreshed", "info");
-      else ctx.ui.notify(`beans-prime: skipped (${result.reason})`, "warning");
-    },
-  });
-
-  pi.registerCommand("beans-status", {
-    description: "Show beans prime cache status",
-    handler: async (_args, ctx) => {
-      if (!cache) {
-        ctx.ui.notify("beans-prime: inactive (missing beans CLI or .beans.yml)", "info");
-        return;
-      }
-      ctx.ui.notify(`beans-prime: active (${cache.configDir})`, "info");
-    },
-  });
 }

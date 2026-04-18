@@ -1,4 +1,4 @@
-import type { Plugin } from '@opencode-ai/plugin';
+import type { Plugin } from "@opencode-ai/plugin";
 
 /**
  * Beans Prime Plugin for OpenCode
@@ -29,10 +29,20 @@ export const BeansPrimePlugin: Plugin = async ({ $, directory }) => {
     // 1. beans CLI is installed
     // 2. Project has .beans.yml config
     const hasBeans = await $`which beans`.quiet();
-    const hasConfig = await $`test -f ${directory}/.beans.yml`.quiet();
+    if (hasBeans.exitCode === 0) {
+      // Use bash to check for the environment variable, as process.env might not be available
+      const envCheck = await $`echo $BEANS_PATH`.quiet();
+      const beansPathEnv = envCheck.stdout.toString().trim();
 
-    if (hasBeans.exitCode === 0 && hasConfig.exitCode === 0) {
-      const result = await $`beans prime`.cwd(directory).quiet();
+      const configDir = beansPathEnv || directory;
+      const hasConfig = await $`test -f ${configDir}/.beans.yml`.quiet();
+
+      if (hasConfig.exitCode !== 0) {
+        // Init beans if it doesn't exist
+        await $`beans init`.cwd(configDir).quiet();
+      }
+
+      const result = await $`beans prime`.cwd(configDir).quiet();
       prime = result.stdout.toString();
     }
   } catch (e) {
@@ -40,12 +50,12 @@ export const BeansPrimePlugin: Plugin = async ({ $, directory }) => {
   }
 
   return {
-    'experimental.chat.system.transform': async (_, output) => {
+    "experimental.chat.system.transform": async (_, output) => {
       if (prime) {
         output.system.push(prime);
       }
     },
-    'experimental.session.compacting': async (_, output) => {
+    "experimental.session.compacting": async (_, output) => {
       if (prime) {
         output.context.push(prime);
       }
