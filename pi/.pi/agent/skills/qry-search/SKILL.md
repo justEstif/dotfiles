@@ -1,11 +1,11 @@
 ---
 name: qry-search
-description: Web search using qry, a terminal-native agent-first search CLI that routes queries through pluggable adapters and always outputs JSON. Use this skill whenever you need to search the web for documentation, APIs, error messages, package info, changelogs, or any current information. Triggers on "search the web", "look up", "find docs for", "what's the latest version of", "check if X exists", or whenever current information is needed. Prefer this over ddgr or other search tools when qry is available.
+description: Web search using qry, a terminal-native agent-first search CLI that routes queries through built-in adapters and always outputs JSON. Use this skill whenever you need to search the web for documentation, APIs, error messages, package info, changelogs, or any current information. Triggers on "search the web", "look up", "find docs for", "what's the latest version of", "check if X exists", or whenever current information is needed. Prefer this over ddgr or other search tools when qry is available.
 ---
 
 # qry Search Skill
 
-`qry` routes search queries through pluggable adapter binaries and always outputs JSON.
+`qry` routes search queries through built-in adapters and always outputs JSON.
 
 ## Check availability
 
@@ -13,15 +13,7 @@ description: Web search using qry, a terminal-native agent-first search CLI that
 qry --agent-info   # prints tool description + your current config as JSON
 ```
 
-If `qry` is not found, install it and at least one adapter:
-
-```bash
-# Install qry
-mise use -g go:github.com/justestif/qry@latest && mise reshim
-
-# Install an adapter (no API key required)
-mise use -g go:github.com/justestif/qry/adapters/ddg-scrape@latest && mise reshim
-```
+If `qry` is not found, qry is a single binary with built-in adapters. Install: `npm install -g @justestif/qry`
 
 See the [qry README](https://github.com/justestif/qry) for all available adapters and config.
 
