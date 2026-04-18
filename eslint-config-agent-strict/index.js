@@ -109,10 +109,31 @@ export default tseslint.config(
       '@next/next/no-img-element': 'error',
       
       // --------------------------------------------------------
-      // 5. IMPORTS & ARCHITECTURE
+      // 5. IMPORTS & ARCHITECTURE (Vercel Best Practices)
       // --------------------------------------------------------
       // Prevent AI from inventing circular dependencies or grabbing broken relative paths
       'import/no-cycle': 'error',
+      
+      // Vercel / Next.js Critical Rule: Ban importing from huge barrel files that destroy build performance
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'lucide-react',
+              message: 'Vercel Best Practice: Do not import from the lucide-react barrel file. It loads 1,500+ modules and kills dev performance. Use Next.js optimizePackageImports or import specific icons.',
+            },
+            {
+              name: '@mui/material',
+              message: 'Vercel Best Practice: Do not import from the @mui/material barrel file. Use direct imports (e.g. @mui/material/Button).',
+            },
+            {
+              name: 'lodash',
+              message: 'Import specific lodash functions (e.g. lodash/get) instead of the entire library.',
+            }
+          ],
+        },
+      ],
       
       // Force uniform naming so the AI doesn't mix camelCase and kebab-case React components
       'unicorn/filename-case': ['error', { 
