@@ -8,8 +8,9 @@ local function copy_for_agent(is_visual)
 	local ft = vim.bo.filetype
 	local lines = {}
 	local range_str = ""
+	local location_str = ""
 
-	-- 2. Gather code text
+	-- 2. Gather code text or cursor location
 	if is_visual then
 		local start_line = vim.fn.line("'<")
 		local end_line = vim.fn.line("'>")
@@ -19,7 +20,8 @@ local function copy_for_agent(is_visual)
 		lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
 		range_str = string.format(" (Lines %d-%d)", start_line, end_line)
 	else
-		lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+		local cursor = vim.api.nvim_win_get_cursor(0)
+		location_str = string.format(" (Line %d, Col %d)", cursor[1], cursor[2] + 1)
 	end
 	local code_text = table.concat(lines, "\n")
 
@@ -30,8 +32,13 @@ local function copy_for_agent(is_visual)
 		end -- User pressed Esc to cancel
 
 		-- 4. Format everything into a nice Markdown block
-		local clipboard_text =
-			string.format("%s\n\nContext from file: `%s`%s\n```%s\n%s\n```", input, file, range_str, ft, code_text)
+		local clipboard_text
+		if is_visual then
+			clipboard_text =
+				string.format("%s\n\nContext from file: `%s`%s\n```%s\n%s\n```", input, file, range_str, ft, code_text)
+		else
+			clipboard_text = string.format("%s\n\nContext from file: `%s`%s", input, file, location_str)
+		end
 
 		-- 5. Copy to system clipboard ('+' register)
 		vim.fn.setreg("+", clipboard_text)
@@ -46,7 +53,7 @@ local function copy_for_agent(is_visual)
 	end)
 end
 
--- Normal mode mapping: Grabs the entire current file/buffer
+-- Normal mode mapping: Grabs only the current file path and cursor location
 vim.keymap.set("n", "<leader>ac", function()
 	copy_for_agent(false)
 end, { desc = "Copy Context" })
