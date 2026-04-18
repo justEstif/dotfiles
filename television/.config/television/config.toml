@@ -1,0 +1,2 @@
+[source]
+command = ["fd -t f", "fd -t f -H", "fd -t f -H -I"]

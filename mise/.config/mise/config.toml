@@ -15,6 +15,7 @@ glow = "latest"                              # markdown preview - used by nb
 rust = "latest"
 "go:github.com/justestif/qry" = "latest"
 television = "latest"
+bat = "latest"
 
 [hooks]
 enter = "mise install"
