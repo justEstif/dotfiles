@@ -1,5 +1,5 @@
 [metadata]
-name = "mise"
+name = "mise-registry"
 description = "Browse and install mise plugins from the registry"
 requirements = ["mise"]
 
