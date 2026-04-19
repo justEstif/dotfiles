@@ -1,0 +1,13 @@
+{
+  "observationalMemory": {
+    "enabled": true,
+    "debug": true,
+    "scope": "thread",
+    "observationThreshold": 12000,
+    "reflectionThreshold": 40000,
+    "retryBackoffTurns": 2,
+    "observerModel": "anthropic/claude-sonnet-4-20250514",
+    "reflectorModel": "anthropic/claude-sonnet-4-20250514",
+    "resourceMemoryFile": ".pi/om-memory.json"
+  }
+}
