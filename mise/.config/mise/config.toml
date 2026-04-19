@@ -1,24 +1,22 @@
 [tools]
 node = "lts"
-bun = "latest"               # package manager
+bun = "latest"
 go = "latest"
+rust = "latest"
 usage = "latest"
 opencode = "latest"
 pi = "latest"
-# "npm:agent-browser" = "latest" # browser automation cli
-lazygit = "latest"                           # git tui
-glow = "latest"                              # markdown preview - used by nb
+lazygit = "latest"
+glow = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "go:github.com/hmans/beans" = "latest"
-"go:github.com/maaslalani/slides" = "latest"
 "npm:defuddle" = "latest"
-rust = "latest"
 "go:github.com/justestif/qry" = "latest"
 television = "latest"
 bat = "latest"
 
-[hooks]
-enter = "mise install"
+# [hooks]
+# enter = "mise install"
 
 [settings]
 experimental = true
