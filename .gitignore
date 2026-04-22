@@ -6,3 +6,5 @@ zed/.config/zed/prompts/prompts-library-db.0.mdb
 /agents/.agents/.skill-lock.json
 node_modules/
 /television/.config/television/cable
+om-debug.log
+om-last-observer-response.json
