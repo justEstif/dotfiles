@@ -1,11 +1,11 @@
 ---
 # dotfiles-n11a
 title: Review observational-memory.ts against Mastra OM
-status: in-progress
+status: completed
 type: task
 priority: normal
 created_at: 2026-04-19T22:24:16Z
-updated_at: 2026-04-19T23:12:38Z
+updated_at: 2026-04-24T11:02:06Z
 ---
 
 Review @pi/.pi/agent/extensions/observational-memory.ts, explain how it works, and compare it to Mastra's Observational Memory using current web docs.
