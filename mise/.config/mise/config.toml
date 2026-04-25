@@ -15,6 +15,7 @@ glow = "latest"
 television = "latest"
 bat = "latest"
 "npm:nb.sh" = "latest"
+"npm:@justestif/lasso" = "latest"
 
 # [hooks]
 # enter = "mise install"
