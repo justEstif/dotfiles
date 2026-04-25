@@ -1,13 +1,19 @@
-zed/.config/zed/prompts/prompts-library-db.0.mdb
-/pi/.pi/agent/auth.json
-/pi/.pi/agent/settings.json
-/pi/.pi/agent/sessions
-/opencode/.config/opencode/package-lock.json
-/agents/.agents/.skill-lock.json
+# Local/runtime state
+.lasso/
+pi/.pi/agent/auth.json
+pi/.pi/agent/settings.json
+pi/.pi/agent/sessions/
+
+# Generated dependency/install artifacts
 node_modules/
-/television/.config/television/cable
+agents/.agents/skills/dist/
+opencode/.config/opencode/package-lock.json
+television/.config/television/cable/
+
+# Agent/tool generated files
+agents/.agents/.skill-lock.json
+zed/.config/zed/prompts/prompts-library-db.0.mdb
+
+# Debug/log output
 om-debug.log
 om-last-observer-response.json
-.lasso/db.sqlite*
-.lasso/debug/
-/.lasso
