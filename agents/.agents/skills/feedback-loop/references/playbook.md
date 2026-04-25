@@ -3,9 +3,11 @@
 ## Baseline checklist
 
 - Local commands: install, format, lint, typecheck, test, e2e documented and runnable.
-- CI: runs the same commands as local; fails on warnings.
+- Git safety: pre-commit/pre-push hooks, branch protection, no direct pushes to production branches, no agent force-pushes; see `git-guardrails.md`.
+- CI: runs the same commands as local; fails on warnings; uses least-privilege permissions and protected-branch required checks; see `ci-guardrails.md`.
 - Complexity: hard caps on function length, depth, params, statements, cyclomatic/cognitive complexity.
-- Architecture: enforce import boundaries, design-system rules, logging, data access, and migration constraints.
+- Design quality: checks target cognitive load, change amplification, and unknown unknowns; see `design-guardrails.md`.
+- Architecture: enforce import boundaries, information hiding, design-system rules, logging, data access, and migration constraints.
 - Visual behavior: screenshot/visual tests for the top critical pages or flows.
 - Runtime feedback: Sentry/Datadog/log alerts create tasks with enough context for an agent to act.
 - Agent docs: explain why rules exist and list exact verification commands.
@@ -18,7 +20,7 @@ Use existing project conventions first. If missing, propose minimal additions:
 npm install -D eslint prettier typescript eslint-plugin-sonarjs eslint-plugin-unicorn eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks @playwright/test
 ```
 
-Useful ESLint settings:
+Useful ESLint settings for complexity and overexposed interfaces:
 
 ```js
 {
@@ -42,6 +44,8 @@ eslint . --max-warnings=0
 
 ## Custom rule pattern
 
+Use design principles to choose rules: deep modules, information hiding, consistency, obviousness, and pulling complexity downward. Avoid red flags: shallow modules, pass-through methods/variables, information leakage, temporal decomposition, overexposed configuration, conjoined methods, special-general mixtures, repetition, non-obvious code, and vague naming.
+
 Turn this repeated review comment:
 
 > Do not import Ant Design in migrated shadcn pages.
@@ -55,15 +59,33 @@ Into a deterministic check:
 5. Run it locally and in CI.
 6. Add one sentence to agent docs explaining the rule and approved alternative.
 
-Prefer built-in restriction mechanisms before writing custom AST code.
+Prefer built-in restriction mechanisms before writing custom AST code. When the rule targets design quality, document the complexity symptom it prevents: cognitive load, change amplification, or unknown unknowns.
+
+## Git safety pattern
+
+Before trusting agents with commits or scheduled/background work:
+
+1. Add branch protection/rulesets in GitHub/GitLab for `main`, `master`, `prod`, `production`, and release branches.
+2. Require PRs and passing checks before merge.
+3. Disallow force pushes and branch deletion on protected branches.
+4. Add tracked pre-commit hooks for formatting/linting/secret scanning.
+5. Add pre-push hooks that block protected branches and run the local gate.
+6. Add agent docs that forbid force-push, direct-to-main push, `reset --hard`, and `clean -fdx` without explicit approval.
+
+Hooks can be bypassed, so mirror critical policy in remote branch protection and CI.
 
 ## CI pattern
 
-A good first CI job has no secrets and runs on pull requests:
+A good first CI job has no secrets, uses read-only permissions, and runs on pull requests:
 
 ```yaml
 name: verify
-on: [pull_request, push]
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -80,7 +102,7 @@ jobs:
       - run: npm test
 ```
 
-Adapt to the repo package manager and stack.
+Adapt to the repo package manager and stack. Prefer a single `check` command that CI, hooks, and agents all run. For deployment, sensitive paths, matrix builds, and PR security rules, read `ci-guardrails.md`.
 
 ## Screenshot/e2e starting point
 
