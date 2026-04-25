@@ -36,13 +36,13 @@ qry --mode merge "your query"
 ## Output format
 
 **`first` mode** (default) — array of results:
+
 ```json
-[
-  { "title": "...", "url": "https://...", "snippet": "..." }
-]
+[{ "title": "...", "url": "https://...", "snippet": "..." }]
 ```
 
 **`merge` mode** — object with `results` (and optional `warnings`):
+
 ```json
 {
   "results": [{ "title": "...", "url": "https://...", "snippet": "..." }],
@@ -52,9 +52,9 @@ qry --mode merge "your query"
 
 ## Tips
 
-- **Be specific** — `"python requests post json body example"` beats `"python http"`
-- **Version lookups** — `"numpy latest release site:pypi.org"`
-- **Error messages** — wrap in quotes: `qry '"ModuleNotFoundError: No module named X"'`
-- **Docs** — `"site:docs.python.org pathlib"` gives cleaner results
+- **Be specific** — `"express middleware error handling example"` beats `"http server"`
+- **Version lookups** — `"lodash latest release site:npmjs.com"`
+- **Error messages** — wrap in quotes: `qry '"cannot find module X"'`
+- **Docs** — `"site:docs.rust-lang.org ownership"` gives cleaner results
 - **After searching** — fetch the most relevant URL for full content: `curl -s <url> | cat`
 - **Partial failures in merge mode** are non-fatal — results from successful adapters are returned alongside warnings

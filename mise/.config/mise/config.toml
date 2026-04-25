@@ -14,6 +14,7 @@ glow = "latest"
 "go:github.com/justestif/qry" = "latest"
 television = "latest"
 bat = "latest"
+"npm:nb.sh" = "latest"
 
 # [hooks]
 # enter = "mise install"
