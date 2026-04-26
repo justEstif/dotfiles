@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+# Validate a skill directory against agentskills.io spec + quality checks.
+# Usage: validate-skill <path-to-skill-directory>
+# Exit 0 = pass, 1 = errors, 2 = warnings only.
+
+set -euo pipefail
+
+SKILL_DIR="${1:?Usage: validate-skill <path-to-skill-directory>}"
+SKILL_DIR="$(cd "$SKILL_DIR" && pwd)"
+SKILL_NAME="$(basename "$SKILL_DIR")"
+ERRORS=()
+WARNINGS=()
+
+# ── Spec compliance (skills-ref) ──────────────────────────────────────────────
+
+if command -v skills-ref &>/dev/null; then
+  SPEC_OUTPUT=$(skills-ref validate "$SKILL_DIR" 2>&1) || true
+  if echo "$SPEC_OUTPUT" | grep -q "Validation failed"; then
+    while IFS= read -r line; do
+      ERRORS+=("$line")
+    done <<< "$SPEC_OUTPUT"
+  fi
+else
+  # Fallback: manual spec checks if skills-ref not installed
+  SKILL_MD="$SKILL_DIR/SKILL.md"
+  [ ! -f "$SKILL_MD" ] && SKILL_MD="$SKILL_DIR/skill.md"
+
+  if [ ! -f "$SKILL_MD" ]; then
+    ERRORS+=("Missing required file: SKILL.md")
+  else
+    # Extract frontmatter
+    FM=$(awk '/^---$/{n++; next} n==1{print} n==2{exit}' "$SKILL_MD")
+
+    # Check name field
+    NAME=$(echo "$FM" | grep -oP '^name:\s*\K.*' || true)
+    if [ -z "$NAME" ]; then
+      ERRORS+=("Missing required field: name")
+    else
+      [ "$NAME" != "$(echo "$NAME" | tr '[:upper:]' '[:lower:]')" ] && ERRORS+=("name must be lowercase: $NAME")
+      [[ "$NAME" == -* ]] || [[ "$NAME" == *- ]] && ERRORS+=("name cannot start/end with hyphen: $NAME")
+      [[ "$NAME" == *--* ]] && ERRORS+=("name cannot have consecutive hyphens: $NAME")
+      [ "${#NAME}" -gt 64 ] && ERRORS+=("name exceeds 64 chars (${#NAME})")
+      [ "$NAME" != "$SKILL_NAME" ] && WARNINGS+=("name '$NAME' doesn't match directory '$SKILL_NAME'")
+      echo "$NAME" | grep -qP '[^a-z0-9\-\p{L}]' && ERRORS+=("name contains invalid characters: $NAME")
+    fi
+
+    # Check description field
+    DESC=$(echo "$FM" | grep -oP '^description:\s*\K.*' || true)
+    if [ -z "$DESC" ]; then
+      ERRORS+=("Missing required field: description")
+    else
+      [ "${#DESC}" -gt 1024 ] && ERRORS+=("description exceeds 1024 chars (${#DESC})")
+      [ "${#DESC}" -lt 20 ] && WARNINGS+=("description is very short (${#DESC} chars) — likely missing WHEN/KEYWORDS")
+    fi
+
+    # Check for unknown fields
+    ALLOWED="name description license compatibility metadata allowed-tools"
+    while IFS= read -r line; do
+      FIELD=$(echo "$line" | grep -oP '^(\S+):' | tr -d ':' || true)
+      [ -z "$FIELD" ] && continue
+      # Skip fields that are indented (sub-keys of metadata etc)
+      echo "$line" | grep -qE '^\s' && continue
+      echo "$ALLOWED" | grep -qw "$FIELD" || WARNINGS+=("Unknown frontmatter field: $FIELD")
+    done <<< "$FM"
+  fi
+fi
+
+# ── Quality checks (beyond spec) ─────────────────────────────────────────────
+
+SKILL_MD="$SKILL_DIR/SKILL.md"
+[ ! -f "$SKILL_MD" ] && SKILL_MD="$SKILL_DIR/skill.md"
+
+if [ -f "$SKILL_MD" ]; then
+  BODY=$(sed '/^---$/,/^---$/d' "$SKILL_MD")
+  BODY_LINES=$(echo "$BODY" | wc -l)
+
+  # Body length
+  [ "$BODY_LINES" -gt 300 ] && WARNINGS+=("Body is ${BODY_LINES} lines (recommended < 300)")
+
+  # Description quality: should have trigger hints
+  DESC_FULL=$(sed -n '/^---$/,/^---$/p' "$SKILL_MD" | grep -A0 '^description:' | head -1)
+  # Multiline description - extract the full value
+  DESC_FULL=$(awk '/^---$/{n++; next} n==1 && /^description:/{sub(/^description:\s*/, ""); desc=$0; if($0 ~ /\|?$/ || $0 ~ /"$/){print desc; exit}} n==1 && desc && /^  /{gsub(/^  /,""); print; next} n==1 && desc && /^[^ ]/{exit}' "$SKILL_MD")
+  echo "$DESC_FULL" | grep -qiE '(use when|trigger|use for)' || WARNINGS+=("Description lacks WHEN triggers — agent may not activate skill correctly")
+
+  # NEVER format: each NEVER should have WHY + INSTEAD
+  NEVER_COUNT=$(echo "$BODY" | grep -ciE 'NEVER\b' || true)
+  if [ "$NEVER_COUNT" -gt 0 ]; then
+    WITHOUT_WHY=$(echo "$BODY" | grep -cE '\*\*NEVER\b' || true)
+    WITH_INSTEAD=$(echo "$BODY" | grep -ciE '(\*\*Instead|INSTEAD)' || true)
+    WITH_WHY=$(echo "$BODY" | grep -ciE '(\*\*Why|WHY)' || true)
+    if [ "$WITHOUT_WHY" -gt 0 ] && [ "$WITH_INSTEAD" -lt "$WITHOUT_WHY" ]; then
+      WARNINGS+=("Some NEVER rules missing INSTEAD ($WITH_INSTEAD/$WITHOUT_WHY)")
+    fi
+    if [ "$WITHOUT_WHY" -gt 0 ] && [ "$WITH_WHY" -lt "$WITHOUT_WHY" ]; then
+      WARNINGS+=("Some NEVER rules missing WHY ($WITH_WHY/$WITHOUT_WHY)")
+    fi
+  else
+    WARNINGS+=("No NEVER rules found — consider adding anti-patterns")
+  fi
+
+  # Auxiliary files check
+  for FILE in README.md CHANGELOG.md INSTALLATION_GUIDE.md QUICK_REFERENCE.md CONTRIBUTING.md; do
+    [ -f "$SKILL_DIR/$FILE" ] && ERRORS+=("Auxiliary file should not exist: $FILE")
+  done
+
+  # References exist check
+  REFS_IN_BODY=$(echo "$BODY" | grep -oE 'references/[^")\]]+' || true)
+  for REF in $REFS_IN_BODY; do
+    [ ! -f "$SKILL_DIR/$REF" ] && ERRORS+=("Referenced file missing: $REF")
+  done
+
+  # MANDATORY READ triggers for references directory
+  if [ -d "$SKILL_DIR/references" ]; then
+    REF_COUNT=$(find "$SKILL_DIR/references" -type f | wc -l)
+    MANDATORY_COUNT=$(echo "$BODY" | grep -ciE 'MANDATORY.*READ' || true)
+    if [ "$REF_COUNT" -gt 0 ] && [ "$MANDATORY_COUNT" -eq 0 ]; then
+      WARNINGS+=("references/ has $REF_COUNT files but no MANDATORY READ triggers in body")
+    fi
+  fi
+fi
+
+# ── Output ────────────────────────────────────────────────────────────────────
+
+if [ ${#ERRORS[@]} -gt 0 ]; then
+  echo "FAIL $SKILL_NAME"
+  echo ""
+  echo "Errors:"
+  for e in "${ERRORS[@]}"; do echo "  ✗ $e"; done
+  if [ ${#WARNINGS[@]} -gt 0 ]; then
+    echo ""
+    echo "Warnings:"
+    for w in "${WARNINGS[@]}"; do echo "  ⚠ $w"; done
+  fi
+  exit 1
+elif [ ${#WARNINGS[@]} -gt 0 ]; then
+  echo "WARN $SKILL_NAME"
+  echo ""
+  echo "Warnings:"
+  for w in "${WARNINGS[@]}"; do echo "  ⚠ $w"; done
+  exit 2
+else
+  echo "PASS $SKILL_NAME"
+  exit 0
+fi
