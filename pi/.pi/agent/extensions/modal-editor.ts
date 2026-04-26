@@ -3,7 +3,7 @@
  *
  * Usage: pi --extension ./examples/extensions/modal-editor.ts
  *
- * - Escape: insert → normal mode (in normal mode, aborts agent)
+ * - Ctrl-[: insert → normal mode (in normal mode, aborts agent)
  * - i: normal → insert mode
  * - hjkl: navigation in normal mode
  * - ctrl+c, ctrl+d, etc. work in both modes
@@ -16,7 +16,6 @@ import {
   visibleWidth,
 } from "@mariozechner/pi-tui";
 
-// Normal mode key mappings: key -> escape sequence (or null for mode switch)
 const NORMAL_KEYS: Record<string, string | null> = {
   h: "\x1b[D", // left
   j: "\x1b[B", // down
@@ -33,8 +32,8 @@ class ModalEditor extends CustomEditor {
   private mode: "normal" | "insert" = "insert";
 
   handleInput(data: string): void {
-    // Escape or Ctrl-[ toggles to normal mode, or passes through for app handling
-    if (matchesKey(data, "escape") || matchesKey(data, "ctrl+[")) {
+    // Ctrl-[ toggles to normal mode, or passes through for app handling
+    if (matchesKey(data, "ctrl+[")) {
       if (this.mode === "insert") {
         this.mode = "normal";
       } else {
