@@ -17,3 +17,7 @@ zed/.config/zed/prompts/prompts-library-db.0.mdb
 # Debug/log output
 om-debug.log
 om-last-observer-response.json
+.lasso/db.sqlite*
+.lasso/debug/
+/pi/.pi/squad
+/pi/.pi/squad
