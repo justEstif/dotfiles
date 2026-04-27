@@ -1,7 +1,7 @@
 -- Helper function to gather context and prompt the user
 local function copy_for_agent(is_visual)
 	-- 1. Gather file info
-	local file = vim.fn.expand("%")
+	local file = vim.fn.expand("%:p")
 	if file == "" then
 		file = "[No Name]"
 	end
