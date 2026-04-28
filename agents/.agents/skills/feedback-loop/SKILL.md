@@ -11,19 +11,21 @@ Core idea: instructions help; feedback loops enforce. Prefer boring signals that
 
 ## Workflow
 
-1. Inspect the repo:
-   - Run `python3 <skill>/scripts/audit_feedback_loop.py <repo>` for a quick baseline.
-   - Read package/build/test config, CI workflows, existing agent docs, and recent conventions.
+1. Run the audit script to baseline the repo:
+   `python3 ~/.agents/skills/feedback-loop/scripts/audit_feedback_loop.py <repo-root>`
+   (If the skill is installed elsewhere, substitute the actual path to the `feedback-loop` skill directory.)
 2. Classify the current level:
    - **0 - Vibes**: no reliable CI/linters; humans review everything.
    - **1 - Guardrails**: standard linters + CI; architectural drift still gets through.
    - **2 - Architecture as Code**: custom rules encode team conventions.
    - **3 - Organism**: agent → rules → CI → observability → tasks → agent.
-3. Pick the next smallest loop that catches real failures:
+3. Pick the next smallest loop that catches real failures. Prefer one concrete, high-signal rule over a large aspirational system:
    - Start from repeated PR comments, recurring agent mistakes, TODOs in `CLAUDE.md`, known migration rules, or design red flags.
    - Before adding any prose to `CLAUDE.md`, ask: *Can this fail deterministically?* If yes, it belongs in a check, not a document.
    - For design problems, ask which complexity symptom the rule prevents: cognitive load, change amplification, or unknown unknowns.
-4. Implement guardrails in this order unless the repo clearly needs another sequence:
+   - Good first rules: required CI check mirroring the local gate; block direct pushes to `main`/`master`/`prod`; secret scanning in pre-commit; ban `console.log` in favour of structured wide-event logger; ban legacy design-system imports in migrated directories; ban barrel-file imports or enforce approved import boundaries; forbid magic spacing values outside design tokens; complexity limits (`max-depth`, `max-lines-per-function`, `max-params`); import-boundary rules to prevent information leakage; flag wrapper-only modules that hide no complexity.
+   - For JS/TS: ESLint with strict TypeScript, SonarJS, unicorn, import boundaries, a11y, React hooks, Playwright/screenshot tests. Other stacks: Ruff/mypy/pytest (Python), RuboCop (Ruby), clippy/rustfmt (Rust), golangci-lint (Go).
+4. Implement guardrails in this order. Deviate only when a specific failure mode demands it — for example, skip straight to git safety if direct pushes to `main` are actively happening, or skip to secret scanning if credentials have leaked. Otherwise, the sequence exists because earlier layers make later ones cheaper:
    - One documented local gate command runs formatting, linting, typechecking, tests, and build.
    - CI mirrors the local gate exactly; fails on warnings. **MANDATORY READ `references/ci-guardrails.md`** before configuring CI.
    - Strict type checking where applicable.
@@ -43,26 +45,6 @@ Core idea: instructions help; feedback loops enforce. Prefer boring signals that
 6. Validate by intentionally creating one small violation and confirming local/CI checks catch it, then revert.
 
 **MANDATORY READ `references/playbook.md`** for stack-specific examples before implementing any guardrail.
-
-## What to build first
-
-Prefer one concrete, high-signal rule over a large aspirational system.
-
-Good first rules:
-- Add a required CI check that runs the same local gate agents must run before handoff.
-- Block direct pushes to `main`/`master`/`prod`/`production` and disallow force pushes for agents.
-- Add secret scanning and denylisted files to pre-commit/pre-push hooks.
-- Ban `console.log` in production code; require the project logger with structured wide-event output.
-- Enforce one wide event per request: ban scattered per-operation log statements; require context accumulation + single emit.
-- Ban legacy design-system imports in migrated directories.
-- Ban barrel-file imports or require approved import boundaries.
-- Forbid magic spacing values outside design tokens.
-- Limit complexity (`complexity`, `max-depth`, `max-lines-per-function`, `max-params`, `max-statements`).
-- Prevent information leakage with import-boundary rules and ownership of schemas/protocols/formats.
-- Prevent shallow/pass-through APIs by flagging wrapper-only modules and public API additions that hide no complexity.
-- Prevent overexposed configuration with parameter limits, defaults, and options objects.
-
-For JavaScript/TypeScript repos, consider ESLint with strict TypeScript, SonarJS, unicorn, import boundaries, a11y, React hooks, Playwright, and screenshot/visual tests. For other stacks, map the same ideas to native tools: Ruff/mypy/pytest for Python, RuboCop for Ruby, clippy/rustfmt for Rust, golangci-lint for Go.
 
 ## NEVER
 
@@ -85,6 +67,10 @@ For JavaScript/TypeScript repos, consider ESLint with strict TypeScript, SonarJS
 - **NEVER skip the audit step**
   **Instead:** Run `audit_feedback_loop.py` first; know the current level before proposing changes.
   **Why:** Adding level-3 checks to a level-0 repo creates rejection and revert, not adoption.
+
+- **NEVER delete a check because it's blocking someone right now**
+  **Instead:** Quarantine it (disable in CI with a tracked task, not a comment) → fix the violation → re-enable. If the check is fundamentally wrong, change the rule via PR so the architecture discussion is explicit.
+  **Why:** Deleting under pressure is how feedback loops die. The next agent sees no check and the violation spreads. Quarantine preserves intent while unblocking.
 
 ## Decision rules
 

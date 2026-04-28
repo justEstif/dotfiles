@@ -1,145 +1,183 @@
-#!/usr/bin/env bash
-# Validate a skill directory against agentskills.io spec + quality checks.
-# Usage: validate-skill <path-to-skill-directory>
-# Exit 0 = pass, 1 = errors, 2 = warnings only.
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = ["pyyaml"]
+# ///
+"""
+Validate a skill directory against agentskills.io spec + quality checks.
+Usage: validate-skill <path-to-skill-directory>
+Exit 0 = pass, 1 = errors, 2 = warnings only.
+"""
 
-set -euo pipefail
+import re
+import subprocess
+import sys
+from pathlib import Path
 
-SKILL_DIR="${1:?Usage: validate-skill <path-to-skill-directory>}"
-SKILL_DIR="$(cd "$SKILL_DIR" && pwd)"
-SKILL_NAME="$(basename "$SKILL_DIR")"
-ERRORS=()
-WARNINGS=()
+import yaml
 
-# ── Spec compliance (skills-ref) ──────────────────────────────────────────────
 
-if command -v skills-ref &>/dev/null; then
-  SPEC_OUTPUT=$(skills-ref validate "$SKILL_DIR" 2>&1) || true
-  if echo "$SPEC_OUTPUT" | grep -q "Validation failed"; then
-    while IFS= read -r line; do
-      ERRORS+=("$line")
-    done <<< "$SPEC_OUTPUT"
-  fi
-else
-  # Fallback: manual spec checks if skills-ref not installed
-  SKILL_MD="$SKILL_DIR/SKILL.md"
-  [ ! -f "$SKILL_MD" ] && SKILL_MD="$SKILL_DIR/skill.md"
+def extract_frontmatter(skill_md: Path) -> tuple[dict, str]:
+    """Return (parsed frontmatter dict, body text) from a SKILL.md file."""
+    text = skill_md.read_text()
+    parts = text.split("---\n", 2)
+    if len(parts) < 3:
+        raise ValueError("Could not find frontmatter delimiters (---)")
+    fm_raw = parts[1]
+    body = parts[2]
+    return yaml.safe_load(fm_raw) or {}, body
 
-  if [ ! -f "$SKILL_MD" ]; then
-    ERRORS+=("Missing required file: SKILL.md")
-  else
-    # Extract frontmatter
-    FM=$(awk '/^---$/{n++; next} n==1{print} n==2{exit}' "$SKILL_MD")
 
-    # Check name field
-    NAME=$(echo "$FM" | grep -oP '^name:\s*\K.*' || true)
-    if [ -z "$NAME" ]; then
-      ERRORS+=("Missing required field: name")
-    else
-      [ "$NAME" != "$(echo "$NAME" | tr '[:upper:]' '[:lower:]')" ] && ERRORS+=("name must be lowercase: $NAME")
-      [[ "$NAME" == -* ]] || [[ "$NAME" == *- ]] && ERRORS+=("name cannot start/end with hyphen: $NAME")
-      [[ "$NAME" == *--* ]] && ERRORS+=("name cannot have consecutive hyphens: $NAME")
-      [ "${#NAME}" -gt 64 ] && ERRORS+=("name exceeds 64 chars (${#NAME})")
-      [ "$NAME" != "$SKILL_NAME" ] && WARNINGS+=("name '$NAME' doesn't match directory '$SKILL_NAME'")
-      echo "$NAME" | grep -qP '[^a-z0-9\-\p{L}]' && ERRORS+=("name contains invalid characters: $NAME")
-    fi
+def check_spec(skill_dir: Path, skill_name: str, errors: list, warnings: list):
+    # Try skills-ref first
+    if subprocess.run(["which", "skills-ref"], capture_output=True).returncode == 0:
+        result = subprocess.run(
+            ["skills-ref", "validate", str(skill_dir)],
+            capture_output=True, text=True
+        )
+        if "Validation failed" in result.stdout:
+            errors.extend(result.stdout.splitlines())
+        return
 
-    # Check description field
-    DESC=$(echo "$FM" | grep -oP '^description:\s*\K.*' || true)
-    if [ -z "$DESC" ]; then
-      ERRORS+=("Missing required field: description")
-    else
-      [ "${#DESC}" -gt 1024 ] && ERRORS+=("description exceeds 1024 chars (${#DESC})")
-      [ "${#DESC}" -lt 20 ] && WARNINGS+=("description is very short (${#DESC} chars) — likely missing WHEN/KEYWORDS")
-    fi
+    # Fallback: manual checks
+    skill_md = skill_dir / "SKILL.md"
+    if not skill_md.exists():
+        skill_md = skill_dir / "skill.md"
+    if not skill_md.exists():
+        errors.append("Missing required file: SKILL.md")
+        return
 
-    # Check for unknown fields
-    ALLOWED="name description license compatibility metadata allowed-tools"
-    while IFS= read -r line; do
-      FIELD=$(echo "$line" | grep -oP '^(\S+):' | tr -d ':' || true)
-      [ -z "$FIELD" ] && continue
-      # Skip fields that are indented (sub-keys of metadata etc)
-      echo "$line" | grep -qE '^\s' && continue
-      echo "$ALLOWED" | grep -qw "$FIELD" || WARNINGS+=("Unknown frontmatter field: $FIELD")
-    done <<< "$FM"
-  fi
-fi
+    # YAML parse
+    try:
+        fm, _ = extract_frontmatter(skill_md)
+    except yaml.YAMLError as e:
+        errors.append(f"Frontmatter YAML parse error: {e}")
+        return
+    except ValueError as e:
+        errors.append(str(e))
+        return
 
-# ── Quality checks (beyond spec) ─────────────────────────────────────────────
+    # name
+    name = fm.get("name", "")
+    if not name:
+        errors.append("Missing required field: name")
+    else:
+        if name != name.lower():
+            errors.append(f"name must be lowercase: {name}")
+        if name.startswith("-") or name.endswith("-"):
+            errors.append(f"name cannot start/end with hyphen: {name}")
+        if "--" in name:
+            errors.append(f"name cannot have consecutive hyphens: {name}")
+        if len(name) > 64:
+            errors.append(f"name exceeds 64 chars ({len(name)})")
+        if not re.fullmatch(r"[a-z0-9_-]+", name):
+            errors.append(f"name contains invalid characters: {name}")
+        if name != skill_name:
+            warnings.append(f"name '{name}' doesn't match directory '{skill_name}'")
 
-SKILL_MD="$SKILL_DIR/SKILL.md"
-[ ! -f "$SKILL_MD" ] && SKILL_MD="$SKILL_DIR/skill.md"
+    # description
+    desc = fm.get("description", "")
+    if not desc:
+        errors.append("Missing required field: description")
+    else:
+        if len(desc) > 1024:
+            errors.append(f"description exceeds 1024 chars ({len(desc)})")
+        if len(desc) < 20:
+            warnings.append(f"description is very short ({len(desc)} chars) — likely missing WHEN/KEYWORDS")
 
-if [ -f "$SKILL_MD" ]; then
-  BODY=$(sed '/^---$/,/^---$/d' "$SKILL_MD")
-  BODY_LINES=$(echo "$BODY" | wc -l)
+    # unknown fields
+    allowed = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
+    for key in fm:
+        if key not in allowed:
+            warnings.append(f"Unknown frontmatter field: {key}")
 
-  # Body length
-  [ "$BODY_LINES" -gt 300 ] && WARNINGS+=("Body is ${BODY_LINES} lines (recommended < 300)")
 
-  # Description quality: should have trigger hints
-  DESC_FULL=$(sed -n '/^---$/,/^---$/p' "$SKILL_MD" | grep -A0 '^description:' | head -1)
-  # Multiline description - extract the full value
-  DESC_FULL=$(awk '/^---$/{n++; next} n==1 && /^description:/{sub(/^description:\s*/, ""); desc=$0; if($0 ~ /\|?$/ || $0 ~ /"$/){print desc; exit}} n==1 && desc && /^  /{gsub(/^  /,""); print; next} n==1 && desc && /^[^ ]/{exit}' "$SKILL_MD")
-  echo "$DESC_FULL" | grep -qiE '(use when|trigger|use for)' || WARNINGS+=("Description lacks WHEN triggers — agent may not activate skill correctly")
+def check_quality(skill_dir: Path, errors: list, warnings: list):
+    skill_md = skill_dir / "SKILL.md"
+    if not skill_md.exists():
+        skill_md = skill_dir / "skill.md"
+    if not skill_md.exists():
+        return
 
-  # NEVER format: each NEVER should have WHY + INSTEAD
-  NEVER_COUNT=$(echo "$BODY" | grep -ciE 'NEVER\b' || true)
-  if [ "$NEVER_COUNT" -gt 0 ]; then
-    WITHOUT_WHY=$(echo "$BODY" | grep -cE '\*\*NEVER\b' || true)
-    WITH_INSTEAD=$(echo "$BODY" | grep -ciE '(\*\*Instead|INSTEAD)' || true)
-    WITH_WHY=$(echo "$BODY" | grep -ciE '(\*\*Why|WHY)' || true)
-    if [ "$WITHOUT_WHY" -gt 0 ] && [ "$WITH_INSTEAD" -lt "$WITHOUT_WHY" ]; then
-      WARNINGS+=("Some NEVER rules missing INSTEAD ($WITH_INSTEAD/$WITHOUT_WHY)")
-    fi
-    if [ "$WITHOUT_WHY" -gt 0 ] && [ "$WITH_WHY" -lt "$WITHOUT_WHY" ]; then
-      WARNINGS+=("Some NEVER rules missing WHY ($WITH_WHY/$WITHOUT_WHY)")
-    fi
-  else
-    WARNINGS+=("No NEVER rules found — consider adding anti-patterns")
-  fi
+    try:
+        fm, body = extract_frontmatter(skill_md)
+    except Exception:
+        return  # already reported in spec check
 
-  # Auxiliary files check
-  for FILE in README.md CHANGELOG.md INSTALLATION_GUIDE.md QUICK_REFERENCE.md CONTRIBUTING.md; do
-    [ -f "$SKILL_DIR/$FILE" ] && ERRORS+=("Auxiliary file should not exist: $FILE")
-  done
+    # Body length
+    body_lines = len(body.splitlines())
+    if body_lines > 300:
+        warnings.append(f"Body is {body_lines} lines (recommended < 300)")
 
-  # References exist check
-  REFS_IN_BODY=$(echo "$BODY" | grep -oE 'references/[^")\]]+' || true)
-  for REF in $REFS_IN_BODY; do
-    [ ! -f "$SKILL_DIR/$REF" ] && ERRORS+=("Referenced file missing: $REF")
-  done
+    # Description should have trigger hints
+    desc = str(fm.get("description", ""))
+    if not re.search(r"use when|trigger|use for", desc, re.IGNORECASE):
+        warnings.append("Description lacks WHEN triggers — agent may not activate skill correctly")
 
-  # MANDATORY READ triggers for references directory
-  if [ -d "$SKILL_DIR/references" ]; then
-    REF_COUNT=$(find "$SKILL_DIR/references" -type f | wc -l)
-    MANDATORY_COUNT=$(echo "$BODY" | grep -ciE 'MANDATORY.*READ' || true)
-    if [ "$REF_COUNT" -gt 0 ] && [ "$MANDATORY_COUNT" -eq 0 ]; then
-      WARNINGS+=("references/ has $REF_COUNT files but no MANDATORY READ triggers in body")
-    fi
-  fi
-fi
+    # NEVER rules: each needs WHY + INSTEAD
+    never_rules = len(re.findall(r"\*\*NEVER\b", body))
+    if never_rules == 0:
+        warnings.append("No NEVER rules found — consider adding anti-patterns")
+    else:
+        instead_count = len(re.findall(r"\*\*Instead", body, re.IGNORECASE))
+        why_count = len(re.findall(r"\*\*Why", body, re.IGNORECASE))
+        if instead_count < never_rules:
+            warnings.append(f"Some NEVER rules missing INSTEAD ({instead_count}/{never_rules})")
+        if why_count < never_rules:
+            warnings.append(f"Some NEVER rules missing WHY ({why_count}/{never_rules})")
 
-# ── Output ────────────────────────────────────────────────────────────────────
+    # Auxiliary files that shouldn't exist
+    banned = ["README.md", "CHANGELOG.md", "INSTALLATION_GUIDE.md", "QUICK_REFERENCE.md", "CONTRIBUTING.md"]
+    for f in banned:
+        if (skill_dir / f).exists():
+            errors.append(f"Auxiliary file should not exist: {f}")
 
-if [ ${#ERRORS[@]} -gt 0 ]; then
-  echo "FAIL $SKILL_NAME"
-  echo ""
-  echo "Errors:"
-  for e in "${ERRORS[@]}"; do echo "  ✗ $e"; done
-  if [ ${#WARNINGS[@]} -gt 0 ]; then
-    echo ""
-    echo "Warnings:"
-    for w in "${WARNINGS[@]}"; do echo "  ⚠ $w"; done
-  fi
-  exit 1
-elif [ ${#WARNINGS[@]} -gt 0 ]; then
-  echo "WARN $SKILL_NAME"
-  echo ""
-  echo "Warnings:"
-  for w in "${WARNINGS[@]}"; do echo "  ⚠ $w"; done
-  exit 2
-else
-  echo "PASS $SKILL_NAME"
-  exit 0
-fi
+    # Referenced files must exist
+    for ref in re.findall(r"references/[^\s\")\]]+", body):
+        if not (skill_dir / ref).exists():
+            errors.append(f"Referenced file missing: {ref}")
+
+    # references/ dir needs MANDATORY READ triggers
+    refs_dir = skill_dir / "references"
+    if refs_dir.is_dir():
+        ref_count = sum(1 for _ in refs_dir.rglob("*") if _.is_file())
+        mandatory_count = len(re.findall(r"MANDATORY.*READ", body, re.IGNORECASE))
+        if ref_count > 0 and mandatory_count == 0:
+            warnings.append(f"references/ has {ref_count} files but no MANDATORY READ triggers in body")
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: validate-skill <path-to-skill-directory>", file=sys.stderr)
+        sys.exit(1)
+
+    skill_dir = Path(sys.argv[1]).resolve()
+    skill_name = skill_dir.name
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    check_spec(skill_dir, skill_name, errors, warnings)
+    check_quality(skill_dir, errors, warnings)
+
+    if errors:
+        print(f"FAIL {skill_name}\n")
+        print("Errors:")
+        for e in errors:
+            print(f"  ✗ {e}")
+        if warnings:
+            print("\nWarnings:")
+            for w in warnings:
+                print(f"  ⚠ {w}")
+        sys.exit(1)
+    elif warnings:
+        print(f"WARN {skill_name}\n")
+        print("Warnings:")
+        for w in warnings:
+            print(f"  ⚠ {w}")
+        sys.exit(2)
+    else:
+        print(f"PASS {skill_name}")
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()
