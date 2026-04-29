@@ -1,6 +1,6 @@
 ---
 name: github
-description: "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries."
+description: "Interact with GitHub using the `gh` CLI. Use when working with GitHub issues, pull requests, CI runs, or API queries. Triggers on: PR review, issue search, workflow run, gh cli, github api, CI status."
 ---
 
 # GitHub Skill
@@ -50,3 +50,8 @@ Most commands support `--json` for structured output. You can use `--jq` to filt
 ```bash
 gh issue list --repo owner/repo --json number,title --jq '.[] | "\(.number): \(.title)"'
 ```
+
+## NEVER
+
+- **NEVER** run `gh` commands that mutate state (merge, close, delete) without user confirmation. **Why:** irreversible actions on shared repositories. **Instead:** show the command you would run and ask for approval.
+- **NEVER** hardcode `--repo owner/repo` when already in a git directory. **Why:** unnecessary and error-prone if the repo changes. **Instead:** omit `--repo` and let `gh` infer from the current directory.

@@ -1,44 +1,87 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# dependencies = ["pyyaml"]
-# ///
+#!/usr/bin/env python3
 """
 Validate a skill directory against agentskills.io spec + quality checks.
 Usage: validate-skill <path-to-skill-directory>
 Exit 0 = pass, 1 = errors, 2 = warnings only.
+Zero external dependencies — stdlib only.
 """
 
 import re
-import subprocess
 import sys
 from pathlib import Path
 
-import yaml
 
-
-def extract_frontmatter(skill_md: Path) -> tuple[dict, str]:
-    """Return (parsed frontmatter dict, body text) from a SKILL.md file."""
-    text = skill_md.read_text()
+def parse_frontmatter(text: str) -> tuple[dict, str]:
+    """Parse simple YAML frontmatter (key: value / key: "value" only).
+    Returns (dict, body_text).
+    Raises ValueError on unsupported YAML features or parse errors.
+    """
     parts = text.split("---\n", 2)
     if len(parts) < 3:
         raise ValueError("Could not find frontmatter delimiters (---)")
     fm_raw = parts[1]
     body = parts[2]
-    return yaml.safe_load(fm_raw) or {}, body
+
+    result = {}
+    for i, line in enumerate(fm_raw.splitlines(), 1):
+        stripped = line.strip()
+        if not stripped:
+            continue
+
+        # Detect indented continuation (folded scalars, block scalars, etc.)
+        if stripped and line[0] in (" ", "\t") and not result:
+            raise ValueError(
+                f"Unsupported frontmatter format on line {i}: indented content. "
+                f"Use simple key: value or key: \"value\"."
+            )
+
+        colon = stripped.find(":")
+        if colon == -1:
+            raise ValueError(
+                f"Unsupported frontmatter format on line {i}: no key: value pair. "
+                f"Use simple key: value or key: \"value\"."
+            )
+
+        key = stripped[:colon].strip()
+        val = stripped[colon + 1:].strip()
+
+        if not val:
+            raise ValueError(
+                f"Unsupported frontmatter format on line {i}: empty value. "
+                f"Use simple key: value or key: \"value\"."
+            )
+
+        # Indented continuation lines after a key (e.g. YAML folded >)
+        if line[0] in (" ", "\t") and result:
+            raise ValueError(
+                f"Unsupported frontmatter format on line {i}: indented continuation. "
+                f"Use simple key: value or key: \"value\"."
+            )
+
+        # Detect YAML special indicators
+        if val in (">", "|", "|-", "|+", ">-", ">+"):
+            raise ValueError(
+                f"Unsupported YAML feature on line {i}: '{val}' scalar. "
+                f"Use key: \"value\" instead."
+            )
+
+        # Quoted string
+        if val.startswith('"') and val.endswith('"'):
+            val = val[1:-1]
+        elif val.startswith("'") and val.endswith("'"):
+            val = val[1:-1]
+
+        result[key] = val
+
+    return result, body
+
+
+def extract_frontmatter(skill_md: Path) -> tuple[dict, str]:
+    """Return (parsed frontmatter dict, body text) from a SKILL.md file."""
+    return parse_frontmatter(skill_md.read_text())
 
 
 def check_spec(skill_dir: Path, skill_name: str, errors: list, warnings: list):
-    # Try skills-ref first
-    if subprocess.run(["which", "skills-ref"], capture_output=True).returncode == 0:
-        result = subprocess.run(
-            ["skills-ref", "validate", str(skill_dir)],
-            capture_output=True, text=True
-        )
-        if "Validation failed" in result.stdout:
-            errors.extend(result.stdout.splitlines())
-        return
-
-    # Fallback: manual checks
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.exists():
         skill_md = skill_dir / "skill.md"
@@ -46,12 +89,8 @@ def check_spec(skill_dir: Path, skill_name: str, errors: list, warnings: list):
         errors.append("Missing required file: SKILL.md")
         return
 
-    # YAML parse
     try:
         fm, _ = extract_frontmatter(skill_md)
-    except yaml.YAMLError as e:
-        errors.append(f"Frontmatter YAML parse error: {e}")
-        return
     except ValueError as e:
         errors.append(str(e))
         return
@@ -132,7 +171,7 @@ def check_quality(skill_dir: Path, errors: list, warnings: list):
             errors.append(f"Auxiliary file should not exist: {f}")
 
     # Referenced files must exist
-    for ref in re.findall(r"references/[^\s\")\]]+", body):
+    for ref in re.findall(r"references/[^\s\")\]`]+", body):
         if not (skill_dir / ref).exists():
             errors.append(f"Referenced file missing: {ref}")
 

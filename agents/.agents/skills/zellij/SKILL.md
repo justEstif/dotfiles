@@ -1,8 +1,6 @@
 ---
 name: zellij
-description: Orchestrate Zellij terminal multiplexer (v0.44.0+) by managing panes, reading outputs, and running background tasks via the native CLI.
-version: 1.0.0
-tags: [terminal, multiplexer, cli, orchestration, zellij]
+description: "Orchestrate Zellij terminal multiplexer (v0.44.0+) by managing panes, reading outputs, and running background tasks. Use when user mentions Zellij, terminal panes, background tasks, split terminal, or managing terminal sessions. Triggers on: zellij, pane, terminal multiplexer, background command, send keys."
 ---
 
 # Zellij Orchestration Skill
@@ -81,3 +79,8 @@ zellij action focus-pane --pane-id <ID>
 1. **Never guess Pane IDs.** Always run `zellij action list-panes --json` first to get the correct `pane_id` before trying to read from or send keys to a pane.
 2. **Use Floating Panes for Agent Tasks.** When spawning utility commands (`npm install`, linters, etc.), prefer `--floating` so you don't mess up the user's tiled layout.
 3. **Clean Up.** If you open a floating pane specifically to run a temporary task or read output, you **must close the pane** when you are finished by using `zellij action close-pane --pane-id <ID>`. Do not leave leftover background panes cluttering the workspace unless the user explicitly asks for a long-running service (like a dev server) to remain open.
+
+## NEVER
+
+- **NEVER** guess pane IDs. **Why:** wrong pane IDs send keystrokes or read output from the wrong process. **Instead:** always run `zellij action list-panes --json` first to get the correct `pane_id`.
+- **NEVER** leave temporary floating panes open after use. **Why:** cluttered workspace confuses the user. **Instead:** close with `zellij action close-pane --pane-id <ID>` when done.

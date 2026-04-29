@@ -26,7 +26,7 @@ Key principles (see [LANGUAGE.md](references/language.md) for the full list):
 - **The interface is the test surface.**
 - **One adapter = hypothetical seam. Two adapters = real seam.**
 
-This skill is _informed_ by the project's domain model — `CONTEXT.md` and any `docs/adr/`. The domain language gives names to good seams; ADRs record decisions the skill should not re-litigate. See [CONTEXT-FORMAT.md](../domain-model/CONTEXT-FORMAT.md) and [ADR-FORMAT.md](../domain-model/ADR-FORMAT.md).
+This skill is _informed_ by the project's domain model — `CONTEXT.md` and any `docs/adr/`. The domain language gives names to good seams; ADRs record decisions the skill should not re-litigate. **MANDATORY — READ `references/language.md`** for glossary and principles. **MANDATORY — READ `references/deepening.md`** for dependency categorisation and seam discipline. See [CONTEXT-FORMAT.md](../domain-model/CONTEXT-FORMAT.md) and [ADR-FORMAT.md](../domain-model/ADR-FORMAT.md).
 
 ## Process
 
@@ -74,3 +74,8 @@ Side effects happen inline as decisions crystallize:
 - **Sharpening a fuzzy term during the conversation?** Update `CONTEXT.md` right there.
 - **User rejects the candidate with a load-bearing reason?** Offer an ADR, framed as: _"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing — skip ephemeral reasons ("not worth it right now") and self-evident ones. See [ADR-FORMAT.md](../domain-model/ADR-FORMAT.md).
 - **Want to explore alternative interfaces for the deepened module?** See [INTERFACE-DESIGN.md](references/interface-design.md).
+
+## NEVER
+
+- **NEVER** propose interfaces in step 2 (present candidates). **Why:** interfaces lock in thinking before the user has chosen which problem to solve. **Instead:** present the problem and solution in plain English, then ask which candidate to explore.
+- **NEVER** re-litigate a decision recorded in an ADR unless the friction is real. **Why:** ADRs exist to stop endless re-argument. **Instead:** only surface ADR conflicts when the pain is measurable, and mark them clearly.

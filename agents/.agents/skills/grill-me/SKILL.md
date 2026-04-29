@@ -15,6 +15,6 @@ The interview is complete when every major branch has a decision (or an explicit
 
 ## NEVER
 
-- NEVER accept "I'll figure that out later" — require a decision or explicitly mark it as an open question before moving on.
-- NEVER ask multiple questions in a single turn — one question, then wait for the answer.
-- NEVER let the user redirect to implementation details until all design branches are resolved.
+- **NEVER** accept "I'll figure that out later" — require a decision or explicitly mark it as an open question before moving on. **Why:** unresolved decisions compound into ambiguous designs. **Instead:** force a concrete choice or mark it "OPEN: needs resolution before implementation."
+- **NEVER** ask multiple questions in a single turn — one question, then wait for the answer. **Why:** answering multiple questions at once leads to shallow treatment of each. **Instead:** ask the single most blocking question first.
+- **NEVER** let the user redirect to implementation details until all design branches are resolved. **Why:** implementation before design locks in decisions prematurely. **Instead:** acknowledge the idea, add it to a parking lot, and return to the current branch.

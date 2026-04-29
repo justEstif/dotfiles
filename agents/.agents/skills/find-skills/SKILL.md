@@ -1,6 +1,6 @@
 ---
 name: find-skills
-description: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.
+description: "Discover and install agent skills from the open ecosystem. Use when the user asks \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or wants to extend agent capabilities with installable skills. Triggers on skill discovery, skill search, skill installation."
 ---
 
 # Find Skills
@@ -140,3 +140,8 @@ I can still help you with this task directly! Would you like me to proceed?
 If this is something you do often, you could create your own skill:
 npx skills init my-xyz-skill
 ```
+
+## NEVER
+
+- **NEVER** recommend a skill based solely on search results. **Why:** search results can surface low-quality or abandoned skills. **Instead:** always verify install count, source reputation, and GitHub stars before recommending.
+- **NEVER** install a skill without user confirmation. **Why:** skills can instruct the model to perform any action — they are a security surface. **Instead:** present the skill details and install command, then let the user decide.

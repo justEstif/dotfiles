@@ -86,9 +86,8 @@ From "A Philosophy of Software Design":
 
 **Depth**: Small interface hiding significant complexity = deep module (good). Large interface with thin implementation = shallow module (avoid).
 
-## Anti-Patterns
+## NEVER
 
-- Don't let sub-agents produce similar designs - enforce radical difference
-- Don't skip comparison - the value is in contrast
-- Don't implement - this is purely about interface shape
-- Don't evaluate based on implementation effort
+- **NEVER** let sub-agents produce similar designs — enforce radical difference. **Why:** similar designs waste the comparison step and confirm bias instead of exploring alternatives. **Instead:** give each sub-agent a different constraint (minimize methods, maximize flexibility, optimize common case).
+- **NEVER** skip the comparison step. **Why:** the value of "design it twice" is in the contrast, not the individual designs. **Instead:** always present a side-by-side trade-off discussion.
+- **NEVER** start implementing during this exercise. **Why:** this is purely about interface shape — implementation locks in decisions prematurely. **Instead:** stay at the interface level until the user picks a design.

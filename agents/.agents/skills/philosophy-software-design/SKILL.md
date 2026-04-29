@@ -5,7 +5,7 @@ description: Apply "A Philosophy of Software Design" (John Ousterhout) principle
 
 # Software Design
 
-Apply John Ousterhout's "A Philosophy of Software Design" principles pragmatically — focus on the highest-impact issues, not dogmatic compliance.
+Apply John Ousterhout's "A Philosophy of Software Design" principles pragmatically — focus on the highest-impact issues, not dogmatic compliance. **MANDATORY — READ `references/principles.md`** for principle definitions. **MANDATORY — READ `references/red-flags.md`** for the complete red flag checklist.
 
 ## Mode Selection
 
@@ -111,3 +111,8 @@ These are guidelines, not laws. When reviewing:
 - Perfect information hiding is not always worth the refactoring cost
 
 Always weigh the **cost of change** against the **complexity reduction**. Recommend changes only when the net benefit is clear.
+
+## NEVER
+
+- **NEVER** demand dogmatic compliance on every principle. **Why:** real codebases have constraints — perfect design is not the goal. **Instead:** prioritize the highest-impact issues and note low-severity ones only when asked.
+- **NEVER** suggest refactors without explaining the complexity consequence. **Why:** "this is shallow" is not actionable without connecting it to cognitive load, change amplification, or unknown unknowns. **Instead:** always explain WHY something is a problem in terms of its downstream effects.

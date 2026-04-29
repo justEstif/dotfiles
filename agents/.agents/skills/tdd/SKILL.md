@@ -11,9 +11,11 @@ description: Test-driven development with red-green-refactor loop. Use when user
 
 **Good tests** are integration-style: they exercise real code paths through public APIs. They describe _what_ the system does, not _how_ it does it. A good test reads like a specification - "user can checkout with valid cart" tells you exactly what capability exists. These tests survive refactors because they don't care about internal structure.
 
-**Bad tests** are coupled to implementation. They mock internal collaborators, test private methods, or verify through external means (like querying a database directly instead of using the interface). The warning sign: your test breaks when you refactor, but behavior hasn't changed. If you rename an internal function and tests fail, those tests were testing implementation, not behavior.
+**BAD tests** are coupled to implementation. They mock internal collaborators, test private methods, or verify through external means (like querying a database directly instead of using the interface). The warning sign: your test breaks when you refactor, but behavior hasn't changed. If you rename an internal function and tests fail, those tests were testing implementation, not behavior.
 
-See [tests.md](references/tests.md) for examples and [mocking.md](references/mocking.md) for mocking guidelines.
+**MANDATORY — READ `references/tests.md`** for examples of good vs bad tests. **MANDATORY — READ `references/mocking.md`** for when and how to mock responsibly.
+
+- See [tests.md](references/tests.md) for examples and [mocking.md](references/mocking.md) for mocking guidelines.
 
 ## Anti-Pattern: Horizontal Slices
 
@@ -95,6 +97,12 @@ After all tests pass, look for [refactor candidates](references/refactoring.md):
 - [ ] Run tests after each refactor step
 
 **Never refactor while RED.** Get to GREEN first.
+
+## NEVER
+
+- **NEVER** write all tests first then all implementation (horizontal slicing). **Why:** tests written in bulk test imagined behavior, not actual behavior. **Instead:** use vertical tracer bullets — one test, one implementation, repeat.
+- **NEVER** test private methods or internal structure. **Why:** those tests break on refactor even when behavior is preserved. **Instead:** test through the public interface only.
+- **NEVER** add speculative features during GREEN phase. **Why:** gold-plating increases complexity without test coverage. **Instead:** write only enough code to pass the current test.
 
 ## Checklist Per Cycle
 

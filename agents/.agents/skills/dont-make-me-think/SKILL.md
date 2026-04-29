@@ -89,6 +89,11 @@ Before finishing any edit:
 - **Passive voice hiding actors**: "Mistakes were made" → "We made mistakes"
 - **List abuse**: Not everything needs bullets; prose can be cleaner for simple sequences
 
+## NEVER
+
+- **NEVER** add words that were cut — the goal is fewer words, not rearranged words. **Why:** adding back defeats the purpose. **Instead:** if meaning is lost, rewrite the sentence from scratch with fewer words.
+- **NEVER** sacrifice clarity for brevity — ambiguity is worse than a few extra words. **Why:** readers who misunderstand waste more time than readers who read a slightly longer sentence. **Instead:** keep the clearest version, even if it's not the shortest.
+
 ## The Ultimate Test
 
 Read it aloud. If you run out of breath or lose the thread, so will your reader.

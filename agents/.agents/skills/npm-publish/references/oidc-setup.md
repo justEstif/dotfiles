@@ -23,6 +23,7 @@ These steps require a human — the agent cannot do them:
 ### The 2FA gauntlet
 
 Each package requires ~6 two-factor authentication codes:
+
 1. Create token → 2FA code
 2. First publish → 2FA code
 3. Navigate to settings → 2FA code
@@ -46,19 +47,20 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write    # Required for OIDC
-    environment: npm     # Must match npm trusted publisher config (if set)
+      id-token: write # Required for OIDC
+    environment: npm # Must match npm trusted publisher config (if set)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm publish --provenance --access public
 ```
 
 Key points:
+
 - No `NODE_AUTH_TOKEN` or `NPM_TOKEN` secret needed
 - `--provenance` is automatic with OIDC but explicit is clearer
 - `--access public` needed for scoped packages on first publish
@@ -70,30 +72,33 @@ Key points:
 Each package in a monorepo needs its own trusted publisher entry on npmjs.com. They can all point to the same workflow file.
 
 ### With Changesets
+
 ```yaml
 - run: npx changeset publish
 ```
 
 ### With Lerna
+
 ```yaml
 - run: npx lerna publish from-git --yes
 ```
 
 ### With pnpm
+
 ```yaml
 - run: pnpm -r publish --access public
 ```
 
 ## Common OIDC Errors
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| "Unable to authenticate" | Workflow filename mismatch with npm config | Verify exact filename including `.yml`, case-sensitive |
-| "Unable to authenticate" | Missing `id-token: write` permission | Add to workflow `permissions` |
-| "Unable to authenticate" | npm CLI too old | Ensure npm 11.5+ |
-| "Repository URL mismatch" | Missing/wrong `repository.url` in package.json | Add `{"repository": {"type": "git", "url": "https://github.com/owner/repo.git"}}` |
-| Works locally, fails in CI | OIDC only works in CI | Local publish always needs token/login |
-| Self-hosted runner failure | OIDC not supported on self-hosted | Use traditional token for self-hosted |
+| Error                      | Cause                                          | Fix                                                                               |
+| -------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------- |
+| "Unable to authenticate"   | Workflow filename mismatch with npm config     | Verify exact filename including `.yml`, case-sensitive                            |
+| "Unable to authenticate"   | Missing `id-token: write` permission           | Add to workflow `permissions`                                                     |
+| "Unable to authenticate"   | npm CLI too old                                | Ensure npm 11.5+                                                                  |
+| "Repository URL mismatch"  | Missing/wrong `repository.url` in package.json | Add `{"repository": {"type": "git", "url": "https://github.com/owner/repo.git"}}` |
+| Works locally, fails in CI | OIDC only works in CI                          | Local publish always needs token/login                                            |
+| Self-hosted runner failure | OIDC not supported on self-hosted              | Use traditional token for self-hosted                                             |
 
 ## Monitoring
 

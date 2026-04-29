@@ -31,7 +31,10 @@ defuddle parse <url> -p description
 defuddle parse <url> -p domain
 ```
 
-## Output formats
+## NEVER
+
+- **NEVER** fetch a URL ending in `.md` — those are already markdown. Use WebFetch directly instead. **Why:** defuddle strips HTML structure that doesn't exist in raw markdown. **Instead:** use `curl -sL <url>` or WebFetch.
+- **NEVER** use defuddle for API endpoints or raw files (JSON, CSV, XML). **Why:** defuddle expects HTML pages with article content — it will produce garbage for non-HTML. **Instead:** use `curl` or WebFetch for raw content.
 
 | Flag        | Format                           |
 | ----------- | -------------------------------- |

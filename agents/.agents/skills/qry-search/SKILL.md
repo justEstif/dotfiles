@@ -57,4 +57,9 @@ qry --mode merge "your query"
 - **Error messages** — wrap in quotes: `qry '"cannot find module X"'`
 - **Docs** — `"site:docs.rust-lang.org ownership"` gives cleaner results
 - **After searching** — fetch the most relevant URL for full content: `curl -s <url> | cat`
+
+## NEVER
+
+- **NEVER** use qry for URLs — it is a search tool, not a content fetcher. **Why:** qry returns search snippets, not page content. **Instead:** use defuddle or WebFetch to read the actual page.
+- **NEVER** ignore warnings in merge mode output. **Why:** partial failures mean results may be incomplete or biased toward one adapter. **Instead:** report the warnings to the user alongside results.
 - **Partial failures in merge mode** are non-fatal — results from successful adapters are returned alongside warnings
