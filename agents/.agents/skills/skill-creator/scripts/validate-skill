@@ -65,6 +65,18 @@ def parse_frontmatter(text: str) -> tuple[dict, str]:
                 f"Use key: \"value\" instead."
             )
 
+        is_quoted = (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'"))
+
+        # YAML plain scalars cannot contain an unquoted colon followed by whitespace/end.
+        # Agentskills clients use real YAML parsers, so accepting this here creates
+        # false PASS results that later fail during skill loading.
+        if not is_quoted and re.search(r":(\s|$)", val):
+            errors_at = re.search(r":(\s|$)", val).start() + 1
+            raise ValueError(
+                f"Invalid YAML frontmatter on line {i}: unquoted ':' in value near column {colon + 1 + errors_at}. "
+                f"Quote the entire value, e.g. {key}: \"{val}\"."
+            )
+
         # Quoted string
         if val.startswith('"') and val.endswith('"'):
             val = val[1:-1]
