@@ -1,0 +1,22 @@
+browser:
+  headless: false
+defaultThinkingLevel: minimal
+hideThinkingBlock: true
+compaction:
+  strategy: handoff
+  handoffSaveToDisk: true
+memories:
+  enabled: true
+edit:
+  mode: vim
+  fuzzyMatch: true
+lsp:
+  formatOnWrite: true
+renderMermaid:
+  enabled: true
+github:
+  enabled: true
+async:
+  enabled: false
+modelRoles:
+  default: zai/glm-5.1

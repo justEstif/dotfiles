@@ -23,4 +23,9 @@ om-last-observer-response.json
 .lasso/db.sqlite*
 .lasso/debug/
 /pi/.pi/squad
-/pi/.pi/squad
+
+# Oh My Pi agent state (keep config.yml)
+/omp/.omp/*
+!/omp/.omp/agent
+/omp/.omp/agent/*
+!/omp/.omp/agent/config.yml
