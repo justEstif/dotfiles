@@ -3,6 +3,9 @@
 pi/.pi/agent/auth.json
 pi/.pi/agent/settings.json
 pi/.pi/agent/sessions/
+.beans/
+# pi subagent artifacts
+**/.pi/subagents/
 
 # Generated dependency/install artifacts
 node_modules/
@@ -21,4 +24,3 @@ om-last-observer-response.json
 .lasso/debug/
 /pi/.pi/squad
 /pi/.pi/squad
-/pi/.pi/agent/skills/subagent/.pi/subagents/20260429T170403Z-Research-isolated-environments-for-agent-agnostic-AI-feedback-loops-with-user-pr

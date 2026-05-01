@@ -9,6 +9,74 @@ type PrimeCache = {
   text: string;
 };
 
+const PROJECT_MEMORY_GUIDANCE = `
+
+## Project Memory With Beans
+
+Beans are not only for task tracking. Treat beans as the project's durable, queryable memory layer.
+
+Use beans to capture project information that future agents or contributors should rediscover while working, including:
+
+- Architecture decisions and rationale
+- Project conventions and local rules
+- Known issues, workarounds, and recurring pitfalls
+- Research findings and investigation notes
+- Integration details and external constraints
+- Deferred ideas or open questions
+- Summaries of important completed work
+
+Because the configured issue types may not include a dedicated memory type, use existing types with title prefixes:
+
+- \`Memory:\` durable project fact or context
+- \`Decision:\` chosen direction and rationale
+- \`Convention:\` local project rule agents should follow
+- \`Known Issue:\` recurring problem plus workaround
+- \`Research:\` investigation findings and evidence
+- \`Question:\` unresolved uncertainty needing follow-up
+
+Recommended status semantics for memory beans:
+
+- \`todo\` = needs investigation or verification
+- \`in-progress\` = currently being researched or refined
+- \`completed\` = captured and usable as project memory
+- \`scrapped\` = obsolete, superseded, or found to be wrong
+
+When storing memory, prefer this body shape:
+
+~~~md
+## Summary
+
+One short paragraph.
+
+## Details
+
+Important context.
+
+## Evidence
+
+Files, commands, links, observations, or related bean IDs.
+
+## Implications
+
+How future agents should act differently because of this.
+
+## Related
+
+- bean IDs
+- file paths
+- docs
+~~~
+
+Before starting significant work, search beans for relevant memory as well as existing tasks, for example:
+
+~~~bash
+beans list --json -S "keyword"
+beans query --json '{ beans(filter: { search: "keyword" }) { id title status type body } }'
+~~~
+
+Create or update memory beans when work reveals durable context worth preserving. Do not dump every transient thought into beans; capture information that is likely to matter in future sessions.
+`;
+
 function findBeansConfigDir(startCwd: string): null | string {
   if (process.env.BEANS_PATH) {
     const candidate = path.join(process.env.BEANS_PATH, ".beans.yml");
@@ -68,7 +136,7 @@ export default function (pi: ExtensionAPI) {
     cache = {
       configDir,
       generatedAt: new Date().toISOString(),
-      text,
+      text: text + PROJECT_MEMORY_GUIDANCE,
     };
 
     return { ok: true };
