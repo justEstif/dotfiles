@@ -16,7 +16,7 @@ edit:
 lsp: 
   formatOnWrite: true
 renderMermaid: 
-  enabled: true
+  enabled: false
 github: 
   enabled: true
 async: 
