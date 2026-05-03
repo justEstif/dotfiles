@@ -1,22 +1,55 @@
-browser:
+browser: 
   headless: false
+  enabled: false
 defaultThinkingLevel: minimal
 hideThinkingBlock: true
-compaction:
+compaction: 
   strategy: handoff
   handoffSaveToDisk: true
-memories:
+  thresholdPercent: -1
+  thresholdTokens: -1
+memories: 
   enabled: true
-edit:
+edit: 
   mode: vim
   fuzzyMatch: true
-lsp:
+lsp: 
   formatOnWrite: true
-renderMermaid:
+renderMermaid: 
   enabled: true
-github:
+github: 
   enabled: true
-async:
+async: 
   enabled: false
-modelRoles:
+modelRoles: 
   default: zai/glm-5.1
+stt: 
+  enabled: false
+startup: 
+  quiet: false
+commands: 
+  enableClaudeUser: false
+  enableClaudeProject: false
+  enableOpencodeUser: false
+  enableOpencodeProject: false
+task: 
+  eager: false
+colorBlindMode: false
+display: 
+  showTokenUsage: false
+contextPromotion: 
+  enabled: false
+memory: 
+  backend: local
+notebook: 
+  enabled: false
+debug: 
+  enabled: false
+tools: 
+  intentTracing: false
+mcp: 
+  enableProjectConfig: false
+secrets: 
+  enabled: false
+exa: 
+  enableResearcher: false
