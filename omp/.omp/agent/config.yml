@@ -11,7 +11,7 @@ compaction:
 memories: 
   enabled: true
 edit: 
-  mode: vim
+  mode: replace
   fuzzyMatch: true
 lsp: 
   formatOnWrite: true
@@ -22,7 +22,7 @@ github:
 async: 
   enabled: false
 modelRoles: 
-  default: zai/glm-5.1
+  default: anthropic/claude-sonnet-4-6
 stt: 
   enabled: false
 startup: 
@@ -52,4 +52,5 @@ mcp:
 secrets: 
   enabled: false
 exa: 
-  enableResearcher: false
+  enableResearcher: true
+  enableWebsets: true
