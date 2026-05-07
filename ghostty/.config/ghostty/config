@@ -93,6 +93,7 @@ keybind = pane/x=close_surface
 keybind = pane/equal=equalize_splits
 keybind = pane/escape=deactivate_key_table
 keybind = pane/enter=deactivate_key_table
+keybind = pane/catch_all=deactivate_key_table
 
 # ---- Scroll mode ------------------------------------------------------------
 # j/k scroll  ctrl+u/d half page  ctrl+b/f full page  g/G top/bottom  / search  Esc exit
