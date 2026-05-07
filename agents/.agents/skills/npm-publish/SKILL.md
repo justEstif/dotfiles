@@ -1,6 +1,6 @@
 ---
 name: npm-publish
-description: "Publish npm packages with OIDC trusted publishing, GitHub release workflows, and version synchronization. Use when setting up npm publish CI/CD, configuring OIDC/trusted publishers, fixing version sync issues (package.json vs git tag), troubleshooting npm publish 403/errors, creating release workflows, or publishing scoped/monorepo packages. Triggers: npm publish, npm release, OIDC, trusted publisher, package.json version, npm 403, publish workflow, changesets publish, lerna publish."
+description: "Publish npm packages with OIDC trusted publishing, GitHub release workflows, and version synchronization. Use when setting up npm publish CI/CD, configuring OIDC/trusted publishers, fixing version sync issues (package.json vs git tag), troubleshooting npm publish 403/404/ENEEDAUTH errors, creating release workflows, or publishing scoped/monorepo packages. Triggers: npm publish, npm release, OIDC, trusted publisher, package.json version, npm 403, npm 404, ENEEDAUTH, publish workflow, changesets publish, lerna publish."
 ---
 
 # npm Publish
@@ -19,7 +19,10 @@ Guardrails for publishing npm packages — OIDC setup, version sync, release wor
 
 Key constraints:
 
-- OIDC requires `id-token: write` permission and `registry-url` in `actions/setup-node`
+- OIDC requires `id-token: write` permission — that is the only workflow requirement
+- Do NOT set `registry-url` in `actions/setup-node` — it injects `GITHUB_TOKEN` as `NODE_AUTH_TOKEN`, which npm uses instead of OIDC, causing 404
+- Do NOT set `environment:` on the job unless the exact same environment name is configured in the trusted publisher on npmjs.com — a mismatch causes silent 404
+- Node 24 is required (ships with npm 11) — Node 22 ships with npm 10 which has no OIDC support; `npm install -g npm@latest` also crashes on npm 10 with `MODULE_NOT_FOUND`
 - No `NPM_TOKEN` secret needed — remove it
 - Workflow filename on npmjs.com settings must match exactly (case-sensitive, including `.yml`)
 - **First publish cannot use OIDC** — package must exist on npm first
