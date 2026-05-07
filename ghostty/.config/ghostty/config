@@ -32,8 +32,6 @@ config-file = ?macos.conf
 #   ctrl+a > t  →  tab mode   (n new  x close  h/l prev/next  1-9 jump)
 #   ctrl+a > p  →  pane mode  (n/d split  h/j/k/l nav  H/J/K/L resize  f zoom  x close)
 #   ctrl+a > [  →  scroll mode
-#
-# Direct: ctrl+h/j/k/l navigate splits without entering pane mode.
 # -----------------------------------------------------------------------------
 
 keybind = clear
@@ -46,12 +44,6 @@ keybind = ctrl+a>t=activate_key_table:tab
 keybind = ctrl+a>p=activate_key_table:pane
 keybind = ctrl+a>[=activate_key_table:scroll
 keybind = ctrl+a>ctrl+a=text:\x01
-
-# Direct split navigation — performable so vim/apps that handle ctrl+h/j/k/l still work
-keybind = performable:ctrl+h=goto_split:left
-keybind = performable:ctrl+j=goto_split:down
-keybind = performable:ctrl+k=goto_split:up
-keybind = performable:ctrl+l=goto_split:right
 
 # ---- Tab mode ---------------------------------------------------------------
 # n new  x close  h/l prev/next  1-9 jump  Esc exit
