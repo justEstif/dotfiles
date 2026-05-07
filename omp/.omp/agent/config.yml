@@ -2,7 +2,7 @@ browser:
   headless: false
   enabled: false
 defaultThinkingLevel: minimal
-hideThinkingBlock: true
+hideThinkingBlock: false
 compaction: 
   strategy: handoff
   handoffSaveToDisk: true
@@ -18,7 +18,10 @@ lsp:
 renderMermaid: 
   enabled: false
 github: 
-  enabled: true
+  enabled: false
+eval: 
+  py: false
+  js: false
 async: 
   enabled: false
 modelRoles: 
@@ -53,3 +56,7 @@ secrets:
   enabled: false
 exa: 
   enableResearcher: false
+fetch: 
+  enabled: false
+recipe: 
+  enabled: false
