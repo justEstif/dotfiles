@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+"""Validate Mermaid diagrams in Markdown or .mmd files by rendering them with mmdc."""
+
+from __future__ import annotations
+
+import argparse
+import pathlib
+import re
+import subprocess
+import sys
+import tempfile
+from dataclasses import dataclass
+
+FENCE_RE = re.compile(
+    r"(^|\n)(?P<fence>`{3,}|~{3,})[ \t]*(?:mermaid|mmd)[^\n]*\n(?P<body>.*?)(?:\n(?P=fence)[ \t]*(?=\n|$))",
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+@dataclass(frozen=True)
+class Diagram:
+    source: pathlib.Path
+    index: int
+    line: int
+    body: str
+
+
+def line_number(text: str, offset: int) -> int:
+    return text.count("\n", 0, offset) + 1
+
+
+def extract_diagrams(path: pathlib.Path) -> list[Diagram]:
+    text = path.read_text(encoding="utf-8")
+    if path.suffix.lower() == ".mmd":
+        return [Diagram(path, 1, 1, text)]
+
+    diagrams: list[Diagram] = []
+    for index, match in enumerate(FENCE_RE.finditer(text), start=1):
+        diagrams.append(
+            Diagram(
+                source=path,
+                index=index,
+                line=line_number(text, match.start("body")),
+                body=match.group("body").strip() + "\n",
+            )
+        )
+    return diagrams
+
+
+def render_diagram(
+    diagram: Diagram,
+    tempdir: pathlib.Path,
+    puppeteer_config: pathlib.Path | None,
+    mmdc: str,
+) -> tuple[bool, str]:
+    stem = f"{diagram.source.stem}-{diagram.index}"
+    input_path = tempdir / f"{stem}.mmd"
+    output_path = tempdir / f"{stem}.svg"
+    input_path.write_text(diagram.body, encoding="utf-8")
+
+    command = [mmdc, "-i", str(input_path), "-o", str(output_path)]
+    if puppeteer_config is not None:
+        command.extend(["--puppeteerConfigFile", str(puppeteer_config)])
+
+    result = subprocess.run(command, text=True, capture_output=True)
+    if result.returncode == 0:
+        return True, ""
+    return False, (result.stdout + result.stderr).strip()
+
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Validate Mermaid diagrams in Markdown or .mmd files by rendering them with mmdc.",
+    )
+    parser.add_argument("paths", nargs="+", help="Markdown or .mmd files to validate")
+    parser.add_argument(
+        "--puppeteer-config",
+        type=pathlib.Path,
+        help="Optional Puppeteer config JSON for mermaid-cli",
+    )
+    parser.add_argument(
+        "--mmdc",
+        default="npx -y @mermaid-js/mermaid-cli",
+        help="Mermaid CLI command. Default: 'npx -y @mermaid-js/mermaid-cli'",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str]) -> int:
+    args = parse_args(argv)
+    mmdc_command = args.mmdc.split()
+    if len(mmdc_command) != 1:
+        # subprocess without shell needs executable + fixed args; wrap npx default here.
+        mmdc = mmdc_command[0]
+        fixed_prefix = mmdc_command[1:]
+    else:
+        mmdc = mmdc_command[0]
+        fixed_prefix = []
+
+    failures = 0
+    total = 0
+
+    with tempfile.TemporaryDirectory(prefix="mermaid-validate-") as tmp:
+        tempdir = pathlib.Path(tmp)
+        for raw_path in args.paths:
+            path = pathlib.Path(raw_path)
+            if not path.exists():
+                print(f"ERROR: file not found: {path}", file=sys.stderr)
+                failures += 1
+                continue
+
+            diagrams = extract_diagrams(path)
+            if not diagrams:
+                print(f"OK: {path}: no Mermaid diagrams")
+                continue
+
+            for diagram in diagrams:
+                total += 1
+                stem = f"{diagram.source.stem}-{diagram.index}"
+                input_path = tempdir / f"{stem}.mmd"
+                output_path = tempdir / f"{stem}.svg"
+                input_path.write_text(diagram.body, encoding="utf-8")
+                command = [mmdc, *fixed_prefix, "-i", str(input_path), "-o", str(output_path)]
+                if args.puppeteer_config is not None:
+                    command.extend(["--puppeteerConfigFile", str(args.puppeteer_config)])
+                result = subprocess.run(command, text=True, capture_output=True)
+                if result.returncode == 0:
+                    print(f"OK: {diagram.source}: diagram {diagram.index} line {diagram.line}")
+                    continue
+                failures += 1
+                output = (result.stdout + result.stderr).strip()
+                print(
+                    f"FAIL: {diagram.source}: diagram {diagram.index} line {diagram.line}\n{output}\n",
+                    file=sys.stderr,
+                )
+
+    if failures:
+        print(f"FAILED: {failures} failure(s), {total} diagram(s) checked", file=sys.stderr)
+        return 1
+    print(f"PASSED: {total} diagram(s) checked")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))
