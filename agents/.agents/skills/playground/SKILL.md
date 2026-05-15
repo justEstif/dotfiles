@@ -129,6 +129,7 @@ document.startViewTransition ? document.startViewTransition(update) : update();
 | Branching concept map | Mind map | agent-html-skills |
 | Gantt / roadmap / timeline | Timeline roadmap | agent-html-skills |
 | Brainstorm N-variant grid | Brainstorm grid | agent-html-skills |
+| Local-first single-user app (SQLite, OPFS, no backend) | Local-first app | `templates/local-first-app/` |
 
 ---
 
@@ -349,6 +350,9 @@ Branching SVG tree, centered root. Click node to expand/collapse. Submit sends t
 
 ### Timeline / roadmap
 Gantt-style: swim lanes per team/area, bars proportional to duration, dependency arrows. Click milestone to open detail in Popover. Export as markdown table.
+
+### Local-first app
+Use the template at `templates/local-first-app/` as the starting point — copy it, don't reconstruct from scratch. Architecture: all data in SQLite via PGlite + OPFS (persists in browser, no server). Worker thread handles all DB ops via `{ action, payload }` postMessage envelope; Alpine component in `index.html` wires UI to worker. Key features already scaffolded: timer, manual entry, period filter, project summary, entries list, edit dialog, CSV/JSON export, toast notifications. Add or remove features from there.
 
 ### ERD explorer
 Table boxes with column names + types. Relationship lines with cardinality labels. Click table to highlight its relations. Pan/zoom with CSS transform.
