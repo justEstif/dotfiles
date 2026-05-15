@@ -25,7 +25,10 @@ Pick the right mode. Load the reference. State why you chose it in one sentence 
 6. **Need to get organizational buy-in before a meeting?**
    → **MANDATORY READ** `references/stakeholder-prealignment.md`. Nemawashi: systematic one-on-one pre-alignment so the meeting becomes ratification, not debate.
 
-7. **Ambiguous?**
+7. **Handed a task and not sure how to approach it?**
+   → Start with **root-ask** (is this actually the right task?) then **grill-me** (what decisions need resolving before you start?). Load one at a time.
+
+8. **Ambiguous?**
    → Default `sycophancy`. Switch if the exchange reveals a clearer fit.
 
 ## Sequencing
