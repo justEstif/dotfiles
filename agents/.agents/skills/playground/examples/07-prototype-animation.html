@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
   }
   [x-cloak] { display: none; }
 
@@ -185,7 +187,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="m-0 bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans text-sm leading-[1.5]">
+<body x-data class="m-0 bg-ivory dark:bg-slate-dark text-slate-dark dark:text-ivory font-sans text-sm leading-[1.5]">
 <button @click="$store.theme.toggle()"
         class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
         :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
@@ -220,7 +222,7 @@
         <div class="check flex-none w-6 h-6 rounded-full border border-gray-500 bg-white dark:bg-gray-700 relative">
           <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5"/></svg>
         </div>
-        <span class="label relative text-[15px] text-slate-dark dark:text-gray-50">Send weekly digest</span>
+        <span class="label relative text-[15px] text-slate-dark dark:text-ivory">Send weekly digest</span>
         <span class="due ml-auto font-mono text-[11px] text-gray-500 dark:text-gray-400 bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 py-[3px] px-2 rounded-[8px]">Fri</span>
         <div class="confetti c1"></div>
         <div class="confetti c2"></div>

@@ -17,6 +17,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
     --font-serif: ui-serif, Georgia, "Times New Roman", serif;
     --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -37,7 +39,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans antialiased py-16 px-6 pb-24">
+<body x-data class="bg-ivory dark:bg-slate-dark text-slate-dark dark:text-ivory font-sans antialiased py-16 px-6 pb-24">
 <div class="max-w-[760px] mx-auto">
 
   <button @click="$store.theme.toggle()"
@@ -60,7 +62,7 @@
        A — Queue
        ============================================================ -->
   <figure class="mb-[72px]">
-    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-gray-900">
+    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-slate-dark">
       <svg id="ill-queue" xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320" style="display:block;width:100%;height:auto">
         <defs>
           <style>
@@ -136,7 +138,7 @@
        B — Retry with backoff
        ============================================================ -->
   <figure class="mb-[72px]">
-    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-gray-900">
+    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-slate-dark">
       <svg id="ill-retry" xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320" style="display:block;width:100%;height:auto">
         <defs>
           <style>
@@ -216,7 +218,7 @@
        C — Fan-out
        ============================================================ -->
   <figure class="mb-[72px]">
-    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-gray-900">
+    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-slate-dark">
       <svg id="ill-fanout" xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320" style="display:block;width:100%;height:auto">
         <defs>
           <style>

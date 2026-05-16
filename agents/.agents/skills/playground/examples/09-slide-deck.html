@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
     --font-serif: ui-serif, Georgia, "Times New Roman", serif;
     --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -44,7 +46,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
 <body
-  class="bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 antialiased overflow-hidden"
+  class="bg-ivory dark:bg-slate-dark text-slate-dark dark:text-ivory antialiased overflow-hidden"
   x-data="{
     slide: 0,
     total: 6,
@@ -78,7 +80,7 @@
   <section
     x-show="slide === 0"
     x-cloak
-    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-gray-900"
+    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-slate-dark"
   >
     <div class="w-full max-w-[780px]">
       <svg class="block mb-10" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
@@ -105,7 +107,7 @@
   <section
     x-show="slide === 1"
     x-cloak
-    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-gray-900"
+    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-slate-dark"
   >
     <div class="w-full max-w-[780px]">
       <div class="font-mono text-[12px] tracking-[0.12em] uppercase text-gray-500 dark:text-gray-400 mb-7">Shipped this week</div>
@@ -143,7 +145,7 @@
   <section
     x-show="slide === 2"
     x-cloak
-    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-gray-900"
+    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-slate-dark"
   >
     <div class="w-full max-w-[780px]">
       <div class="font-mono text-[12px] tracking-[0.12em] uppercase text-gray-500 dark:text-gray-400 mb-7">In progress</div>
@@ -181,7 +183,7 @@
   <section
     x-show="slide === 3"
     x-cloak
-    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-gray-900"
+    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-slate-dark"
   >
     <div class="w-full max-w-[780px]">
       <div class="font-mono text-[12px] tracking-[0.12em] uppercase text-gray-500 dark:text-gray-400 mb-7">Metrics</div>
@@ -240,7 +242,7 @@
   <section
     x-show="slide === 5"
     x-cloak
-    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-gray-900"
+    class="slide-section fixed inset-0 flex items-center justify-center px-[6vw] py-[8vh] bg-ivory dark:bg-slate-dark"
   >
     <div class="w-full max-w-[780px]">
       <div class="font-mono text-[12px] tracking-[0.12em] uppercase text-gray-500 dark:text-gray-400 mb-7">Next week</div>

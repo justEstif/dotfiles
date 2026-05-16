@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
   }
   [x-cloak] { display: none; }
   input[type="range"] {
@@ -59,7 +61,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="m-0 bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans text-[15px] leading-[1.5] antialiased">
+<body x-data class="m-0 bg-ivory dark:bg-slate-dark text-slate-dark dark:text-ivory font-sans text-[15px] leading-[1.5] antialiased">
 
 <button @click="$store.theme.toggle()"
         class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
@@ -90,7 +92,7 @@
 
   <header class="pt-12 pb-5">
     <h1 class="font-serif font-medium text-[24px] md:text-[36px] tracking-[-0.01em] m-0 mb-1.5">Card variant matrix</h1>
-    <p class="text-gray-500 dark:text-gray-500 text-sm m-0 max-w-[640px]">Six structural treatments of the Acme <code class="font-mono text-[13px]">&lt;Card /&gt;</code> component. Adjust density and emphasis with the controls, hover a variant to see its prop combo.</p>
+    <p class="text-gray-500 dark:text-ivory0 text-sm m-0 max-w-[640px]">Six structural treatments of the Acme <code class="font-mono text-[13px]">&lt;Card /&gt;</code> component. Adjust density and emphasis with the controls, hover a variant to see its prop combo.</p>
   </header>
 
   <!-- Toolbar -->
@@ -100,7 +102,7 @@
     <div class="flex items-center gap-2.5">
       <span class="font-mono text-xs text-gray-700 dark:text-gray-300">Padding</span>
       <input type="range" x-model.number="pad" min="12" max="32" step="2">
-      <span class="font-mono text-xs text-gray-500 dark:text-gray-500 min-w-[36px]" x-text="pad + 'px'"></span>
+      <span class="font-mono text-xs text-gray-500 dark:text-ivory0 min-w-[36px]" x-text="pad + 'px'"></span>
     </div>
 
     <!-- Border -->
@@ -155,7 +157,7 @@
         </div>
         <button class="inline-flex items-center h-[30px] px-3 text-[13px] font-medium text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 dark:border-gray-600 rounded-[8px] cursor-pointer hover:bg-gray-150 dark:hover:bg-gray-700">Open</button>
       </div>
-      <p class="text-xs text-gray-500 dark:text-gray-500 mt-2.5">best for: dense lists on tinted backgrounds</p>
+      <p class="text-xs text-gray-500 dark:text-ivory0 mt-2.5">best for: dense lists on tinted backgrounds</p>
     </div>
 
     <!-- B: Outlined -->
@@ -182,7 +184,7 @@
         </div>
         <button class="inline-flex items-center h-[30px] px-3 text-[13px] font-medium text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 dark:border-gray-600 rounded-[8px] cursor-pointer hover:bg-gray-150 dark:hover:bg-gray-700">Open</button>
       </div>
-      <p class="text-xs text-gray-500 dark:text-gray-500 mt-2.5">best for: default content cards on ivory</p>
+      <p class="text-xs text-gray-500 dark:text-ivory0 mt-2.5">best for: default content cards on ivory</p>
     </div>
 
     <!-- C: Elevated -->
@@ -209,7 +211,7 @@
         </div>
         <button class="inline-flex items-center h-[30px] px-3 text-[13px] font-medium text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 dark:border-gray-600 rounded-[8px] cursor-pointer hover:bg-gray-150 dark:hover:bg-gray-700">Open</button>
       </div>
-      <p class="text-xs text-gray-500 dark:text-gray-500 mt-2.5">best for: draggable items, popovers</p>
+      <p class="text-xs text-gray-500 dark:text-ivory0 mt-2.5">best for: draggable items, popovers</p>
     </div>
 
     <!-- D: Accent stripe -->
@@ -236,7 +238,7 @@
         </div>
         <button class="inline-flex items-center h-[30px] px-3 text-[13px] font-medium text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 dark:border-gray-600 rounded-[8px] cursor-pointer hover:bg-gray-150 dark:hover:bg-gray-700">Open</button>
       </div>
-      <p class="text-xs text-gray-500 dark:text-gray-500 mt-2.5">best for: pinned or priority items</p>
+      <p class="text-xs text-gray-500 dark:text-ivory0 mt-2.5">best for: pinned or priority items</p>
     </div>
 
     <!-- E: Inset / filled -->
@@ -263,7 +265,7 @@
         </div>
         <button class="inline-flex items-center h-[30px] px-3 text-[13px] font-medium text-gray-700 dark:text-gray-300 bg-transparent border border-[rgba(20,20,19,0.15)] dark:border-gray-600 rounded-[8px] cursor-pointer hover:bg-gray-150 dark:hover:bg-gray-700">Open</button>
       </div>
-      <p class="text-xs text-gray-500 dark:text-gray-500 mt-2.5">best for: nested cards inside white panels</p>
+      <p class="text-xs text-gray-500 dark:text-ivory0 mt-2.5">best for: nested cards inside white panels</p>
     </div>
 
     <!-- F: Horizontal / compact -->
@@ -290,7 +292,7 @@
         </div>
         <button class="inline-flex items-center shrink-0 h-[30px] px-3 text-[13px] font-medium text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 dark:border-gray-600 rounded-[8px] cursor-pointer hover:bg-gray-150 dark:hover:bg-gray-700">Open</button>
       </div>
-      <p class="text-xs text-gray-500 dark:text-gray-500 mt-2.5">best for: compact row lists, sidebars</p>
+      <p class="text-xs text-gray-500 dark:text-ivory0 mt-2.5">best for: compact row lists, sidebars</p>
     </div>
 
   </div>

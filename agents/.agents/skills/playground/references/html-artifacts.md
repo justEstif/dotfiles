@@ -101,6 +101,47 @@ Type: Tailwind's `font-serif` for main headlines and card titles; `font-sans` fo
 - One primary CTA at end.
 - If asked to "strip it down" — cut background context before cutting decisions.
 
+## Per-type guidance
+
+### Slide decks
+Keyboard nav: `→`/`Space` next, `←` previous, `F` fullscreen, `Esc` exit. Hash-based deep links (`#3`). Progress counter in corner. Fixed 16:9 ratio, letterboxed. Slide types: title, one-idea, code, diagram, comparison (use sparingly), demo (live HTML in slide), section break, recap. Speaker notes toggled with `N` — written in `<aside>` inside each `<section>`. Use View Transitions on slide change. Pick one aesthetic (editorial / engineering / brutalist / documentary) and commit.
+
+### Throwaway editors
+Pre-populate with the user's actual data — never make them paste it again. Export is non-negotiable; always end with a Submit or Copy button. Patterns: drag-and-drop board (kanban triage), form-based config with dependency warnings, side-by-side prompt/template editor, dataset curator (approve/reject with keyboard shortcuts `j`/`k`/`y`/`n`), annotation tool. Keyboard shortcuts for anything involving more than ~10 items. Show counts ("37 to review, 12 approved"). For drag-and-drop reordering, use `x-sort` / `@alpinejs/sort` — see `alpine-plugins.md` § Sort.
+
+### Interactive playgrounds
+Real-time updating preview as the user manipulates controls. Sliders/dropdowns/toggles; always show current value as text next to the control with units ("220ms", "1.04×"). Submit sends tuned values back. Patterns: single-component tuner (preview + controls), algorithm parameter explorer (synthetic visualization of behavior), multi-parameter sweep (grid of combinations).
+
+### Comparison / brainstorm grid
+N variants side-by-side (2–4 columns). Each column: variant title, the rendered thing, pro/con/tradeoff callouts. Submit sends the selected variant + rationale. Don't use this for things that require sequential reading — use a spec doc instead.
+
+### Spec / planning docs
+Milestones on a visual timeline with package/surface tags. Data flow diagram (inline SVG). Inline mockups. Risk table. Open questions section. Timestamp in footer. Skimmable on a phone in a meeting.
+
+### Code review artifacts
+Annotated diff with margin notes, severity tags, jump links. PR writeup: motivation, before/after, file-by-file tour with the *why*, where to focus review. Module map: boxes-and-arrows with hot path highlighted, entry points listed.
+
+### Diagrams / flowcharts
+Inline SVG — real `<g>` and `<path>`, not PNGs. SVG text in `<foreignObject>` for variable-length labels. Annotated flowchart: click any node to see details in a Popover. Architecture map: zoom/pan with CSS `transform`. Sequence diagrams: time flows top-to-bottom, actors as columns.
+
+### Research explainers / reports
+TL;DR box at top. Collapsible sections: prefer `x-collapse` from `@alpinejs/collapse` over `x-show` + manual height CSS. Fall back to `<details>` for low-stakes disclosure. Tabbed code samples. Glossary with hover definitions (Popover). Status reports: chart for key metric (inline SVG or CSS bar), colored timeline. Incident reports: minute-by-minute timeline, log excerpts, follow-up checklist.
+
+### Data explorer
+Filterable table with faceted search. `x-model` bound search input + computed filter. Column sort. Row click opens detail in Popover or `<dialog>`. Export filtered view as CSV or JSON. Log viewers: monospace, line numbers, severity coloring.
+
+### Design tokens showcase
+Color swatches with hex/var displayed. Type scale specimens. Spacing scale with visual bars. Copy-on-click for any token value.
+
+### Mind map
+Branching SVG tree, centered root. Click node to expand/collapse. Submit sends the full tree as a nested JSON structure.
+
+### Timeline / roadmap
+Gantt-style: swim lanes per team/area, bars proportional to duration, dependency arrows. Click milestone to open detail in Popover. Export as markdown table.
+
+### Local-first app
+Use `templates/local-first-app/` as the starting point — copy it, don't reconstruct from scratch. Architecture: SQLite via PGlite + OPFS. Worker thread handles all DB ops via `{ action, payload }` postMessage; Alpine wires UI to worker. Features already scaffolded: timer, manual entry, period filter, project summary, entries list, edit dialog, CSV/JSON export, toast notifications.
+
 ## GitHub Pages delivery
 
 For a shareable static lab:

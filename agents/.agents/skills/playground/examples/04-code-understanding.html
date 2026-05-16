@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
   }
 
   /* SVG fill/stroke — not expressible as Tailwind utilities */
@@ -55,7 +57,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory dark:bg-gray-900 text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-[1.65] px-6 pt-12 pb-20">
+<body x-data class="bg-ivory dark:bg-slate-dark text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-[1.65] px-6 pt-12 pb-20">
 
 <button @click="$store.theme.toggle()"
         class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
@@ -66,15 +68,15 @@
 <div class="max-w-[1080px] mx-auto grid grid-cols-[minmax(0,1fr)_280px] gap-10 max-[960px]:grid-cols-1">
 
   <header class="col-span-full mb-2">
-    <div class="font-mono text-[12.5px] text-gray-500 dark:text-gray-500 mb-2.5">acme/web · architecture note</div>
-    <h1 class="font-serif font-medium text-[32px] leading-[1.25] text-slate-dark dark:text-gray-50 mb-4">How authentication flows through the codebase</h1>
+    <div class="font-mono text-[12.5px] text-gray-500 dark:text-ivory0 mb-2.5">acme/web · architecture note</div>
+    <h1 class="font-serif font-medium text-[32px] leading-[1.25] text-slate-dark dark:text-ivory mb-4">How authentication flows through the codebase</h1>
     <p class="max-w-[760px] text-[15.5px]">
       Acme uses cookie-based sessions: the browser never holds a bearer token directly. Every authenticated request hits <code class="font-mono text-[13px]">/api/*</code>, passes through a single <code class="font-mono text-[13px]">verifyToken()</code> middleware, and resolves to a <code class="font-mono text-[13px]">Session</code> row that downstream handlers read off <code class="font-mono text-[13px]">req.ctx</code>. The middleware is the only place that talks to the session store, which is the only place that talks to the <code class="font-mono text-[13px]">sessions</code> table — so there's exactly one trust boundary to reason about.
     </p>
   </header>
 
   <main x-data="{ activeSnippet: 'step3' }">
-    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-0 mb-4">Request path</h2>
+    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-0 mb-4">Request path</h2>
 
     <div class="border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 p-5 overflow-x-auto">
       <svg class="flow block max-w-full" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="Authentication flow diagram">
@@ -124,13 +126,13 @@
       </svg>
     </div>
 
-    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-9 mb-4">Callstack walkthrough</h2>
+    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-9 mb-4">Callstack walkthrough</h2>
 
     <!-- Step 1 -->
     <div class="grid grid-cols-[44px_1fr] gap-[18px] py-5 border-b border-gray-150 dark:border-gray-700">
-      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-gray-50 text-sm">1</div>
+      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-ivory text-sm">1</div>
       <div>
-        <div class="font-mono text-[13px] text-slate-dark dark:text-gray-50 mb-1.5">src/app/providers/AuthProvider.tsx<span class="text-gray-500 dark:text-gray-500"> :22-48</span></div>
+        <div class="font-mono text-[13px] text-slate-dark dark:text-ivory mb-1.5">src/app/providers/AuthProvider.tsx<span class="text-gray-500 dark:text-ivory0"> :22-48</span></div>
         <p class="mb-2.5">On mount, the React provider issues a <code class="font-mono text-[12.5px]">GET /api/session</code> with <code class="font-mono text-[12.5px]">credentials: 'include'</code> so the <code class="font-mono text-[12.5px]">fw_sid</code> cookie rides along. The response either hydrates <code class="font-mono text-[12.5px]">currentUser</code> into context or leaves it <code class="font-mono text-[12.5px]">null</code>, which the router treats as "show the sign-in screen".</p>
         <div>
           <button @click="activeSnippet = activeSnippet === 'step1' ? null : 'step1'" class="cursor-pointer text-[12.5px] text-gray-500 dark:text-gray-400 font-mono inline-flex items-center gap-1.5 py-1 select-none">
@@ -156,9 +158,9 @@
 
     <!-- Step 2 -->
     <div class="grid grid-cols-[44px_1fr] gap-[18px] py-5 border-b border-gray-150 dark:border-gray-700">
-      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-gray-50 text-sm">2</div>
+      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-ivory text-sm">2</div>
       <div>
-        <div class="font-mono text-[13px] text-slate-dark dark:text-gray-50 mb-1.5">src/server/routes/session.ts<span class="text-gray-500 dark:text-gray-500"> :9-27</span></div>
+        <div class="font-mono text-[13px] text-slate-dark dark:text-ivory mb-1.5">src/server/routes/session.ts<span class="text-gray-500 dark:text-ivory0"> :9-27</span></div>
         <p class="mb-2.5">The route itself is thin: it just returns whatever <code class="font-mono text-[12.5px]">req.ctx.session</code> the middleware attached. If the middleware short-circuited with a 401, this handler never runs — so there's no auth logic duplicated here.</p>
         <div>
           <button @click="activeSnippet = activeSnippet === 'step2' ? null : 'step2'" class="cursor-pointer text-[12.5px] text-gray-500 dark:text-gray-400 font-mono inline-flex items-center gap-1.5 py-1 select-none">
@@ -184,7 +186,7 @@ router.get(<span class="text-[#A8BC8C]">'/session'</span>, verifyToken, (req, re
     <div class="grid grid-cols-[44px_1fr] gap-[18px] py-5 border-b border-gray-150 dark:border-gray-700">
       <div class="w-[34px] h-[34px] rounded-full bg-[rgba(217,119,87,0.14)] border-[1.5px] border-clay flex items-center justify-center font-mono font-semibold text-clay text-sm">3</div>
       <div>
-        <div class="font-mono text-[13px] text-slate-dark dark:text-gray-50 mb-1.5">src/middleware/auth.ts<span class="text-gray-500 dark:text-gray-500"> :14-31</span></div>
+        <div class="font-mono text-[13px] text-slate-dark dark:text-ivory mb-1.5">src/middleware/auth.ts<span class="text-gray-500 dark:text-ivory0"> :14-31</span></div>
         <p class="mb-2.5">This is the trust boundary. <code class="font-mono text-[12.5px]">verifyToken</code> reads the signed <code class="font-mono text-[12.5px]">fw_sid</code> cookie, asks <code class="font-mono text-[12.5px]">SessionStore</code> to resolve it, and either populates <code class="font-mono text-[12.5px]">req.ctx.session</code> or responds 401. Every protected route in the app is mounted behind this function, so changing its behaviour changes auth globally.</p>
         <div>
           <button @click="activeSnippet = activeSnippet === 'step3' ? null : 'step3'" class="cursor-pointer text-[12.5px] text-gray-500 dark:text-gray-400 font-mono inline-flex items-center gap-1.5 py-1 select-none">
@@ -211,9 +213,9 @@ router.get(<span class="text-[#A8BC8C]">'/session'</span>, verifyToken, (req, re
 
     <!-- Step 4 -->
     <div class="grid grid-cols-[44px_1fr] gap-[18px] py-5 border-b border-gray-150 dark:border-gray-700">
-      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-gray-50 text-sm">4</div>
+      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-ivory text-sm">4</div>
       <div>
-        <div class="font-mono text-[13px] text-slate-dark dark:text-gray-50 mb-1.5">src/lib/sessionStore.ts<span class="text-gray-500 dark:text-gray-500"> :8-52</span></div>
+        <div class="font-mono text-[13px] text-slate-dark dark:text-ivory mb-1.5">src/lib/sessionStore.ts<span class="text-gray-500 dark:text-ivory0"> :8-52</span></div>
         <p class="mb-2.5"><code class="font-mono text-[12.5px]">SessionStore</code> is a small read-through cache: it checks an in-process LRU first, then falls back to Postgres. Writes (<code class="font-mono text-[12.5px]">create</code>, <code class="font-mono text-[12.5px]">revoke</code>) always go straight to the DB and invalidate the cache entry so other workers don't serve a stale session.</p>
         <div>
           <button @click="activeSnippet = activeSnippet === 'step4' ? null : 'step4'" class="cursor-pointer text-[12.5px] text-gray-500 dark:text-gray-400 font-mono inline-flex items-center gap-1.5 py-1 select-none">
@@ -240,9 +242,9 @@ router.get(<span class="text-[#A8BC8C]">'/session'</span>, verifyToken, (req, re
 
     <!-- Step 5 -->
     <div class="grid grid-cols-[44px_1fr] gap-[18px] py-5">
-      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-gray-50 text-sm">5</div>
+      <div class="w-[34px] h-[34px] rounded-full bg-oat dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 flex items-center justify-center font-mono font-semibold text-slate-dark dark:text-ivory text-sm">5</div>
       <div>
-        <div class="font-mono text-[13px] text-slate-dark dark:text-gray-50 mb-1.5">db/migrations/004_sessions.sql<span class="text-gray-500 dark:text-gray-500"> :1-18</span></div>
+        <div class="font-mono text-[13px] text-slate-dark dark:text-ivory mb-1.5">db/migrations/004_sessions.sql<span class="text-gray-500 dark:text-ivory0"> :1-18</span></div>
         <p class="mb-2.5">The <code class="font-mono text-[12.5px]">sessions</code> table is keyed on a random 32-byte id (the cookie value) with a covering index on <code class="font-mono text-[12.5px]">user_id</code> for "sign out everywhere". Expiry is enforced both here (<code class="font-mono text-[12.5px]">expires_at</code>) and again in the middleware as defence in depth.</p>
         <div>
           <button @click="activeSnippet = activeSnippet === 'step5' ? null : 'step5'" class="cursor-pointer text-[12.5px] text-gray-500 dark:text-gray-400 font-mono inline-flex items-center gap-1.5 py-1 select-none">
@@ -267,31 +269,31 @@ router.get(<span class="text-[#A8BC8C]">'/session'</span>, verifyToken, (req, re
 
   <aside class="sticky top-6 self-start">
     <div class="border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 px-5 py-[18px] mb-5">
-      <h3 class="text-[11px] font-semibold uppercase tracking-[0.08em] text-gray-500 dark:text-gray-500 mb-3">Key files</h3>
+      <h3 class="text-[11px] font-semibold uppercase tracking-[0.08em] text-gray-500 dark:text-ivory0 mb-3">Key files</h3>
       <ul class="list-none p-0">
         <li class="mb-3">
-          <span class="font-mono text-[12px] text-slate-dark dark:text-gray-50 block mb-0.5 break-all">src/middleware/auth.ts</span>
-          <span class="text-[12.5px] text-gray-500 dark:text-gray-500 leading-[1.45]">Single entry point for request authentication.</span>
+          <span class="font-mono text-[12px] text-slate-dark dark:text-ivory block mb-0.5 break-all">src/middleware/auth.ts</span>
+          <span class="text-[12.5px] text-gray-500 dark:text-ivory0 leading-[1.45]">Single entry point for request authentication.</span>
         </li>
         <li class="mb-3">
-          <span class="font-mono text-[12px] text-slate-dark dark:text-gray-50 block mb-0.5 break-all">src/lib/sessionStore.ts</span>
-          <span class="text-[12.5px] text-gray-500 dark:text-gray-500 leading-[1.45]">LRU + Postgres session lookup; only DB caller.</span>
+          <span class="font-mono text-[12px] text-slate-dark dark:text-ivory block mb-0.5 break-all">src/lib/sessionStore.ts</span>
+          <span class="text-[12.5px] text-gray-500 dark:text-ivory0 leading-[1.45]">LRU + Postgres session lookup; only DB caller.</span>
         </li>
         <li class="mb-3">
-          <span class="font-mono text-[12px] text-slate-dark dark:text-gray-50 block mb-0.5 break-all">src/server/routes/session.ts</span>
-          <span class="text-[12.5px] text-gray-500 dark:text-gray-500 leading-[1.45]">Returns the current session to the client.</span>
+          <span class="font-mono text-[12px] text-slate-dark dark:text-ivory block mb-0.5 break-all">src/server/routes/session.ts</span>
+          <span class="text-[12.5px] text-gray-500 dark:text-ivory0 leading-[1.45]">Returns the current session to the client.</span>
         </li>
         <li class="mb-3">
-          <span class="font-mono text-[12px] text-slate-dark dark:text-gray-50 block mb-0.5 break-all">src/server/routes/login.ts</span>
-          <span class="text-[12.5px] text-gray-500 dark:text-gray-500 leading-[1.45]">Exchanges credentials for a cookie via SessionStore.create.</span>
+          <span class="font-mono text-[12px] text-slate-dark dark:text-ivory block mb-0.5 break-all">src/server/routes/login.ts</span>
+          <span class="text-[12.5px] text-gray-500 dark:text-ivory0 leading-[1.45]">Exchanges credentials for a cookie via SessionStore.create.</span>
         </li>
         <li class="mb-3">
-          <span class="font-mono text-[12px] text-slate-dark dark:text-gray-50 block mb-0.5 break-all">src/app/providers/AuthProvider.tsx</span>
-          <span class="text-[12.5px] text-gray-500 dark:text-gray-500 leading-[1.45]">Client-side context that mirrors the server session.</span>
+          <span class="font-mono text-[12px] text-slate-dark dark:text-ivory block mb-0.5 break-all">src/app/providers/AuthProvider.tsx</span>
+          <span class="text-[12.5px] text-gray-500 dark:text-ivory0 leading-[1.45]">Client-side context that mirrors the server session.</span>
         </li>
         <li>
-          <span class="font-mono text-[12px] text-slate-dark dark:text-gray-50 block mb-0.5 break-all">db/migrations/004_sessions.sql</span>
-          <span class="text-[12.5px] text-gray-500 dark:text-gray-500 leading-[1.45]">Schema for the sessions table and indexes.</span>
+          <span class="font-mono text-[12px] text-slate-dark dark:text-ivory block mb-0.5 break-all">db/migrations/004_sessions.sql</span>
+          <span class="text-[12.5px] text-gray-500 dark:text-ivory0 leading-[1.45]">Schema for the sessions table and indexes.</span>
         </li>
       </ul>
     </div>

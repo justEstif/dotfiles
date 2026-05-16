@@ -17,6 +17,8 @@
       --color-gray-300: #D1CFC5;
       --color-gray-500: #87867F;
       --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
     }
 
     /* Code syntax highlighting */
@@ -85,7 +87,7 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory dark:bg-gray-900 text-gray-700 dark:text-gray-300 leading-[1.55] antialiased font-sans px-4 md:px-8 pt-14 pb-28">
+<body x-data class="bg-ivory dark:bg-slate-dark text-gray-700 dark:text-gray-300 leading-[1.55] antialiased font-sans px-4 md:px-8 pt-14 pb-28">
   <button @click="$store.theme.toggle()"
           class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
           :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
@@ -96,12 +98,12 @@
     <!-- ===== HEADER ===== -->
     <header class="mb-11 max-w-[820px]">
       <div class="text-[12px] tracking-[0.08em] uppercase text-gray-500 mb-3 font-mono">Pull request · Acme</div>
-      <h1 class="font-serif font-medium text-[24px] md:text-[36px] leading-tight text-slate-dark dark:text-gray-50 mb-2.5 tracking-tight">#312 — Move notification delivery onto a queue</h1>
+      <h1 class="font-serif font-medium text-[24px] md:text-[36px] leading-tight text-slate-dark dark:text-ivory mb-2.5 tracking-tight">#312 — Move notification delivery onto a queue</h1>
       <div class="flex flex-wrap gap-[18px] font-mono text-[12.5px] text-gray-500 mb-4">
-        <span><strong class="text-slate-dark dark:text-gray-50 font-semibold">9</strong> files</span>
+        <span><strong class="text-slate-dark dark:text-ivory font-semibold">9</strong> files</span>
         <span><span class="text-olive">+418</span> / <span class="text-clay">−190</span></span>
-        <span>branch <strong class="text-slate-dark dark:text-gray-50 font-semibold">notify-queue</strong> → <strong class="text-slate-dark dark:text-gray-50 font-semibold">main</strong></span>
-        <span>author <strong class="text-slate-dark dark:text-gray-50 font-semibold">@priya</strong></span>
+        <span>branch <strong class="text-slate-dark dark:text-ivory font-semibold">notify-queue</strong> → <strong class="text-slate-dark dark:text-ivory font-semibold">main</strong></span>
+        <span>author <strong class="text-slate-dark dark:text-ivory font-semibold">@priya</strong></span>
       </div>
       <div class="bg-gray-150 dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl px-5 py-4 text-[14.5px] text-gray-700 dark:text-gray-300">
         <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-gray-500 block mb-1.5">Prompt</span>
@@ -119,12 +121,12 @@
         <!-- TL;DR -->
         <div class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 border-l-4 border-l-clay rounded-xl px-6 py-5 mb-12 max-w-[760px]">
           <div class="font-mono text-[11px] uppercase tracking-[0.06em] text-gray-500 mb-2">TL;DR</div>
-          <p class="text-[15px] text-slate-dark dark:text-gray-50">Notification sends were happening inline in the request path. Under load they added 200–800&nbsp;ms to mutation latency and silently dropped emails when the SMTP pool was exhausted. This PR moves delivery onto the existing <code>pg-boss</code> queue so the API returns immediately and failed sends retry with backoff.</p>
+          <p class="text-[15px] text-slate-dark dark:text-ivory">Notification sends were happening inline in the request path. Under load they added 200–800&nbsp;ms to mutation latency and silently dropped emails when the SMTP pool was exhausted. This PR moves delivery onto the existing <code>pg-boss</code> queue so the API returns immediately and failed sends retry with backoff.</p>
         </div>
 
         <!-- ===== WHY ===== -->
         <section id="why" class="mb-14 scroll-mt-6">
-          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-gray-50 mb-3.5 tracking-tight">Why</h2>
+          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-ivory mb-3.5 tracking-tight">Why</h2>
           <p class="text-[15.5px] max-w-[680px] mb-3">When we added @mentions in comments last quarter, every mention started triggering up to three sends (in-app, email, Slack) inside the same transaction that saved the comment. That was fine at launch. It is not fine now that a single task update can fan out to forty watchers.</p>
 
           <div class="grid grid-cols-1 max-[720px]:grid-cols-1 min-[720px]:grid-cols-2 gap-6 mt-5 mb-1">
@@ -151,7 +153,7 @@
 
         <!-- ===== FILE TOUR ===== -->
         <section id="tour" class="mb-14 scroll-mt-6">
-          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-gray-50 mb-3.5 tracking-tight">File-by-file</h2>
+          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-ivory mb-3.5 tracking-tight">File-by-file</h2>
           <p class="text-[15.5px] max-w-[680px] mb-5">Ordered for reading, not alphabetically. Start at the worker — it's the new thing — then the enqueue call site, then the plumbing.</p>
 
           <div class="flex flex-col gap-[22px]">
@@ -159,12 +161,12 @@
             <details class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden" open>
               <summary class="px-5 py-3.5 cursor-pointer flex items-center gap-3 bg-gray-150 dark:bg-gray-700 border-b-[1.5px] border-gray-300 dark:border-gray-600">
                 <span class="chev w-2 h-2 border-r-2 border-b-2 border-gray-500 flex-shrink-0"></span>
-                <span class="font-mono text-[13px] text-slate-dark dark:text-gray-50 flex-1">packages/notify/src/worker.ts</span>
+                <span class="font-mono text-[13px] text-slate-dark dark:text-ivory flex-1">packages/notify/src/worker.ts</span>
                 <span class="badge-new font-mono text-[10.5px] uppercase tracking-[0.05em] px-2 py-0.5 rounded-md font-semibold">new</span>
                 <span class="font-mono text-[12px]"><span class="text-olive">+126</span></span>
               </summary>
               <div class="px-5 pt-4 pb-5">
-                <p class="text-[14.5px] mb-3.5 max-w-[680px]"><strong class="text-slate-dark dark:text-gray-50">The heart of the PR.</strong> A <code>pg-boss</code> subscriber that pulls <code>notify.deliver</code> jobs, resolves the user's channel preferences, and calls the right adapter. Retries are configured per-channel — email gets three attempts, Slack gets one because its API is already idempotent on our side.</p>
+                <p class="text-[14.5px] mb-3.5 max-w-[680px]"><strong class="text-slate-dark dark:text-ivory">The heart of the PR.</strong> A <code>pg-boss</code> subscriber that pulls <code>notify.deliver</code> jobs, resolves the user's channel preferences, and calls the right adapter. Retries are configured per-channel — email gets three attempts, Slack gets one because its API is already idempotent on our side.</p>
                 <div class="code"><pre>boss.<span class="fn">work</span>(<span class="str">'notify.deliver'</span>, { batchSize: 20 }, <span class="kw">async</span> (jobs) =&gt; {
   <span class="kw">for</span> (<span class="kw">const</span> job <span class="kw">of</span> jobs) {
     <span class="kw">const</span> { userId, event, channel } = job.data;
@@ -188,12 +190,12 @@
             <details class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden" open>
               <summary class="px-5 py-3.5 cursor-pointer flex items-center gap-3 bg-gray-150 dark:bg-gray-700 border-b-[1.5px] border-gray-300 dark:border-gray-600">
                 <span class="chev w-2 h-2 border-r-2 border-b-2 border-gray-500 flex-shrink-0"></span>
-                <span class="font-mono text-[13px] text-slate-dark dark:text-gray-50 flex-1">packages/api/src/routers/comments.ts</span>
+                <span class="font-mono text-[13px] text-slate-dark dark:text-ivory flex-1">packages/api/src/routers/comments.ts</span>
                 <span class="badge-mod font-mono text-[10.5px] uppercase tracking-[0.05em] px-2 py-0.5 rounded-md font-semibold">mod</span>
                 <span class="font-mono text-[12px]"><span class="text-olive">+14</span> <span class="text-clay">−62</span></span>
               </summary>
               <div class="px-5 pt-4 pb-5">
-                <p class="text-[14.5px] mb-3.5 max-w-[680px]"><strong class="text-slate-dark dark:text-gray-50">Where the win shows up.</strong> The mutation used to call <code>sendEmail</code>, <code>sendSlack</code>, and <code>createInApp</code> directly. Now it inserts the comment, computes recipients, and enqueues. The try/catch soup is gone.</p>
+                <p class="text-[14.5px] mb-3.5 max-w-[680px]"><strong class="text-slate-dark dark:text-ivory">Where the win shows up.</strong> The mutation used to call <code>sendEmail</code>, <code>sendSlack</code>, and <code>createInApp</code> directly. Now it inserts the comment, computes recipients, and enqueues. The try/catch soup is gone.</p>
                 <div class="code"><pre>  <span class="kw">const</span> comment = <span class="kw">await</span> db.comments.<span class="fn">insert</span>(input);
   <span class="kw">const</span> recipients = <span class="kw">await</span> <span class="fn">resolveWatchers</span>(input.taskId, input.mentions);
 
@@ -214,7 +216,7 @@
             <details class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden">
               <summary class="px-5 py-3.5 cursor-pointer flex items-center gap-3 bg-gray-150 dark:bg-gray-700 border-b-[1.5px] border-gray-300 dark:border-gray-600">
                 <span class="chev w-2 h-2 border-r-2 border-b-2 border-gray-500 flex-shrink-0"></span>
-                <span class="font-mono text-[13px] text-slate-dark dark:text-gray-50 flex-1">packages/db/migrations/0051_dead_letter.sql</span>
+                <span class="font-mono text-[13px] text-slate-dark dark:text-ivory flex-1">packages/db/migrations/0051_dead_letter.sql</span>
                 <span class="badge-new font-mono text-[10.5px] uppercase tracking-[0.05em] px-2 py-0.5 rounded-md font-semibold">new</span>
                 <span class="font-mono text-[12px]"><span class="text-olive">+22</span></span>
               </summary>
@@ -226,7 +228,7 @@
             <details class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden">
               <summary class="px-5 py-3.5 cursor-pointer flex items-center gap-3 bg-gray-150 dark:bg-gray-700 border-b-[1.5px] border-gray-300 dark:border-gray-600">
                 <span class="chev w-2 h-2 border-r-2 border-b-2 border-gray-500 flex-shrink-0"></span>
-                <span class="font-mono text-[13px] text-slate-dark dark:text-gray-50 flex-1">packages/notify/src/adapters/{email,slack,inapp}.ts</span>
+                <span class="font-mono text-[13px] text-slate-dark dark:text-ivory flex-1">packages/notify/src/adapters/{email,slack,inapp}.ts</span>
                 <span class="badge-mod font-mono text-[10.5px] uppercase tracking-[0.05em] px-2 py-0.5 rounded-md font-semibold">mod</span>
                 <span class="font-mono text-[12px]"><span class="text-olive">+88</span> <span class="text-clay">−74</span></span>
               </summary>
@@ -238,7 +240,7 @@
             <details class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden">
               <summary class="px-5 py-3.5 cursor-pointer flex items-center gap-3 bg-gray-150 dark:bg-gray-700 border-b-[1.5px] border-gray-300 dark:border-gray-600">
                 <span class="chev w-2 h-2 border-r-2 border-b-2 border-gray-500 flex-shrink-0"></span>
-                <span class="font-mono text-[13px] text-slate-dark dark:text-gray-50 flex-1">apps/worker/src/index.ts, infra/fly.toml</span>
+                <span class="font-mono text-[13px] text-slate-dark dark:text-ivory flex-1">apps/worker/src/index.ts, infra/fly.toml</span>
                 <span class="badge-mod font-mono text-[10.5px] uppercase tracking-[0.05em] px-2 py-0.5 rounded-md font-semibold">mod</span>
                 <span class="font-mono text-[12px]"><span class="text-olive">+31</span> <span class="text-clay">−4</span></span>
               </summary>
@@ -250,7 +252,7 @@
             <details class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden">
               <summary class="px-5 py-3.5 cursor-pointer flex items-center gap-3 bg-gray-150 dark:bg-gray-700 border-b-[1.5px] border-gray-300 dark:border-gray-600">
                 <span class="chev w-2 h-2 border-r-2 border-b-2 border-gray-500 flex-shrink-0"></span>
-                <span class="font-mono text-[13px] text-slate-dark dark:text-gray-50 flex-1">packages/notify/src/__tests__/worker.test.ts</span>
+                <span class="font-mono text-[13px] text-slate-dark dark:text-ivory flex-1">packages/notify/src/__tests__/worker.test.ts</span>
                 <span class="badge-new font-mono text-[10.5px] uppercase tracking-[0.05em] px-2 py-0.5 rounded-md font-semibold">new</span>
                 <span class="font-mono text-[12px]"><span class="text-olive">+137</span></span>
               </summary>
@@ -264,13 +266,13 @@
 
         <!-- ===== FOCUS ===== -->
         <section id="focus" class="mb-14 scroll-mt-6">
-          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-gray-50 mb-3.5 tracking-tight">Where to focus your review</h2>
+          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-ivory mb-3.5 tracking-tight">Where to focus your review</h2>
           <div class="flex flex-col gap-3.5 max-w-[760px]">
 
             <div class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[10px] px-5 py-4 flex gap-4">
               <div class="font-mono text-[13px] font-semibold text-white bg-clay w-[26px] h-[26px] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
               <div>
-                <div class="font-semibold text-slate-dark dark:text-gray-50 text-[15px] mb-0.5">The retry / dead-letter boundary</div>
+                <div class="font-semibold text-slate-dark dark:text-ivory text-[15px] mb-0.5">The retry / dead-letter boundary</div>
                 <div class="text-[13.5px] text-gray-500"><code>worker.ts:31–44</code>. I catch, check <code>retryCount</code>, and either park or rethrow. If this logic is wrong we either retry forever or drop messages — the two failure modes this PR exists to fix.</div>
               </div>
             </div>
@@ -278,7 +280,7 @@
             <div class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[10px] px-5 py-4 flex gap-4">
               <div class="font-mono text-[13px] font-semibold text-white bg-clay w-[26px] h-[26px] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
               <div>
-                <div class="font-semibold text-slate-dark dark:text-gray-50 text-[15px] mb-0.5">The singleton key</div>
+                <div class="font-semibold text-slate-dark dark:text-ivory text-[15px] mb-0.5">The singleton key</div>
                 <div class="text-[13.5px] text-gray-500"><code>comments.ts:28</code>. <code>${commentId}:${userId}:${channel}</code> should make re-enqueues idempotent if the API handler retries. Sanity-check that this can't collide across tasks.</div>
               </div>
             </div>
@@ -286,7 +288,7 @@
             <div class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[10px] px-5 py-4 flex gap-4">
               <div class="font-mono text-[13px] font-semibold text-white bg-clay w-[26px] h-[26px] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
               <div>
-                <div class="font-semibold text-slate-dark dark:text-gray-50 text-[15px] mb-0.5">What I deliberately did not do</div>
+                <div class="font-semibold text-slate-dark dark:text-ivory text-[15px] mb-0.5">What I deliberately did not do</div>
                 <div class="text-[13.5px] text-gray-500">No per-user digest batching, no delivery receipts, no priority lanes. All of those layer on top of this cleanly; bundling them would make this unreviewable.</div>
               </div>
             </div>
@@ -296,27 +298,27 @@
 
         <!-- ===== TEST PLAN ===== -->
         <section id="tests" class="mb-14 scroll-mt-6">
-          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-gray-50 mb-3.5 tracking-tight">Test plan</h2>
+          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-ivory mb-3.5 tracking-tight">Test plan</h2>
           <div class="flex flex-col gap-2.5 max-w-[760px]">
 
             <div class="flex items-start gap-3 bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[10px] px-4 py-3 text-[14px]">
               <span class="w-[18px] h-[18px] rounded-[5px] flex-shrink-0 mt-0.5 test-check-done"></span>
-              <div><div class="text-slate-dark dark:text-gray-50">Unit: retry → dead-letter path, channel mute, singleton dedupe</div><div class="text-gray-500 text-[13px] mt-0.5">packages/notify — 14 cases, real pg-boss on test db</div></div>
+              <div><div class="text-slate-dark dark:text-ivory">Unit: retry → dead-letter path, channel mute, singleton dedupe</div><div class="text-gray-500 text-[13px] mt-0.5">packages/notify — 14 cases, real pg-boss on test db</div></div>
             </div>
 
             <div class="flex items-start gap-3 bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[10px] px-4 py-3 text-[14px]">
               <span class="w-[18px] h-[18px] rounded-[5px] flex-shrink-0 mt-0.5 test-check-done"></span>
-              <div><div class="text-slate-dark dark:text-gray-50">Integration: create comment with 3 watchers, assert 9 jobs enqueued and drained</div></div>
+              <div><div class="text-slate-dark dark:text-ivory">Integration: create comment with 3 watchers, assert 9 jobs enqueued and drained</div></div>
             </div>
 
             <div class="flex items-start gap-3 bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[10px] px-4 py-3 text-[14px]">
               <span class="w-[18px] h-[18px] rounded-[5px] flex-shrink-0 mt-0.5 test-check-done"></span>
-              <div><div class="text-slate-dark dark:text-gray-50">Staging load: 500 rps on comments.create for 10 min, p99 = 180 ms</div><div class="text-gray-500 text-[13px] mt-0.5">was 1.4 s before — dashboard linked in the PR description</div></div>
+              <div><div class="text-slate-dark dark:text-ivory">Staging load: 500 rps on comments.create for 10 min, p99 = 180 ms</div><div class="text-gray-500 text-[13px] mt-0.5">was 1.4 s before — dashboard linked in the PR description</div></div>
             </div>
 
             <div class="flex items-start gap-3 bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[10px] px-4 py-3 text-[14px]">
               <span class="w-[18px] h-[18px] rounded-[5px] flex-shrink-0 mt-0.5 border-[1.5px] border-gray-300 dark:border-gray-600"></span>
-              <div><div class="text-slate-dark dark:text-gray-50">Manual: kill SMTP mid-burst, confirm jobs land in dead-letter and nothing 500s</div><div class="text-gray-500 text-[13px] mt-0.5">will do during the 10% ramp</div></div>
+              <div><div class="text-slate-dark dark:text-ivory">Manual: kill SMTP mid-burst, confirm jobs land in dead-letter and nothing 500s</div><div class="text-gray-500 text-[13px] mt-0.5">will do during the 10% ramp</div></div>
             </div>
 
           </div>
@@ -324,7 +326,7 @@
 
         <!-- ===== ROLLOUT ===== -->
         <section id="rollout" class="mb-14 scroll-mt-6">
-          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-gray-50 mb-3.5 tracking-tight">Rollout</h2>
+          <h2 class="font-serif font-medium text-[25px] text-slate-dark dark:text-ivory mb-3.5 tracking-tight">Rollout</h2>
           <p class="text-[15.5px] max-w-[680px] mb-5">Behind <code>notify_queue_v2</code>. The old inline path stays in the codebase, dead but dormant, for one release in case we need to flip back.</p>
           <div class="flex max-[720px]:flex-col max-w-[780px]">
             <div class="rollout-step flex-1 bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 p-4 rounded-l-xl max-[720px]:rounded-xl">

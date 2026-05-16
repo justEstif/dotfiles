@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
     --font-serif: ui-serif, Georgia, "Times New Roman", serif;
     --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -50,7 +52,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="m-0 py-14 px-6 pb-[120px] bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans text-[15px] leading-[1.6] antialiased">
+<body x-data class="m-0 py-14 px-6 pb-[120px] bg-ivory dark:bg-slate-dark text-slate-dark dark:text-ivory font-sans text-[15px] leading-[1.6] antialiased">
   <button @click="$store.theme.toggle()"
           class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
           :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
@@ -73,22 +75,22 @@
     <section class="mb-[52px]">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
         <div class="bg-white dark:bg-gray-800 border-solid border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[12px] p-[20px_22px_18px]">
-          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-gray-50 mb-2">14</div>
+          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-ivory mb-2">14</div>
           <div class="font-sans text-[12px] uppercase tracking-[0.05em] text-gray-500 dark:text-gray-400">PRs merged</div>
           <div class="font-mono text-[11px] mt-1.5 text-olive">+3 vs wk10</div>
         </div>
         <div class="bg-white dark:bg-gray-800 border-solid border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[12px] p-[20px_22px_18px]">
-          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-gray-50 mb-2">6</div>
+          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-ivory mb-2">6</div>
           <div class="font-sans text-[12px] uppercase tracking-[0.05em] text-gray-500 dark:text-gray-400">Deploys</div>
           <div class="font-mono text-[11px] mt-1.5 text-gray-500">&plusmn;0</div>
         </div>
         <div class="bg-white dark:bg-gray-800 border-solid border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[12px] p-[20px_22px_18px] border-l-[4px] border-l-clay pl-[19px]">
-          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-gray-50 mb-2">1</div>
+          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-ivory mb-2">1</div>
           <div class="font-sans text-[12px] uppercase tracking-[0.05em] text-gray-500 dark:text-gray-400">Incidents</div>
           <div class="font-mono text-[11px] mt-1.5 text-gray-500">SEV-2 &middot; 47m</div>
         </div>
         <div class="bg-white dark:bg-gray-800 border-solid border-[1.5px] border-gray-300 dark:border-gray-600 rounded-[12px] p-[20px_22px_18px]">
-          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-gray-50 mb-2">3</div>
+          <div class="font-serif text-[44px] font-medium leading-none text-slate-dark dark:text-ivory mb-2">3</div>
           <div class="font-sans text-[12px] uppercase tracking-[0.05em] text-gray-500 dark:text-gray-400">Flaky tests fixed</div>
           <div class="font-mono text-[11px] mt-1.5 text-olive">suite now 99.1%</div>
         </div>
@@ -101,17 +103,17 @@
       <hr class="border-none border-t border-gray-300 dark:border-gray-600 m-0 mb-[22px]">
       <ul class="list-none m-0 p-0">
         <li class="relative pb-3.5 pl-[26px] text-[15px] text-gray-700 dark:text-gray-300 before:content-[''] before:absolute before:left-1.5 before:top-2 before:w-[7px] before:h-[7px] before:rounded-[2px] before:bg-clay">
-          <strong class="text-slate-dark dark:text-gray-50 font-semibold">Bulk task editing shipped to 100%.</strong> The multi-select
+          <strong class="text-slate-dark dark:text-ivory font-semibold">Bulk task editing shipped to 100%.</strong> The multi-select
           toolbar landed behind a flag on Monday and ramped to all workspaces by
           Thursday with no error-rate regression.
         </li>
         <li class="relative pb-3.5 pl-[26px] text-[15px] text-gray-700 dark:text-gray-300 before:content-[''] before:absolute before:left-1.5 before:top-2 before:w-[7px] before:h-[7px] before:rounded-[2px] before:bg-clay">
-          <strong class="text-slate-dark dark:text-gray-50 font-semibold">Sync API p95 down 38%.</strong> Replacing per-task auth checks
+          <strong class="text-slate-dark dark:text-ivory font-semibold">Sync API p95 down 38%.</strong> Replacing per-task auth checks
           with a scoped batch lookup cut the hot path from 410ms to 255ms on the
           staging load test.
         </li>
         <li class="relative pb-3.5 pl-[26px] text-[15px] text-gray-700 dark:text-gray-300 before:content-[''] before:absolute before:left-1.5 before:top-2 before:w-[7px] before:h-[7px] before:rounded-[2px] before:bg-clay">
-          <strong class="text-slate-dark dark:text-gray-50 font-semibold">One SEV-2 on Wednesday</strong> &mdash; a config rollout pushed
+          <strong class="text-slate-dark dark:text-ivory font-semibold">One SEV-2 on Wednesday</strong> &mdash; a config rollout pushed
           a bad connection-pool limit to the sync workers. Mitigated in 47 minutes;
           full postmortem linked below.
         </li>

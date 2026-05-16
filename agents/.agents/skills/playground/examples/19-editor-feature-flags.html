@@ -53,7 +53,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory text-slate-dark font-sans text-sm leading-relaxed m-0 dark:bg-gray-900 dark:text-gray-50">
+<body x-data class="bg-ivory text-slate-dark font-sans text-sm leading-relaxed m-0 dark:bg-slate-dark dark:text-ivory">
 <button @click="$store.theme.toggle()"
         class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
         :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
@@ -162,7 +162,7 @@
         <button
           @click="copyDiff()"
           :disabled="diff.length === 0"
-          :class="copyDiffCopied ? 'bg-olive' : (diff.length === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed dark:bg-gray-700 dark:text-gray-500' : 'bg-slate-dark hover:bg-gray-800')"
+          :class="copyDiffCopied ? 'bg-olive' : (diff.length === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed dark:bg-gray-700 dark:text-ivory0' : 'bg-slate-dark hover:bg-gray-800')"
           class="w-full border-none rounded-full font-mono text-[12px] px-4 py-[9px] cursor-pointer text-center transition-colors text-ivory"
           x-text="copyDiffCopied ? 'Copied ✓' : 'Copy diff'"></button>
 

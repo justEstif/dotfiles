@@ -19,6 +19,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
   }
 </style>
 <script>
@@ -35,7 +37,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory dark:bg-gray-900 text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-relaxed px-6 py-12 pb-20">
+<body x-data class="bg-ivory dark:bg-slate-dark text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-relaxed px-6 py-12 pb-20">
 
   <button @click="$store.theme.toggle()"
           class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
@@ -48,12 +50,12 @@
 
   <header class="border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl px-8 py-7 bg-white dark:bg-gray-800 mb-9">
     <div class="font-mono text-[12.5px] text-gray-500 tracking-[0.01em] mb-2.5">acme/web · Pull Request #247</div>
-    <h1 class="font-serif font-medium text-[30px] leading-[1.25] text-slate-dark dark:text-gray-50 mb-[18px]">Add optimistic updates to task list mutations</h1>
+    <h1 class="font-serif font-medium text-[30px] leading-[1.25] text-slate-dark dark:text-ivory mb-[18px]">Add optimistic updates to task list mutations</h1>
     <div class="flex items-center flex-wrap gap-5">
       <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-full bg-oat dark:bg-gray-700 text-slate-dark dark:text-gray-50 flex items-center justify-center font-semibold text-[13px] tracking-[0.02em] border-[1.5px] border-gray-300 dark:border-gray-600 shrink-0">MO</div>
+        <div class="w-9 h-9 rounded-full bg-oat dark:bg-gray-700 text-slate-dark dark:text-ivory flex items-center justify-center font-semibold text-[13px] tracking-[0.02em] border-[1.5px] border-gray-300 dark:border-gray-600 shrink-0">MO</div>
         <div>
-          <div class="font-medium text-slate-dark dark:text-gray-50">Mira Okafor</div>
+          <div class="font-medium text-slate-dark dark:text-ivory">Mira Okafor</div>
           <div class="text-xs text-gray-500">opened 2 days ago</div>
         </div>
       </div>
@@ -68,7 +70,7 @@
   </header>
 
   <section class="mb-10">
-    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-gray-50 mb-3.5">What this PR does</h2>
+    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-ivory mb-3.5">What this PR does</h2>
     <ul class="list-none p-0">
       <li class="relative pl-[22px] mb-2.5 before:content-[''] before:absolute before:left-1 before:top-[9px] before:w-1.5 before:h-1.5 before:bg-gray-500 before:rounded-sm">Replaces the await-then-refetch pattern in <code class="font-mono text-[12.5px] bg-gray-150 dark:bg-gray-700 px-[5px] py-px rounded">TaskList</code> with optimistic cache writes, so toggling or reordering a task feels instant instead of waiting ~300ms for the round-trip.</li>
       <li class="relative pl-[22px] mb-2.5 before:content-[''] before:absolute before:left-1 before:top-[9px] before:w-1.5 before:h-1.5 before:bg-gray-500 before:rounded-sm">Introduces a small <code class="font-mono text-[12.5px] bg-gray-150 dark:bg-gray-700 px-[5px] py-px rounded">useOptimisticTasks</code> hook that wraps the mutation, snapshots the previous list, and rolls back on error.</li>
@@ -77,24 +79,24 @@
   </section>
 
   <section class="mb-10">
-    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-gray-50 mb-3.5">Risk map</h2>
+    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-ivory mb-3.5">Risk map</h2>
     <div class="flex flex-wrap gap-2.5">
-      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-clay/55 bg-clay/12 font-mono text-[12.5px] text-slate-dark dark:text-gray-50 no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-hook" @click="hi('hook')">
+      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-clay/55 bg-clay/12 font-mono text-[12.5px] text-slate-dark dark:text-ivory no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-hook" @click="hi('hook')">
         <span class="w-[9px] h-[9px] rounded-full shrink-0 bg-clay"></span>useOptimisticTasks.ts
       </a>
-      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-gray-300 dark:border-gray-600 bg-oat dark:bg-gray-700 font-mono text-[12.5px] text-slate-dark dark:text-gray-50 no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-tasklist" @click="hi('tasklist')">
+      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-gray-300 dark:border-gray-600 bg-oat dark:bg-gray-700 font-mono text-[12.5px] text-slate-dark dark:text-ivory no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-tasklist" @click="hi('tasklist')">
         <span class="w-[9px] h-[9px] rounded-full shrink-0 bg-[#B89B6E]"></span>TaskList.tsx
       </a>
-      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-gray-300 dark:border-gray-600 bg-oat dark:bg-gray-700 font-mono text-[12.5px] text-slate-dark dark:text-gray-50 no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-api" @click="hi('api')">
+      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-gray-300 dark:border-gray-600 bg-oat dark:bg-gray-700 font-mono text-[12.5px] text-slate-dark dark:text-ivory no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-api" @click="hi('api')">
         <span class="w-[9px] h-[9px] rounded-full shrink-0 bg-[#B89B6E]"></span>api/tasks.ts
       </a>
-      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-olive/45 bg-olive/10 font-mono text-[12.5px] text-slate-dark dark:text-gray-50 no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-toast" @click="hi('toast')">
+      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-olive/45 bg-olive/10 font-mono text-[12.5px] text-slate-dark dark:text-ivory no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-toast" @click="hi('toast')">
         <span class="w-[9px] h-[9px] rounded-full shrink-0 bg-olive"></span>Toast.tsx
       </a>
-      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-olive/45 bg-olive/10 font-mono text-[12.5px] text-slate-dark dark:text-gray-50 no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-types" @click="hi('types')">
+      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-olive/45 bg-olive/10 font-mono text-[12.5px] text-slate-dark dark:text-ivory no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-types" @click="hi('types')">
         <span class="w-[9px] h-[9px] rounded-full shrink-0 bg-olive"></span>types/task.ts
       </a>
-      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-olive/45 bg-olive/10 font-mono text-[12.5px] text-slate-dark dark:text-gray-50 no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-test" @click="hi('test')">
+      <a class="inline-flex items-center gap-2 py-2 px-3 rounded-lg border-[1.5px] border-olive/45 bg-olive/10 font-mono text-[12.5px] text-slate-dark dark:text-ivory no-underline transition-transform duration-[120ms] hover:-translate-y-px" href="#file-test" @click="hi('test')">
         <span class="w-[9px] h-[9px] rounded-full shrink-0 bg-olive"></span>TaskList.test.tsx
       </a>
     </div>
@@ -106,14 +108,14 @@
   </section>
 
   <section class="mb-10">
-    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-gray-50 mb-3.5">Files</h2>
+    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-ivory mb-3.5">Files</h2>
 
     <!-- File 1: useOptimisticTasks.ts (attention) -->
     <article class="border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 mb-6 overflow-hidden scroll-mt-5 transition-shadow duration-[180ms] ease-in-out"
              id="file-hook"
              :class="flash === 'hook' ? 'shadow-[0_0_0_3px_rgba(217,119,87,0.35)]' : ''">
       <div class="px-5 py-4 border-b-[1.5px] border-gray-150 dark:border-gray-700 flex items-center justify-between gap-3">
-        <div class="font-mono text-[13.5px] text-slate-dark dark:text-gray-50">src/hooks/useOptimisticTasks.ts</div>
+        <div class="font-mono text-[13.5px] text-slate-dark dark:text-ivory">src/hooks/useOptimisticTasks.ts</div>
         <div class="flex items-center gap-3">
           <span class="text-[11px] uppercase tracking-[0.06em] px-2 py-0.5 rounded-md font-bold bg-clay/15 text-clay">needs attention</span>
           <span class="font-mono text-xs text-gray-500"><span class="text-olive">+58</span> <span class="text-rust">&#8722;0</span></span>
@@ -159,7 +161,7 @@
              id="file-tasklist"
              :class="flash === 'tasklist' ? 'shadow-[0_0_0_3px_rgba(217,119,87,0.35)]' : ''">
       <div class="px-5 py-4 border-b-[1.5px] border-gray-150 dark:border-gray-700 flex items-center justify-between gap-3">
-        <div class="font-mono text-[13.5px] text-slate-dark dark:text-gray-50">src/components/TaskList.tsx</div>
+        <div class="font-mono text-[13.5px] text-slate-dark dark:text-ivory">src/components/TaskList.tsx</div>
         <div class="flex items-center gap-3">
           <span class="text-[11px] uppercase tracking-[0.06em] px-2 py-0.5 rounded-md font-bold bg-oat dark:bg-gray-700 text-[#7A6A4F] dark:text-gray-300">worth a look</span>
           <span class="font-mono text-xs text-gray-500"><span class="text-olive">+31</span> <span class="text-rust">&#8722;24</span></span>
@@ -200,7 +202,7 @@
              id="file-api"
              :class="flash === 'api' ? 'shadow-[0_0_0_3px_rgba(217,119,87,0.35)]' : ''">
       <div class="px-5 py-4 border-b-[1.5px] border-gray-150 dark:border-gray-700 flex items-center justify-between gap-3">
-        <div class="font-mono text-[13.5px] text-slate-dark dark:text-gray-50">src/api/tasks.ts</div>
+        <div class="font-mono text-[13.5px] text-slate-dark dark:text-ivory">src/api/tasks.ts</div>
         <div class="flex items-center gap-3">
           <span class="text-[11px] uppercase tracking-[0.06em] px-2 py-0.5 rounded-md font-bold bg-oat dark:bg-gray-700 text-[#7A6A4F] dark:text-gray-300">worth a look</span>
           <span class="font-mono text-xs text-gray-500"><span class="text-olive">+19</span> <span class="text-rust">&#8722;6</span></span>
@@ -234,7 +236,7 @@
          x-data="{ open: false }">
       <button class="w-full flex items-center justify-between gap-3 px-5 py-3.5 text-left cursor-pointer"
               @click="open = !open">
-        <span class="font-mono text-[13.5px] text-slate-dark dark:text-gray-50">src/components/Toast.tsx</span>
+        <span class="font-mono text-[13.5px] text-slate-dark dark:text-ivory">src/components/Toast.tsx</span>
         <span class="flex items-center gap-3">
           <span class="text-[11px] uppercase tracking-[0.06em] px-2 py-0.5 rounded-md font-bold bg-olive/15 text-olive">safe</span>
           <span class="font-mono text-xs text-gray-500"><span class="text-olive">+14</span> <span class="text-rust">&#8722;2</span></span>
@@ -255,7 +257,7 @@
          x-data="{ open: false }">
       <button class="w-full flex items-center justify-between gap-3 px-5 py-3.5 text-left cursor-pointer"
               @click="open = !open">
-        <span class="font-mono text-[13.5px] text-slate-dark dark:text-gray-50">src/types/task.ts</span>
+        <span class="font-mono text-[13.5px] text-slate-dark dark:text-ivory">src/types/task.ts</span>
         <span class="flex items-center gap-3">
           <span class="text-[11px] uppercase tracking-[0.06em] px-2 py-0.5 rounded-md font-bold bg-olive/15 text-olive">safe</span>
           <span class="font-mono text-xs text-gray-500"><span class="text-olive">+6</span> <span class="text-rust">&#8722;2</span></span>
@@ -276,7 +278,7 @@
          x-data="{ open: false }">
       <button class="w-full flex items-center justify-between gap-3 px-5 py-3.5 text-left cursor-pointer"
               @click="open = !open">
-        <span class="font-mono text-[13.5px] text-slate-dark dark:text-gray-50">src/components/__tests__/TaskList.test.tsx</span>
+        <span class="font-mono text-[13.5px] text-slate-dark dark:text-ivory">src/components/__tests__/TaskList.test.tsx</span>
         <span class="flex items-center gap-3">
           <span class="text-[11px] uppercase tracking-[0.06em] px-2 py-0.5 rounded-md font-bold bg-olive/15 text-olive">safe</span>
           <span class="font-mono text-xs text-gray-500"><span class="text-olive">+14</span> <span class="text-rust">&#8722;4</span></span>
@@ -293,7 +295,7 @@
   </section>
 
   <footer class="border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 px-7 py-6">
-    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-gray-50 mb-3.5">Suggested next steps</h2>
+    <h2 class="font-serif font-medium text-[21px] text-slate-dark dark:text-ivory mb-3.5">Suggested next steps</h2>
     <ul class="list-none p-0">
       <li class="flex items-start gap-3 py-2">
         <input type="checkbox" id="step1" class="w-[17px] h-[17px] mt-0.5 accent-olive cursor-pointer shrink-0">

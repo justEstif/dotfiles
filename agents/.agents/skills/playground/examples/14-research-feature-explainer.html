@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
     --font-serif: ui-serif, Georgia, "Times New Roman", serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
@@ -37,7 +39,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory dark:bg-gray-900 text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-[1.65] antialiased py-14 px-6 pb-[120px]">
+<body x-data class="bg-ivory dark:bg-slate-dark text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-[1.65] antialiased py-14 px-6 pb-[120px]">
 <button @click="$store.theme.toggle()"
         class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
         :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
@@ -70,16 +72,16 @@
   <main>
     <header class="mb-3">
       <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500 dark:text-gray-400 mb-2.5">Research &amp; Learning · feature summary</div>
-      <h1 class="font-serif font-medium text-[32px] text-slate-dark dark:text-gray-50 tracking-[-0.01em] mb-3.5">How rate limiting works in <code class="font-mono text-[13px]">acme/api</code></h1>
+      <h1 class="font-serif font-medium text-[32px] text-slate-dark dark:text-ivory tracking-[-0.01em] mb-3.5">How rate limiting works in <code class="font-mono text-[13px]">acme/api</code></h1>
       <div class="[border:1.5px_solid_#D1CFC5] dark:border-gray-600 [border-left:3px_solid_#D97757] rounded-[10px] bg-white dark:bg-gray-800 py-4 px-[18px] mb-2" id="tldr">
-        <b class="text-slate-dark dark:text-gray-50">TL;DR</b> — Every request passes through <code class="font-mono text-[13px]">rateLimit()</code> middleware, which resolves the
+        <b class="text-slate-dark dark:text-ivory">TL;DR</b> — Every request passes through <code class="font-mono text-[13px]">rateLimit()</code> middleware, which resolves the
         caller to a <em>bucket key</em>, fetches a token-bucket from Redis, and either consumes one token or
         returns <code class="font-mono text-[13px]">429</code>. Limits are declared per-route in <code class="font-mono text-[13px]">config/limits.yaml</code>; routes
         without an entry inherit the <code class="font-mono text-[13px]">default</code> tier (100 req/min per API key).
       </div>
     </header>
 
-    <h2 id="path" class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-10 mb-3.5 [scroll-margin-top:24px]">The request path, step by step</h2>
+    <h2 id="path" class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-10 mb-3.5 [scroll-margin-top:24px]">The request path, step by step</h2>
     <p class="mb-3 max-w-[680px]">Expand each step to see what runs and where it lives. The whole path is ~40 lines and adds about
       0.4&nbsp;ms p50 to every request.</p>
 
@@ -140,7 +142,7 @@
       </div>
     </div>
 
-    <h2 id="config" class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-10 mb-3.5 [scroll-margin-top:24px]">Configuring a limit on your route</h2>
+    <h2 id="config" class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-10 mb-3.5 [scroll-margin-top:24px]">Configuring a limit on your route</h2>
     <p class="mb-3 max-w-[680px]">You don't touch the middleware. Add an entry to <code class="font-mono text-[13px]">config/limits.yaml</code> keyed by route name,
       and (optionally) tag the route so the middleware can find it.</p>
 
@@ -180,7 +182,7 @@ X-RateLimit-Remaining: 0
         <code class="font-mono text-[13px]">rateLimit()</code> with no argument. The route name is inferred from the path.</div>
     </div>
 
-    <h2 id="gotchas" class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-10 mb-3.5 [scroll-margin-top:24px]">Gotchas worth knowing</h2>
+    <h2 id="gotchas" class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-10 mb-3.5 [scroll-margin-top:24px]">Gotchas worth knowing</h2>
     <ul class="pl-5 max-w-[680px]">
       <li class="mb-2"><b>Limits are per-process in dev.</b> The Redis client falls back to an
         in-memory map when <code class="font-mono text-[13px]">REDIS_URL</code> is unset, so local testing won't reflect real cluster
@@ -191,17 +193,17 @@ X-RateLimit-Remaining: 0
         stream still costs one token.</li>
     </ul>
 
-    <h2 id="faq" class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-10 mb-3.5 [scroll-margin-top:24px]">FAQ</h2>
+    <h2 id="faq" class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-10 mb-3.5 [scroll-margin-top:24px]">FAQ</h2>
     <dl class="mt-2">
-      <dt class="font-serif text-base text-slate-dark dark:text-gray-50 mt-[18px]">How do I exempt internal traffic?</dt>
+      <dt class="font-serif text-base text-slate-dark dark:text-ivory mt-[18px]">How do I exempt internal traffic?</dt>
       <dd class="text-sm mt-1 max-w-[640px]">Set <code class="font-mono text-[13px]">x-acme-internal: 1</code> from the caller; the middleware checks it against the
         mTLS peer name and skips the bucket entirely.</dd>
 
-      <dt class="font-serif text-base text-slate-dark dark:text-gray-50 mt-[18px]">Where do I see who's getting limited?</dt>
+      <dt class="font-serif text-base text-slate-dark dark:text-ivory mt-[18px]">Where do I see who's getting limited?</dt>
       <dd class="text-sm mt-1 max-w-[640px]">Every <code class="font-mono text-[13px]">429</code> emits a <code class="font-mono text-[13px]">ratelimit.rejected</code> metric tagged with route and key
         type. There's a Grafana panel under <em>API → Health</em>.</dd>
 
-      <dt class="font-serif text-base text-slate-dark dark:text-gray-50 mt-[18px]">Can a single user have a higher limit?</dt>
+      <dt class="font-serif text-base text-slate-dark dark:text-ivory mt-[18px]">Can a single user have a higher limit?</dt>
       <dd class="text-sm mt-1 max-w-[640px]">Yes — add their API key under <code class="font-mono text-[13px]">overrides:</code> in the YAML. Overrides are reloaded without
         a deploy.</dd>
     </dl>

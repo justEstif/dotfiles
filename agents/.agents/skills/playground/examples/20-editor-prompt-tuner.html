@@ -41,7 +41,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory text-slate-dark font-sans text-sm leading-relaxed m-0 dark:bg-gray-900 dark:text-gray-50">
+<body x-data class="bg-ivory text-slate-dark font-sans text-sm leading-relaxed m-0 dark:bg-slate-dark dark:text-ivory">
 <button @click="$store.theme.toggle()"
         class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
         :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
@@ -56,7 +56,7 @@
   </header>
 
   <!-- Toolbar -->
-  <div class="sticky top-0 z-10 flex items-center gap-2.5 bg-ivory dark:bg-gray-900 pt-2.5 pb-3.5 mb-1.5 border-b border-gray-200 dark:border-gray-700">
+  <div class="sticky top-0 z-10 flex items-center gap-2.5 bg-ivory dark:bg-slate-dark pt-2.5 pb-3.5 mb-1.5 border-b border-gray-200 dark:border-gray-700">
     <button
       @click="copyPrompt()"
       :class="copied ? 'bg-olive border-olive' : 'bg-slate-dark border-slate-dark hover:bg-gray-800'"

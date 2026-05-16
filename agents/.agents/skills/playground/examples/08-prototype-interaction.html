@@ -1,5 +1,5 @@
 <!doctype html>
-<html x-data lang="en" class="m-0 bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans text-sm leading-[1.55]" x-bind:class="{ dark: $store.theme.dark }">
+<html x-data lang="en" class="m-0 bg-ivory dark:bg-slate-dark text-slate-dark dark:text-ivory font-sans text-sm leading-[1.55]" x-bind:class="{ dark: $store.theme.dark }">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
   }
   [x-cloak] { display: none; }
   /* Drop indicator */
@@ -132,7 +134,7 @@
                 <i class="w-[3px] h-[3px] rounded-full bg-gray-300 dark:bg-gray-600 group-hover:bg-gray-700 dark:group-hover:bg-gray-300 not-italic transition-colors duration-[120ms]"></i>
                 <i class="w-[3px] h-[3px] rounded-full bg-gray-300 dark:bg-gray-600 group-hover:bg-gray-700 dark:group-hover:bg-gray-300 not-italic transition-colors duration-[120ms]"></i>
               </span>
-              <span class="text-sm text-slate-dark dark:text-gray-50" x-text="item.label"></span>
+              <span class="text-sm text-slate-dark dark:text-ivory" x-text="item.label"></span>
               <span class="ml-auto font-mono text-[11px] text-gray-500 dark:text-gray-400" x-text="item.count"></span>
             </li>
           </template>
@@ -148,22 +150,22 @@
         <p class="text-gray-500 dark:text-gray-400 text-[13px] m-0 mb-4">Design decisions baked into this prototype, so you can push back on them.</p>
         <ul class="list-none m-0 p-0">
           <li class="relative py-2.5 pl-[22px] border-t border-gray-150 dark:border-gray-700 text-[13px] text-gray-700 dark:text-gray-300 first:border-t-0">
-            <b class="text-slate-dark dark:text-gray-50 font-semibold">Drop indicator snaps to the nearest gap</b>, not the raw cursor Y.
+            <b class="text-slate-dark dark:text-ivory font-semibold">Drop indicator snaps to the nearest gap</b>, not the raw cursor Y.
             It only moves when you cross a row's midpoint — feels more decisive,
             less jittery.
           </li>
           <li class="relative py-2.5 pl-[22px] border-t border-gray-150 dark:border-gray-700 text-[13px] text-gray-700 dark:text-gray-300 first:border-t-0">
-            <b class="text-slate-dark dark:text-gray-50 font-semibold">Dragged row stays in place at 35% opacity</b> with a 2&deg; tilt.
+            <b class="text-slate-dark dark:text-ivory font-semibold">Dragged row stays in place at 35% opacity</b> with a 2&deg; tilt.
             Keeping the ghost in the list preserves your sense of where you
             started; the tilt reads as "lifted."
           </li>
           <li class="relative py-2.5 pl-[22px] border-t border-gray-150 dark:border-gray-700 text-[13px] text-gray-700 dark:text-gray-300 first:border-t-0">
-            <b class="text-slate-dark dark:text-gray-50 font-semibold">Grip dots are the affordance, but the whole row is draggable.</b>
+            <b class="text-slate-dark dark:text-ivory font-semibold">Grip dots are the affordance, but the whole row is draggable.</b>
             Dots darken on hover to teach the gesture without forcing a
             tiny hit target.
           </li>
           <li class="relative py-2.5 pl-[22px] border-t border-gray-150 dark:border-gray-700 text-[13px] text-gray-700 dark:text-gray-300 first:border-t-0">
-            <b class="text-slate-dark dark:text-gray-50 font-semibold">No auto-scroll, no drop animation.</b> Left out on purpose so the
+            <b class="text-slate-dark dark:text-ivory font-semibold">No auto-scroll, no drop animation.</b> Left out on purpose so the
             core feel is easy to judge — say the word and we add them next.
           </li>
         </ul>
@@ -172,8 +174,8 @@
       <section class="questions mt-7 bg-oat dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[12px] py-5 px-6">
         <h2 class="font-serif font-medium text-[17px] m-0 mb-3">Open questions</h2>
         <ol class="m-0 pl-5">
-          <li class="text-[13px] text-gray-700 dark:text-gray-300 py-1">Should <b class="text-slate-dark dark:text-gray-50 font-semibold">Trash</b> (and maybe <b class="text-slate-dark dark:text-gray-50 font-semibold">Archive</b>) be pinned to the bottom and excluded from reordering?</li>
-          <li class="text-[13px] text-gray-700 dark:text-gray-300 py-1">Do we want rows to <b class="text-slate-dark dark:text-gray-50 font-semibold">slide</b> to their new slot on drop, or is the instant snap acceptable?</li>
+          <li class="text-[13px] text-gray-700 dark:text-gray-300 py-1">Should <b class="text-slate-dark dark:text-ivory font-semibold">Trash</b> (and maybe <b class="text-slate-dark dark:text-ivory font-semibold">Archive</b>) be pinned to the bottom and excluded from reordering?</li>
+          <li class="text-[13px] text-gray-700 dark:text-gray-300 py-1">Do we want rows to <b class="text-slate-dark dark:text-ivory font-semibold">slide</b> to their new slot on drop, or is the instant snap acceptable?</li>
           <li class="text-[13px] text-gray-700 dark:text-gray-300 py-1">Keyboard path: is <code class="font-mono text-xs bg-gray-150 dark:bg-gray-600 border border-gray-300 dark:border-gray-500 px-1 py-px rounded">Alt + Arrow</code> to move the focused row enough for the first ship?</li>
         </ol>
       </section>

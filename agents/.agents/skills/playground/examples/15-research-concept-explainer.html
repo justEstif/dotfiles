@@ -19,6 +19,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
     --font-serif: ui-serif, Georgia, "Times New Roman", serif;
     --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -56,7 +58,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="bg-ivory dark:bg-gray-900 text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-[1.65] antialiased pt-14 px-6 pb-[120px]">
+<body x-data class="bg-ivory dark:bg-slate-dark text-gray-700 dark:text-gray-300 font-sans text-[15px] leading-[1.65] antialiased pt-14 px-6 pb-[120px]">
 <button @click="$store.theme.toggle()"
         class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
         :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
@@ -66,14 +68,14 @@
 
   <main>
     <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500 dark:text-gray-400 mb-2.5">Research &amp; Learning · concept explainer</div>
-    <h1 class="font-serif font-medium text-[33px] text-slate-dark dark:text-gray-50 tracking-[-0.01em] mb-3">Consistent hashing, in one ring</h1>
+    <h1 class="font-serif font-medium text-[33px] text-slate-dark dark:text-ivory tracking-[-0.01em] mb-3">Consistent hashing, in one ring</h1>
     <p class="max-w-[640px] mb-2">
       You have <em>K</em> keys spread across <em>N</em> cache servers. A server dies, or you add one. How many
       keys have to move? With naive <code>hash(key) mod N</code> the answer is "almost all of them." Consistent
       hashing gets it down to roughly <code>K&nbsp;/&nbsp;N</code>. Here's why.
     </p>
 
-    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-10 mb-3">The trick: hash onto a circle, not a line</h2>
+    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-10 mb-3">The trick: hash onto a circle, not a line</h2>
     <p class="mb-3 max-w-[680px]">
       Map both <span class="border-b-[1.5px] border-dotted border-clay cursor-help text-slate-dark dark:text-gray-100" data-term="node" @mouseenter="highlighted = 'node'" @mouseleave="highlighted = null">nodes</span> and keys onto the same
       <span class="border-b-[1.5px] border-dotted border-clay cursor-help text-slate-dark dark:text-gray-100" data-term="ring" @mouseenter="highlighted = 'ring'" @mouseleave="highlighted = null">ring</span> (the hash output space, wrapped around). A key belongs to
@@ -112,7 +114,7 @@
       that arc keeps its color. That's the whole idea.
     </p>
 
-    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-10 mb-3">Versus <code>mod N</code></h2>
+    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-10 mb-3">Versus <code>mod N</code></h2>
     <div class="overflow-x-auto">
     <table class="border-collapse w-full max-w-[640px] text-[13.5px] my-3">
       <thead><tr>
@@ -145,7 +147,7 @@
     </table>
     </div>
 
-    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-gray-50 mt-10 mb-3">Where you'll meet it</h2>
+    <h2 class="font-serif font-medium text-[22px] text-slate-dark dark:text-ivory mt-10 mb-3">Where you'll meet it</h2>
     <p class="mb-3 max-w-[680px]">
       Any time you're spreading state across a pool that changes size: cache fleets, partitioned queues, object
       storage, request routing with sticky sessions. The
@@ -159,15 +161,15 @@
   <aside class="sticky top-8 self-start [border:1.5px_solid_#D1CFC5] dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 px-[18px] pt-[18px] pb-2 max-[960px]:order-2 max-[960px]:static">
     <div class="font-mono text-[10px] tracking-[0.1em] uppercase text-gray-500 dark:text-gray-400 mb-3">Glossary</div>
     <dl id="gloss">
-      <dt data-g="ring" class="font-serif text-[15px] text-slate-dark dark:text-gray-50" :class="{'gloss-hl': highlighted === 'ring'}">Ring</dt>
+      <dt data-g="ring" class="font-serif text-[15px] text-slate-dark dark:text-ivory" :class="{'gloss-hl': highlighted === 'ring'}">Ring</dt>
       <dd class="text-[12.5px] leading-[1.5] text-gray-700 dark:text-gray-300 mt-0.5 mb-3.5">The hash function's output range, treated as a circle so the value after <code>max</code> is <code>0</code>.</dd>
-      <dt data-g="node" class="font-serif text-[15px] text-slate-dark dark:text-gray-50" :class="{'gloss-hl': highlighted === 'node'}">Node</dt>
+      <dt data-g="node" class="font-serif text-[15px] text-slate-dark dark:text-ivory" :class="{'gloss-hl': highlighted === 'node'}">Node</dt>
       <dd class="text-[12.5px] leading-[1.5] text-gray-700 dark:text-gray-300 mt-0.5 mb-3.5">A server placed on the ring at <code>hash(node_id)</code>. Owns every key between it and its anticlockwise neighbor.</dd>
-      <dt data-g="arc" class="font-serif text-[15px] text-slate-dark dark:text-gray-50" :class="{'gloss-hl': highlighted === 'arc'}">Arc</dt>
+      <dt data-g="arc" class="font-serif text-[15px] text-slate-dark dark:text-ivory" :class="{'gloss-hl': highlighted === 'arc'}">Arc</dt>
       <dd class="text-[12.5px] leading-[1.5] text-gray-700 dark:text-gray-300 mt-0.5 mb-3.5">The stretch of ring a node owns. Removing a node merges its arc into the next node's.</dd>
-      <dt data-g="vnode" class="font-serif text-[15px] text-slate-dark dark:text-gray-50" :class="{'gloss-hl': highlighted === 'vnode'}">Virtual node</dt>
+      <dt data-g="vnode" class="font-serif text-[15px] text-slate-dark dark:text-ivory" :class="{'gloss-hl': highlighted === 'vnode'}">Virtual node</dt>
       <dd class="text-[12.5px] leading-[1.5] text-gray-700 dark:text-gray-300 mt-0.5 mb-3.5">Placing each physical node at many ring positions so arcs are small and evenly sized.</dd>
-      <dt data-g="successor" class="font-serif text-[15px] text-slate-dark dark:text-gray-50" :class="{'gloss-hl': highlighted === 'successor'}">Successor</dt>
+      <dt data-g="successor" class="font-serif text-[15px] text-slate-dark dark:text-ivory" :class="{'gloss-hl': highlighted === 'successor'}">Successor</dt>
       <dd class="text-[12.5px] leading-[1.5] text-gray-700 dark:text-gray-300 mt-0.5 mb-3.5">The first node clockwise from a given point — the owner of any key landing there.</dd>
     </dl>
   </aside>

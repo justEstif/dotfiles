@@ -18,6 +18,8 @@
     --color-gray-300: #D1CFC5;
     --color-gray-500: #87867F;
     --color-gray-700: #3D3D3A;
+    --color-gray-800: #252522;
+    --color-gray-900: #181816;
     --font-serif: ui-serif, Georgia, "Times New Roman", serif;
     --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -68,7 +70,7 @@
   </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body x-data class="m-0 py-14 px-6 pb-[120px] bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans text-[15px] leading-[1.6] antialiased" style="scroll-behavior:smooth">
+<body x-data class="m-0 py-14 px-6 pb-[120px] bg-ivory dark:bg-slate-dark text-slate-dark dark:text-ivory font-sans text-[15px] leading-[1.6] antialiased" style="scroll-behavior:smooth">
 
   <button @click="$store.theme.toggle()"
           class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
@@ -131,7 +133,7 @@
           <span class="absolute -left-[5px] top-1.5 w-3 h-3 rounded-full bg-clay border-2 border-ivory dark:border-gray-900 box-content"></span>
           <span class="inline-block font-mono text-[12px] text-gray-700 dark:text-gray-300 bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[6px] px-2 py-0.5 mb-1.5">14:06</span>
           <div class="text-[14px] text-gray-700 dark:text-gray-300">
-            <strong class="text-slate-dark dark:text-gray-50 font-semibold">Impact starts.</strong> Sync workers begin queueing on pool
+            <strong class="text-slate-dark dark:text-ivory font-semibold">Impact starts.</strong> Sync workers begin queueing on pool
             checkout; p95 latency climbs past 4s and the load balancer starts
             returning 502s.
           </div>
@@ -168,7 +170,7 @@
           <span class="absolute -left-[5px] top-1.5 w-3 h-3 rounded-full bg-olive border-2 border-ivory dark:border-gray-900 box-content"></span>
           <span class="inline-block font-mono text-[12px] text-gray-700 dark:text-gray-300 bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[6px] px-2 py-0.5 mb-1.5">14:44</span>
           <div class="text-[14px] text-gray-700 dark:text-gray-300">
-            <strong class="text-slate-dark dark:text-gray-50 font-semibold">Mitigated.</strong> <code class="code-inline">cfg-9a12</code>
+            <strong class="text-slate-dark dark:text-ivory font-semibold">Mitigated.</strong> <code class="code-inline">cfg-9a12</code>
             reverted; worker fleet cycled. 5xx rate drops below 0.2% within
             three minutes.
           </div>
@@ -269,7 +271,7 @@
             <span class="check-mark" x-show="checked[0]"></span>
           </span>
           <span class="w-[30px] h-[30px] rounded-full bg-oat dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-[11px] font-semibold flex items-center justify-center tracking-[0.02em]" title="Devon Park">DP</span>
-          <span class="text-[14px]" :class="checked[0] ? 'ai-desc-done' : 'text-slate-dark dark:text-gray-50'">Revert cfg-9a12 and restore pool limit to 64</span>
+          <span class="text-[14px]" :class="checked[0] ? 'ai-desc-done' : 'text-slate-dark dark:text-ivory'">Revert cfg-9a12 and restore pool limit to 64</span>
           <span class="font-mono text-[12px] text-gray-500 dark:text-gray-400 text-right">Apr 12</span>
         </div>
 
@@ -285,7 +287,7 @@
             <span class="check-mark" x-show="checked[1]"></span>
           </span>
           <span class="w-[30px] h-[30px] rounded-full bg-oat dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-[11px] font-semibold flex items-center justify-center tracking-[0.02em]" title="Mira Okafor">MO</span>
-          <span class="text-[14px]" :class="checked[1] ? 'ai-desc-done' : 'text-slate-dark dark:text-gray-50'">Add config-linter range check for <code class="code-inline">max_connections</code> (warn &lt; 32)</span>
+          <span class="text-[14px]" :class="checked[1] ? 'ai-desc-done' : 'text-slate-dark dark:text-ivory'">Add config-linter range check for <code class="code-inline">max_connections</code> (warn &lt; 32)</span>
           <span class="font-mono text-[12px] text-gray-500 dark:text-gray-400 text-right">Apr 18</span>
         </div>
 
@@ -301,7 +303,7 @@
             <span class="check-mark" x-show="checked[2]"></span>
           </span>
           <span class="w-[30px] h-[30px] rounded-full bg-oat dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-[11px] font-semibold flex items-center justify-center tracking-[0.02em]" title="Sam Reyes">SR</span>
-          <span class="text-[14px]" :class="checked[2] ? 'ai-desc-done' : 'text-slate-dark dark:text-gray-50'">Surface &ldquo;recent config rollouts&rdquo; alongside deploys in the on-call dashboard</span>
+          <span class="text-[14px]" :class="checked[2] ? 'ai-desc-done' : 'text-slate-dark dark:text-ivory'">Surface &ldquo;recent config rollouts&rdquo; alongside deploys in the on-call dashboard</span>
           <span class="font-mono text-[12px] text-gray-500 dark:text-gray-400 text-right">Apr 25</span>
         </div>
 
@@ -317,7 +319,7 @@
             <span class="check-mark" x-show="checked[3]"></span>
           </span>
           <span class="w-[30px] h-[30px] rounded-full bg-oat dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-[11px] font-semibold flex items-center justify-center tracking-[0.02em]" title="Priya Anand">PA</span>
-          <span class="text-[14px]" :class="checked[3] ? 'ai-desc-done' : 'text-slate-dark dark:text-gray-50'">Canary config changes to one worker AZ for 10 min before fleet-wide promote</span>
+          <span class="text-[14px]" :class="checked[3] ? 'ai-desc-done' : 'text-slate-dark dark:text-ivory'">Canary config changes to one worker AZ for 10 min before fleet-wide promote</span>
           <span class="font-mono text-[12px] text-gray-500 dark:text-gray-400 text-right">May 02</span>
         </div>
 
