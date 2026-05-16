@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html x-data lang="en" x-bind:class="{ dark: $store.theme.dark }">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Empty state — four visual directions</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+    [x-cloak] { display: none; }
     @theme {
       --color-ivory: #FAF9F5;
       --color-slate-dark: #141413;
@@ -43,32 +45,50 @@
     .animate-bob    { animation: bob    3.2s ease-in-out infinite; }
     .animate-shadow { animation: shadow 3.2s ease-in-out infinite; }
   </style>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('theme', {
+        dark: JSON.parse(localStorage.getItem('theme-dark') ?? 'null') ??
+              window.matchMedia('(prefers-color-scheme: dark)').matches,
+        toggle() {
+          this.dark = !this.dark;
+          localStorage.setItem('theme-dark', JSON.stringify(this.dark));
+        }
+      });
+    });
+  </script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body class="font-sans bg-ivory text-gray-700 leading-[1.55] antialiased pb-24"
+<body class="font-sans bg-ivory dark:bg-gray-900 text-gray-700 dark:text-gray-300 leading-[1.55] antialiased pb-24"
       x-data="{
-        dark: false,
+        artboardDark: false,
         toggleDark(val) {
-          const fn = () => this.dark = val;
+          const fn = () => this.artboardDark = val;
           document.startViewTransition ? document.startViewTransition(fn) : fn();
         }
       }">
 
+  <button @click="$store.theme.toggle()"
+          class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+          :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
+          x-text="$store.theme.dark ? '☀' : '☾'">
+  </button>
+
   <!-- Sticky toolbar -->
-  <div class="sticky top-0 z-10 bg-ivory border-b-[1.5px] border-gray-300 px-8 py-[14px] flex items-center gap-[18px] text-[13px]">
+  <div class="sticky top-0 z-10 bg-ivory dark:bg-gray-900 border-b-[1.5px] border-gray-300 dark:border-gray-600 px-4 md:px-8 py-[14px] flex items-center gap-[18px] flex-wrap text-[13px]">
     <div class="font-mono text-[12px] tracking-[0.04em] text-gray-500 mr-auto">Acme · design exploration</div>
     <div class="flex items-center gap-[10px]">
-      <span class="text-gray-700 font-medium">Background:</span>
-      <div class="inline-flex border-[1.5px] border-gray-300 rounded-lg overflow-hidden bg-white">
+      <span class="text-gray-700 dark:text-gray-300 font-medium">Background:</span>
+      <div class="inline-flex border-[1.5px] border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
         <button
           class="px-[14px] py-[6px] text-[13px] select-none cursor-pointer transition-colors"
-          :class="!dark ? 'bg-oat text-slate-dark font-semibold' : 'text-gray-700'"
+          :class="!artboardDark ? 'bg-oat text-slate-dark font-semibold' : 'text-gray-700 dark:text-gray-300'"
           @click="toggleDark(false)">
           Light
         </button>
         <button
-          class="px-[14px] py-[6px] text-[13px] select-none cursor-pointer border-l-[1.5px] border-gray-300 transition-colors"
-          :class="dark ? 'bg-oat text-slate-dark font-semibold' : 'text-gray-700'"
+          class="px-[14px] py-[6px] text-[13px] select-none cursor-pointer border-l-[1.5px] border-gray-300 dark:border-gray-600 transition-colors"
+          :class="artboardDark ? 'bg-oat text-slate-dark font-semibold' : 'text-gray-700 dark:text-gray-300'"
           @click="toggleDark(true)">
           Dark
         </button>
@@ -77,14 +97,14 @@
   </div>
 
   <!-- Page -->
-  <div class="max-w-[1240px] mx-auto px-8 pt-12">
+  <div class="max-w-[1240px] mx-auto px-4 md:px-8 pt-12">
 
     <header class="max-w-[720px] mb-10">
       <div class="text-[12px] tracking-[0.08em] uppercase text-gray-500 mb-3">Exploration · Empty states</div>
-      <h1 class="font-serif font-medium text-[38px] leading-[1.15] text-slate-dark mb-[18px] tracking-[-0.01em]">
+      <h1 class="font-serif font-medium text-[26px] md:text-[38px] leading-[1.15] text-slate-dark dark:text-gray-50 mb-[18px] tracking-[-0.01em]">
         Four visual directions for the "no tasks yet" state
       </h1>
-      <div class="bg-gray-150 border-[1.5px] border-gray-300 rounded-xl px-5 py-4 text-[14.5px]">
+      <div class="bg-gray-150 dark:bg-gray-700 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl px-5 py-4 text-[14.5px]">
         <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-gray-500 block mb-[6px]">Prompt</span>
         Explore four visual directions for our empty-state component. Render each
         live so we can compare tone, density, and how well they hold up on light
@@ -96,10 +116,10 @@
     <section class="grid grid-cols-1 min-[960px]:grid-cols-2 gap-8">
 
       <!-- ================= A — Minimal ================= -->
-      <article class="bg-white border-[1.5px] border-gray-300 rounded-xl p-5 relative">
+      <article class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl p-5 relative">
         <span class="absolute top-[14px] left-[14px] font-mono text-[11px] tracking-[0.02em] bg-oat text-slate-dark px-[10px] py-1 rounded-lg z-[2]">A — Minimal</span>
         <div class="stage h-[280px] rounded-lg border-[1.5px] border-gray-300 bg-ivory flex items-center justify-center p-6 transition-[background-color,border-color] duration-150 overflow-hidden"
-             :class="dark ? 'dark' : ''">
+             :class="artboardDark ? 'dark' : ''">
           <div class="text-center max-w-[300px]">
             <h3 class="font-serif font-medium text-[19px] text-[var(--fg)] mb-[6px]">No tasks yet</h3>
             <p class="text-[13px] text-[var(--muted)] mb-[18px]">When you create a task it will show up here.</p>
@@ -113,10 +133,10 @@
       </article>
 
       <!-- ================= B — Illustrated ================= -->
-      <article class="bg-white border-[1.5px] border-gray-300 rounded-xl p-5 relative">
+      <article class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl p-5 relative">
         <span class="absolute top-[14px] left-[14px] font-mono text-[11px] tracking-[0.02em] bg-oat text-slate-dark px-[10px] py-1 rounded-lg z-[2]">B — Illustrated</span>
         <div class="stage h-[280px] rounded-lg border-[1.5px] border-gray-300 bg-ivory flex items-center justify-center p-6 transition-[background-color,border-color] duration-150 overflow-hidden"
-             :class="dark ? 'dark' : ''">
+             :class="artboardDark ? 'dark' : ''">
           <div class="text-center max-w-[320px]">
             <svg class="block mx-auto mb-[18px]" width="120" height="90" viewBox="0 0 120 90" aria-hidden="true">
               <rect x="14" y="20" width="72" height="54" rx="8"
@@ -134,7 +154,7 @@
             <h3 class="font-serif font-medium text-[19px] text-[var(--fg)] mb-[6px]">Start your first list</h3>
             <p class="text-[13px] text-[var(--muted)] mb-4">Group related work and watch progress roll up automatically.</p>
             <span class="inline-block text-[13px] font-medium rounded-lg px-4 py-2 transition-colors"
-                  :class="dark ? 'text-slate-dark bg-oat' : 'text-white bg-clay'">Create a task</span>
+                  :class="artboardDark ? 'text-slate-dark bg-oat' : 'text-white bg-clay'">Create a task</span>
           </div>
         </div>
         <p class="mt-4 text-[13px] text-gray-500 leading-[1.5]">
@@ -144,10 +164,10 @@
       </article>
 
       <!-- ================= C — Playful ================= -->
-      <article class="bg-white border-[1.5px] border-gray-300 rounded-xl p-5 relative">
+      <article class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl p-5 relative">
         <span class="absolute top-[14px] left-[14px] font-mono text-[11px] tracking-[0.02em] bg-oat text-slate-dark px-[10px] py-1 rounded-lg z-[2]">C — Playful</span>
         <div class="stage h-[280px] rounded-lg border-[1.5px] border-gray-300 bg-ivory flex items-center justify-center p-6 transition-[background-color,border-color] duration-150 overflow-hidden"
-             :class="dark ? 'dark' : ''">
+             :class="artboardDark ? 'dark' : ''">
           <div class="text-center max-w-[300px]">
             <div class="w-14 h-14 mx-auto mb-5 relative animate-bob">
               <div class="absolute inset-0 rounded-[10px] bg-[var(--panel)] border-[1.5px] border-[var(--line)] opacity-50"
@@ -155,10 +175,10 @@
               <div class="absolute inset-0 rounded-[10px] bg-[var(--panel)] border-[1.5px] border-[var(--line)] opacity-75"
                    style="transform: rotate(6deg) translate(6px, 2px)"></div>
               <div class="absolute inset-0 rounded-[10px] border-[1.5px] transition-colors"
-                   :class="dark ? 'bg-clay border-clay' : 'bg-oat border-oat'"></div>
+                   :class="artboardDark ? 'bg-clay border-clay' : 'bg-oat border-oat'"></div>
             </div>
             <div class="w-11 h-2 mx-auto -mt-2 mb-[22px] rounded-full blur-sm animate-shadow transition-colors"
-                 :class="dark ? 'bg-black/50' : 'bg-black/[0.12]'"></div>
+                 :class="artboardDark ? 'bg-black/50' : 'bg-black/[0.12]'"></div>
             <h3 class="font-serif font-medium text-[19px] text-[var(--fg)] mb-[6px]">Nothing on your plate</h3>
             <p class="text-[13px] text-[var(--muted)]">Enjoy the quiet, or add something to get moving.</p>
           </div>
@@ -170,10 +190,10 @@
       </article>
 
       <!-- ================= D — Instructional ================= -->
-      <article class="bg-white border-[1.5px] border-gray-300 rounded-xl p-5 relative">
+      <article class="bg-white dark:bg-gray-800 border-[1.5px] border-gray-300 dark:border-gray-600 rounded-xl p-5 relative">
         <span class="absolute top-[14px] left-[14px] font-mono text-[11px] tracking-[0.02em] bg-oat text-slate-dark px-[10px] py-1 rounded-lg z-[2]">D — Instructional</span>
         <div class="stage h-[280px] rounded-lg border-[1.5px] border-gray-300 bg-ivory flex items-center justify-center p-6 transition-[background-color,border-color] duration-150 overflow-hidden"
-             :class="dark ? 'dark' : ''">
+             :class="artboardDark ? 'dark' : ''">
           <div class="w-full max-w-[360px]">
             <h3 class="font-serif font-medium text-[18px] text-[var(--fg)] mb-[14px]">Set up this project</h3>
             <ol class="list-none flex flex-col gap-[10px]">

@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html x-data lang="en" x-bind:class="{ dark: $store.theme.dark }">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deploy pipeline — annotated flowchart</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style type="text/tailwindcss">
+  @custom-variant dark (&:where(.dark, .dark *));
+
   @theme {
     --color-ivory:      #FAF9F5;
     --color-slate-dark: #141413;
@@ -45,16 +47,48 @@
 
   /* x-html injected code elements */
   code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; }
+
+  /* Dark mode SVG overrides */
+  .dark .flow text { fill: #e5e7eb; }
+  .dark .flow .sub  { fill: #6b7280; }
+  .dark .flow .lbl  { fill: #6b7280; }
+  .dark .node rect       { fill: #1f2937; stroke: #4b5563; }
+  .dark .node.term rect  { fill: #374151; }
+  .dark .node.gate path  { fill: #1f2937; stroke: #4b5563; }
+  .dark .node.ok rect    { fill: rgba(120,140,93,0.20); stroke: #788C5D; }
+  .dark .node.bad rect   { fill: rgba(176,74,63,0.20); stroke: #B04A3F; }
+  .dark .node.active rect,
+  .dark .node.active path { stroke: #D97757; stroke-width: 2; }
+  .dark #arrow path       { fill: #6b7280; }
+  .dark #arrow-rust path  { fill: #B04A3F; }
+  .dark #arrow-olive path { fill: #788C5D; }
 </style>
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('theme', {
+        dark: JSON.parse(localStorage.getItem('theme-dark') ?? 'null') ??
+              window.matchMedia('(prefers-color-scheme: dark)').matches,
+        toggle() {
+          this.dark = !this.dark;
+          localStorage.setItem('theme-dark', JSON.stringify(this.dark));
+        }
+      });
+    });
+  </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body class="bg-ivory text-slate-dark font-sans antialiased py-14 px-6 pb-24">
+<body x-data class="bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans antialiased py-14 px-6 pb-24">
+<button @click="$store.theme.toggle()"
+        class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+        :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
+        x-text="$store.theme.dark ? '☀' : '☾'">
+</button>
 <div class="max-w-[980px] mx-auto">
 
   <header class="mb-10">
-    <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500 mb-2.5">Illustrations &amp; Diagrams · Flowchart</div>
+    <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500 dark:text-gray-400 mb-2.5">Illustrations &amp; Diagrams · Flowchart</div>
     <h1 class="font-serif font-medium text-[34px] tracking-[-0.01em] mb-3">What happens when you <code>git push</code></h1>
-    <p class="text-[14.5px] leading-relaxed text-gray-700 max-w-[640px]">
+    <p class="text-[14.5px] leading-relaxed text-gray-700 dark:text-gray-300 max-w-[640px]">
       The deploy pipeline for <code>acme/web</code>, drawn from <code>.github/workflows/</code> and the
       Argo manifests. Click any step to see what runs, how long it usually takes, and where it can short-circuit.
     </p>
@@ -64,7 +98,7 @@
        x-data="flowchart()">
 
     <div>
-      <div class="[border:1.5px_solid_#D1CFC5] rounded-[14px] bg-white p-7 overflow-x-auto">
+      <div class="[border:1.5px_solid_#D1CFC5] dark:border-gray-600 rounded-[14px] bg-white dark:bg-gray-800 p-7 overflow-x-auto">
         <svg class="block w-full h-auto flow" viewBox="0 0 620 920">
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -166,20 +200,20 @@
         </svg>
       </div>
 
-      <div class="flex flex-wrap gap-[18px] mt-[18px] text-xs text-gray-700">
-        <span class="inline-flex items-center gap-2"><i class="w-[22px] h-[14px] [border:1.5px_solid_#D1CFC5] rounded-[4px] bg-white inline-block"></i> process step</span>
-        <span class="inline-flex items-center gap-2"><i class="w-[12px] h-[12px] [border:1.5px_solid_#D1CFC5] rounded-[2px] bg-white rotate-45 inline-block"></i> decision</span>
-        <span class="inline-flex items-center gap-2"><i class="w-[22px] h-[14px] [border:1.5px_solid_#788C5D] rounded-[4px] bg-[rgba(120,140,93,0.12)] inline-block"></i> terminal success</span>
-        <span class="inline-flex items-center gap-2"><i class="w-[22px] h-[14px] [border:1.5px_solid_#B04A3F] rounded-[4px] bg-[rgba(176,74,63,0.10)] inline-block"></i> failure path</span>
+      <div class="flex flex-wrap gap-[18px] mt-[18px] text-xs text-gray-700 dark:text-gray-300">
+        <span class="inline-flex items-center gap-2"><i class="w-[22px] h-[14px] [border:1.5px_solid_#D1CFC5] dark:border-gray-600 rounded-[4px] bg-white dark:bg-gray-700 inline-block"></i> process step</span>
+        <span class="inline-flex items-center gap-2"><i class="w-[12px] h-[12px] [border:1.5px_solid_#D1CFC5] dark:border-gray-600 rounded-[2px] bg-white dark:bg-gray-700 rotate-45 inline-block"></i> decision</span>
+        <span class="inline-flex items-center gap-2"><i class="w-[22px] h-[14px] [border:1.5px_solid_#788C5D] rounded-[4px] bg-[rgba(120,140,93,0.12)] dark:bg-[rgba(120,140,93,0.20)] inline-block"></i> terminal success</span>
+        <span class="inline-flex items-center gap-2"><i class="w-[22px] h-[14px] [border:1.5px_solid_#B04A3F] rounded-[4px] bg-[rgba(176,74,63,0.10)] dark:bg-[rgba(176,74,63,0.20)] inline-block"></i> failure path</span>
       </div>
     </div>
 
-    <aside class="sticky top-6 [border:1.5px_solid_#D1CFC5] rounded-[14px] bg-white px-5 pt-5 pb-[22px]">
-      <div class="text-xs text-gray-500 mb-3.5">Click a step in the chart →</div>
+    <aside class="sticky top-6 [border:1.5px_solid_#D1CFC5] dark:border-gray-600 rounded-[14px] bg-white dark:bg-gray-800 px-5 pt-5 pb-[22px]">
+      <div class="text-xs text-gray-500 dark:text-gray-400 mb-3.5">Click a step in the chart →</div>
       <h3 class="font-serif font-medium text-[19px] mb-1.5" x-text="detail.title"></h3>
-      <div class="font-mono text-[11px] text-gray-500 mb-3.5" x-text="detail.meta"></div>
-      <p class="text-[13.5px] leading-relaxed text-gray-700 mb-3" x-html="detail.body"></p>
-      <pre class="font-mono text-[11.5px] leading-[1.55] bg-gray-150 border border-gray-300 rounded-lg px-3 py-2.5 whitespace-pre-wrap text-slate-dark" x-text="detail.code"></pre>
+      <div class="font-mono text-[11px] text-gray-500 dark:text-gray-400 mb-3.5" x-text="detail.meta"></div>
+      <p class="text-[13.5px] leading-relaxed text-gray-700 dark:text-gray-300 mb-3" x-html="detail.body"></p>
+      <pre class="font-mono text-[11.5px] leading-[1.55] bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2.5 whitespace-pre-wrap text-slate-dark dark:text-gray-100" x-text="detail.code"></pre>
     </aside>
 
   </div>

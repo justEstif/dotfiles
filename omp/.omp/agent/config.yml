@@ -34,6 +34,10 @@ commands:
   enableOpencodeProject: false
 task: 
   eager: false
+  agentModelOverrides: 
+    designer: sonnet-4-6
+  disabledAgents: 
+    []
 colorBlindMode: false
 display: 
   showTokenUsage: false

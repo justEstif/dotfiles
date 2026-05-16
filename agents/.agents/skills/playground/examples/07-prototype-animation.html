@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html x-data lang="en" x-bind:class="{ dark: $store.theme.dark }">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Acme — Task completed micro-interaction</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style type="text/tailwindcss">
+  @custom-variant dark (&:where(.dark, .dark *));
+
   @theme {
     --color-ivory: #FAF9F5;
     --color-slate-dark: #141413;
@@ -130,6 +132,9 @@
     border-color: #D97757;
     background: #FBF1EC;
   }
+  :where(.dark, .dark *) .ease-btn.active {
+    background: rgba(217, 119, 87, 0.2);
+  }
 
   /* timeline key labels — absolute-positioned children */
   .key span {
@@ -152,6 +157,9 @@
     font-size: 11px;
     color: #87867F;
   }
+  :where(.dark, .dark *) .key span { color: #d1d5db; }
+  :where(.dark, .dark *) .key em   { color: #6b7280; }
+
   .k1 { left: 0%;   }
   .k2 { left: 13%;  }
   .k3 { left: 20%;  }
@@ -163,10 +171,27 @@
   pre .k { color: #D97757; }
   pre .v { color: #B8C99D; }
 </style>
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('theme', {
+        dark: JSON.parse(localStorage.getItem('theme-dark') ?? 'null') ??
+              window.matchMedia('(prefers-color-scheme: dark)').matches,
+        toggle() {
+          this.dark = !this.dark;
+          localStorage.setItem('theme-dark', JSON.stringify(this.dark));
+        }
+      });
+    });
+  </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body class="m-0 bg-ivory text-slate-dark font-sans text-sm leading-[1.5]">
-<div class="max-w-[1080px] mx-auto px-8 pt-12 pb-16"
+<body x-data class="m-0 bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans text-sm leading-[1.5]">
+<button @click="$store.theme.toggle()"
+        class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+        :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
+        x-text="$store.theme.dark ? '☀' : '☾'">
+</button>
+<div class="max-w-[1080px] mx-auto px-4 md:px-8 pt-12 pb-16"
      x-data="{
        done: false,
        activeEase: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -177,26 +202,26 @@
      }">
 
   <header class="mb-7">
-    <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500">Acme / prototype / micro-interaction</div>
+    <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500 dark:text-gray-400">Acme / prototype / micro-interaction</div>
     <h1 class="font-serif font-medium text-[30px] tracking-[-0.01em] mt-1.5 mb-1">Task completed</h1>
-    <p class="text-gray-500 max-w-[560px]">
+    <p class="text-gray-500 dark:text-gray-400 max-w-[560px]">
       A single click should feel like a tiny win. Circle fills, check draws,
       label strikes, a small burst, then the row quietly steps back. Click
       the row to play; click again to reset.
     </p>
   </header>
 
-  <div class="grid [grid-template-columns:1fr_240px] gap-6 items-start">
+  <div class="grid grid-cols-1 md:[grid-template-columns:1fr_240px] gap-6 items-start">
 
-    <div class="bg-white border border-gray-300 rounded-[12px] h-[360px] flex items-center justify-center relative overflow-hidden">
-      <div class="task flex items-center gap-3.5 py-3.5 px-[18px] border border-gray-300 rounded-[8px] bg-white w-[360px] relative cursor-pointer select-none"
+    <div class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-[12px] h-[360px] flex items-center justify-center relative overflow-hidden">
+      <div class="task flex items-center gap-3.5 py-3.5 px-[18px] border border-gray-300 dark:border-gray-600 rounded-[8px] bg-white dark:bg-gray-800 w-[360px] relative cursor-pointer select-none"
            :class="{'done': done}"
            @click="done = !done">
-        <div class="check flex-none w-6 h-6 rounded-full border border-gray-500 bg-white relative">
+        <div class="check flex-none w-6 h-6 rounded-full border border-gray-500 bg-white dark:bg-gray-700 relative">
           <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5"/></svg>
         </div>
-        <span class="label relative text-[15px] text-slate-dark">Send weekly digest</span>
-        <span class="due ml-auto font-mono text-[11px] text-gray-500 bg-gray-150 border border-gray-300 py-[3px] px-2 rounded-[8px]">Fri</span>
+        <span class="label relative text-[15px] text-slate-dark dark:text-gray-50">Send weekly digest</span>
+        <span class="due ml-auto font-mono text-[11px] text-gray-500 dark:text-gray-400 bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 py-[3px] px-2 rounded-[8px]">Fri</span>
         <div class="confetti c1"></div>
         <div class="confetti c2"></div>
         <div class="confetti c3"></div>
@@ -204,42 +229,42 @@
         <div class="confetti c5"></div>
         <div class="confetti c6"></div>
       </div>
-      <div class="absolute bottom-3.5 left-1/2 -translate-x-1/2 font-mono text-[11px] text-gray-500">click to toggle</div>
+      <div class="absolute bottom-3.5 left-1/2 -translate-x-1/2 font-mono text-[11px] text-gray-500 dark:text-gray-400">click to toggle</div>
     </div>
 
-    <aside class="bg-white border border-gray-300 rounded-[12px] p-[18px]" x-cloak>
+    <aside class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-[12px] p-[18px]" x-cloak>
       <h2 class="font-serif font-medium text-[16px] m-0 mb-1">Easing</h2>
-      <p class="m-0 mb-3.5 text-xs text-gray-500">Swaps <code>--ease</code> across every transition so you can feel the difference.</p>
-      <button class="ease-btn block w-full text-left bg-gray-150 border border-gray-300 rounded-[8px] py-2.5 px-3 mb-2 font-sans text-[13px] text-slate-dark cursor-pointer hover:border-gray-500"
+      <p class="m-0 mb-3.5 text-xs text-gray-500 dark:text-gray-400">Swaps <code>--ease</code> across every transition so you can feel the difference.</p>
+      <button class="ease-btn block w-full text-left bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[8px] py-2.5 px-3 mb-2 font-sans text-[13px] text-slate-dark dark:text-gray-300 cursor-pointer hover:border-gray-500 dark:hover:border-gray-500"
               @click="setEase('linear')"
               :class="{'active': activeEase === 'linear'}">
         Linear
-        <code class="block font-mono text-[10px] text-gray-500 mt-0.5">linear</code>
+        <code class="block font-mono text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">linear</code>
       </button>
-      <button class="ease-btn block w-full text-left bg-gray-150 border border-gray-300 rounded-[8px] py-2.5 px-3 mb-2 font-sans text-[13px] text-slate-dark cursor-pointer hover:border-gray-500"
+      <button class="ease-btn block w-full text-left bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[8px] py-2.5 px-3 mb-2 font-sans text-[13px] text-slate-dark dark:text-gray-300 cursor-pointer hover:border-gray-500 dark:hover:border-gray-500"
               @click="setEase('cubic-bezier(0.16, 1, 0.3, 1)')"
               :class="{'active': activeEase === 'cubic-bezier(0.16, 1, 0.3, 1)'}">
         Ease-out
-        <code class="block font-mono text-[10px] text-gray-500 mt-0.5">cubic-bezier(.16, 1, .3, 1)</code>
+        <code class="block font-mono text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">cubic-bezier(.16, 1, .3, 1)</code>
       </button>
-      <button class="ease-btn block w-full text-left bg-gray-150 border border-gray-300 rounded-[8px] py-2.5 px-3 mb-2 font-sans text-[13px] text-slate-dark cursor-pointer hover:border-gray-500"
+      <button class="ease-btn block w-full text-left bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[8px] py-2.5 px-3 mb-2 font-sans text-[13px] text-slate-dark dark:text-gray-300 cursor-pointer hover:border-gray-500 dark:hover:border-gray-500"
               @click="setEase('cubic-bezier(0.34, 1.56, 0.64, 1)')"
               :class="{'active': activeEase === 'cubic-bezier(0.34, 1.56, 0.64, 1)'}">
         Spring
-        <code class="block font-mono text-[10px] text-gray-500 mt-0.5">cubic-bezier(.34, 1.56, .64, 1)</code>
+        <code class="block font-mono text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">cubic-bezier(.34, 1.56, .64, 1)</code>
       </button>
     </aside>
 
   </div>
 
-  <section class="mt-7 bg-white border border-gray-300 rounded-[12px] py-[22px] px-[22px] pb-[30px]">
+  <section class="mt-7 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-[12px] py-[22px] px-[22px] pb-[30px]">
     <h2 class="font-serif font-medium text-[16px] m-0 mb-[18px]">Keyframes</h2>
-    <div class="relative h-0.5 bg-gray-300 mx-2 mt-5">
-      <div class="key k1 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>fill</em><span>0ms</span></div>
-      <div class="key k2 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>check</em><span>80ms</span></div>
-      <div class="key k3 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>strike</em><span>120ms</span></div>
-      <div class="key k4 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>confetti</em><span>200ms</span></div>
-      <div class="key k5 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>collapse</em><span>600ms</span></div>
+    <div class="relative h-0.5 bg-gray-300 dark:bg-gray-600 mx-2 mt-5">
+      <div class="key k1 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white dark:border-gray-800 shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>fill</em><span>0ms</span></div>
+      <div class="key k2 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white dark:border-gray-800 shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>check</em><span>80ms</span></div>
+      <div class="key k3 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white dark:border-gray-800 shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>strike</em><span>120ms</span></div>
+      <div class="key k4 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white dark:border-gray-800 shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>confetti</em><span>200ms</span></div>
+      <div class="key k5 absolute -top-[5px] w-3 h-3 rounded-full bg-clay border border-white dark:border-gray-800 shadow-[0_0_0_1.5px_#D97757] -translate-x-1/2"><em>collapse</em><span>600ms</span></div>
     </div>
   </section>
 

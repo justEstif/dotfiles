@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html x-data lang="en" x-bind:class="{ dark: $store.theme.dark }">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Background jobs — header illustrations</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style type="text/tailwindcss">
+  @custom-variant dark (&:where(.dark, .dark *));
   @theme {
     --color-ivory: #FAF9F5;
     --color-slate-dark: #141413;
@@ -22,26 +23,44 @@
   }
   [x-cloak] { display: none; }
 </style>
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('theme', {
+        dark: JSON.parse(localStorage.getItem('theme-dark') ?? 'null') ??
+              window.matchMedia('(prefers-color-scheme: dark)').matches,
+        toggle() {
+          this.dark = !this.dark;
+          localStorage.setItem('theme-dark', JSON.stringify(this.dark));
+        }
+      });
+    });
+  </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body class="bg-ivory text-slate-dark font-sans antialiased py-16 px-6 pb-24">
+<body x-data class="bg-ivory dark:bg-gray-900 text-slate-dark dark:text-gray-50 font-sans antialiased py-16 px-6 pb-24">
 <div class="max-w-[760px] mx-auto">
 
+  <button @click="$store.theme.toggle()"
+          class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+          :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
+          x-text="$store.theme.dark ? '☀' : '☾'">
+  </button>
+
   <header class="mb-14">
-    <h1 class="font-serif font-medium text-[34px] tracking-[-0.01em] mb-2.5">Background jobs — header illustrations</h1>
-    <p class="text-[14px] leading-[1.6] text-gray-700 max-w-[560px]">
+    <h1 class="font-serif font-medium text-[22px] md:text-[34px] tracking-[-0.01em] mb-2.5">Background jobs — header illustrations</h1>
+    <p class="text-[14px] leading-[1.6] text-gray-700 dark:text-gray-300 max-w-[560px]">
       Three 720×320 hand-drawn SVGs for the Acme docs section on
       background jobs. Flat fills, 1.5–2px strokes, palette-locked. Each
       exports standalone via the button below it.
     </p>
-    <div class="font-mono text-[11px] text-gray-500 mt-[18px]">720 × 320 · inline SVG · no external assets</div>
+    <div class="font-mono text-[11px] text-gray-500 dark:text-gray-400 mt-[18px]">720 × 320 · inline SVG · no external assets</div>
   </header>
 
   <!-- ============================================================
        A — Queue
        ============================================================ -->
   <figure class="mb-[72px]">
-    <div class="border border-gray-300 rounded-[12px] overflow-hidden bg-ivory">
+    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-gray-900">
       <svg id="ill-queue" xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320" style="display:block;width:100%;height:auto">
         <defs>
           <style>
@@ -103,11 +122,11 @@
     >
       <div class="flex-1">
         <div class="font-serif text-[19px] font-medium mb-1">Queue</div>
-        <div class="text-[13px] leading-[1.55] text-gray-500">For "How jobs are picked up" — intro page header.</div>
+        <div class="text-[13px] leading-[1.55] text-gray-500 dark:text-gray-400">For "How jobs are picked up" — intro page header.</div>
       </div>
       <button
         @click="copy()"
-        class="flex-shrink-0 font-mono text-[11px] text-slate-dark bg-gray-150 border border-gray-300 rounded-[6px] px-3 py-[7px] cursor-pointer hover:bg-oat active:translate-y-px"
+        class="flex-shrink-0 font-mono text-[11px] text-slate-dark dark:text-gray-100 bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[6px] px-3 py-[7px] cursor-pointer hover:bg-oat dark:hover:bg-gray-600 active:translate-y-px"
         x-text="copied ? 'Copied!' : 'Copy SVG'"
       ></button>
     </figcaption>
@@ -117,7 +136,7 @@
        B — Retry with backoff
        ============================================================ -->
   <figure class="mb-[72px]">
-    <div class="border border-gray-300 rounded-[12px] overflow-hidden bg-ivory">
+    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-gray-900">
       <svg id="ill-retry" xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320" style="display:block;width:100%;height:auto">
         <defs>
           <style>
@@ -183,11 +202,11 @@
     >
       <div class="flex-1">
         <div class="font-serif text-[19px] font-medium mb-1">Retry with backoff</div>
-        <div class="text-[13px] leading-[1.55] text-gray-500">For "Handling failures" — retry policy header.</div>
+        <div class="text-[13px] leading-[1.55] text-gray-500 dark:text-gray-400">For "Handling failures" — retry policy header.</div>
       </div>
       <button
         @click="copy()"
-        class="flex-shrink-0 font-mono text-[11px] text-slate-dark bg-gray-150 border border-gray-300 rounded-[6px] px-3 py-[7px] cursor-pointer hover:bg-oat active:translate-y-px"
+        class="flex-shrink-0 font-mono text-[11px] text-slate-dark dark:text-gray-100 bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[6px] px-3 py-[7px] cursor-pointer hover:bg-oat dark:hover:bg-gray-600 active:translate-y-px"
         x-text="copied ? 'Copied!' : 'Copy SVG'"
       ></button>
     </figcaption>
@@ -197,7 +216,7 @@
        C — Fan-out
        ============================================================ -->
   <figure class="mb-[72px]">
-    <div class="border border-gray-300 rounded-[12px] overflow-hidden bg-ivory">
+    <div class="border border-gray-300 dark:border-gray-600 rounded-[12px] overflow-hidden bg-ivory dark:bg-gray-900">
       <svg id="ill-fanout" xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320" style="display:block;width:100%;height:auto">
         <defs>
           <style>
@@ -267,11 +286,11 @@
     >
       <div class="flex-1">
         <div class="font-serif text-[19px] font-medium mb-1">Fan-out / fan-in</div>
-        <div class="text-[13px] leading-[1.55] text-gray-500">For "Batch and parallel work" — fan-out pattern header.</div>
+        <div class="text-[13px] leading-[1.55] text-gray-500 dark:text-gray-400">For "Batch and parallel work" — fan-out pattern header.</div>
       </div>
       <button
         @click="copy()"
-        class="flex-shrink-0 font-mono text-[11px] text-slate-dark bg-gray-150 border border-gray-300 rounded-[6px] px-3 py-[7px] cursor-pointer hover:bg-oat active:translate-y-px"
+        class="flex-shrink-0 font-mono text-[11px] text-slate-dark dark:text-gray-100 bg-gray-150 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-[6px] px-3 py-[7px] cursor-pointer hover:bg-oat dark:hover:bg-gray-600 active:translate-y-px"
         x-text="copied ? 'Copied!' : 'Copy SVG'"
       ></button>
     </figcaption>
@@ -280,69 +299,69 @@
   <!-- ============================================================
        Palette + usage notes
        ============================================================ -->
-  <section class="border-t border-gray-300 pt-9 mt-2">
+  <section class="border-t border-gray-300 dark:border-gray-600 pt-9 mt-2">
     <h2 class="font-serif font-medium text-[19px] mb-[18px]">Palette &amp; rules</h2>
 
     <div class="grid grid-cols-[repeat(auto-fill,minmax(112px,1fr))] gap-2.5 mb-8">
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#FAF9F5"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">ivory</div>
-          <div class="font-mono text-[10px] text-gray-500">#FAF9F5</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">ivory</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#FAF9F5</div>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#141413"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">slate</div>
-          <div class="font-mono text-[10px] text-gray-500">#141413</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">slate</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#141413</div>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#D97757"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">clay</div>
-          <div class="font-mono text-[10px] text-gray-500">#D97757</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">clay</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#D97757</div>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#788C5D"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">olive</div>
-          <div class="font-mono text-[10px] text-gray-500">#788C5D</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">olive</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#788C5D</div>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#E3DACC"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">oat</div>
-          <div class="font-mono text-[10px] text-gray-500">#E3DACC</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">oat</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#E3DACC</div>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#F0EEE6"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">gray-150</div>
-          <div class="font-mono text-[10px] text-gray-500">#F0EEE6</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">gray-150</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#F0EEE6</div>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#D1CFC5"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">gray-300</div>
-          <div class="font-mono text-[10px] text-gray-500">#D1CFC5</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">gray-300</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#D1CFC5</div>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-[8px] overflow-hidden bg-white">
+      <div class="border border-gray-300 dark:border-gray-600 rounded-[8px] overflow-hidden bg-white dark:bg-gray-800">
         <div class="h-11" style="background:#87867F"></div>
         <div class="p-[8px_10px_10px]">
-          <div class="text-[12px] text-gray-700">gray-500</div>
-          <div class="font-mono text-[10px] text-gray-500">#87867F</div>
+          <div class="text-[12px] text-gray-700 dark:text-gray-300">gray-500</div>
+          <div class="font-mono text-[10px] text-gray-500 dark:text-gray-400">#87867F</div>
         </div>
       </div>
     </div>
 
-    <ul class="text-[13px] leading-[1.7] text-gray-700 list-none">
+    <ul class="text-[13px] leading-[1.7] text-gray-700 dark:text-gray-300 list-none">
       <li class="pl-[18px] relative mb-1.5 before:content-[''] before:absolute before:left-0 before:top-[0.65em] before:w-2 before:h-px before:bg-gray-500">Strokes are 1.5px for neutral boxes, 2px for emphasised containers.</li>
       <li class="pl-[18px] relative mb-1.5 before:content-[''] before:absolute before:left-0 before:top-[0.65em] before:w-2 before:h-px before:bg-gray-500">All rectangles use <code>rx="10"</code>; no drop shadows or gradients.</li>
       <li class="pl-[18px] relative mb-1.5 before:content-[''] before:absolute before:left-0 before:top-[0.65em] before:w-2 before:h-px before:bg-gray-500">Labels inside boxes are 11px mono; annotations outside are 12px sans, gray-500.</li>

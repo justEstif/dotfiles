@@ -92,6 +92,8 @@ For complex state, define a function and register it before Alpine boots:
 | Disclosure | `<details><summary>` | Low-stakes collapse |
 | Drag/drop | HTML5 drag API | Reorder lists, kanban |
 
+> **Alpine plugins** extend the stack for specific patterns. Load plugins before Alpine core (all deferred). See `references/ui-polish.md` for Sort, Persist, Collapse, and Anchor patterns.
+
 Always wrap `startViewTransition` and `showPopover` in feature checks:
 ```js
 const update = () => { /* state change */ };
@@ -321,6 +323,8 @@ Keyboard nav: `→`/`Space` next, `←` previous, `F` fullscreen, `Esc` exit. Ha
 ### Throwaway editors
 Pre-populate with the user's actual data — never make them paste it again. Export is non-negotiable; always end with a Submit or Copy button. Patterns: drag-and-drop board (kanban triage), form-based config with dependency warnings, side-by-side prompt/template editor, dataset curator (approve/reject with keyboard shortcuts `j`/`k`/`y`/`n`), annotation tool. Keyboard shortcuts for anything involving more than ~10 items. Show counts ("37 to review, 12 approved").
 
+For drag-and-drop reordering, use `x-sort` / `@alpinejs/sort` — it replaces the HTML5 drag API entirely and handles kanban boards and reorderable lists with far less code. See `references/ui-polish.md` § Alpine plugins.
+
 ### Interactive playgrounds
 Real-time updating preview as the user manipulates controls. Sliders/dropdowns/toggles; always show current value as text next to the control with units ("220ms", "1.04×"). Submit sends tuned values back. Patterns: single-component tuner (preview + controls), algorithm parameter explorer (synthetic visualization of behavior), multi-parameter sweep (grid of combinations).
 
@@ -337,7 +341,7 @@ Annotated diff with margin notes, severity tags, jump links. PR writeup: motivat
 Inline SVG — real `<g>` and `<path>`, not PNGs. SVG text in `<foreignObject>` for variable-length labels. Annotated flowchart: click any node to see details in a Popover. Architecture map: zoom/pan with CSS `transform`. Sequence diagrams: time flows top-to-bottom, actors as columns.
 
 ### Research explainers / reports
-TL;DR box at top. Collapsible sections (`<details>` or Alpine `x-show`). Tabbed code samples. Glossary with hover definitions (Popover). Status reports: chart for key metric (inline SVG or simple CSS bar), colored timeline. Incident reports: minute-by-minute timeline, log excerpts, follow-up checklist.
+TL;DR box at top. Collapsible sections: prefer `x-collapse` from `@alpinejs/collapse` over `x-show` + manual height CSS — it animates height from `0` to `auto` without fixed pixel values. Fall back to `<details>` for truly low-stakes disclosure. Tabbed code samples. Glossary with hover definitions (Popover). Status reports: chart for key metric (inline SVG or simple CSS bar), colored timeline. Incident reports: minute-by-minute timeline, log excerpts, follow-up checklist.
 
 ### Data explorer
 Filterable table with faceted search. `x-model` bound search input + computed filter. Column sort. Row click opens detail in Popover or `<dialog>`. Export filtered view as CSV or JSON. Log viewers: monospace, line numbers, severity coloring.

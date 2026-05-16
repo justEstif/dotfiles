@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html x-data lang="en" x-bind:class="{ dark: $store.theme.dark }">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Acme — flags.production.json</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style type="text/tailwindcss">
+  @custom-variant dark (&:where(.dark, .dark *));
   @theme {
     --color-ivory: #FAF9F5;
     --color-slate-dark: #141413;
@@ -28,15 +29,36 @@
   .toggle input:checked + .track { background: #788C5D; }
   .toggle input:checked + .track::after { transform: translateX(16px); }
   .toggle input:focus-visible + .track { outline: 2px solid #141413; outline-offset: 2px; }
+  :where(.dark, .dark *) .toggle .track { background: #4b5563; }
 
   /* Diff color lines */
   .diff-minus { color: #87867F; }
   .diff-plus  { color: #788C5D; }
   .diff-empty { color: #87867F; }
+  :where(.dark, .dark *) .diff-minus { color: #9ca3af; }
+  :where(.dark, .dark *) .diff-plus  { color: #86efac; }
+  :where(.dark, .dark *) .diff-empty { color: #6b7280; }
 </style>
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('theme', {
+        dark: JSON.parse(localStorage.getItem('theme-dark') ?? 'null') ??
+              window.matchMedia('(prefers-color-scheme: dark)').matches,
+        toggle() {
+          this.dark = !this.dark;
+          localStorage.setItem('theme-dark', JSON.stringify(this.dark));
+        }
+      });
+    });
+  </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </head>
-<body class="bg-ivory text-slate-dark font-sans text-sm leading-relaxed m-0">
+<body x-data class="bg-ivory text-slate-dark font-sans text-sm leading-relaxed m-0 dark:bg-gray-900 dark:text-gray-50">
+<button @click="$store.theme.toggle()"
+        class="fixed top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+        :title="$store.theme.dark ? 'Light mode' : 'Dark mode'"
+        x-text="$store.theme.dark ? '☀' : '☾'">
+</button>
 <div class="max-w-[1080px] mx-auto px-8 pt-12 pb-16" x-data="featureFlags()" x-cloak>
 
   <header class="mb-7">
@@ -54,7 +76,7 @@
     <div
       x-show="warnCount > 0"
       x-transition
-      class="lg:col-span-2 flex items-baseline gap-2 px-3.5 py-2.5 border-[1.5px] border-[#E8C2AE] bg-[#F8E9E0] text-clay-d rounded-[10px] text-[13px]">
+      class="lg:col-span-2 flex items-baseline gap-2 px-3.5 py-2.5 border-[1.5px] border-[#E8C2AE] bg-[#F8E9E0] text-clay-d rounded-[10px] text-[13px] dark:bg-orange-900/20 dark:border-orange-700/50 dark:text-orange-300">
       <span class="text-[13px] leading-none translate-y-px">&#9888;</span>
       <span x-text="warnCount === 1 ? '1 flag is enabled without its prerequisite' : warnCount + ' flags are enabled without their prerequisites'"></span>
     </div>
@@ -62,20 +84,20 @@
     <!-- Flag groups -->
     <div class="flex flex-col gap-4">
       <template x-for="group in groups" :key="group.id">
-        <section class="bg-white border-[1.5px] border-gray-200 rounded-xl overflow-hidden">
+        <section class="bg-white border-[1.5px] border-gray-200 rounded-xl overflow-hidden dark:bg-gray-800 dark:border-gray-600">
 
           <!-- Group header -->
-          <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500 px-[18px] py-3 border-b-[1.5px] border-gray-50 flex justify-between gap-3">
-            <span class="text-gray-800" x-text="group.label"></span>
+          <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500 px-[18px] py-3 border-b-[1.5px] border-gray-50 flex justify-between gap-3 dark:border-gray-700">
+            <span class="text-gray-800 dark:text-gray-300" x-text="group.label"></span>
             <span class="tracking-[0.04em]" x-text="group.flags.length + ' flags, ' + groupOnCount(group) + ' on'"></span>
           </div>
 
           <!-- Flag rows -->
           <template x-for="flag in group.flags" :key="flag.key">
             <div
-              class="flex items-start gap-4 px-[18px] py-3.5 border-b border-gray-50 last:border-b-0 border-l-[3px] transition-all"
+              class="flex items-start gap-4 px-[18px] py-3.5 border-b border-gray-50 last:border-b-0 border-l-[3px] transition-all dark:border-gray-700"
               :class="{
-                'border-l-clay bg-[#FBF3EE]': isWarn(flag),
+                'border-l-clay bg-[#FBF3EE] dark:bg-orange-900/20': isWarn(flag),
                 'border-l-transparent': !isWarn(flag),
                 'bg-transparent': !isWarn(flag) && !isChanged(flag)
               }">
@@ -92,7 +114,7 @@
 
               <!-- Info -->
               <div class="flex-1 min-w-0">
-                <div class="font-mono text-[13px] text-gray-800 flex items-center gap-[7px] flex-wrap">
+                <div class="font-mono text-[13px] text-gray-800 dark:text-gray-300 flex items-center gap-[7px] flex-wrap">
                   <!-- Changed dot -->
                   <span
                     x-show="isChanged(flag)"
@@ -101,7 +123,7 @@
                   <!-- Rollout badge -->
                   <span
                     x-show="flag.rollout != null"
-                    class="font-mono text-[10px] tracking-[0.03em] text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-[7px] py-0.5"
+                    class="font-mono text-[10px] tracking-[0.03em] text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-[7px] py-0.5 dark:bg-gray-700 dark:border-gray-600"
                     x-text="flag.rollout + '%'"></span>
                 </div>
                 <div class="text-gray-500 text-[12.5px] mt-0.5" x-text="flag.desc"></div>
@@ -109,7 +131,7 @@
                 <div
                   x-show="flag.requires"
                   class="inline-flex items-baseline gap-[5px] mt-[7px] font-mono text-[11px] rounded-full px-[9px] py-0.5 border"
-                  :class="isWarn(flag) ? 'text-clay-d bg-[#F8E1D5] border-[#E8C2AE]' : 'text-gray-500 bg-gray-50 border-gray-200'">
+                  :class="isWarn(flag) ? 'text-clay-d bg-[#F8E1D5] border-[#E8C2AE] dark:bg-orange-900/30 dark:border-orange-700/50 dark:text-orange-300' : 'text-gray-500 bg-gray-50 border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400'">
                   <span x-show="isWarn(flag)">&#9888;</span>
                   <span>requires <span x-text="flag.requires"></span></span>
                 </div>
@@ -121,38 +143,38 @@
     </div>
 
     <!-- Sidebar -->
-    <aside class="sticky top-6 bg-white border-[1.5px] border-gray-200 rounded-xl p-[18px] flex flex-col gap-3.5">
+    <aside class="sticky top-6 bg-white border-[1.5px] border-gray-200 rounded-xl p-[18px] flex flex-col gap-3.5 dark:bg-gray-800 dark:border-gray-600">
 
       <div>
         <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-gray-500">Pending changes</div>
         <div class="font-serif font-medium text-[19px] tracking-tight mt-0.5">
           <span x-text="diff.length + ' changed'"></span>
-          <span class="text-gray-200 mx-1">&middot;</span>
+          <span class="text-gray-200 dark:text-gray-600 mx-1">&middot;</span>
           <span :class="warnCount ? 'text-clay-d' : ''" x-text="warnCount + ' warning' + (warnCount === 1 ? '' : 's')"></span>
         </div>
       </div>
 
       <!-- Diff display -->
-      <pre class="m-0 font-mono text-[12px] leading-[1.7] bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-3 overflow-x-auto max-h-[320px] overflow-y-auto whitespace-pre"><template x-if="diff.length === 0"><span class="diff-empty">// no changes yet</span></template><template x-if="diff.length > 0"><span x-html="diffHtml()"></span></template></pre>
+      <pre class="m-0 font-mono text-[12px] leading-[1.7] bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-3 overflow-x-auto max-h-[320px] overflow-y-auto whitespace-pre dark:bg-gray-700 dark:border-gray-600"><template x-if="diff.length === 0"><span class="diff-empty">// no changes yet</span></template><template x-if="diff.length > 0"><span x-html="diffHtml()"></span></template></pre>
 
       <!-- Buttons -->
       <div class="flex flex-col gap-2">
         <button
           @click="copyDiff()"
           :disabled="diff.length === 0"
-          :class="copyDiffCopied ? 'bg-olive' : (diff.length === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-slate-dark hover:bg-gray-800')"
+          :class="copyDiffCopied ? 'bg-olive' : (diff.length === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed dark:bg-gray-700 dark:text-gray-500' : 'bg-slate-dark hover:bg-gray-800')"
           class="w-full border-none rounded-full font-mono text-[12px] px-4 py-[9px] cursor-pointer text-center transition-colors text-ivory"
           x-text="copyDiffCopied ? 'Copied ✓' : 'Copy diff'"></button>
 
         <button
           @click="copyJson()"
-          :class="copyJsonCopied ? 'border-olive text-olive' : 'border-gray-200 text-gray-800 hover:border-gray-500'"
+          :class="copyJsonCopied ? 'border-olive text-olive' : 'border-gray-200 text-gray-800 hover:border-gray-500 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-400'"
           class="w-full bg-transparent rounded-full font-mono text-[12px] px-4 py-[9px] cursor-pointer text-center transition-all border-[1.5px]"
           x-text="copyJsonCopied ? 'Copied ✓' : 'Copy full JSON'"></button>
 
         <button
           @click="resetFlags()"
-          class="w-full bg-transparent text-gray-800 border-[1.5px] border-gray-200 rounded-full font-mono text-[12px] px-4 py-[9px] cursor-pointer text-center hover:border-gray-500">Reset</button>
+          class="w-full bg-transparent text-gray-800 border-[1.5px] border-gray-200 rounded-full font-mono text-[12px] px-4 py-[9px] cursor-pointer text-center hover:border-gray-500 dark:text-gray-300 dark:border-gray-600 dark:hover:border-gray-400">Reset</button>
       </div>
     </aside>
   </div>
