@@ -17,6 +17,7 @@ bat = "latest"
 # uv = "latest"
 "github:can1357/oh-my-pi" = "latest"
 "npm:@justestif/pk" = "latest"
+"go:github.com/justestif/shelf-cli" = "latest"
 
 # [hooks]
 # enter = "mise install"
