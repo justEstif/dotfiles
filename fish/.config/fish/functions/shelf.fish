@@ -1,4 +1,4 @@
-function shelf --description "Upload files to shelf.estifanos.cc"
+function shelf --description "Upload and manage files on shelf.estifanos.cc"
     set -l base_url "https://shelf.estifanos.cc"
     set -l token "$SHELF_API_TOKEN"
 
@@ -9,11 +9,46 @@ function shelf --description "Upload files to shelf.estifanos.cc"
     end
 
     if test (count $argv) -eq 0
-        echo "Usage: shelf <file...> [--folder dir] [--visibility public|private|protected]"
-        echo "       shelf <file...> [-f dir] [-v public|private|protected]"
+        echo "Usage:"
+        echo "  shelf <file...> [--folder dir] [--visibility public|private|protected]"
+        echo "  shelf rm <path...>"
+        echo "  shelf ls [path]"
         return 1
     end
 
+    # --- Subcommands ---
+    switch $argv[1]
+        case rm delete
+            # Delete files by path
+            set -l paths $argv[2..-1]
+            if test (count $paths) -eq 0
+                echo (set_color red)"✗ Specify paths to delete"(set_color normal)
+                return 1
+            end
+            for p in $paths
+                set -l resp (curl -sf -X DELETE "$base_url/admin/api/files/$p" \
+                    -H "Authorization: Bearer $token" 2>&1)
+                if test $status -eq 0
+                    echo (set_color green)"✓"(set_color normal)" deleted $p"
+                else
+                    echo (set_color red)"✗ failed to delete $p"(set_color normal)
+                end
+            end
+            return 0
+
+        case ls list
+            # List files
+            set -l resp (curl -sf "$base_url/admin/api/files" \
+                -H "Authorization: Bearer $token" 2>&1)
+            if test $status -ne 0
+                echo (set_color red)"✗ Failed to list files"(set_color normal)
+                return 1
+            end
+            echo $resp | jq -r '.files[] | "\(.path)  \(.size)"' 2>/dev/null
+            return 0
+    end
+
+    # --- Upload ---
     set -l files
     set -l folder ""
     set -l visibility ""
@@ -28,8 +63,10 @@ function shelf --description "Upload files to shelf.estifanos.cc"
                 set i (math $i + 1)
                 set visibility $argv[$i]
             case --help -h
-                echo "Usage: shelf <file...> [--folder dir] [--visibility public|private|protected]"
-                echo "Uploads files to $base_url"
+                echo "Usage:"
+                echo "  shelf <file...> [--folder dir] [--visibility public|private|protected]"
+                echo "  shelf rm <path...>"
+                echo "  shelf ls [path]"
                 return 0
             case '*'
                 set -a files $argv[$i]
@@ -49,7 +86,6 @@ function shelf --description "Upload files to shelf.estifanos.cc"
         end
     end
 
-    # Upload
     set -l curl_args
     for file in $files
         set -a curl_args -F "files=@$file"
@@ -69,7 +105,6 @@ function shelf --description "Upload files to shelf.estifanos.cc"
         return 1
     end
 
-    # Parse with jq
     set -l errors (echo $resp | jq -r '.errors[]?' 2>/dev/null)
     set -l paths (echo $resp | jq -r '.uploaded[].path' 2>/dev/null)
 
