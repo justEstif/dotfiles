@@ -112,7 +112,11 @@ function shelf --description "Upload files to shelf.estifanos.cc"
     # Copy first URL to clipboard
     set -l first_path (echo $paths | head -1)
     if test -n "$first_path"
-        echo -n "$base_url/$first_path" | xclip -selection clipboard 2>/dev/null
-        and echo (set_color --dim)"  copied to clipboard"(set_color normal)
+        if set -q WAYLAND_DISPLAY
+            echo -n "$base_url/$first_path" | wl-copy 2>/dev/null
+        else
+            echo -n "$base_url/$first_path" | xclip -selection clipboard 2>/dev/null
+        end
+        and echo (set_color --dim)'  copied to clipboard'(set_color normal)
     end
 end
