@@ -22,7 +22,7 @@ github:
 async: 
   enabled: false
 modelRoles: 
-  default: anthropic/claude-sonnet-4-6
+  default: zai/glm-5.1:low
 stt: 
   enabled: false
 startup: 

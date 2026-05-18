@@ -1,15 +1,12 @@
 function shelf --description "Upload files to shelf.estifanos.cc"
     set -l base_url "https://shelf.estifanos.cc"
-    set -l token_file "$HOME/.config/shelf/token"
+    set -l token "$SHELF_API_TOKEN"
 
-    if not test -f "$token_file"
-        echo "No API token found at $token_file"
-        echo "Get your token from $base_url/admin and run:"
-        echo "  mkdir -p ~/.config/shelf && echo YOUR_TOKEN > $token_file"
+    if test -z "$token"
+        echo "Set SHELF_API_TOKEN env variable with your API token"
+        echo "Get it from $base_url/admin"
         return 1
     end
-
-    set -l token (string trim -- (cat "$token_file"))
 
     if test (count $argv) -eq 0
         echo "Usage: shelf <file...> [--folder subfolder]"
