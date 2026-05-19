@@ -23,7 +23,7 @@ github:
 async: 
   enabled: false
 modelRoles: 
-  default: zai/glm-5.1:low
+  default: openai-codex/gpt-5.5:low
 stt: 
   enabled: false
 startup: 
