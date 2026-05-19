@@ -2,8 +2,8 @@
   "lastChangelogVersion": "0.75.3",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
-  "defaultProvider": "zai",
-  "defaultModel": "glm-5.1",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
