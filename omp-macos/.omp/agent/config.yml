@@ -1,66 +1,67 @@
-browser: 
+browser:
   headless: false
   enabled: false
 defaultThinkingLevel: minimal
-hideThinkingBlock: false
-compaction: 
-  strategy: handoff
-  handoffSaveToDisk: true
-  thresholdPercent: -1
+hideThinkingBlock: true
+compaction:
+  strategy: context-full
+  thresholdPercent: 80
   thresholdTokens: -1
-memories: 
+memories:
   enabled: true
-edit: 
-  mode: replace
+edit:
+  mode: hashline
   fuzzyMatch: true
-lsp: 
+lsp:
   formatOnWrite: true
   diagnosticsOnEdit: true
-renderMermaid: 
+renderMermaid:
   enabled: false
-github: 
+github:
   enabled: true
-async: 
+async:
   enabled: false
-modelRoles: 
-  default: openai-codex/gpt-5.5:low
-stt: 
+modelRoles:
+  default: anthropic/claude-sonnet-4-6:low
+stt:
   enabled: false
-startup: 
+startup:
   quiet: false
-commands: 
+commands:
   enableClaudeUser: false
   enableClaudeProject: false
   enableOpencodeUser: false
   enableOpencodeProject: false
-task: 
+task:
   eager: true
-  agentModelOverrides: 
+  agentModelOverrides:
     designer: sonnet-4-6
-  disabledAgents: 
+  disabledAgents:
     []
 colorBlindMode: false
-display: 
+display:
   showTokenUsage: false
-contextPromotion: 
+contextPromotion:
   enabled: false
-memory: 
+memory:
   backend: local
-notebook: 
+notebook:
   enabled: false
-debug: 
+debug:
   enabled: false
-tools: 
+tools:
   intentTracing: false
-mcp: 
+mcp:
   enableProjectConfig: false
-secrets: 
+  discoveryMode: true
+  discoveryDefaultServers: []
+secrets:
   enabled: false
-exa: 
+exa:
   enableResearcher: true
   enableWebsets: true
-eval: 
+eval:
   py: false
   js: false
-python: 
+python:
   kernelMode: session
