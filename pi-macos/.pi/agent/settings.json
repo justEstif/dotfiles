@@ -1,0 +1,18 @@
+{
+  "lastChangelogVersion": "0.75.3",
+  "hideThinkingBlock": true,
+  "defaultThinkingLevel": "low",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5.1",
+  "quietStartup": true,
+  "compaction": {
+    "reserveTokens": 60000,
+    "keepRecentTokens": 10000
+  },
+  "packages": [
+    "npm:@majorgilles/pi-learning-tutor",
+    "npm:pi-agent-flow",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-btw"
+  ]
+}

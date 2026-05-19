@@ -1,6 +1,10 @@
 # Interface Design
 
-When the user wants to explore alternative interfaces for a chosen deepening candidate, use this parallel sub-agent pattern. Based on "Design It Twice" (Ousterhout) — your first idea is unlikely to be the best.
+Explore alternative interfaces using parallel sub-agents. Based on "Design It Twice" (Ousterhout) — your first idea is unlikely to be the best.
+
+Applies to two scenarios:
+- **Redesign**: deepening an existing shallow module (chosen candidate from the grilling loop)
+- **Greenfield**: designing a new module from scratch
 
 Uses the vocabulary in [LANGUAGE.md](LANGUAGE.md) — **module**, **interface**, **seam**, **adapter**, **leverage**.
 
@@ -8,13 +12,13 @@ Uses the vocabulary in [LANGUAGE.md](LANGUAGE.md) — **module**, **interface**,
 
 ### 1. Frame the problem space
 
-Before spawning sub-agents, write a user-facing explanation of the problem space for the chosen candidate:
+Before spawning sub-agents, write a user-facing explanation of the problem space:
 
-- The constraints any new interface would need to satisfy
-- The dependencies it would rely on, and which category they fall into (see [DEEPENING.md](DEEPENING.md))
-- A rough illustrative code sketch to ground the constraints — not a proposal, just a way to make the constraints concrete
+**For redesign**: The constraints the deepened interface must satisfy, dependencies and their categories (see [DEEPENING.md](DEEPENING.md)), a rough code sketch grounding the constraints.
 
-Show this to the user, then immediately proceed to Step 2. The user reads and thinks while the sub-agents work in parallel.
+**For greenfield**: The key use cases, the invariants the module must maintain, the callers it serves, and what complexity it should hide. Identify the simplest interface that covers all current needs — resist designing for speculative requirements.
+
+Show this to the user, then immediately proceed to Step 2.
 
 ### 2. Spawn sub-agents
 

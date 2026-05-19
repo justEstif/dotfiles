@@ -1,0 +1,66 @@
+browser: 
+  headless: false
+  enabled: false
+defaultThinkingLevel: minimal
+hideThinkingBlock: false
+compaction: 
+  strategy: handoff
+  handoffSaveToDisk: true
+  thresholdPercent: -1
+  thresholdTokens: -1
+memories: 
+  enabled: true
+edit: 
+  mode: replace
+  fuzzyMatch: true
+lsp: 
+  formatOnWrite: true
+  diagnosticsOnEdit: true
+renderMermaid: 
+  enabled: false
+github: 
+  enabled: true
+async: 
+  enabled: false
+modelRoles: 
+  default: zai/glm-5.1:low
+stt: 
+  enabled: false
+startup: 
+  quiet: false
+commands: 
+  enableClaudeUser: false
+  enableClaudeProject: false
+  enableOpencodeUser: false
+  enableOpencodeProject: false
+task: 
+  eager: true
+  agentModelOverrides: 
+    designer: sonnet-4-6
+  disabledAgents: 
+    []
+colorBlindMode: false
+display: 
+  showTokenUsage: false
+contextPromotion: 
+  enabled: false
+memory: 
+  backend: local
+notebook: 
+  enabled: false
+debug: 
+  enabled: false
+tools: 
+  intentTracing: false
+mcp: 
+  enableProjectConfig: false
+secrets: 
+  enabled: false
+exa: 
+  enableResearcher: true
+  enableWebsets: true
+eval: 
+  py: false
+  js: false
+python: 
+  kernelMode: session

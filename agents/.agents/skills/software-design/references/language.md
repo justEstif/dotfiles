@@ -37,6 +37,8 @@ What maintainers get from depth. Change, bugs, knowledge, and verification conce
 - **The deletion test.** Imagine deleting the module. If complexity vanishes, the module wasn't hiding anything (it was a pass-through). If complexity reappears across N callers, the module was earning its keep.
 - **The interface is the test surface.** Callers and tests cross the same seam. If you want to test *past* the interface, the module is probably the wrong shape.
 - **One adapter means a hypothetical seam. Two adapters means a real one.** Don't introduce a seam unless something actually varies across it.
+- **Define errors out of existence.** Choose semantics that eliminate error conditions rather than propagating them. Make operations idempotent, use default values, mask exceptions at low levels. Only report errors that genuinely cannot be handled internally.
+- **Strategic over tactical programming.** Invest 10-20% extra per change in design quality. Tactical tornado (fast output, complexity everywhere) creates compound debt. Strategic investment pays compound returns. Each piece of code should leave the design at least slightly better than you found it.
 
 ## Relationships
 

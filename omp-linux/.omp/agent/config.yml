@@ -2,7 +2,7 @@ browser:
   headless: false
   enabled: false
 defaultThinkingLevel: minimal
-hideThinkingBlock: true
+hideThinkingBlock: false
 compaction: 
   strategy: handoff
   handoffSaveToDisk: true
@@ -15,6 +15,7 @@ edit:
   fuzzyMatch: true
 lsp: 
   formatOnWrite: true
+  diagnosticsOnEdit: true
 renderMermaid: 
   enabled: false
 github: 
@@ -22,7 +23,7 @@ github:
 async: 
   enabled: false
 modelRoles: 
-  default: anthropic/claude-sonnet-4-6
+  default: zai/glm-5.1:low
 stt: 
   enabled: false
 startup: 
@@ -33,7 +34,7 @@ commands:
   enableOpencodeUser: false
   enableOpencodeProject: false
 task: 
-  eager: false
+  eager: true
   agentModelOverrides: 
     designer: sonnet-4-6
   disabledAgents: 
@@ -58,3 +59,8 @@ secrets:
 exa: 
   enableResearcher: true
   enableWebsets: true
+eval: 
+  py: false
+  js: false
+python: 
+  kernelMode: session
