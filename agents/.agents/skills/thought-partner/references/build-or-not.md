@@ -10,6 +10,8 @@ Empty space on the page = "research/prototype more." Overflow = "too complex."
 
 Probe for: who it serves, what changes for them, what will **not** be built, why now, what conflict it resolves when stakeholders disagree, what does success look like in concrete measurable terms, and what date will you revisit to evaluate it.
 
+Name the artifact before defending its value. If the label is vague or scope-loaded ("workspace", "tool", "project"), ask whether it is actually a document, workflow, prompt pack, prototype, or operating habit; then state the intended maintenance burden and boundary before arguing why it matters.
+
 Success criteria and a dated review milestone are not optional polish — they are the forcing mechanism. Without them, you work until tired, never declare done, and v2 has no grounding.
 
 ## Gate 2: Core Tech Must Be Separable from the Product
