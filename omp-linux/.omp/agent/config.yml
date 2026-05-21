@@ -2,7 +2,7 @@ browser:
   headless: false
   enabled: false
 defaultThinkingLevel: minimal
-hideThinkingBlock: false
+hideThinkingBlock: true
 compaction: 
   strategy: handoff
   handoffSaveToDisk: true
