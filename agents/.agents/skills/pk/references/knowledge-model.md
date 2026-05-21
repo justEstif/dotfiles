@@ -8,13 +8,13 @@ The canonical store is plain markdown files managed via the `pk` CLI. The root d
 
 ## Folder and Type Rules
 
-| Type | Subfolder | Purpose | Status values |
-| --- | --- | --- | --- |
-| `source` | `sources/` | Provenance and raw/lightly cleaned input | `unprocessed`, `processed`, `archived` |
-| `note` | `notes/` | Durable project knowledge | `active`, `superseded`, `archived` |
-| `decision` | `decisions/` | Chosen direction and rationale | `proposed`, `accepted`, `superseded` |
-| `question` | `questions/` | Unresolved or resolved uncertainty | `open`, `answered`, `obsolete` |
-| `index` | `indexes/` | Navigation/MOC pages | `active`, `archived` |
+| Type       | Subfolder    | Purpose                                  | Status values                          |
+| ---------- | ------------ | ---------------------------------------- | -------------------------------------- |
+| `source`   | `sources/`   | Provenance and raw/lightly cleaned input | `unprocessed`, `processed`, `archived` |
+| `note`     | `notes/`     | Durable project knowledge                | `active`, `superseded`, `archived`     |
+| `decision` | `decisions/` | Chosen direction and rationale           | `proposed`, `accepted`, `superseded`   |
+| `question` | `questions/` | Unresolved or resolved uncertainty       | `open`, `answered`, `obsolete`         |
+| `index`    | `indexes/`   | Navigation/MOC pages                     | `active`, `archived`                   |
 
 ## Frontmatter
 
@@ -29,6 +29,7 @@ created: YYYY-MM-DD
 updated: YYYY-MM-DD
 status: active
 tags: [tag-one, tag-two]
+expires: YYYY-MM-DD # optional — only on active note/decision/question
 ---
 ```
 
@@ -38,6 +39,7 @@ Rules:
 - `type` must match both status set and folder.
 - `tags` must be a flat list of lowercase slugs.
 - Do not use nested YAML, multiline YAML, or relationship arrays.
+- `expires` is optional. Valid on `note`, `decision`, `question` types only. Must be `YYYY-MM-DD` in the future. `pk gc` archives expired notes automatically. Not valid on `index` or `source` types.
 
 ## Required Sections
 
