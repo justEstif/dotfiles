@@ -229,27 +229,37 @@ Every playground makes these obvious in 5 seconds:
 ## NEVER
 
 - **NEVER build a backend for a one-user or workshop artifact.**
-  Use static files, browser storage, import/export, and copy/paste flows.
+  **Instead:** Use static files, browser storage, import/export, and copy/paste flows.
+  **Why:** Backends add auth, deployment, security, and reliability burden that distracts from the artifact's single job.
 
 - **NEVER put API keys in browser code.**
-  Use copy/paste with approved tools, or add a proper backend only after security review.
+  **Instead:** Use copy/paste with approved tools, or add a proper backend only after security review.
+  **Why:** Static artifacts are shareable; any embedded secret becomes public once the file leaves the machine.
 
 - **NEVER start with a blank control panel.**
-  Provide sensible defaults, presets, or a sample scenario already loaded.
+  **Instead:** Provide sensible defaults, presets, or a sample scenario already loaded.
+  **Why:** Empty playgrounds feel broken and force users to invent data before understanding the interaction.
 
 - **NEVER make interaction decorative.**
-  Use interaction to compare, reveal, configure, copy, validate, or export.
+  **Instead:** Use interaction to compare, reveal, configure, copy, validate, or export.
+  **Why:** Decorative controls add cognitive load without helping the user make a decision or leave with an artifact.
 
 - **NEVER hide the user's takeaway inside UI state.**
-  Provide copy/export for prompts, decisions, summaries, or markdown.
+  **Instead:** Provide copy/export for prompts, decisions, summaries, or markdown.
+  **Why:** The value of a playground is what the user can carry into the next tool, meeting, or agent turn.
 
 - **NEVER write `<style>` blocks for things Tailwind covers.**
-  Only `<style>` for SVG strokes, scroll-snap, `@keyframes`, `view-transition-name`, `animation-timeline`.
+  **Instead:** Use Tailwind utilities; reserve `<style>` for SVG strokes, scroll-snap, `@keyframes`, `view-transition-name`, and `animation-timeline`.
+  **Why:** Split styling systems make artifacts harder to scan, remix, and keep visually consistent.
 
 - **NEVER use `innerHTML` from a variable.**
-  Use `x-text`, `textContent`, or `createElement` + `appendChild`.
+  **Instead:** Use `x-text`, `textContent`, or `createElement` + `appendChild`.
+  **Why:** Variable HTML is an XSS vector and trips security hooks in agent harnesses.
 
 - **NEVER write manual DOM wiring when Alpine can do it.**
-  If you're writing `document.querySelector` + `addEventListener` for something Alpine's `x-model` / `@click` / `x-show` handles, stop and use Alpine.
+  **Instead:** Use Alpine's `x-model`, `@click`, `x-show`, `x-bind`, and `$watch` for reactive behavior.
+  **Why:** Mixed imperative wiring and Alpine state drift apart, creating stale UI and harder debugging.
 
-- **NEVER inline-render in chat.** Always write the file.
+- **NEVER inline-render in chat.**
+  **Instead:** Always write a real `.html` file to disk.
+  **Why:** Inline rendering loses clipboard/network access, breaks browser APIs, and cannot be shared as a standalone artifact.

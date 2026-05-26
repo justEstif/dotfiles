@@ -1,6 +1,6 @@
 ---
 name: software-design
-description: Find deepening opportunities in a codebase and design deep modules, informed by the domain language in CONTEXT.md and decisions in docs/adr/. Use when improving architecture, finding refactoring opportunities, consolidating tightly-coupled modules, making a codebase more testable and AI-navigable, designing new modules/APIs/abstractions, or applying software design principles. Triggers on code reviews, refactoring tasks, module/API design, architecture discussions, red flags, shallow modules, information leakage, design quality, module depth.
+description: Diagnose architecture friction and design deeper modules/APIs, informed by domain language in CONTEXT.md and decisions in docs/adr/. Use when the user wants refactoring candidates, module/interface design, architecture review, testability improvements, or software-design reasoning about shallow modules, seams, information leakage, locality, and leverage. For implementing behavior test-first, use tdd; for turning conventions/design rules into deterministic linters/CI checks, use feedback-loop.
 ---
 
 # Software Design

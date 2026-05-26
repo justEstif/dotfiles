@@ -75,7 +75,18 @@ Knowledge has a lifecycle. Notes decay, expire, and get superseded.
 
 ## NEVER
 
-- **NEVER skip `pk search` before `pk new`** — duplicates fragment knowledge silently; future searches return noise.
-- **NEVER dump raw input into a `note` or `decision`** — create a `source` first, then extract stable claims.
-- **NEVER silently overwrite a conflicting claim** — follow the Contradiction Protocol above.
-- **NEVER commit when `pk lint` returns errors** — fix errors before writing back.
+- **NEVER skip `pk search` before `pk new`.**
+  **Instead:** Search by topic, likely title, and key tags; update an existing note when it already captures the claim.
+  **Why:** Duplicates fragment knowledge silently; future searches return noise and agents may trust the wrong copy.
+
+- **NEVER dump raw input into a `note` or `decision`.**
+  **Instead:** Create a `source` for raw material, then extract stable claims into notes or decisions.
+  **Why:** Raw input and synthesized knowledge age differently; mixing them makes later recall look more authoritative than it is.
+
+- **NEVER silently overwrite a conflicting claim.**
+  **Instead:** Follow the Contradiction Protocol and mark older knowledge superseded with a link to the replacement.
+  **Why:** Preserving the conflict trail lets future agents understand whether a change was correction, reversal, or context shift.
+
+- **NEVER commit when `pk lint` returns errors.**
+  **Instead:** Fix frontmatter/body structure and rerun `pk lint` before treating the note as usable.
+  **Why:** Invalid notes may disappear from search or break lifecycle tooling, which is worse than having no note.

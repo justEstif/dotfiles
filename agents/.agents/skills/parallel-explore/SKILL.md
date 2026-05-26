@@ -1,11 +1,11 @@
 ---
 name: parallel-explore
-description: Fan out into multiple simultaneous investigations of competing paths, then synthesize into a decision. Use when facing multiple directions and unsure which to pursue — architecture choices, tech selection, product paths, career decisions, any decision with N competing options. Different from thought-partner (which routes to one framework sequentially) — this investigates all paths in parallel with deliberately different lenses. Triggers on "explore in parallel", "investigate multiple paths", "compare options", "evaluate alternatives", "parallel exploration", "fan out", "multiple hypotheses", "which direction", "compare approaches", "weigh options", "multiple viable paths", "can't decide between".
+description: Fan out with subagents or deliberately separate investigation tracks to explore competing paths, hypotheses, or search spaces, then synthesize findings into a recommendation. Use when wide search beats sequential discussion — architecture options, tech selection, debugging theories, product paths, strategy directions, or any decision with 2-5 plausible hypotheses. Different from thought-partner, which routes to one thinking framework for dialogue; this runs parallel investigations with distinct lenses. Triggers on "explore in parallel", "use subagents", "fan out", "wide search", "multiple hypotheses", "investigate multiple paths", "compare options", "evaluate alternatives", "parallel exploration", "which direction", "compare approaches", "can't decide between".
 ---
 
 # Parallel Explore
 
-When facing N competing paths, investigate them simultaneously with deliberately different lenses, then synthesize into a decision. AI agents are uniquely good at this — parallel investigation eliminates the bias of whichever path you'd explore first.
+When facing N competing paths or hypotheses, fan out across subagents or deliberately separate investigation tracks, then synthesize into a decision. AI agents are uniquely good at this — parallel investigation reduces anchoring on whichever path you would have explored first.
 
 ## Process
 

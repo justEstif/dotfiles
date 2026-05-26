@@ -103,11 +103,11 @@ async function extractUrl(
     contentType.includes("text/html") ||
     contentType.includes("application/xhtml")
   ) {
-    const { JSDOM } = await import("jsdom");
+    const { parseHTML } = await import("linkedom");
     const { Defuddle } = await import("defuddle/node");
 
-    const dom = new JSDOM(html, { url });
-    const result = await Defuddle(dom.window.document, url, {
+    const { document } = parseHTML(html);
+    const result = await Defuddle(document, url, {
       markdown: true,
     });
 

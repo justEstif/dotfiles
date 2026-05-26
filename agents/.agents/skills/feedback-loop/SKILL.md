@@ -1,6 +1,6 @@
 ---
 name: feedback-loop
-description: Set up deterministic feedback loops for AI-assisted coding in a repository, based on the "Feedback Loop Is All You Need" approach and A Philosophy of Software Design principles. Use when the user asks to "setup feedback loop based on this blog", harden a repo for agents, add guardrails/linters/CI/custom rules/screenshot tests/observability-to-tasks, reduce AI code drift, migrate CLAUDE.md/team conventions into enforceable checks, encode software-design principles/red flags as repo checks, add CI gates, add git safety guardrails such as pre-commit/pre-push hooks, protected branches, and no-direct-push-to-main policies, or improve logging with structured wide events and canonical log lines.
+description: "Turn repeated agent/review failures and team conventions into deterministic repo feedback loops: local gates, linters, CI, custom rules, screenshot tests, observability-to-tasks, and git safety. Use when the user asks to harden a repo for agents, reduce AI code drift, migrate CLAUDE.md guidance into enforceable checks, encode software-design red flags as repo checks, add CI/pre-commit/pre-push/protected-branch guardrails, or improve structured logging. For diagnosing which modules/interfaces should change, use software-design first; for writing behavior through tests, use tdd."
 ---
 
 # Feedback Loop
