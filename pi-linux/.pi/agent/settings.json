@@ -12,8 +12,6 @@
   "packages": [
     "npm:@majorgilles/pi-learning-tutor",
     "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:@juicesharp/rpiv-btw",
-    "npm:@tintinweb/pi-subagents",
-    "npm:pi-web-access"
+    "npm:@juicesharp/rpiv-btw"
   ]
 }

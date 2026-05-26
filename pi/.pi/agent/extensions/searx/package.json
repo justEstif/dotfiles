@@ -1,0 +1,10 @@
+{
+  "name": "pi-searx",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "defuddle": "^0.2.0",
+    "jsdom": "^25.0.0"
+  }
+}
