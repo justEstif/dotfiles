@@ -1,7 +1,0 @@
-[defaults]
-num = 5
-timeout = "10s"
-
-[routing]
-mode = "first"
-pool = ["ddg-scrape", "brave-scrape", "exa"]

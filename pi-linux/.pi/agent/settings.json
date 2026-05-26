@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.75.4",
+  "lastChangelogVersion": "0.75.5",
   "hideThinkingBlock": true,
-  "defaultThinkingLevel": "low",
+  "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.1",
   "quietStartup": true,
@@ -13,6 +13,7 @@
     "npm:@majorgilles/pi-learning-tutor",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-btw",
-    "npm:@tintinweb/pi-subagents"
+    "npm:@tintinweb/pi-subagents",
+    "npm:pi-web-access"
   ]
 }
