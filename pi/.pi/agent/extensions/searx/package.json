@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "defuddle": "^0.2.0",
+    "defuddle": "^0.18.1",
     "jsdom": "^25.0.0"
   }
 }
