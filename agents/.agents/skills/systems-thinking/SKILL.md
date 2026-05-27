@@ -1,3 +1,10 @@
+---
+name: systems-thinking
+description: "Analyze organizational, technical, and strategic problems as interacting systems using Rumsfeld Matrix, causal loops, debt cascades, constraints, and resilience thinking. Use when problems involve feedback loops, hidden dependencies, legacy systems, architecture portfolios, repeated failures, unknown unknowns, or change resistance. Keywords: systems thinking, causal loop, Rumsfeld Matrix, unknown unknowns, Chesterton's Fence, debt cascade, theory of constraints, enterprise architecture."
+---
+
+# Systems Thinking
+
 Two frameworks: the Rumsfeld Matrix (classify what you know and don't know) and Causal Loop Diagrams (map how variables feed each other). Analyze as interconnected systems, not independent parts.
 
 ## The Rumsfeld Matrix

@@ -12,6 +12,7 @@ Use Markdown plans as durable reasoning artifacts. A plan exists when future exe
 Before creating or updating a plan, ask: **Would a fresh agent or human make better decisions with this written down?**
 
 Create a plan for:
+
 - ambiguous work where assumptions need to be made explicit
 - significant features, refactors, migrations, investigations, or rollouts
 - work likely to span sessions or require handoff
@@ -59,9 +60,13 @@ The chosen direction and why it beats plausible alternatives.
 
 Optional. Use when sequencing, checkpoints, or staged validation matter.
 
+## Implementation Breakdown
+
+Optional. Use when the plan is intended for implementation. Prefer small, dependency-ordered tasks with acceptance criteria and verification. Embed the breakdown here unless it becomes long or noisy.
+
 ## Tasks
 
-Optional. Use checkboxes only when they reduce ambiguity or help execution tracking.
+Optional. Use only for lightweight checkboxes that reduce ambiguity or help execution tracking. For implementation-ready work, prefer `Implementation Breakdown`.
 
 ## Decisions
 
@@ -80,9 +85,31 @@ How to prove the work succeeded. Include commands, observable behavior, expected
 Final result, gaps, follow-ups, and whether the plan is complete, obsolete, or superseded.
 ```
 
+## Implementation Breakdowns
+
+When a plan is intended to be executed, add `Implementation Breakdown` unless the work is already obvious. Good implementation tasks are:
+
+- small enough for one focused session
+- ordered by dependency, not preference
+- phrased as working slices, not vague activity
+- paired with acceptance criteria
+- paired with verification: test command, build command, manual check, or observable behavior
+
+Prefer embedding tasks in the plan so the reasoning and execution stay together. Create a companion `.ai/plans/<slug>.tasks.md` only when the task list is long, volatile, or frequently updated enough to obscure the reasoning plan.
+
+Task shape:
+
+```markdown
+- [ ] <task title>
+  - Acceptance: <what must be true when done>
+  - Verify: <how to prove it>
+  - Depends on: <task title or none>
+```
+
 ## Quality Bar
 
 A useful plan is self-contained enough to restart from. It preserves:
+
 - the why, not just the what
 - assumptions that affect implementation
 - decisions and rejected alternatives when they matter
@@ -94,11 +121,12 @@ Keep plans concise. Omit boilerplate sections when they would be empty or obviou
 ## Updating Existing Plans
 
 When work proceeds, update the plan at the point where knowledge changed:
+
 - new fact learned → `Discoveries`
 - choice made → `Decisions`
 - strategy changed → `Approach` plus a decision entry
 - work completed or abandoned → `Outcome`
-- execution needs decomposition → add `Milestones` or `Tasks`
+- execution needs decomposition → add `Implementation Breakdown`; use `Tasks` only for lightweight tracking
 
 If a plan is stale, do not silently follow it. Mark what is obsolete, explain why, and update the current direction.
 
@@ -109,7 +137,7 @@ If a plan is stale, do not silently follow it. Mark what is obsolete, explain wh
   **Why:** planning overhead becomes noise and trains agents to produce bureaucracy.
 
 - **NEVER force a task list.**
-  **Instead:** add `Tasks` only when checkboxes clarify execution or handoff.
+  **Instead:** add `Implementation Breakdown` only when execution needs decomposition; add `Tasks` only for lightweight tracking.
   **Why:** many plans are about reasoning, tradeoffs, or validation rather than task tracking.
 
 - **NEVER let the plan depend on chat history.**

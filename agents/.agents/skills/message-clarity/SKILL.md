@@ -1,6 +1,6 @@
 ---
 name: message-clarity
-description: "Closes the gap between what you're trying to say and what your audience actually receives. Use when you know what something does but can't get it to land — landing page copy that isn't clicking, a presentation whose audience won't 'get it', a pitch that keeps getting 'but what is it?', a message to a colleague you can't phrase without friction, or lesson content that isn't connecting. Works across any surface: apps, slides, emails, pitches, sensitive questions. Keywords: message clarity, who am I talking to, landing page, audience, positioning, message-market fit, communication gap, doesn't land, not resonating, how do I explain this, what do I put on the landing page, how do I say this without hurting feelings, make it obvious, help people understand."
+description: "Closes the gap between what you're trying to say and what your audience actually receives. Use when you know what something does but can't get it to land — landing page copy that isn't clicking, a presentation whose audience won't 'get it', a pitch that keeps getting 'but what is it?', a message to a colleague you can't phrase without friction, stakeholder buy-in, proposal pre-alignment, or lesson content that isn't connecting. Works across apps, slides, emails, pitches, sensitive questions, and meeting prep. Keywords: message clarity, audience, positioning, stakeholder alignment, buy-in, prealignment, proposal, landing page, not resonating, make it obvious."
 ---
 
 # Message Clarity
@@ -8,6 +8,8 @@ description: "Closes the gap between what you're trying to say and what your aud
 The burden of clarity is entirely on the communicator. When someone doesn't get it, the message failed — not the audience.
 
 **MANDATORY — READ `references/frameworks.md`** before writing any copy or structured output (landing page, pitch, slide, email). It contains the PAS framework, three-level message structure, and the gap diagnosis process.
+
+**MANDATORY — READ `references/stakeholder-prealignment.md`** when the user needs buy-in, proposal framing, objection handling, meeting prep, stakeholder alignment, or pre-alignment before a group decision.
 
 ## Core Insight
 
