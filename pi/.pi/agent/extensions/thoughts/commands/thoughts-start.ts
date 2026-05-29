@@ -21,41 +21,9 @@ export function registerThoughtsStart(pi: ExtensionAPI): void {
       let name = args as string | undefined;
 
       if (!name) {
-        const prompt = `Name this thought thread.
-
-A good name is the live question or tension, not the topic.
-
-  ✓ "Lead with 1 Gig or 500 on Frontier offer page?"
-  ✓ "Does a thought tracker belong inside pk?"
-
-  ✗ "Frontier review"        (topic, not question)
-  ✗ "thoughts about pricing" (vague)
-  ✗ "meeting notes"          (container, not thought)`;
-
-        name = await ctx.ui.input(prompt);
+        name = await ctx.ui.input("What's the question or decision you're thinking through?");
         if (!name) {
           ctx.ui.notify("Cancelled", "info");
-          return;
-        }
-
-        const validation = validateThoughtName(name);
-        if (validation.suggestion) {
-          const retry = await ctx.ui.confirm(
-            "Naming",
-            `${validation.suggestion} Continue anyway?`
-          );
-          if (!retry) {
-            ctx.ui.notify("Cancelled", "info");
-            return;
-          }
-        } else if (!validation.valid) {
-          ctx.ui.notify(`Invalid: ${validation.error}`, "error");
-          return;
-        }
-      } else {
-        const validation = validateThoughtName(name);
-        if (!validation.valid) {
-          ctx.ui.notify(`Invalid: ${validation.error}`, "error");
           return;
         }
       }
