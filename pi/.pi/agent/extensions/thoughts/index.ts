@@ -110,7 +110,117 @@ function findThoughtAncestor(
 }
 
 /**
- * Generate a thought-shaped summary in the background using the LLM
+ * Heuristic summary extraction from conversation branch (v3)
+ */
+function extractSummaryHeuristic(
+  entries: any[],
+  rootLabel: string
+): string {
+  const rootSlug = rootLabel.substring(THOUGHT_LABEL_PREFIX.length);
+
+  const liveEdges: string[] = [];
+  const tried: string[] = [];
+  const decided: string[] = [];
+  const openQuestions: string[] = [];
+
+  // Walk backwards through messages to extract signal
+  for (let i = entries.length - 1; i >= 0; i--) {
+    const entry = entries[i];
+    if (entry.type !== "message") continue;
+
+    const msg = (entry as any).message;
+    if (!msg) continue;
+
+    const content = typeof msg.content === "string"
+      ? msg.content
+      : msg.content
+          ?.map((c: any) => (c.type === "text" ? c.text : ""))
+          .join(" ");
+
+    if (!content || typeof content !== "string") continue;
+
+    // Extract signals from content
+    if (msg.role === "user") {
+      // Questions: lines with "?" or starting with "what/why/how"
+      const lines = content.split("\n").filter((l: string) => l.trim());
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (
+          trimmed.includes("?") &&
+          !openQuestions.some((q) => q.includes(trimmed.substring(0, 30)))
+        ) {
+          openQuestions.push(trimmed.substring(0, 100));
+        }
+        if (
+          trimmed.match(/^(what|why|how|should|can|does)\s/i) &&
+          !liveEdges.some((e) => e.includes(trimmed.substring(0, 30)))
+        ) {
+          liveEdges.push(trimmed.substring(0, 120));
+        }
+      }
+    } else if (msg.role === "assistant") {
+      // Decisions: lines with "decided", "conclusion", "recommend"
+      const lines = content.split("\n").filter((l: string) => l.trim());
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (
+          trimmed.match(/(decided|conclusion|recommend|should|best|proposed)/i) &&
+          trimmed.length > 10 &&
+          !decided.some((d) => d.includes(trimmed.substring(0, 30)))
+        ) {
+          decided.push(trimmed.substring(0, 100));
+        }
+        // Approaches tried
+        if (
+          trimmed.match(/(tried|explored|attempted|considered|approach)/i) &&
+          !tried.some((t) => t.includes(trimmed.substring(0, 30)))
+        ) {
+          tried.push(trimmed.substring(0, 100));
+        }
+      }
+    }
+  }
+
+  // Build summary in the required format
+  let summary = "## Live edge\n";
+  if (liveEdges.length > 0) {
+    summary += liveEdges[0] + "\n\n";
+  } else {
+    summary += "Thread exploration ongoing.\n\n";
+  }
+
+  summary += "## What was tried\n";
+  if (tried.length > 0) {
+    summary += tried.slice(0, 3).map((t) => `- ${t}`).join("\n") + "\n\n";
+  } else {
+    summary += "- See conversation above.\n\n";
+  }
+
+  summary += "## What was decided\n";
+  if (decided.length > 0) {
+    summary += decided.slice(0, 3).map((d) => `- ${d}`).join("\n") + "\n\n";
+  } else {
+    summary += "- Nothing committed.\n\n";
+  }
+
+  summary += "## Open questions\n";
+  if (openQuestions.length > 0) {
+    summary += openQuestions
+      .slice(0, 3)
+      .map((q) => `- ${q}`)
+      .join("\n") + "\n\n";
+  } else {
+    summary += "- None.\n\n";
+  }
+
+  summary += "## Resume here\n";
+  summary += "Review above and continue from the open edge.\n";
+
+  return summary;
+}
+
+/**
+ * Generate a thought-shaped summary in the background (v3)
  */
 async function generateSummaryInBackground(
   pi: ExtensionAPI,
@@ -122,79 +232,9 @@ async function generateSummaryInBackground(
   const leafIndex = entries.findIndex((e) => e.id === leafId);
   if (leafIndex < 0) return;
 
-  // Collect entries from the thought start to current leaf
-  const branchEntries = ctx.sessionManager.getBranch(leafId);
-
-  // Build a conversation summary to send to the model
-  const messages: Array<{ role: string; text: string }> = [];
-  for (const entry of branchEntries) {
-    if (entry.type === "message") {
-      const msg = (entry as any).message;
-      if (msg.role === "user") {
-        const text = typeof msg.content === "string"
-          ? msg.content
-          : JSON.stringify(msg.content);
-        messages.push({ role: "user", text });
-      } else if (msg.role === "assistant") {
-        const text = JSON.stringify(msg.content);
-        messages.push({ role: "assistant", text });
-      }
-    }
-  }
-
-  const rootSlug = rootLabel.substring(THOUGHT_LABEL_PREFIX.length);
-  const conversationContext = messages
-    .map((m) => `[${m.role}]: ${m.text}`)
-    .join("\n\n")
-    .substring(0, 8000);
-
-  const userPrompt = `You are summarizing an abandoned branch of a thought thread so the user can re-enter it later without replaying the conversation.
-
-Thread name: ${rootSlug}
-
-Conversation on this branch:
-${conversationContext}
-
-Produce a summary in EXACTLY this format. Be terse. No prose preambles.
-
-## Live edge
-The single most recent open question or unresolved tension on this branch. One sentence. If multiple, pick the one being actively worked on.
-
-## What was tried
-Bullet list of distinct moves explored on this branch. Past tense, one line each.
-
-## What was decided
-Bullet list of conclusions reached on this branch, if any. If none, write "Nothing committed."
-
-## Open questions
-Questions raised that were not answered. If none, write "None."
-
-## Resume here
-The single next move the user should take. Imperative, one sentence. If the branch felt complete, write "Branch felt resolved."
-
-## Rules
-- Summarize the *thinking*, not the *topic*.
-- Preserve the user's own phrasing for key claims/questions.
-- Never invent decisions that weren't explicit.
-- Keep total length under 200 words.`;
-
   try {
-    // Call the LLM synchronously via pi's user message + tool result pattern
-    // For now, use a placeholder. TODO: implement streaming LLM calls in extensions
-    const summary = `## Live edge
-Branch explored in parallel, awaiting LLM summary generation.
-
-## What was tried
-- See conversation above for details.
-
-## What was decided
-Pending review.
-
-## Open questions
-See thought thread for context.
-
-## Resume here
-Review conversation and continue.`;
+    // v3: Use heuristic extraction
+    const summary = extractSummaryHeuristic(entries, rootLabel);
 
     // Append the summary as a custom entry
     const summaryData: any = {
@@ -208,6 +248,21 @@ Review conversation and continue.`;
   } catch (err) {
     // Silently fail; summary generation is optional
   }
+}
+
+/**
+ * Parse thread prefix from message: "/thread-name: rest of message"
+ * Returns { threadSlug, message } or { threadSlug: null, message: original }
+ */
+function parseThreadPrefix(text: string): {
+  threadSlug: string | null;
+  message: string;
+} {
+  const match = text.match(/^\/([a-z0-9\-]+):\s+(.*)$/i);
+  if (match) {
+    return { threadSlug: match[1].toLowerCase(), message: match[2] };
+  }
+  return { threadSlug: null, message: text };
 }
 
 export default function (pi: ExtensionAPI) {
@@ -835,6 +890,39 @@ Summary: ${summaryAge}
           summaryInFlight = null;
         });
     }
+  });
+
+  // ============================================================================
+  // input hook (v3): detect thread prefix routing and notify
+  // ============================================================================
+  pi.on("input", async (event, ctx) => {
+    const text = event.text as string;
+    if (!text) return;
+
+    const { threadSlug, message } = parseThreadPrefix(text);
+    if (!threadSlug) return; // No prefix
+
+    // Check if thread exists
+    const entries = ctx.sessionManager.getEntries();
+    const threadExists = entries.some(
+      (e) =>
+        e.type === "label" &&
+        (e as any).label === `${THOUGHT_LABEL_PREFIX}${threadSlug}`
+    );
+
+    if (threadExists) {
+      // Notify user that message was prefixed for a thread
+      ctx.ui.notify(
+        `📌 Routing to thread: ${threadSlug}`,
+        "info"
+      );
+      // TODO: In future, could auto-switch session or scope LLM context to thread
+      // For now, just inform and continue with full context
+      return { action: "continue" };
+    }
+
+    // Thread not found, let it through as regular message
+    return { action: "continue" };
   });
 
   // ============================================================================

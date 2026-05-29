@@ -98,6 +98,28 @@ Mark the current thought thread as resolved and exit it.
 
 Appends an end marker to the thread. Useful for closing out a completed line of thinking and moving on.
 
+## Message Prefix Routing (v3)
+
+You can optionally route messages to specific threads using a prefix:
+
+```
+/thread-name: your message here
+```
+
+Example:
+```
+/lead-with-1g-or-500: Actually, let's reconsider the pricing model
+```
+
+The extension will:
+1. Detect the thread prefix
+2. Notify you with a pin emoji
+3. Continue with your message
+
+This is useful when you're working across multiple threads in the same session and want to leave a note for a specific thread. The prefix is stripped from the message before processing.
+
+Future versions will support auto-switching to the thread or scoping LLM context to thread-specific history.
+
 ## Thought-Shaped Summaries
 
 When you leave a branch via `/tree` navigation, the extension generates a summary of the abandoned branch in this format:
@@ -127,7 +149,19 @@ This summary is:
 - **Stored in custom entries** outside the LLM context (survives compaction untouched)
 - **Returned at tree navigation** so you never replay the conversation
 
-Summaries are generated using the current session's LLM model (v2+). The summary prompt is structured to preserve your original phrasing and surface key decisions without inventing new ones.
+### Summary Generation (v3)
+
+Summaries now use **heuristic extraction** to identify:
+- **Live edges**: Questions or problem statements (lines containing "?" or starting with what/why/how)
+- **Tried approaches**: Lines mentioning attempts, explorations, or considerations
+- **Decisions**: Lines with conclusion words (decided, recommend, should, best, proposed)
+- **Open questions**: Extracted from user messages with "?"
+
+This approach is:
+- **Fast** — No model calls needed
+- **Faithful** — Preserves original phrasing
+- **Durable** — Works after compaction (lives in custom entries)
+- **Extensible** — Ready for LLM enhancement in v4+
 
 ## The `thought_recall` Tool
 
@@ -221,13 +255,20 @@ Optional. In your `~/.pi/settings.json`:
 ## Implemented in v2
 
 - ✅ `/thought:end [resolution]` — Mark threads as resolved
-- ✅ LLM-generated summaries (ready for real LLM calls)
+- ✅ Summary generation infrastructure (ready for LLM calls)
 - ✅ Structured summary format with live-edge, decisions, and resume prompts
 
-## Roadmap (v3+)
+## Implemented in v3
 
-- [ ] Real LLM calls for summaries (currently using placeholders pending async streaming support)
-- [ ] Configurable worker model for summaries
+- ✅ **Heuristic summary extraction** — Fast, faithful, zero-LLM summaries via keyword matching
+- ✅ **Message prefix routing** — `/thread-name: message` syntax for cross-thread notes
+- ✅ Detects and validates thread prefixes
+
+## Roadmap (v4+)
+
+- [ ] LLM-powered summary enhancement (call model only if heuristic low-confidence)
+- [ ] Message prefix auto-switching (jump to thread + scope context)
+- [ ] Configurable extraction heuristics
 - [ ] `/thought:promote` — export a thread to pk as stable synthesized knowledge
 - [ ] Ancestry views and tree visualization
 - [ ] Auto-detect thought moments (prompt heuristics)
