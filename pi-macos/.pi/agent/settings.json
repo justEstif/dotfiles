@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.75.5",
+  "lastChangelogVersion": "0.77.0",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-haiku-4-5",
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
@@ -12,6 +12,7 @@
   "packages": [
     "npm:@majorgilles/pi-learning-tutor",
     "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:@juicesharp/rpiv-btw"
+    "npm:@juicesharp/rpiv-btw",
+    "npm:@juicesharp/rpiv-todo"
   ]
 }

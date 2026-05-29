@@ -1,0 +1,11 @@
+{
+  "name": "@pi/thoughts-extension",
+  "version": "1.0.0",
+  "description": "Track named thought threads across sessions and working directories",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {},
+  "pi": {
+    "extension": true
+  }
+}
