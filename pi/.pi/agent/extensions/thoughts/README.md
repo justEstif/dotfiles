@@ -7,13 +7,13 @@ Track named thought threads across sessions and working directories. Built on to
 Pi's `/tree` already handles navigation within a thought. This extension adds the layer above it:
 
 ```
-/thought:start "question"   ← name a train of thinking
+/thoughts:start "question"   ← name a train of thinking
   ... have a conversation ...
-  /tree                      ← branch, explore, backtrack (pi native)
-  /tree                      ← auto-labeled + summarized each time
-/thought:switch              ← jump to a different thought (picker)
-/thought:switch <slug>       ← jump directly
-/thoughts                    ← see all active threads
+  /tree                       ← branch, explore, backtrack (pi native)
+  /tree                       ← auto-labeled + summarized each time
+/thoughts:switch              ← jump to a different thought (picker)
+/thoughts:switch <slug>       ← jump directly
+/thoughts                     ← see all active threads
 ```
 
 That's the full workflow. Everything else is automatic.
@@ -30,7 +30,7 @@ That's the full workflow. Everything else is automatic.
 
 ## Commands
 
-### `/thought:start [name]`
+### `/thoughts:start [name]`
 
 Start a thought thread. If no name given, prompts you.
 
@@ -42,15 +42,15 @@ A good name is the live question or tension — not the topic:
 ✗ "meeting notes"             (container, not thought)
 ```
 
-### `/thought:switch [slug]`
+### `/thoughts:switch [slug]`
 
 Jump to a different thought thread — works across sessions and working directories.
 
 With no argument, shows a picker of all known threads. With a slug, jumps directly.
 
 ```
-/thought:switch
-/thought:switch lead-with-1g-or-500
+/thoughts:switch
+/thoughts:switch lead-with-1g-or-500
 ```
 
 ### `/thoughts`
@@ -87,6 +87,10 @@ All state lives in pi's session JSONLs — no separate index files.
 
 - **Labels**: `thought:<slug>` on any session entry — this is how cross-session discovery works
 - **Custom entries**: snapshots, summaries, and branch labels stored as `CustomEntry` with `customType: "thoughts"` — these live outside LLM context so compaction never touches them
+
+## Index file
+
+`~/.pi/agent/thoughts-index.jsonl` — one entry per line, written when you run `/thoughts:start`. Read by `/thoughts` and `/thoughts:switch`. If a session file is later deleted, its entry is silently skipped.
 
 ## Settings
 

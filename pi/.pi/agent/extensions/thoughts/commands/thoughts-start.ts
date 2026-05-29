@@ -1,5 +1,5 @@
 /**
- * /thought:start [name] — Begin a new thought thread
+ * /thoughts:start [name] — Begin a new thought thread
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
@@ -12,9 +12,10 @@ import {
   generateAnchorId,
 } from "../types.ts";
 import { captureSnapshot } from "../lib/helpers.ts";
+import { indexThread } from "../lib/index-file.ts";
 
-export function registerThoughtStart(pi: ExtensionAPI): void {
-  pi.registerCommand("thought:start", {
+export function registerThoughtsStart(pi: ExtensionAPI): void {
+  pi.registerCommand("thoughts:start", {
     description: "Start a new thought thread",
     handler: async (args, ctx) => {
       let name = args as string | undefined;
@@ -68,6 +69,14 @@ A good name is the live question or tension, not the topic.
       const slug = slugify(name);
       const anchorId = generateAnchorId();
       const snapshot = captureSnapshot(ctx, leafId);
+      const sessionFile = ctx.sessionManager.getSessionFile();
+      const cwd = ctx.sessionManager.getCwd();
+      const now = Date.now();
+
+      if (!sessionFile) {
+        ctx.ui.notify("No session file — run pi with a session to track thoughts", "error");
+        return;
+      }
 
       ctx.sessionManager.appendSessionInfo(name);
       ctx.sessionManager.appendLabelChange(leafId, `${THOUGHT_LABEL_PREFIX}${slug}`);
@@ -78,11 +87,14 @@ A good name is the live question or tension, not the topic.
         name: slug,
         displayName: name,
         snapshot,
-        createdAt: Date.now(),
+        createdAt: now,
       };
-
       ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, anchor);
-      ctx.ui.notify(`✓ Thought thread started: "${name}" (id: ${anchorId})`, "info");
+
+      // Write to persistent index
+      indexThread({ slug, displayName: name, sessionFile, cwd, createdAt: now, updatedAt: now });
+
+      ctx.ui.notify(`✓ Thought started: "${name}"`, "info");
     },
   });
 }

@@ -1,23 +1,23 @@
 /**
  * thoughts extension: track named thought threads across sessions
  *
- * Manual:    /thought:start   /thought:switch   /thoughts
+ * Manual:    /thoughts:start   /thoughts:switch   /thoughts
  * Automatic: branch labeling on /tree, summary generation each turn
  * Tool:      thought_recall
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
-import { registerThoughtStart } from "./commands/thought-start.ts";
-import { registerThoughtSwitch } from "./commands/thought-switch.ts";
-import { registerThoughts } from "./commands/thoughts.ts";
+import { registerThoughtsStart } from "./commands/thoughts-start.ts";
+import { registerThoughtsSwitch } from "./commands/thoughts-switch.ts";
+import { registerThoughtsList } from "./commands/thoughts-list.ts";
 import { registerThoughtRecall } from "./lib/tool-recall.ts";
 import { registerHooks } from "./lib/hooks.ts";
 
 export default function (pi: ExtensionAPI) {
   registerThoughtRecall(pi);
-  registerThoughtStart(pi);
-  registerThoughtSwitch(pi);
-  registerThoughts(pi);
+  registerThoughtsStart(pi);
+  registerThoughtsSwitch(pi);
+  registerThoughtsList(pi);
   registerHooks(pi);
 }
