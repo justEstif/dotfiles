@@ -3,7 +3,7 @@
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-haiku-4-5",
+  "defaultModel": "claude-sonnet-4-6",
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
