@@ -1,6 +1,7 @@
 /**
- * /thoughts:switch [slug] — Jump to a thought thread
- * No arg → picker. With slug → direct jump.
+ * /thoughts:switch [slug] — List and jump to a thought thread
+ * No arg → shows all threads as a picker.
+ * With slug → jumps directly.
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";

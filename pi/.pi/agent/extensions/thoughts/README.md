@@ -11,9 +11,8 @@ Pi's `/tree` already handles navigation within a thought. This extension adds th
   ... have a conversation ...
   /tree                       ← branch, explore, backtrack (pi native)
   /tree                       ← auto-labeled + summarized each time
-/thoughts:switch              ← jump to a different thought (picker)
+/thoughts:switch              ← list all threads + pick one
 /thoughts:switch <slug>       ← jump directly
-/thoughts                     ← see all active threads
 ```
 
 That's the full workflow. Everything else is automatic.
@@ -44,31 +43,11 @@ A good name is the live question or tension — not the topic:
 
 ### `/thoughts:switch [slug]`
 
-Jump to a different thought thread — works across sessions and working directories.
-
-With no argument, shows a picker of all known threads. With a slug, jumps directly.
+List threads and jump to one. No arg shows a picker; with a slug, jumps directly.
 
 ```
-/thoughts:switch
-/thoughts:switch lead-with-1g-or-500
-```
-
-### `/thoughts`
-
-List all thought threads across every session and working directory, sorted by last activity.
-
-```
-Thought Threads:
-
-  Lead with 1 Gig or 500?
-    slug: lead-with-1g-or-500
-    cwd: ~/work/frontier
-    modified: 3m ago
-
-  Does a thought tracker belong in pk?
-    slug: does-a-thought-tracker-belong-in-pk
-    cwd: ~/dotfiles/pi
-    modified: 2d ago
+/thoughts:switch                        ← picker of all threads
+/thoughts:switch lead-with-1g-or-500   ← direct jump
 ```
 
 ## The `thought_recall` tool
