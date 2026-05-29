@@ -20,7 +20,8 @@ export const RESERVED_STEMS = new Set([
 export type ThoughtsCustomData =
   | ThoughtAnchor
   | ThoughtLabel
-  | ThoughtSummary;
+  | ThoughtSummary
+  | ThoughtEnd;
 
 export interface ThoughtAnchor {
   kind: "start";
@@ -48,6 +49,13 @@ export interface ThoughtSummary {
   generatedAt: number;
   modelId?: string;
   parentTurnId?: string; // the turn after which this summary was generated
+}
+
+export interface ThoughtEnd {
+  kind: "end";
+  rootId: string; // links to the start anchor
+  resolution: string; // how the thread resolved
+  endedAt: number;
 }
 
 /**

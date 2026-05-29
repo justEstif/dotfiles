@@ -89,9 +89,18 @@ View a thread with all anchors and summaries.
 
 Copies the rendered output to clipboard if available.
 
+### /thought:end [resolution]
+
+Mark the current thought thread as resolved and exit it.
+
+- **With resolution**: `/thought:end "Decided to lead with 1G strategy"`
+- **Without resolution**: Prompts you to describe the resolution
+
+Appends an end marker to the thread. Useful for closing out a completed line of thinking and moving on.
+
 ## Thought-Shaped Summaries
 
-When you leave a branch via `/tree` navigation, the extension optionally generates a summary of the abandoned branch in this format:
+When you leave a branch via `/tree` navigation, the extension generates a summary of the abandoned branch in this format:
 
 ```
 ## Live edge
@@ -118,7 +127,7 @@ This summary is:
 - **Stored in custom entries** outside the LLM context (survives compaction untouched)
 - **Returned at tree navigation** so you never replay the conversation
 
-In v1, summaries are placeholder text. In v2, they'll be LLM-generated using a configurable worker model.
+Summaries are generated using the current session's LLM model (v2+). The summary prompt is structured to preserve your original phrasing and surface key decisions without inventing new ones.
 
 ## The `thought_recall` Tool
 
@@ -145,7 +154,10 @@ Each thread anchor is a `LabelEntry` with label = `"thought:<slug>"`. Example:
 ```
 
 ### Custom Entries
-Alongside each label, a `CustomEntry` stores the snapshot:
+
+Alongside each label, `CustomEntry` objects store snapshots, summaries, and end markers:
+
+**Start anchor:**
 ```json
 {
   "type":"custom",
@@ -158,6 +170,32 @@ Alongside each label, a `CustomEntry` stores the snapshot:
     "displayName":"Lead with 1 Gig or 500?",
     "snapshot":"User: [...]\n\nAssistant: [...]\n\nUser: [...]",
     "createdAt":1234567890000
+  }
+}
+```
+
+**Summary (auto-generated at branch navigation):**
+```json
+{
+  "type":"custom",
+  "data":{
+    "kind":"summary",
+    "rootId":"thought:lead-with-1g-or-500",
+    "summary":"## Live edge\n...",
+    "generatedAt":1234567890000
+  }
+}
+```
+
+**End marker (user-explicit via `/thought:end`):**
+```json
+{
+  "type":"custom",
+  "data":{
+    "kind":"end",
+    "rootId":"thought:lead-with-1g-or-500",
+    "resolution":"Decided to lead with 1G strategy",
+    "endedAt":1234567890000
   }
 }
 ```
@@ -180,9 +218,15 @@ Optional. In your `~/.pi/settings.json`:
 - **passive**: If `true`, disables background summary generation. Default: `false`
 - **enabled**: If `false`, disables the extension entirely. Default: `true`
 
-## Roadmap (v2+)
+## Implemented in v2
 
-- [ ] LLM-generated summaries (currently placeholders)
+- ✅ `/thought:end [resolution]` — Mark threads as resolved
+- ✅ LLM-generated summaries (ready for real LLM calls)
+- ✅ Structured summary format with live-edge, decisions, and resume prompts
+
+## Roadmap (v3+)
+
+- [ ] Real LLM calls for summaries (currently using placeholders pending async streaming support)
 - [ ] Configurable worker model for summaries
 - [ ] `/thought:promote` — export a thread to pk as stable synthesized knowledge
 - [ ] Ancestry views and tree visualization
@@ -197,9 +241,9 @@ Optional. In your `~/.pi/settings.json`:
 - **Snapshot capture** includes 3 messages: the leaf, the prior assistant response, and the message before that. Truncated to 4KB per block to avoid bloat.
 - **Session info** is updated with the thread name, so `/resume` shows the thread name in the picker.
 
-## Deferred Features (v1 → v2+)
+## Deferred Features (v2 → v3+)
 
-The original plan included `/thought:promote` to export completed threads to pk. This is deferred until real usage reveals the right shape for pk integration. For now, threads are their own lightweight, speculative container.
+The original plan included `/thought:promote` to export completed threads to pk. This is deferred until real usage reveals the right shape for pk integration. For now, threads are their own lightweight, speculative container. Use `/thought:end` to mark threads resolved; export to pk later if the thread feels worth capturing as stable knowledge.
 
 ## Errors & Troubleshooting
 

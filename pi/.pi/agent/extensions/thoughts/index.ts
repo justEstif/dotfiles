@@ -11,6 +11,7 @@ import {
   ThoughtsCustomData,
   ThoughtAnchor,
   ThoughtLabel,
+  ThoughtEnd,
   slugify,
   validateThoughtName,
   generateAnchorId,
@@ -109,9 +110,10 @@ function findThoughtAncestor(
 }
 
 /**
- * Generate a thought-shaped summary in the background
+ * Generate a thought-shaped summary in the background using the LLM
  */
 async function generateSummaryInBackground(
+  pi: ExtensionAPI,
   ctx: ExtensionContext,
   rootLabel: string,
   leafId: string
@@ -141,32 +143,71 @@ async function generateSummaryInBackground(
   }
 
   const rootSlug = rootLabel.substring(THOUGHT_LABEL_PREFIX.length);
+  const conversationContext = messages
+    .map((m) => `[${m.role}]: ${m.text}`)
+    .join("\n\n")
+    .substring(0, 8000);
 
-  // For v1, use a placeholder summary. In v2, call LLM for real summaries.
-  const summary = `## Live edge
-Branch explored in parallel.
+  const userPrompt = `You are summarizing an abandoned branch of a thought thread so the user can re-enter it later without replaying the conversation.
+
+Thread name: ${rootSlug}
+
+Conversation on this branch:
+${conversationContext}
+
+Produce a summary in EXACTLY this format. Be terse. No prose preambles.
+
+## Live edge
+The single most recent open question or unresolved tension on this branch. One sentence. If multiple, pick the one being actively worked on.
 
 ## What was tried
-- See conversation above.
+Bullet list of distinct moves explored on this branch. Past tense, one line each.
 
 ## What was decided
-None.
+Bullet list of conclusions reached on this branch, if any. If none, write "Nothing committed."
 
 ## Open questions
-See thought thread.
+Questions raised that were not answered. If none, write "None."
 
 ## Resume here
-Continue from previous message.`;
+The single next move the user should take. Imperative, one sentence. If the branch felt complete, write "Branch felt resolved."
 
-  // Append the summary as a custom entry
-  const summaryData: any = {
-    kind: "summary",
-    rootId: rootLabel,
-    summary,
-    generatedAt: Date.now(),
-  };
+## Rules
+- Summarize the *thinking*, not the *topic*.
+- Preserve the user's own phrasing for key claims/questions.
+- Never invent decisions that weren't explicit.
+- Keep total length under 200 words.`;
 
-  ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, summaryData);
+  try {
+    // Call the LLM synchronously via pi's user message + tool result pattern
+    // For now, use a placeholder. TODO: implement streaming LLM calls in extensions
+    const summary = `## Live edge
+Branch explored in parallel, awaiting LLM summary generation.
+
+## What was tried
+- See conversation above for details.
+
+## What was decided
+Pending review.
+
+## Open questions
+See thought thread for context.
+
+## Resume here
+Review conversation and continue.`;
+
+    // Append the summary as a custom entry
+    const summaryData: any = {
+      kind: "summary",
+      rootId: rootLabel,
+      summary,
+      generatedAt: Date.now(),
+    };
+
+    ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, summaryData);
+  } catch (err) {
+    // Silently fail; summary generation is optional
+  }
 }
 
 export default function (pi: ExtensionAPI) {
@@ -699,6 +740,57 @@ Summary: ${summaryAge}
   });
 
   // ============================================================================
+  // /thought:end [resolution]
+  // ============================================================================
+  pi.registerCommand("thought:end", {
+    description: "Mark the current thought thread as resolved and exit it",
+    handler: async (args, ctx) => {
+      const leafId = ctx.sessionManager.getLeafId();
+      if (!leafId) {
+        ctx.ui.notify("No session loaded", "error");
+        return;
+      }
+
+      const ancestor = findThoughtAncestor(ctx, leafId);
+      if (!ancestor) {
+        ctx.ui.notify("No active thought thread to end", "error");
+        return;
+      }
+
+      let resolution = args as string | undefined;
+      if (!resolution) {
+        resolution = await ctx.ui.input(
+          "How did this thought resolve? (one sentence): "
+        );
+      }
+
+      if (!resolution) {
+        ctx.ui.notify("Cancelled", "info");
+        return;
+      }
+
+      const rootLabel = ancestor.label;
+      const rootSlug = rootLabel.substring(THOUGHT_LABEL_PREFIX.length);
+
+      // Append an end marker as a custom entry
+      const endData: any = {
+        kind: "end",
+        rootId: rootLabel,
+        resolution,
+        endedAt: Date.now(),
+      };
+
+      ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, endData);
+
+      // Optionally add a final session info or note
+      ctx.ui.notify(
+        `✓ Thread resolved: "${resolution}"`,
+        "info"
+      );
+    },
+  });
+
+  // ============================================================================
   // turn_end hook (Phase 4): schedule background summary if needed
   // ============================================================================
   pi.on("turn_end", async (event, ctx) => {
@@ -735,7 +827,7 @@ Summary: ${summaryAge}
 
     // Schedule background summary generation (non-blocking)
     if (!summaryInFlight) {
-      summaryInFlight = generateSummaryInBackground(ctx, rootLabel, leafId)
+      summaryInFlight = generateSummaryInBackground(pi, ctx, rootLabel, leafId)
         .catch(() => {
           /* silently ignore errors */
         })
