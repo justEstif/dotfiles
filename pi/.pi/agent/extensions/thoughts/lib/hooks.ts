@@ -3,8 +3,8 @@
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { THOUGHT_LABEL_PREFIX, THOUGHTS_CUSTOM_TYPE } from "../types.ts";
-import { findThoughtAncestor, parseThreadPrefix } from "./helpers.ts";
+import { THOUGHT_LABEL_PREFIX, THOUGHTS_CUSTOM_TYPE, ThoughtLabel, slugify, generateAnchorId } from "../types.ts";
+import { findThoughtAncestor, captureSnapshot, parseThreadPrefix } from "./helpers.ts";
 import { generateSummaryInBackground } from "./summary.ts";
 
 interface ThoughtsSettings {
@@ -52,9 +52,7 @@ export function registerHooks(pi: ExtensionAPI): void {
     if (!summaryInFlight) {
       summaryInFlight = generateSummaryInBackground(pi, ctx, rootLabel, leafId)
         .catch(() => {})
-        .finally(() => {
-          summaryInFlight = null;
-        });
+        .finally(() => { summaryInFlight = null; });
     }
   });
 
@@ -83,7 +81,7 @@ export function registerHooks(pi: ExtensionAPI): void {
   });
 
   // ──────────────────────────────────────────────────────────────────────────
-  // session_before_tree: return pre-generated summary when branching away
+  // session_before_tree: auto-label branch point + return pre-generated summary
   // ──────────────────────────────────────────────────────────────────────────
   pi.on("session_before_tree", async (_event, ctx) => {
     const leafId = ctx.sessionManager.getLeafId();
@@ -94,7 +92,36 @@ export function registerHooks(pi: ExtensionAPI): void {
 
     const entries = ctx.sessionManager.getEntries();
     const rootLabel = ancestor.label;
+    const rootSlug = rootLabel.substring(THOUGHT_LABEL_PREFIX.length);
 
+    // Auto-label this branch point so the tree stays navigable
+    const branchNum = entries.filter(
+      (e) =>
+        e.type === "custom" &&
+        (e as any).customType === THOUGHTS_CUSTOM_TYPE &&
+        (e as any).data?.kind === "label" &&
+        ((e as any).data as any).rootId === rootLabel
+    ).length + 1;
+
+    const branchName = `branch-${branchNum}`;
+    const anchorId = generateAnchorId();
+    const snapshot = captureSnapshot(ctx, leafId);
+
+    const labelSlug = `${rootSlug}/${slugify(branchName)}`;
+    ctx.sessionManager.appendLabelChange(leafId, `${THOUGHT_LABEL_PREFIX}${labelSlug}`);
+
+    const labelData: ThoughtLabel = {
+      kind: "label",
+      anchorId,
+      rootId: rootLabel,
+      name: labelSlug,
+      displayName: branchName,
+      snapshot,
+      createdAt: Date.now(),
+    };
+    ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, labelData);
+
+    // Return the pre-generated summary for pi to attach at the new position
     const summaryEntry = entries
       .slice()
       .reverse()
@@ -112,8 +139,7 @@ export function registerHooks(pi: ExtensionAPI): void {
         summary: {
           summary: data.summary,
           details: {
-            thoughtThread:
-              data.displayName ?? rootLabel.substring(THOUGHT_LABEL_PREFIX.length),
+            thoughtThread: data.displayName ?? rootSlug,
           },
         },
       };

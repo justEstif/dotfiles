@@ -1,305 +1,101 @@
-# thoughts extension for pi
+# thoughts — pi extension
 
-Track named "thought threads" — long, branching trains of thinking that span sessions and working directories.
+Track named thought threads across sessions and working directories. Built on top of pi's native `/tree` — this extension adds naming, cross-session discovery, and automatic branch capture.
 
-## What it does
+## Mental model
 
-The `thoughts` extension lets you:
+Pi's `/tree` already handles navigation within a thought. This extension adds the layer above it:
 
-1. **Start a named thread** with `/thought:start`, capturing a snapshot of your current context
-2. **Add checkpoints** with `/thought:label` to mark key decision points within a thread
-3. **Discover threads** across all working directories with `/thoughts`
-4. **Resume a thread** from any directory with `/thought:resume <name>`
-5. **View thread history** with `/thought:view` including snapshots and auto-generated summaries
-6. **Query snapshots later** via the `thought_recall` LLM tool after compaction has erased context
-
-Threads live inside pi's native session tree. No separate files, no sync issues. Everything persists in your session JSONLs.
-
-## Install
-
-Place this extension in `~/.pi/agent/extensions/thoughts/` (it should already be there). Restart pi or run `/reload`.
-
-The extension auto-discovers in interactive and RPC modes. If you want to manually load it:
-
-```bash
-pi -e ~/.pi/agent/extensions/thoughts/index.ts
 ```
+/thought:start "question"   ← name a train of thinking
+  ... have a conversation ...
+  /tree                      ← branch, explore, backtrack (pi native)
+  /tree                      ← auto-labeled + summarized each time
+/thought:switch              ← jump to a different thought (picker)
+/thought:switch <slug>       ← jump directly
+/thoughts                    ← see all active threads
+```
+
+That's the full workflow. Everything else is automatic.
+
+## What happens automatically
+
+**Every turn** (`turn_end`):
+- A heuristic summary is regenerated in the background — questions found, decisions made, approaches tried, open issues
+
+**Every `/tree` navigation** (`session_before_tree`):
+- The current branch point is auto-labeled (e.g. `branch-1`, `branch-2`)
+- A snapshot of the current conversation is captured at that point
+- The pre-generated summary is attached at the new position so you don't lose context
 
 ## Commands
 
-### /thought:start [name]
+### `/thought:start [name]`
 
-Start a new thought thread.
+Start a thought thread. If no name given, prompts you.
 
-- **With name**: `/thought:start "Lead with 1G or 500 on pricing?"`
-- **Without name**: Prompts you to name it interactively
-
-A good name is the **live question or tension**, not the topic:
-- ✅ "Lead with 1 Gig or 500 on Frontier offer page?"
-- ✅ "Does a thought tracker belong inside pk?"
-- ❌ "Frontier review" (topic, not question)
-- ❌ "thoughts about pricing" (vague)
-
-The extension validates names:
-- Must be at least 8 characters
-- Cannot be reserved words (notes, thoughts, todo, temp, untitled, etc.)
-- Soft-rejects topic-shaped names (no verb, no question mark) and lets you retry
-
-### /thought:label [sub-name]
-
-Add a checkpoint within the current thought thread.
-
-- **With sub-name**: `/thought:label "reject 500-strategy"`
-- **Without sub-name**: Prompts for a name (optional)
-
-Useful for marking decision forks or major shifts in thinking within a single thread.
-
-### /thought:status
-
-Show the current thread's status:
-- Display name and slug
-- Anchor ID (for `thought_recall`)
-- Number of checkpoints
-- Age of most recent summary (if any)
-
-### /thoughts
-
-List all thought threads across all working directories.
-
-Shows:
-- Thread display name and slug
-- Working directory it lives in
-- Number of checkpoints
-- Last modified time
-
-### /thought:resume <name>
-
-Resume a thought thread from any working directory.
-
-- Opens the session containing that thread
-- If multiple sessions contain the thread, prompts you to choose
-
-### /thought:view [name] [full]
-
-View a thread with all anchors and summaries.
-
-- **Without args**: Shows current thread
-- **With name**: `/thought:view "lead-with-1g-or-500"`
-- **With full**: `/thought:view "lead-with-1g-or-500" full` — shows complete snapshots instead of previews
-
-Copies the rendered output to clipboard if available.
-
-### /thought:end [resolution]
-
-Mark the current thought thread as resolved and exit it.
-
-- **With resolution**: `/thought:end "Decided to lead with 1G strategy"`
-- **Without resolution**: Prompts you to describe the resolution
-
-Appends an end marker to the thread. Useful for closing out a completed line of thinking and moving on.
-
-## Message Prefix Routing (v3)
-
-You can optionally route messages to specific threads using a prefix:
-
+A good name is the live question or tension — not the topic:
 ```
-/thread-name: your message here
+✓ "Lead with 1 Gig or 500 on Frontier offer page?"
+✓ "Does a thought tracker belong inside pk?"
+✗ "Frontier review"           (topic, not question)
+✗ "meeting notes"             (container, not thought)
 ```
 
-Example:
-```
-/lead-with-1g-or-500: Actually, let's reconsider the pricing model
-```
+### `/thought:switch [slug]`
 
-The extension will:
-1. Detect the thread prefix
-2. Notify you with a pin emoji
-3. Continue with your message
+Jump to a different thought thread — works across sessions and working directories.
 
-This is useful when you're working across multiple threads in the same session and want to leave a note for a specific thread. The prefix is stripped from the message before processing.
-
-Future versions will support auto-switching to the thread or scoping LLM context to thread-specific history.
-
-## Thought-Shaped Summaries
-
-When you leave a branch via `/tree` navigation, the extension generates a summary of the abandoned branch in this format:
+With no argument, shows a picker of all known threads. With a slug, jumps directly.
 
 ```
-## Live edge
-The single most recent open question or unresolved tension on this branch.
-
-## What was tried
-- Distinct move 1
-- Distinct move 2
-
-## What was decided
-- Conclusion A
-- Conclusion B
-
-## Open questions
-- Question 1 not yet answered
-- Question 2 not yet answered
-
-## Resume here
-The single next move you should take.
+/thought:switch
+/thought:switch lead-with-1g-or-500
 ```
 
-This summary is:
-- **Pre-generated in the background** after each turn (no waiting at navigation time)
-- **Stored in custom entries** outside the LLM context (survives compaction untouched)
-- **Returned at tree navigation** so you never replay the conversation
+### `/thoughts`
 
-### Summary Generation (v3)
-
-Summaries now use **heuristic extraction** to identify:
-- **Live edges**: Questions or problem statements (lines containing "?" or starting with what/why/how)
-- **Tried approaches**: Lines mentioning attempts, explorations, or considerations
-- **Decisions**: Lines with conclusion words (decided, recommend, should, best, proposed)
-- **Open questions**: Extracted from user messages with "?"
-
-This approach is:
-- **Fast** — No model calls needed
-- **Faithful** — Preserves original phrasing
-- **Durable** — Works after compaction (lives in custom entries)
-- **Extensible** — Ready for LLM enhancement in v4+
-
-## The `thought_recall` Tool
-
-After compaction erases context, the LLM can recover original text from thought anchors:
+List all thought threads across every session and working directory, sorted by last activity.
 
 ```
-thought_recall(anchorId: "a1b2c3d4e5f6")
+Thought Threads:
+
+  Lead with 1 Gig or 500?
+    slug: lead-with-1g-or-500
+    cwd: ~/work/frontier
+    modified: 3m ago
+
+  Does a thought tracker belong in pk?
+    slug: does-a-thought-tracker-belong-in-pk
+    cwd: ~/dotfiles/pi
+    modified: 2d ago
 ```
 
-Returns:
-- The original verbatim snapshot at that anchor
-- Marked as `{ found: true }` or `{ found: false, isError: true }`
+## The `thought_recall` tool
 
-Useful when the agent needs to reference original wording that was lost in summarization.
+After compaction erases context, the LLM can recover the original verbatim text at any labeled anchor:
 
-## Storage Format
-
-Threads are marked in pi's session JSONLs using two mechanisms:
-
-### Labels
-Each thread anchor is a `LabelEntry` with label = `"thought:<slug>"`. Example:
-```json
-{"type":"label","id":"abc123","targetId":"def456","label":"thought:lead-with-1g-or-500"}
+```
+thought_recall(anchorId: "756abf8fc800")
 ```
 
-### Custom Entries
+Returns the original snapshot text captured when that anchor was created.
 
-Alongside each label, `CustomEntry` objects store snapshots, summaries, and end markers:
+## Storage
 
-**Start anchor:**
-```json
-{
-  "type":"custom",
-  "id":"xyz789",
-  "customType":"thoughts",
-  "data":{
-    "kind":"start",
-    "anchorId":"a1b2c3d4",
-    "name":"lead-with-1g-or-500",
-    "displayName":"Lead with 1 Gig or 500?",
-    "snapshot":"User: [...]\n\nAssistant: [...]\n\nUser: [...]",
-    "createdAt":1234567890000
-  }
-}
-```
+All state lives in pi's session JSONLs — no separate index files.
 
-**Summary (auto-generated at branch navigation):**
-```json
-{
-  "type":"custom",
-  "data":{
-    "kind":"summary",
-    "rootId":"thought:lead-with-1g-or-500",
-    "summary":"## Live edge\n...",
-    "generatedAt":1234567890000
-  }
-}
-```
-
-**End marker (user-explicit via `/thought:end`):**
-```json
-{
-  "type":"custom",
-  "data":{
-    "kind":"end",
-    "rootId":"thought:lead-with-1g-or-500",
-    "resolution":"Decided to lead with 1G strategy",
-    "endedAt":1234567890000
-  }
-}
-```
-
-Custom entries live outside LLM context and survive compaction untouched. This is what makes anchors truly durable.
+- **Labels**: `thought:<slug>` on any session entry — this is how cross-session discovery works
+- **Custom entries**: snapshots, summaries, and branch labels stored as `CustomEntry` with `customType: "thoughts"` — these live outside LLM context so compaction never touches them
 
 ## Settings
-
-Optional. In your `~/.pi/settings.json`:
 
 ```json
 {
   "thoughts": {
-    "passive": true,
-    "enabled": true
+    "passive": true
   }
 }
 ```
 
-- **passive**: If `true`, disables background summary generation. Default: `false`
-- **enabled**: If `false`, disables the extension entirely. Default: `true`
-
-## Implemented in v2
-
-- ✅ `/thought:end [resolution]` — Mark threads as resolved
-- ✅ Summary generation infrastructure (ready for LLM calls)
-- ✅ Structured summary format with live-edge, decisions, and resume prompts
-
-## Implemented in v3
-
-- ✅ **Heuristic summary extraction** — Fast, faithful, zero-LLM summaries via keyword matching
-- ✅ **Message prefix routing** — `/thread-name: message` syntax for cross-thread notes
-- ✅ Detects and validates thread prefixes
-
-## Roadmap (v4+)
-
-- [ ] LLM-powered summary enhancement (call model only if heuristic low-confidence)
-- [ ] Message prefix auto-switching (jump to thread + scope context)
-- [ ] Configurable extraction heuristics
-- [ ] `/thought:promote` — export a thread to pk as stable synthesized knowledge
-- [ ] Ancestry views and tree visualization
-- [ ] Auto-detect thought moments (prompt heuristics)
-- [ ] Session parking (freeze abandoned branches)
-
-## Notes
-
-- Threads are **opt-in**. Run `/thought:start` to begin one.
-- **No special file formats**. Everything lives in your session JSONLs under `~/.pi/agent/sessions/`.
-- **Cross-pwd discovery** scans all sessions globally. `/thoughts` finds threads everywhere.
-- **Snapshot capture** includes 3 messages: the leaf, the prior assistant response, and the message before that. Truncated to 4KB per block to avoid bloat.
-- **Session info** is updated with the thread name, so `/resume` shows the thread name in the picker.
-
-## Deferred Features (v2 → v3+)
-
-The original plan included `/thought:promote` to export completed threads to pk. This is deferred until real usage reveals the right shape for pk integration. For now, threads are their own lightweight, speculative container. Use `/thought:end` to mark threads resolved; export to pk later if the thread feels worth capturing as stable knowledge.
-
-## Errors & Troubleshooting
-
-**"No active thought thread"**
-- You haven't run `/thought:start` yet, or the thread is on a different branch.
-
-**"Thread not found"**
-- The thread slug doesn't match any session. Check `/thoughts` to list all threads.
-
-**"No session loaded"**
-- Pi doesn't have an active session. Start one with `/new`.
-
-**Anchor ID not found in `thought_recall`**
-- The anchor was deleted or the session was corrupted. Try `/thought:view` to inspect what's stored.
-
----
-
-Built for pi's native session tree. Questions? Check the plan: `~/.pi/agent/extensions/thoughts/.ai/plans/plan.md`.
+`passive: true` disables automatic summary generation (branch labeling still happens).
