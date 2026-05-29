@@ -71,14 +71,3 @@ All state lives in pi's session JSONLs — no separate index files.
 
 `~/.pi/agent/thoughts-index.jsonl` — one entry per line, written when you run `/thoughts:start`. Read by `/thoughts` and `/thoughts:switch`. If a session file is later deleted, its entry is silently skipped.
 
-## Settings
-
-```json
-{
-  "thoughts": {
-    "passive": true
-  }
-}
-```
-
-`passive: true` disables automatic summary generation (branch labeling still happens).

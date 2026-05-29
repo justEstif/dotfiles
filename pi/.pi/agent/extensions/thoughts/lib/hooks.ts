@@ -7,12 +7,6 @@ import { THOUGHT_LABEL_PREFIX, THOUGHTS_CUSTOM_TYPE, ThoughtLabel, slugify, gene
 import { findThoughtAncestor, captureSnapshot, parseThreadPrefix } from "./helpers.ts";
 import { generateSummaryInBackground } from "./summary.ts";
 
-interface ThoughtsSettings {
-  enabled?: boolean;
-  passive?: boolean;
-  model?: { provider: string; id: string };
-}
-
 export function registerHooks(pi: ExtensionAPI): void {
   let summaryInFlight: Promise<void> | null = null;
 
@@ -20,9 +14,6 @@ export function registerHooks(pi: ExtensionAPI): void {
   // turn_end: schedule background summary generation
   // ──────────────────────────────────────────────────────────────────────────
   pi.on("turn_end", async (_event, ctx) => {
-    const settings = ctx.getSettings?.("thoughts") as ThoughtsSettings | undefined;
-    if (settings?.passive) return;
-
     const leafId = ctx.sessionManager.getLeafId();
     if (!leafId) return;
 
