@@ -7,15 +7,52 @@ import {
   DEFAULT_MAX_LINES,
 } from "@earendil-works/pi-coding-agent";
 
-// --- Config from env ---
+// --- Config from auth.json ---
+
+interface SearxConfig {
+  baseUrl: string;
+  user?: string;
+  pass?: string;
+}
+
+let _cachedConfig: SearxConfig | null = null;
+
+function loadConfig(): SearxConfig {
+  if (_cachedConfig) return _cachedConfig;
+
+  try {
+    const { readFileSync } = require("node:fs");
+    const { join } = require("node:path");
+    const { homedir } = require("node:os");
+
+    const authPath = join(homedir(), ".pi/agent/auth.json");
+    const auth = JSON.parse(readFileSync(authPath, "utf-8"));
+    const entry = auth.searxng;
+
+    if (entry) {
+      _cachedConfig = {
+        baseUrl: entry.baseUrl || "http://localhost:8888",
+        user: entry.user,
+        pass: entry.pass,
+      };
+      return _cachedConfig;
+    }
+  } catch {
+    // auth.json missing or no searxng key
+  }
+
+  throw new Error(
+    "No searxng config found in ~/.pi/agent/auth.json. " +
+      'Add a "searxng" entry with baseUrl, user, and pass.'
+  );
+}
 
 function getBaseUrl(): string {
-  return process.env.SEARXNG_URL || "http://localhost:8888";
+  return loadConfig().baseUrl;
 }
 
 function getAuthHeader(): Record<string, string> {
-  const user = process.env.SEARXNG_USER;
-  const pass = process.env.SEARXNG_PASS;
+  const { user, pass } = loadConfig();
   if (user && pass) {
     const encoded = Buffer.from(`${user}:${pass}`).toString("base64");
     return { Authorization: `Basic ${encoded}` };
