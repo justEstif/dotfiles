@@ -13,6 +13,7 @@
     "npm:@majorgilles/pi-learning-tutor",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-btw",
-    "npm:@juicesharp/rpiv-todo"
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@narumitw/pi-subagents"
   ]
 }

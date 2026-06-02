@@ -1,1 +1,0 @@
-../../../../../.local/share/mise/installs/npm-earendil-works-pi-coding-agent/latest/lib/node_modules/@earendil-works/pi-coding-agent/examples/extensions/subagent/agents/worker.md
