@@ -9,6 +9,9 @@ import { loadReferenceContent, getModeDefinition } from "./registry.ts";
 
 export function registerModeInjector(pi: ExtensionAPI): void {
   // ── Restore status bar on session load / reload ──────────────────────────
+  // Note on compaction resilience: custom entries (type="custom") are
+  // session metadata, not messages — they survive compaction natively.
+  // The before_agent_start hook re-reads mode_change entries every turn.
   pi.on("session_start", async (_event, ctx) => {
     const mode = findActiveMode(ctx);
     if (mode && mode !== "off") {
