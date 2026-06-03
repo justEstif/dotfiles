@@ -1,8 +1,9 @@
 /**
  * thoughts extension: unified thinking modes + named thought threads
  *
- * Commands: /thoughts:start <name>  — start a thread (auto-detects mode)
- *           /thoughts:switch        — switch between threads
+ * Commands: /thoughts:start [mode]  — start a thread (optional mode, name prompted)
+ *           /thoughts:mode [mode]    — switch mode on current thread
+ *           /thoughts:switch         — switch between threads
  * Tools:    set_thinking_mode       — LLM-controlled mode activation (+ thread creation)
  *           thought_recall          — recover anchor text after compaction
  * Hooks:    before_agent_start      — inject active mode reference
@@ -15,6 +16,7 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 import { registerThoughtsStart } from "./commands/thoughts-start.ts";
+import { registerThoughtsMode } from "./commands/thoughts-mode.ts";
 import { registerThoughtsSwitch } from "./commands/thoughts-switch.ts";
 import { registerSetThinkingMode } from "./tools/set-thinking-mode.ts";
 import { registerThoughtRecall } from "./tools/thought-recall.ts";
@@ -28,6 +30,7 @@ export default function (pi: ExtensionAPI) {
 
   // Thread commands
   registerThoughtsStart(pi);
+  registerThoughtsMode(pi);
   registerThoughtsSwitch(pi);
   registerThoughtRecall(pi);
 
