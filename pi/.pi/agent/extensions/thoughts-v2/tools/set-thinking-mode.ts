@@ -67,8 +67,8 @@ export function registerSetThinkingMode(pi: ExtensionAPI): void {
       ctx.ui.setStatus("thoughts-v2", `🧠 ${def?.label ?? mode}`);
 
       const msg = reason
-        ? `Thinking mode activated: **${def?.label ?? mode}** — ${reason}`
-        : `Thinking mode activated: **${def?.label ?? mode}**`;
+        ? `Thinking mode activated: **${def?.label ?? mode}** — ${reason}\n${def?.description ?? ""}`
+        : `Thinking mode activated: **${def?.label ?? mode}**\n${def?.description ?? ""}`;
 
       return {
         content: [{ type: "text", text: msg }],

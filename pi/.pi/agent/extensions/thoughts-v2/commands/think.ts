@@ -11,40 +11,28 @@ export function registerThinkCommand(pi: ExtensionAPI): void {
   pi.registerCommand("think", {
     description: "Set or display active thinking mode (sycophancy | root-ask | grill-me | off)",
     getArgumentCompletions(prefix: string) {
-      const modes = [...THINKING_MODES];
-      const filtered = modes.filter((m) => m.startsWith(prefix));
-      return filtered.length > 0
-        ? filtered.map((m) => ({ value: m, label: m }))
-        : null;
+      const items = THINKING_MODES.map((m) => {
+        const def = getModeDefinition(m);
+        return {
+          value: m,
+          label: def ? `${m} — ${def.description.split(".")[0]}` : m,
+        };
+      });
+      const filtered = items.filter((i) => i.value.startsWith(prefix));
+      return filtered.length > 0 ? filtered : null;
     },
     handler: async (args, ctx) => {
-      const entries = ctx.sessionManager.getEntries();
-
-      // Find current mode
-      let currentMode: string | null = null;
-      for (let i = entries.length - 1; i >= 0; i--) {
-        const entry = entries[i];
-        if (
-          entry.type === "custom" &&
-          (entry as any).customType === THOUGHTS_CUSTOM_TYPE
-        ) {
-          const data = (entry as any).data as ModeChange;
-          if (data.kind === "mode_change") {
-            currentMode = data.mode;
-            break;
-          }
-        }
-      }
-
+      const currentMode = findActiveMode(ctx);
       const arg = (args as string | undefined)?.trim();
 
       // No arg → show status
       if (!arg) {
         if (!currentMode || currentMode === "off") {
-          ctx.ui.notify("No thinking mode active. Usage: /think <sycophancy|root-ask|grill-me|off>", "info");
+          const modes = MODE_DEFINITIONS.map((d) => `  ${d.id.padEnd(12)} ${d.description.split(".")[0]}`).join("\n");
+          ctx.ui.notify(`No thinking mode active.\n\nAvailable:\n${modes}\n\nUsage: /think <mode>`, "info");
         } else {
           const def = getModeDefinition(currentMode);
-          ctx.ui.notify(`Active: ${def?.label ?? currentMode}`, "info");
+          ctx.ui.notify(`${def?.label ?? currentMode}\n${def?.description ?? ""}`, "info");
         }
         return;
       }
@@ -72,8 +60,28 @@ export function registerThinkCommand(pi: ExtensionAPI): void {
       } else {
         const def = getModeDefinition(arg);
         ctx.ui.setStatus("thoughts-v2", `🧠 ${def?.label ?? arg}`);
-        ctx.ui.notify(`Thinking mode: ${def?.label ?? arg}`, "info");
+        ctx.ui.notify(`🧠 ${def?.label ?? arg}\n${def?.description ?? ""}`, "info");
       }
     },
   });
+}
+
+/**
+ * Walk custom entries backwards to find the latest mode_change.
+ */
+function findActiveMode(ctx: any): string | null {
+  const entries = ctx.sessionManager.getEntries();
+  for (let i = entries.length - 1; i >= 0; i--) {
+    const entry = entries[i];
+    if (
+      entry.type === "custom" &&
+      (entry as any).customType === THOUGHTS_CUSTOM_TYPE
+    ) {
+      const data = (entry as any).data as ModeChange;
+      if (data.kind === "mode_change") {
+        return data.mode;
+      }
+    }
+  }
+  return null;
 }

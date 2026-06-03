@@ -8,6 +8,11 @@ import type { ThinkingMode, ModeChange } from "../types.ts";
 import { loadReferenceContent, getModeDefinition } from "./registry.ts";
 
 export function registerModeInjector(pi: ExtensionAPI): void {
+  // ── Clean up status bar on session shutdown ─────────────────────────────
+  pi.on("session_shutdown", async (_event, ctx) => {
+    ctx.ui.setStatus("thoughts-v2", "");
+  });
+
   // ── Restore status bar on session load / reload ──────────────────────────
   // Note on compaction resilience: custom entries (type="custom") are
   // session metadata, not messages — they survive compaction natively.
