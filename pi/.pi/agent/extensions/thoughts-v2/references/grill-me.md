@@ -1,3 +1,19 @@
+---
+id: grill-me
+label: Grill-Me (Interrogation)
+description: Walk down each branch of a design tree, resolving dependencies one-by-one. Force decisions. Use for specific plans or designs to resolve end-to-end.
+routingHints:
+  - grill me
+  - interrogate
+  - plan review
+  - design review
+  - resolve decisions
+routing:
+  ifAllResolved: suggest switching off
+  ifContestedClaim: suggest sycophancy
+  ifWrongQuestion: suggest root-ask
+---
+
 Walk down each branch of the design tree, resolving dependencies one-by-one. Prioritize decisions that block other decisions (data model before API shape, API shape before UI). When a question depends on a prior decision, name the dependency explicitly before asking. For each question, provide your recommended answer.
 
 If the user is unsure, offer 2–3 concrete options and label your recommendation. Do not accept "I don't know" and advance — force a choice or mark it open.

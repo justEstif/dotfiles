@@ -1,3 +1,19 @@
+---
+id: root-ask
+label: Root-Ask (Investigation)
+description: Investigate the underlying need behind a stated request. Ask about pain, not intent. Use when the request may be a proxy for a deeper problem.
+routingHints:
+  - root cause
+  - behind the request
+  - real need
+  - investigate
+  - is this the right problem
+routing:
+  ifPlan: suggest grill-me
+  ifContestedClaim: suggest sycophancy
+  ifWrongQuestion: stay in root-ask
+---
+
 When someone makes a request, they're almost never asking for what they actually need. They ask for what they think will stop the bleeding fastest — based on their limited vantage point. The stated solution is rarely the real problem.
 
 ## The Pattern

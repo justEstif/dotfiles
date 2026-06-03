@@ -4,8 +4,8 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { THOUGHTS_CUSTOM_TYPE } from "../types.ts";
-import type { ThinkingMode, ModeChange } from "../types.ts";
-import { loadReferenceContent, getModeDefinition } from "./registry.ts";
+import type { ModeChange } from "../types.ts";
+import { loadReferenceContent, getModeDefinition, buildRoutingInstruction } from "./registry.ts";
 
 export function registerModeInjector(pi: ExtensionAPI): void {
   // ── Clean up status bar on session shutdown ─────────────────────────────
@@ -47,7 +47,7 @@ export function registerModeInjector(pi: ExtensionAPI): void {
  * Walk custom entries backwards to find the latest mode_change.
  * Returns null if no mode has ever been set.
  */
-function findActiveMode(ctx: any): ThinkingMode | null {
+function findActiveMode(ctx: any): string | null {
   const entries = ctx.sessionManager.getEntries();
   for (let i = entries.length - 1; i >= 0; i--) {
     const entry = entries[i];
@@ -62,18 +62,4 @@ function findActiveMode(ctx: any): ThinkingMode | null {
     }
   }
   return null;
-}
-
-function buildRoutingInstruction(mode: ThinkingMode): string {
-  // Sequencing hint so the model knows when to suggest switching
-  if (mode === "root-ask") {
-    return "<!-- routing: if investigation reveals a specific plan/design to resolve, suggest switching to grill-me. If it reveals a contested claim, suggest sycophancy. -->";
-  }
-  if (mode === "grill-me") {
-    return "<!-- routing: once all design branches are resolved, mode is complete. Suggest switching off. -->";
-  }
-  if (mode === "sycophancy") {
-    return "<!-- routing: if pushback reveals the real question is wrong, suggest root-ask. If it reveals an unresolved plan, suggest grill-me. -->";
-  }
-  return "";
 }

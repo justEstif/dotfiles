@@ -1,85 +1,95 @@
 /**
- * Mode definitions and reference file registry
+ * Mode registry: scans references/ dir for .md files with YAML frontmatter.
+ * Adding a new mode = adding one .md file. No TypeScript changes needed.
  */
 
 import { join, dirname } from "path";
-import { readFileSync, existsSync } from "fs";
-import type { ThinkingMode } from "../types.ts";
+import { readFileSync, readdirSync, existsSync } from "fs";
+import matter from "gray-matter";
 
 const REF_DIR = join(dirname(import.meta.url.replace("file://", "")), "..", "references");
 
 export interface ModeDefinition {
-  id: ThinkingMode;
+  id: string;
   label: string;
   description: string;
-  referenceFile: string; // relative to references/
-  routingHints: string[]; // keywords that suggest this mode
+  routingHints: string[];
+  routing: Record<string, string>;
+  content: string; // body (after frontmatter)
+  filename: string;
 }
 
-export const MODE_DEFINITIONS: ModeDefinition[] = [
-  {
-    id: "sycophancy",
-    label: "Sycophancy (Adversarial)",
-    description:
-      "Constructive disagreement. Argue the strongest opposing case. Challenge assumptions. Default for general adversarial thinking.",
-    referenceFile: "sycophancy.md",
-    routingHints: [
-      "push back", "challenge", "stress test", "devil's advocate",
-      "adversarial", "what am i missing", "disagree",
-    ],
-  },
-  {
-    id: "root-ask",
-    label: "Root-Ask (Investigation)",
-    description:
-      "Investigate the underlying need behind a stated request. Ask about pain, not intent. Use when the request may be a proxy for a deeper problem.",
-    referenceFile: "root-ask.md",
-    routingHints: [
-      "root cause", "behind the request", "real need", "investigate",
-      "is this the right problem",
-    ],
-  },
-  {
-    id: "grill-me",
-    label: "Grill-Me (Interrogation)",
-    description:
-      "Walk down each branch of a design tree, resolving dependencies one-by-one. Force decisions. Use for specific plans or designs to resolve end-to-end.",
-    referenceFile: "grill-me.md",
-    routingHints: [
-      "grill me", "interrogate", "plan review", "design review",
-      "resolve decisions",
-    ],
-  },
-];
+let _cache: ModeDefinition[] | null = null;
+
+/**
+ * Load all mode definitions from reference files.
+ * Results are cached for the process lifetime.
+ */
+export function loadModes(): ModeDefinition[] {
+  if (_cache) return _cache;
+
+  if (!existsSync(REF_DIR)) {
+    _cache = [];
+    return _cache;
+  }
+
+  const files = readdirSync(REF_DIR).filter((f) => f.endsWith(".md"));
+  const modes: ModeDefinition[] = [];
+
+  for (const file of files) {
+    const raw = readFileSync(join(REF_DIR, file), "utf8");
+    const { data, content } = matter(raw);
+
+    if (!data.id) {
+      console.warn(`[thoughts-v2] skipping ${file}: missing frontmatter "id"`);
+      continue;
+    }
+
+    modes.push({
+      id: data.id,
+      label: data.label ?? data.id,
+      description: data.description ?? "",
+      routingHints: data.routingHints ?? [],
+      routing: data.routing ?? {},
+      content,
+      filename: file,
+    });
+  }
+
+  _cache = modes;
+  return modes;
+}
 
 /**
  * Get a mode definition by id
  */
-export function getModeDefinition(mode: ThinkingMode): ModeDefinition | undefined {
-  return MODE_DEFINITIONS.find((m) => m.id === mode);
+export function getModeDefinition(mode: string): ModeDefinition | undefined {
+  return loadModes().find((m) => m.id === mode);
 }
 
 /**
- * Load the reference content for a mode
+ * Load the reference content (body) for a mode
  */
-export function loadReferenceContent(mode: ThinkingMode): string | null {
+export function loadReferenceContent(mode: string): string | null {
   const def = getModeDefinition(mode);
-  if (!def) return null;
+  return def?.content ?? null;
+}
 
-  const filePath = join(REF_DIR, def.referenceFile);
-  if (!existsSync(filePath)) return null;
-
-  return readFileSync(filePath, "utf8");
+/**
+ * Get all valid mode ids (for validation, autocomplete, tool enum)
+ */
+export function getModeIds(): string[] {
+  return loadModes().map((m) => m.id);
 }
 
 /**
  * Auto-detect mode from user text (returns null if no match)
  */
-export function detectMode(text: string): ThinkingMode | null {
+export function detectMode(text: string): string | null {
   const lower = text.toLowerCase();
-  let best: { mode: ThinkingMode; score: number } | null = null;
+  let best: { mode: string; score: number } | null = null;
 
-  for (const def of MODE_DEFINITIONS) {
+  for (const def of loadModes()) {
     let score = 0;
     for (const hint of def.routingHints) {
       if (lower.includes(hint)) score++;
@@ -90,4 +100,25 @@ export function detectMode(text: string): ThinkingMode | null {
   }
 
   return best?.mode ?? null;
+}
+
+/**
+ * Build routing instruction string from mode's frontmatter routing field.
+ * Returns an HTML comment injected into the system prompt.
+ */
+export function buildRoutingInstruction(mode: string): string {
+  const def = getModeDefinition(mode);
+  if (!def || Object.keys(def.routing).length === 0) return "";
+
+  const parts = Object.entries(def.routing).map(([condition, suggestion]) => {
+    // Convert camelCase/ifPrefix to readable: "ifPlan" → "if plan reveals a specific plan/design"
+    const readable = condition
+      .replace(/^if/, "")
+      .replace(/([A-Z])/g, " $1")
+      .toLowerCase()
+      .trim();
+    return `if ${readable}, ${suggestion}`;
+  });
+
+  return `<!-- routing: ${parts.join(". ")}. -->`;
 }

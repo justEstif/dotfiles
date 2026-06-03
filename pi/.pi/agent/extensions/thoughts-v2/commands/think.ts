@@ -3,21 +3,18 @@
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { THINKING_MODES, THOUGHTS_CUSTOM_TYPE, isValidMode } from "../types.ts";
+import { THOUGHTS_CUSTOM_TYPE } from "../types.ts";
 import type { ModeChange } from "../types.ts";
-import { getModeDefinition, MODE_DEFINITIONS } from "../modes/registry.ts";
+import { getModeDefinition, getModeIds, loadModes } from "../modes/registry.ts";
 
 export function registerThinkCommand(pi: ExtensionAPI): void {
   pi.registerCommand("think", {
-    description: "Set or display active thinking mode (sycophancy | root-ask | grill-me | off)",
+    description: "Set or display active thinking mode",
     getArgumentCompletions(prefix: string) {
-      const items = THINKING_MODES.map((m) => {
-        const def = getModeDefinition(m);
-        return {
-          value: m,
-          label: def ? `${m} — ${def.description.split(".")[0]}` : m,
-        };
-      });
+      const items = [...loadModes().map((m) => ({
+        value: m.id,
+        label: `${m.id} — ${m.description.split(".")[0]}`,
+      })), { value: "off", label: "off — disable thinking mode" }];
       const filtered = items.filter((i) => i.value.startsWith(prefix));
       return filtered.length > 0 ? filtered : null;
     },
@@ -28,8 +25,8 @@ export function registerThinkCommand(pi: ExtensionAPI): void {
       // No arg → show status
       if (!arg) {
         if (!currentMode || currentMode === "off") {
-          const modes = MODE_DEFINITIONS.map((d) => `  ${d.id.padEnd(12)} ${d.description.split(".")[0]}`).join("\n");
-          ctx.ui.notify(`No thinking mode active.\n\nAvailable:\n${modes}\n\nUsage: /think <mode>`, "info");
+          const modes = loadModes().map((d) => `  ${d.id.padEnd(12)} ${d.description.split(".")[0]}`).join("\n");
+          ctx.ui.notify(`No thinking mode active.\n\nAvailable:\n${modes}\n  off          disable\n\nUsage: /think <mode>`, "info");
         } else {
           const def = getModeDefinition(currentMode);
           ctx.ui.notify(`${def?.label ?? currentMode}\n${def?.description ?? ""}`, "info");
@@ -38,9 +35,10 @@ export function registerThinkCommand(pi: ExtensionAPI): void {
       }
 
       // Validate
-      if (!isValidMode(arg)) {
+      const validIds = [...getModeIds(), "off"];
+      if (!validIds.includes(arg)) {
         ctx.ui.notify(
-          `Unknown mode "${arg}". Valid: ${THINKING_MODES.join(", ")}`,
+          `Unknown mode "${arg}". Valid: ${validIds.join(", ")}`,
           "error",
         );
         return;

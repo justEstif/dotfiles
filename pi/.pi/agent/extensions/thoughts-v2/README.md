@@ -2,6 +2,28 @@
 
 Unified thinking modes + named thought threads for pi.
 
+## Adding a new mode
+
+Drop a new `.md` file in `references/` with YAML frontmatter:
+
+```yaml
+---
+id: my-mode
+label: My Mode (Short Description)
+description: One-line description of what this mode does.
+routingHints:
+  - keyword one
+  - keyword two
+routing:
+  ifPlan: suggest grill-me
+  ifContestedClaim: suggest sycophancy
+---
+
+<reference content injected into system prompt when active>
+```
+
+That's it. No TypeScript changes needed. The registry scans `references/*.md` at load time.
+
 ## Commands
 
 | Command | Description |
@@ -9,15 +31,6 @@ Unified thinking modes + named thought threads for pi.
 | `/think [mode]` | Set or display active thinking mode |
 | `/thoughts:start <name>` | Start a new thought thread |
 | `/thoughts:switch` | Switch between thought threads |
-
-## Thinking Modes
-
-| Mode | Purpose |
-|------|---------|
-| `sycophancy` | Adversarial pushback. Challenge assumptions, argue the opposing case. |
-| `root-ask` | Investigate the underlying need behind a stated request. |
-| `grill-me` | Walk a design tree, resolving dependencies one-by-one. |
-| `off` | Disable active thinking mode. |
 
 ## Tools
 
@@ -33,7 +46,7 @@ thoughts-v2/
 ├── index.ts              # Entry point
 ├── types.ts              # Shared types and helpers
 ├── modes/
-│   ├── registry.ts       # Mode definitions and reference loader
+│   ├── registry.ts       # Scans references/*.md, parses frontmatter
 │   └── injector.ts       # before_agent_start system prompt injection
 ├── commands/
 │   ├── think.ts          # /think command
@@ -48,9 +61,9 @@ thoughts-v2/
 │   ├── index-file.ts     # Persistent thread index (JSONL)
 │   └── summary.ts        # Heuristic summary generation
 └── references/
-    ├── sycophancy.md     # Mode reference
-    ├── root-ask.md       # Mode reference
-    └── grill-me.md       # Mode reference
+    ├── sycophancy.md     # Frontmatter + reference content
+    ├── root-ask.md       # Frontmatter + reference content
+    └── grill-me.md       # Frontmatter + reference content
 ```
 
 ## Compaction Resilience

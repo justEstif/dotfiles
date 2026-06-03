@@ -1,15 +1,7 @@
 /**
- * Shared types for the thoughts-v2 extension
+ * Shared types for the thoughts-v2 extension.
+ * Mode definitions live in references/*.md frontmatter — no hardcoded mode list.
  */
-
-// ─── Thinking modes ────────────────────────────────────────────────────────
-
-export const THINKING_MODES = ["sycophancy", "root-ask", "grill-me", "off"] as const;
-export type ThinkingMode = (typeof THINKING_MODES)[number];
-
-export function isValidMode(value: string): value is ThinkingMode {
-  return (THINKING_MODES as readonly string[]).includes(value);
-}
 
 // ─── Custom entry shapes ───────────────────────────────────────────────────
 
@@ -64,8 +56,8 @@ export interface ThoughtEnd {
 
 export interface ModeChange {
   kind: "mode_change";
-  mode: ThinkingMode;
-  anchorId?: string; // links to active thread, if any
+  mode: string; // mode id from reference .md frontmatter, or "off"
+  anchorId?: string;
   changedAt: number;
 }
 

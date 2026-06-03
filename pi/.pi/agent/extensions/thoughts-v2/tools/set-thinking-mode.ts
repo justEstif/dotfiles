@@ -4,10 +4,9 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
-import { StringEnum } from "@earendil-works/pi-ai";
-import { THINKING_MODES, THOUGHTS_CUSTOM_TYPE, isValidMode } from "../types.ts";
+import { THOUGHTS_CUSTOM_TYPE } from "../types.ts";
 import type { ModeChange } from "../types.ts";
-import { getModeDefinition, detectMode } from "../modes/registry.ts";
+import { getModeDefinition, getModeIds, loadModes } from "../modes/registry.ts";
 
 export function registerSetThinkingMode(pi: ExtensionAPI): void {
   pi.registerTool({
@@ -15,8 +14,6 @@ export function registerSetThinkingMode(pi: ExtensionAPI): void {
     label: "Set Thinking Mode",
     description:
       "Activate a structured thinking mode that changes how you reason about the conversation. " +
-      "Modes: sycophancy (adversarial pushback), root-ask (investigate underlying need), " +
-      "grill-me (structured design interrogation), off (disable). " +
       "Use when the user wants to think through something with a specific framework, " +
       "or when you detect thinking-mode keywords (push back, challenge, root cause, grill me, etc.). " +
       "The mode persists across turns and survives compaction.",
@@ -26,9 +23,9 @@ export function registerSetThinkingMode(pi: ExtensionAPI): void {
       "Auto-detect the best mode from the user's intent, but let the user override.",
     ],
     parameters: Type.Object({
-      mode: StringEnum([...THINKING_MODES], {
+      mode: Type.String({
         description:
-          "Which thinking mode to activate. 'off' disables the current mode.",
+          "Which thinking mode to activate (e.g. sycophancy, root-ask, grill-me). Use 'off' to disable.",
       }),
       reason: Type.Optional(Type.String({
         description: "Brief explanation of why this mode was chosen (shown to user)",
@@ -38,9 +35,11 @@ export function registerSetThinkingMode(pi: ExtensionAPI): void {
       const mode = params.mode as string;
       const reason = params.reason as string | undefined;
 
-      if (!isValidMode(mode)) {
+      const validIds = [...getModeIds(), "off"];
+      if (!validIds.includes(mode)) {
+        const available = loadModes().map((m) => `${m.id}: ${m.description.split(".")[0]}`).join("\n");
         return {
-          content: [{ type: "text", text: `Invalid mode: ${mode}. Valid modes: ${THINKING_MODES.join(", ")}` }],
+          content: [{ type: "text", text: `Invalid mode: "${mode}". Available modes:\n${available}\noff: disable thinking mode` }],
           isError: true,
         };
       }
