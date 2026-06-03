@@ -11,7 +11,6 @@ import {
   THOUGHT_LABEL_PREFIX,
   THOUGHTS_CUSTOM_TYPE,
   slugify,
-  validateThoughtName,
   generateAnchorId,
 } from "../types.ts";
 import type { ThoughtAnchor, ModeChange } from "../types.ts";
@@ -55,29 +54,29 @@ export function registerSetThinkingMode(pi: ExtensionAPI): void {
         };
       }
 
-      // Persist mode change as a custom entry
-      const modeChange: ModeChange = {
-        kind: "mode_change",
-        mode,
-        changedAt: Date.now(),
-      };
-      ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, modeChange);
+      // Check if there's an active thread on the current branch
+      const leafId = ctx.sessionManager.getLeafId();
+      const activeThread = leafId ? findThoughtAncestor(ctx, leafId) : null;
+      const activeThreadSlug = activeThread?.label.substring(THOUGHT_LABEL_PREFIX.length);
 
       if (mode === "off") {
-        ctx.ui.setStatus("thoughts", "");
+        const modeChange: ModeChange = {
+          kind: "mode_change",
+          mode,
+          changedAt: Date.now(),
+        };
+        ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, modeChange);
+        ctx.ui.setStatus("thoughts", activeThreadSlug ? `💭 ${activeThreadSlug}` : "");
         return {
           content: [{ type: "text", text: "Thinking mode disabled." }],
-          details: { mode: "off" },
+          details: { mode: "off", thread: activeThreadSlug ?? null },
         };
       }
 
       const def = getModeDefinition(mode);
-
-      // Check if there's an active thread on the current branch
-      const leafId = ctx.sessionManager.getLeafId();
-      const activeThread = leafId ? findThoughtAncestor(ctx, leafId) : null;
-
+      const changedAt = Date.now();
       let threadName: string | null = null;
+      let threadSlug: string | null = activeThreadSlug ?? null;
 
       if (!activeThread) {
         // No active thread — create one
@@ -88,6 +87,7 @@ export function registerSetThinkingMode(pi: ExtensionAPI): void {
           threadName = rawName;
 
           const slug = slugify(rawName);
+          threadSlug = slug;
           const anchorId = generateAnchorId();
           const snapshot = captureSnapshot(ctx, leafId);
           const cwd = ctx.sessionManager.getCwd();
@@ -110,10 +110,18 @@ export function registerSetThinkingMode(pi: ExtensionAPI): void {
         }
       }
 
+      // Persist mode change after any needed thread creation succeeds.
+      const modeChange: ModeChange = {
+        kind: "mode_change",
+        mode,
+        changedAt,
+      };
+      ctx.sessionManager.appendCustomEntry(THOUGHTS_CUSTOM_TYPE, modeChange);
+
       // Update status bar — thread + mode
       const statusParts: string[] = [`🧠 ${def?.label ?? mode}`];
-      if (threadName) {
-        statusParts.push(slugify(threadName));
+      if (threadSlug) {
+        statusParts.push(threadSlug);
       }
       ctx.ui.setStatus("thoughts", statusParts.join(" · "));
 

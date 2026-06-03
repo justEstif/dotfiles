@@ -4,10 +4,9 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { THOUGHTS_CUSTOM_TYPE } from "../types.ts";
-import type { ModeChange, ThoughtAnchor } from "../types.ts";
+import type { ModeChange } from "../types.ts";
 import { loadReferenceContent, getModeDefinition, buildRoutingInstruction } from "./registry.ts";
 import { findThoughtAncestor } from "../lib/helpers.ts";
-import { slugify } from "../types.ts";
 
 export function registerModeInjector(pi: ExtensionAPI): void {
   // ── Clean up status bar on session shutdown ─────────────────────────────
@@ -31,9 +30,7 @@ export function registerModeInjector(pi: ExtensionAPI): void {
       parts.push(threadSlug);
     }
 
-    if (parts.length > 0) {
-      ctx.ui.setStatus("thoughts", parts.join(" · "));
-    }
+    ctx.ui.setStatus("thoughts", parts.length > 0 ? parts.join(" · ") : "");
   });
 
   // ── Inject active mode reference into system prompt ──────────────────────
