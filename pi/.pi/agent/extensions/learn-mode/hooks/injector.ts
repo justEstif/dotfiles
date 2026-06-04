@@ -19,10 +19,10 @@ import {
   markMetacognitionPrompted,
   getMetacognitionPromptInstruction,
   getAverageEncodingDepth,
-} from "../src/engine/index.js";
-import { detectCurrentLanguage } from "../src/language.js";
-import { renderPrompt } from "../src/prompts.js";
-import type { StateContainer } from "../src/state-container.js";
+} from "../engine/index.js";
+import { detectCurrentLanguage } from "../lib/language.js";
+import { renderPrompt } from "../lib/prompts.js";
+import type { StateContainer } from "../lib/state-container.js";
 import { buildTemplateVars, buildResourceInfo } from "../commands/command-helpers.js";
 
 export function registerInjector(pi: ExtensionAPI, sc: StateContainer): void {

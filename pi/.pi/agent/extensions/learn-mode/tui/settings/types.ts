@@ -2,7 +2,7 @@
  * Settings panel types.
  */
 
-import type { LearningPreferences } from "../../src/types.js";
+import type { LearningPreferences } from "../../lib/types.js";
 
 export interface SettingsState {
 	preferences: LearningPreferences;

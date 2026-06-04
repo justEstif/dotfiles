@@ -6,15 +6,15 @@
  */
 
 import type { ExtensionAPI, ExtensionCommandContext, ExtensionContext } from "@earendil-works/pi-coding-agent";
-import { LEARN_SUBCOMMANDS } from "../src/constants.js";
-import type { StateContainer } from "../src/state-container.js";
+import { LEARN_SUBCOMMANDS } from "../lib/constants.js";
+import type { StateContainer } from "../lib/state-container.js";
 import {
   getConnectionDensity,
   getAverageEncodingDepth,
   getSuggestedConnections,
   getDueConcepts,
   getNextReviewLabel,
-} from "../src/engine/index.js";
+} from "../engine/index.js";
 import { showDashboard } from "../tui/dashboard/index.js";
 
 export function registerLearnCommand(pi: ExtensionAPI, sc: StateContainer): void {
@@ -70,7 +70,7 @@ export function registerLearnCommand(pi: ExtensionAPI, sc: StateContainer): void
       const {
         askModelForDefinition,
         showDefinitionOverlay,
-      } = await import("../src/definition.js");
+      } = await import("../lib/definition.js");
       const editorText = ctx.ui.getEditorText()?.trim();
       const text =
         editorText ||
@@ -99,13 +99,13 @@ async function openDashboard(
       case "exercise": {
         sc.state.exercisesGiven.push({ createdAt: Date.now() });
         sc.persist();
-        const { renderPrompt } = await import("../src/prompts.js");
+        const { renderPrompt } = await import("../lib/prompts.js");
         const prompt = renderPrompt("exercise-request", { topic: "Focus: infer from current context." });
         pi.sendUserMessage(prompt);
         break;
       }
       case "review": {
-        const { renderPrompt } = await import("../src/prompts.js");
+        const { renderPrompt } = await import("../lib/prompts.js");
         const prompt = renderPrompt("broad-review", { scope: "current learning thread" });
         pi.sendUserMessage(prompt);
         break;
@@ -113,7 +113,7 @@ async function openDashboard(
       case "define": {
         const text = await ctx.ui.input("Define what word or sentence?", "term to define");
         if (text?.trim()) {
-          const { askModelForDefinition, showDefinitionOverlay } = await import("../src/definition.js");
+          const { askModelForDefinition, showDefinitionOverlay } = await import("../lib/definition.js");
           ctx.ui.notify("Preparing definition overlay...", "info");
           const definition = await askModelForDefinition(ctx, sc.state, text.trim());
           await showDefinitionOverlay(ctx, text.trim(), definition);
@@ -157,7 +157,7 @@ async function handleStart(
 ): Promise<void> {
   // Show onboarding on first use
   if (ctx.hasUI) {
-    const { hasCompletedOnboarding, markOnboardingComplete } = await import("../src/persistence.js");
+    const { hasCompletedOnboarding, markOnboardingComplete } = await import("../lib/persistence.js");
     if (!hasCompletedOnboarding()) {
       const { showOnboarding } = await import("../tui/onboarding/index.js");
       await showOnboarding(ctx);
@@ -167,8 +167,8 @@ async function handleStart(
 
   enableLearning(sc, ctx, args);
 
-  const { renderPrompt } = await import("../src/prompts.js");
-  const { sendAsUser } = await import("../src/state.js");
+  const { renderPrompt } = await import("../lib/prompts.js");
+  const { sendAsUser } = await import("../lib/state.js");
   const { buildTemplateVars, buildResourceInfo } = await import("./command-helpers.js");
 
   const vars = buildTemplateVars(sc.state);
@@ -217,8 +217,8 @@ async function handleExercise(
   });
   sc.persist();
 
-  const { renderPrompt } = await import("../src/prompts.js");
-  const { sendAsUser } = await import("../src/state.js");
+  const { renderPrompt } = await import("../lib/prompts.js");
+  const { sendAsUser } = await import("../lib/state.js");
   const subject = topic ? `Focus: ${topic}` : "Focus: infer from current context.";
   const prompt = renderPrompt("exercise-request", { topic: subject });
   await sendAsUser(sc.pi, ctx, prompt);
@@ -229,8 +229,8 @@ async function handleReview(
   ctx: ExtensionCommandContext,
   sc: StateContainer,
 ): Promise<void> {
-  const { renderPrompt } = await import("../src/prompts.js");
-  const { sendAsUser } = await import("../src/state.js");
+  const { renderPrompt } = await import("../lib/prompts.js");
+  const { sendAsUser } = await import("../lib/state.js");
   const prompt = renderPrompt("broad-review", {
     scope: args.trim() || "current learning thread",
   });
@@ -246,7 +246,7 @@ async function handleDefine(
     askModelForDefinition,
     showDefinitionOverlay,
     readTextFromClipboard,
-  } = await import("../src/definition.js");
+  } = await import("../lib/definition.js");
 
   const explicitText = args.trim();
   const clipboard = explicitText ? undefined : readTextFromClipboard();
@@ -337,9 +337,9 @@ async function handleRead(
   await showReadingCompanion(ctx, sc, title, source);
 
   // Inject reading-companion prompt into system prompt
-  const { renderPrompt } = await import("../src/prompts.js");
-  const { sendAsUser } = await import("../src/state.js");
-  const { findRelevantSchemas } = await import("../src/engine/index.js");
+  const { renderPrompt } = await import("../lib/prompts.js");
+  const { sendAsUser } = await import("../lib/state.js");
+  const { findRelevantSchemas } = await import("../engine/index.js");
 
   const relevantSchemas = findRelevantSchemas(title, sc.state.concepts);
   const priorConcepts = relevantSchemas.map((c) => c.label).join(", ") || "(none)";
@@ -442,7 +442,7 @@ async function enableSelectionSupport(
   ctx: ExtensionCommandContext,
 ): Promise<void> {
   if (!ctx.hasUI || sc.selectionSupport) return;
-  const { installSelectionDefineSupport } = await import("../src/definition.js");
+  const { installSelectionDefineSupport } = await import("../lib/definition.js");
   sc.selectionSupport = installSelectionDefineSupport(ctx, () => sc.state);
 }
 
@@ -450,7 +450,7 @@ async function disableSelectionSupport(
   sc: StateContainer,
   ctx?: ExtensionCommandContext,
 ): Promise<void> {
-  const { uninstallSelectionDefineSupport } = await import("../src/definition.js");
+  const { uninstallSelectionDefineSupport } = await import("../lib/definition.js");
   uninstallSelectionDefineSupport(ctx, sc.selectionSupport);
   sc.selectionSupport = undefined;
 }

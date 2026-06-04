@@ -11,23 +11,23 @@ import {
 import {
   installSelectionDefineSupport,
   uninstallSelectionDefineSupport,
-} from "../src/definition.js";
-import { recordLearnerTurn } from "../src/engine/index.js";
-import { renderPrompt } from "../src/prompts.js";
+} from "../lib/definition.js";
+import { recordLearnerTurn } from "../engine/index.js";
+import { renderPrompt } from "../lib/prompts.js";
 import {
   saveToIndex,
   loadFromIndex,
-} from "../src/persistence.js";
-import { CONTEXT_CUSTOM_TYPE, sendAsUser } from "../src/state.js";
-import type { StateContainer } from "../src/state-container.js";
-import { extractLearningSummary } from "../src/summary.js";
+} from "../lib/persistence.js";
+import { CONTEXT_CUSTOM_TYPE, sendAsUser } from "../lib/state.js";
+import type { StateContainer } from "../lib/state-container.js";
+import { extractLearningSummary } from "../lib/summary.js";
 import {
   READINESS_RE,
   isCommentOnlyEdit,
   isCommentOnlyWrite,
   isProbablyReadOnlyBash,
   userRequestedCommentEdit,
-} from "../src/tool-gates.js";
+} from "../lib/tool-gates.js";
 
 export function registerHooks(pi: ExtensionAPI, sc: StateContainer): void {
   // ── session_start ──────────────────────────────────────────────

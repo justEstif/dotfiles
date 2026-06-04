@@ -4,7 +4,7 @@
  * Provides interleaving opportunities data for dashboard and widgets.
  */
 
-import type { ConceptMastery, ConceptConnection } from "../../src/engine/types.js";
+import type { ConceptMastery, ConceptConnection } from "../../engine/types.js";
 
 export {
 	getInterleavingOpportunities,

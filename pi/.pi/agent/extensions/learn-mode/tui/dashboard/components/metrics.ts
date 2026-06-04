@@ -4,7 +4,7 @@
 
 import { truncateToWidth } from "@earendil-works/pi-tui";
 import type { Theme } from "@earendil-works/pi-coding-agent";
-import type { DifficultyTier } from "../../../src/engine/types.js";
+import type { DifficultyTier } from "../../../engine/types.js";
 import { CachedView } from "../stateful-view.js";
 import type { MetricsProps } from "../types.js";
 

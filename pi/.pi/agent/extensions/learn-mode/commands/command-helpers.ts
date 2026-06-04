@@ -2,9 +2,9 @@
  * Shared helpers for command handlers.
  */
 
-import { detectCurrentLanguage } from "../src/language.js";
-import { detectObviousLearningResource } from "../src/resource-detection.js";
-import type { LearningState } from "../src/types.js";
+import { detectCurrentLanguage } from "../lib/language.js";
+import { detectObviousLearningResource } from "../lib/resource-detection.js";
+import type { LearningState } from "../lib/types.js";
 
 export function buildTemplateVars(
   state: LearningState,

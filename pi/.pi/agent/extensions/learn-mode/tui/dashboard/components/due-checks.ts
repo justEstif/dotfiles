@@ -4,7 +4,7 @@
 
 import { truncateToWidth } from "@earendil-works/pi-tui";
 import type { Theme } from "@earendil-works/pi-coding-agent";
-import type { EncodingDepth } from "../../../src/engine/types.js";
+import type { EncodingDepth } from "../../../engine/types.js";
 import { CachedView } from "../stateful-view.js";
 import type { DueChecksProps } from "../types.js";
 

@@ -26,12 +26,12 @@ export interface LearningState {
   updatedAt: number;
 
   // Phase 2R: Encoding-depth engine (Bloom's 4-6)
-  concepts: Record<string, import("./engine/types.js").ConceptMastery>;
-  conceptConnections: import("./engine/types.js").ConceptConnection[];
-  difficulty: import("./engine/types.js").AdaptiveDifficulty;
-  metacognition: import("./engine/types.js").MetacognitionState;
-  priming: import("./engine/types.js").PrimingState;
-  analytics: import("./engine/types.js").LearningAnalytics;
+  concepts: Record<string, import("../engine/types.js").ConceptMastery>;
+  conceptConnections: import("../engine/types.js").ConceptConnection[];
+  difficulty: import("../engine/types.js").AdaptiveDifficulty;
+  metacognition: import("../engine/types.js").MetacognitionState;
+  priming: import("../engine/types.js").PrimingState;
+  analytics: import("../engine/types.js").LearningAnalytics;
 }
 
 /** User preferences — persisted globally, not per-session. */

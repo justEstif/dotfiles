@@ -4,7 +4,7 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
-import type { StateContainer } from "../src/state-container.js";
+import type { StateContainer } from "../lib/state-container.js";
 
 export function registerLearningGoalTool(
   pi: ExtensionAPI,

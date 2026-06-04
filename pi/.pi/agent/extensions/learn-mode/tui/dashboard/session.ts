@@ -6,7 +6,7 @@
  */
 
 import type { Theme } from "@earendil-works/pi-coding-agent";
-import type { ConceptMastery } from "../../src/engine/types.js";
+import type { ConceptMastery } from "../../engine/types.js";
 import type { DashboardData, DashboardState, DashboardEffect } from "./types.js";
 import { routeKey } from "./key-router.js";
 import { reduce } from "./state-reducer.js";

@@ -2,7 +2,7 @@
  * Reading companion overlay types.
  */
 
-import type { ConceptMastery, EncodingDepth, DifficultyTier } from "../../src/engine/types.js";
+import type { ConceptMastery, EncodingDepth, DifficultyTier } from "../../engine/types.js";
 
 export interface ReadingCompanionData {
 	/** Title of the resource being read. */

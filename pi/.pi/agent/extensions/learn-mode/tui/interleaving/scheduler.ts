@@ -11,7 +11,7 @@ import type {
 	ConceptMastery,
 	ConceptConnection,
 	EncodingDepth,
-} from "../../src/engine/types.js";
+} from "../../engine/types.js";
 
 const DEPTH_SYMBOL: Record<EncodingDepth, string> = {
 	surface: "○",

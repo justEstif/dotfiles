@@ -13,7 +13,7 @@ import type {
 	ConceptMastery,
 	EncodingDepth,
 	DifficultyTier,
-} from "../../src/engine/types.js";
+} from "../../engine/types.js";
 import type { InterleavingItem } from "../interleaving/index.js";
 
 // ── Data layer (read-only, pushed from outside) ────────────────

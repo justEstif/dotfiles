@@ -8,7 +8,7 @@
  */
 
 import type { Theme, ThemeColor } from "@earendil-works/pi-coding-agent";
-import type { ConceptMastery, EncodingDepth } from "../../src/engine/types.js";
+import type { ConceptMastery, EncodingDepth } from "../../engine/types.js";
 import type { DashboardState } from "./types.js";
 import type { StatefulView } from "./stateful-view.js";
 import type { HeaderProps } from "./types.js";

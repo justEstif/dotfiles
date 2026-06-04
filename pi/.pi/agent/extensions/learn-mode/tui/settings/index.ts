@@ -3,8 +3,8 @@
  */
 
 import type { ExtensionContext } from "@earendil-works/pi-coding-agent";
-import type { LearningPreferences } from "../../src/types.js";
-import { loadPreferences, savePreferences } from "../../src/preferences.js";
+import type { LearningPreferences } from "../../lib/types.js";
+import { loadPreferences, savePreferences } from "../../lib/preferences.js";
 import { SettingsSession } from "./session.js";
 
 export async function showSettingsPanel(ctx: ExtensionContext): Promise<LearningPreferences | null> {

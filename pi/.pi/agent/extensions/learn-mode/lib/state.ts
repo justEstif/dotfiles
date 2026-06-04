@@ -7,7 +7,7 @@ import {
   DEFAULT_DIFFICULTY,
   DEFAULT_METACOGNITION,
   DEFAULT_PRIMING,
-} from "./engine/index.js";
+} from "../engine/index.js";
 import type { EditModeState, LearningState } from "./types.js";
 
 export const STATE_ENTRY_TYPE = "learning-tutor-state";

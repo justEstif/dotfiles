@@ -4,7 +4,7 @@
 
 import { truncateToWidth } from "@earendil-works/pi-tui";
 import type { Theme } from "@earendil-works/pi-coding-agent";
-import type { LearningPreferences } from "../../src/types.js";
+import type { LearningPreferences } from "../../lib/types.js";
 import type { SettingsState, SettingsEffect } from "./types.js";
 import { routeKey } from "./key-router.js";
 import { reduce, SETTINGS } from "./state-reducer.js";

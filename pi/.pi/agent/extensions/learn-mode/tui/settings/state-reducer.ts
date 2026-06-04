@@ -2,7 +2,7 @@
  * Settings panel — setting definitions and reducer.
  */
 
-import type { LearningPreferences } from "../../src/types.js";
+import type { LearningPreferences } from "../../lib/types.js";
 import type { SettingsState, SettingsAction, SettingsApplyResult, SettingDef } from "./types.js";
 
 export const SETTINGS: SettingDef[] = [

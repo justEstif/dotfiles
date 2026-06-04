@@ -6,14 +6,14 @@
  */
 
 import type { ExtensionContext } from "@earendil-works/pi-coding-agent";
-import type { StateContainer } from "../../src/state-container.js";
+import type { StateContainer } from "../../lib/state-container.js";
 import {
 	getConnectionDensity,
 	getAverageEncodingDepth,
 	getSuggestedConnections,
 	getDueConcepts,
 	getNextReviewLabel,
-} from "../../src/engine/index.js";
+} from "../../engine/index.js";
 import type { DashboardData } from "./types.js";
 import { DashboardSession } from "./session.js";
 import { getInterleavingOpportunities } from "../interleaving/index.js";

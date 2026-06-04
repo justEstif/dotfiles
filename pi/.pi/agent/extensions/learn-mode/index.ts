@@ -24,7 +24,7 @@
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { StateContainer } from "./src/state-container.js";
+import { StateContainer } from "./lib/state-container.js";
 
 // Commands
 import { registerLearnCommand } from "./commands/learn-command.js";
