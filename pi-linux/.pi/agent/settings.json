@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.78.0",
+  "lastChangelogVersion": "0.78.1",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "minimal",
   "defaultProvider": "zai",
@@ -10,7 +10,6 @@
     "keepRecentTokens": 10000
   },
   "packages": [
-    "npm:@majorgilles/pi-learning-tutor",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",

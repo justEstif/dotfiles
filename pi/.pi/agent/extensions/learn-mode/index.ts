@@ -25,6 +25,7 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { StateContainer } from "./lib/state-container.js";
+import { log } from "./lib/logger.js";
 
 // Commands
 import { registerLearnCommand } from "./commands/learn-command.js";
@@ -37,10 +38,12 @@ import { registerInjector } from "./hooks/injector.js";
 import { registerHooks } from "./hooks/hooks.js";
 
 export default function learningTutorExtension(pi: ExtensionAPI): void {
+  log("init", "extension loading");
   const sc = new StateContainer(pi);
 
   registerLearnCommand(pi, sc);
   registerLearningGoalTool(pi, sc);
   registerInjector(pi, sc);
   registerHooks(pi, sc);
+  log("init", "extension loaded");
 }

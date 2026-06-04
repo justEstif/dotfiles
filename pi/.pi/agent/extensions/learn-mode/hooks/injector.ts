@@ -22,11 +22,13 @@ import {
 } from "../engine/index.js";
 import { detectCurrentLanguage } from "../lib/language.js";
 import { renderPrompt } from "../lib/prompts.js";
+import { log } from "../lib/logger.js";
 import type { StateContainer } from "../lib/state-container.js";
 import { buildTemplateVars, buildResourceInfo } from "../commands/command-helpers.js";
 
 export function registerInjector(pi: ExtensionAPI, sc: StateContainer): void {
   pi.on("before_agent_start", async (event, ctx) => {
+    log("injector", `enter active=${sc.state.active} goal=${sc.state.goal?.slice(0, 40)}`);
     if (!sc.state.active) return;
 
     const language = detectCurrentLanguage(ctx.cwd);

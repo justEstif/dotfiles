@@ -8,6 +8,7 @@
 import type { ExtensionAPI, ExtensionCommandContext, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import { LEARN_SUBCOMMANDS } from "../lib/constants.js";
 import type { StateContainer } from "../lib/state-container.js";
+import { log } from "../lib/logger.js";
 import {
   getConnectionDensity,
   getAverageEncodingDepth,
@@ -27,13 +28,20 @@ export function registerLearnCommand(pi: ExtensionAPI, sc: StateContainer): void
     },
     handler: async (args, ctx) => {
       const trimmed = args.trim();
+      log("cmd", `handler invoked args=${JSON.stringify(trimmed.slice(0, 80))} active=${sc.state.active}`);
 
       const subMatch = trimmed.match(/^(\w+)\s*(.*)$/s);
       if (subMatch) {
         const [, sub, subArgs] = subMatch;
         const handler = SUBCOMMAND_MAP[sub.toLowerCase()];
+        log("cmd", `matched sub=${sub} hasHandler=${!!handler}`);
         if (handler) {
-          await handler(subArgs, ctx, sc);
+          try {
+            await handler(subArgs, ctx, sc);
+          } catch (err) {
+            log("cmd", `ERROR in ${sub}: ${err}`);
+            throw err;
+          }
           return;
         }
       }
@@ -303,7 +311,10 @@ async function handleRead(
   ctx: ExtensionCommandContext,
   sc: StateContainer,
 ): Promise<void> {
+  log("read", `enter active=${sc.state.active} args=${JSON.stringify(args.slice(0, 80))}`);
+
   if (!sc.state.active) {
+    log("read", "blocked: learning not active");
     ctx.ui.notify(
       "Start learning mode first with /learn <topic>, then use /learn read <url>.",
       "info",
@@ -313,11 +324,14 @@ async function handleRead(
 
   const input = args.trim();
   if (!input) {
+    log("read", "blocked: empty input");
     ctx.ui.notify("Usage: /learn read <url_or_title>", "warning");
     return;
   }
 
+  log("read", `hasUI=${ctx.hasUI}`);
   if (!ctx.hasUI) {
+    log("read", "blocked: no TUI");
     ctx.ui.notify("Reading companion requires a TUI.", "warning");
     return;
   }
@@ -329,12 +343,20 @@ async function handleRead(
     const url = new URL(input);
     title = url.pathname.split("/").filter(Boolean).pop() || url.hostname;
     source = input;
+    log("read", `parsed URL title=${title}`);
   } catch {
-    // Not a URL — use as title
+    log("read", `not a URL, using as title`);
   }
 
-  const { showReadingCompanion } = await import("../tui/reading-companion/index.js");
-  await showReadingCompanion(ctx, sc, title, source);
+  log("read", `showing companion overlay title=${title}`);
+  try {
+    const { showReadingCompanion } = await import("../tui/reading-companion/index.js");
+    await showReadingCompanion(ctx, sc, title, source);
+    log("read", "overlay done");
+  } catch (err) {
+    log("read", `ERROR showReadingCompanion: ${err}`);
+    throw err;
+  }
 
   // Inject reading-companion prompt into system prompt
   const { renderPrompt } = await import("../lib/prompts.js");

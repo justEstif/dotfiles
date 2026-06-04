@@ -8,6 +8,7 @@ import {
   type ExtensionAPI,
   type ExtensionContext,
 } from "@earendil-works/pi-coding-agent";
+import { log } from "../lib/logger.js";
 import {
   installSelectionDefineSupport,
   uninstallSelectionDefineSupport,
@@ -33,6 +34,7 @@ export function registerHooks(pi: ExtensionAPI, sc: StateContainer): void {
   // ── session_start ──────────────────────────────────────────────
 
   pi.on("session_start", async (_event, ctx) => {
+    log("session_start", `enter goal=${sc.state.goal} active=${sc.state.active}`);
     // Clean up previous selection support
     uninstallSelectionDefineSupport(ctx, sc.selectionSupport);
     sc.selectionSupport = undefined;
@@ -61,7 +63,7 @@ export function registerHooks(pi: ExtensionAPI, sc: StateContainer): void {
       }
     }
 
-    // Reset legacy edit modes
+    log("session_start", `restored active=${sc.state.active} concepts=${Object.keys(sc.state.concepts).length} hasUI=${ctx.hasUI}`);
     if (
       sc.state.editMode.phase === "draft" ||
       sc.state.editMode.phase === "awaiting-approval"
