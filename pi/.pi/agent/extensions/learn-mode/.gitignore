@@ -1,0 +1,9 @@
+node_modules/
+.pi-lens/
+dist/
+build/
+.env
+.env.*
+*.log
+Session.vim
+Sessionx.vim

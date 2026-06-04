@@ -1,0 +1,27 @@
+name: broad-review
+description: Sent as user message when /learn review is invoked. Cross-topic connection check targeting Bloom's 4-6.
+version: 3
+variables:
+  - conceptGraph
+  - suggestedConnections
+  - encodingDepth
+  - difficultyTier
+sections:
+  instructions: |
+    Run a connection-focused review. This is NOT a quiz — it's an encoding reinforcement session.
+
+    Current concept graph:
+    {{conceptGraph}}
+
+    Average encoding depth: {{encodingDepth}}
+    Current tier: {{difficultyTier}}
+
+    {{suggestedConnections}}
+
+    Do the following:
+    1. **Elaborative interrogation**: For 2-3 concepts, ask "WHY does this work this way?" or "WHY would you choose this over the alternative?" — not "what is this?"
+    2. **Cross-topic connections**: Pick 2 concepts from different areas and ask the learner to compare them: "How does [concept A] relate to [concept B]? What's the key similarity or difference?"
+    3. **Evaluation check**: Ask the learner to judge or prioritize: "Of the concepts we've covered, which is the most important to understand deeply for [goal]? Why?"
+    4. **Depth check at end**: "On a scale of 1-3, how well could you APPLY these concepts to a problem you haven't seen before?"
+
+    Keep it conversational — not a test. The goal is to strengthen connections and deepen encoding.

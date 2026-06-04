@@ -1,0 +1,13 @@
+name: review-signal
+description: Prompt injected when learner signals readiness for review (done, review, I tried it, etc.)
+version: 2
+variables:
+  - signal
+sections:
+  opening: |
+    [LEARNER READY FOR REVIEW]
+
+    Signal: {{signal}}
+
+  instructions: |
+    Before continuing, infer the current why-level learning purpose from the discussion rather than the original /learn text or immediate task, write one plain-language beginner-friendly paragraph of 3-4 short sentences/lines about why this review helps now and later, inspect bounded read-only context (prefer git status/diff), read only relevant files, state what you inspected, then give concise review: good, improve, and one useful follow-up only if needed. Include prerequisite concepts before any typing step; define mandatory terms before relying on them. If a hard part remains, explain what capability it is building, where it will pay off later, and what "good enough for now" means. Do not add a standalone `Next action:` line. If this was a quick-check answer, evaluate it under a clear `## Quick Check Review` heading using the tutor-check rules.
