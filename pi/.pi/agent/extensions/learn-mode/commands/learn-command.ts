@@ -313,16 +313,29 @@ async function handleRead(
 ): Promise<void> {
   log("read", `enter active=${sc.state.active} args=${JSON.stringify(args.slice(0, 80))}`);
 
+  const input = args.trim();
+
   if (!sc.state.active) {
-    log("read", "blocked: learning not active");
+    // Derive a suggested topic from the input
+    let suggestedTopic = input;
+    try {
+      const url = new URL(input);
+      // Use the last meaningful path segment, formatted nicely
+      const segment = url.pathname.split("/").filter(Boolean).pop() || "";
+      suggestedTopic = segment
+        .replace(/[-_]/g, " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase())
+        .trim() || url.hostname;
+    } catch {
+      // Not a URL — use input as-is
+    }
+    log("read", `not active, suggesting topic: ${suggestedTopic}`);
     ctx.ui.notify(
-      "Start learning mode first with /learn <topic>, then use /learn read <url>.",
+      `Start learning mode first: /learn ${suggestedTopic}`,
       "info",
     );
     return;
   }
-
-  const input = args.trim();
   if (!input) {
     log("read", "blocked: empty input");
     ctx.ui.notify("Usage: /learn read <url_or_title>", "warning");
