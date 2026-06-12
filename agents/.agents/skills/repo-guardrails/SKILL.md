@@ -1,5 +1,5 @@
 ---
-name: feedback-loop
+name: repo-guardrails
 description: "Turn repeated agent/review failures and team conventions into deterministic repo feedback loops: local gates, linters, CI, custom rules, screenshot tests, observability-to-tasks, and git safety. Use when the user asks to harden a repo for agents, reduce AI code drift, migrate CLAUDE.md guidance into enforceable checks, encode software-design red flags as repo checks, add CI/pre-commit/pre-push/protected-branch guardrails, or improve structured logging. For diagnosing which modules/interfaces should change, use software-design first; for writing behavior through tests, use tdd."
 ---
 

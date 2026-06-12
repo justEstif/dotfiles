@@ -88,3 +88,5 @@ H3 (options): [top items, estimated effort]
 
 Next action: [single most impactful thing to do this week]
 ```
+
+**Write this allocation as a standing document, not a meeting outcome.** The doc is the commitment — revisit it at each milestone to check drift. If what you're actually working on doesn't match the allocation, the document makes the gap visible. If priorities changed, update the doc and state why — don't silently abandon the plan.

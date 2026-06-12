@@ -1,6 +1,6 @@
 ---
-name: message-clarity
-description: "Closes the gap between what you're trying to say and what your audience actually receives. Use when you know what something does but can't get it to land — landing page copy that isn't clicking, a presentation whose audience won't 'get it', a pitch that keeps getting 'but what is it?', a message to a colleague you can't phrase without friction, stakeholder buy-in, proposal pre-alignment, or lesson content that isn't connecting. Works across apps, slides, emails, pitches, sensitive questions, and meeting prep. Keywords: message clarity, audience, positioning, stakeholder alignment, buy-in, prealignment, proposal, landing page, not resonating, make it obvious."
+name: craft-message
+description: "Closes the gap between what you're trying to say and what your audience actually receives. Use when you know what something does but can't get it to land — landing page copy that isn't clicking, a presentation whose audience won't 'get it', a pitch that keeps getting 'but what is it?', a message to a colleague you can't phrase without friction, stakeholder buy-in, proposal pre-alignment, or lesson content that isn't connecting. Also use when drafting interpersonal messages — disagreements, negotiations, bad news, feedback, apologies, cold outreach, delegating, celebrating, or any email/Slack/text where the situation matters. Keywords: craft message, communication, message clarity, audience, positioning, stakeholder alignment, buy-in, prealignment, proposal, landing page, not resonating, make it obvious, email, slack, message, draft, compose, disagreement, negotiation, bad news, feedback, apology, decline, cold outreach, boundary, delegate."
 ---
 
 # Message Clarity
@@ -10,6 +10,8 @@ The burden of clarity is entirely on the communicator. When someone doesn't get 
 **MANDATORY — READ `references/frameworks.md`** before writing any copy or structured output (landing page, pitch, slide, email). It contains the PAS framework, three-level message structure, and the gap diagnosis process.
 
 **MANDATORY — READ `references/stakeholder-prealignment.md`** when the user needs buy-in, proposal framing, objection handling, meeting prep, stakeholder alignment, or pre-alignment before a group decision.
+
+**MANDATORY — READ `references/situational-composing.md`** when the user needs to draft an interpersonal message (email, Slack, text) for a specific situation — disagreement, negotiation, bad news, feedback, apology, cold outreach, etc.
 
 ## Core Insight
 
@@ -87,3 +89,15 @@ If any answer is no — return to Phase 2. The gap is still there.
 - **NEVER describe what a thing *is* when you mean to describe what it *does for someone***
   **Why:** "It's a communication clarity process" tells them nothing. "For when you know what you're trying to say but it keeps not landing" is a door they walk through.
   **Instead:** Reframe every noun into a before/after: not "what is it" but "what changes for the person who uses it."
+
+- **NEVER write a single draft for a high-stakes interpersonal message**
+  **Why:** One draft presumes you know what the sender is optimizing for. In high stakes, they often don't.
+  **Instead:** Offer 2-3 strategies with different trade-offs. Let the sender choose. See `references/situational-composing.md`.
+
+- **NEVER pad with filler warmth**
+  **Why:** "Hope you're doing well" before a termination email is worse than no warmth. Incongruent warmth reads as manipulative.
+  **Instead:** Warmth through specificity — reference something real, or skip it.
+
+- **NEVER write the message in the agent's voice**
+  **Why:** The message has to sound like the sender. Agent-voiced messages read as corporate and impersonal.
+  **Instead:** Match the sender's demonstrated tone and vocabulary from the conversation.

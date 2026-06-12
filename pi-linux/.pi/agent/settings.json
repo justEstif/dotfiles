@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.78.1",
-  "hideThinkingBlock": false,
-  "defaultThinkingLevel": "off",
-  "defaultProvider": "opencode",
-  "defaultModel": "deepseek-v4-flash-free",
+  "lastChangelogVersion": "0.79.1",
+  "hideThinkingBlock": true,
+  "defaultThinkingLevel": "minimal",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5.1",
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,

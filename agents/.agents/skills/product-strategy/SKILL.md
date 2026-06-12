@@ -1,6 +1,6 @@
 ---
 name: product-strategy
-description: "Evaluate product/app ideas before and after MVP using north-star one-pagers, core-tech leverage, defining constraints, success criteria, opportunity mapping, RICE, and growth horizons. Use when deciding whether to build, continue, pivot, prioritize post-MVP work, define product success, or avoid feature-factory drift. Keywords: build or not, MVP, product idea, north star, product strategy, RICE, opportunity tree, roadmap, post-MVP, pivot, success criteria."
+description: "Evaluate product/app ideas before and after MVP using north-star one-pagers, core-tech leverage, defining constraints, success criteria, opportunity mapping, RICE, and growth horizons. Use when deciding whether to build, continue, pivot, prioritize post-MVP work, define product success, or avoid feature-factory drift. Keywords: build or not, MVP, product idea, north star, product strategy, RICE, opportunity tree, roadmap, post-MVP, pivot, success criteria, narrative, one-pager, working backwards."
 ---
 
 # Product Strategy

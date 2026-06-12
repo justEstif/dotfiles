@@ -8,11 +8,15 @@ The idea needs a one-page north star: precise, ambitious, lean. Usable as source
 
 Empty space on the page = "research/prototype more." Overflow = "too complex."
 
+**Write it so anyone in the org can understand it without prior context** (Amazon narrative discipline). Start with purpose — what this document covers and explicitly what it does **not** cover — then background. Every claim backed by data, not speculation. Eliminate "should" — if you can't state it as a fact or a dated commitment, it's not ready.
+
 Probe for: who it serves, what changes for them, what will **not** be built, why now, what conflict it resolves when stakeholders disagree, what does success look like in concrete measurable terms, and what date will you revisit to evaluate it.
 
 Name the artifact before defending its value. If the label is vague or scope-loaded ("workspace", "tool", "project"), ask whether it is actually a document, workflow, prompt pack, prototype, or operating habit; then state the intended maintenance burden and boundary before arguing why it matters.
 
 Success criteria and a dated review milestone are not optional polish — they are the forcing mechanism. Without them, you work until tired, never declare done, and v2 has no grounding.
+
+**Review ritual.** Once written, have stakeholders read it silently before any discussion (15 min for a one-pager). No verbal preamble — the document must stand alone. Questions and feedback after reading, not during. This catches gaps the author is blind to and forces the doc to carry its own weight.
 
 ## Gate 2: Core Tech Must Be Separable from the Product
 
