@@ -12,6 +12,7 @@ television = "latest"
 "npm:agent-browser" = 'latest'
 "npm:@justestif/pk" = "latest"
 "go:github.com/justestif/shelf-cli" = "latest"
+yt-dlp = "latest"
 "npm:opencode-ai" = "latest"
 # bat = "latest"
 # uv = "latest"

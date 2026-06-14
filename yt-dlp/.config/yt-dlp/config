@@ -1,0 +1,23 @@
+# ============================================================
+# yt-dlp config — music downloads (MP3 + metadata)
+# ============================================================
+
+# --- Format: extract best audio, convert to MP3 -------------
+-x
+--audio-format mp3
+--audio-quality 0            # 0 = best VBR (~245 kbps). Use 320K for CBR.
+
+# --- Metadata & album art (ID3 tags via mutagen) -----------
+--embed-metadata
+--embed-thumbnail
+
+# --- Output: "Artist - Title.mp3" --------------------------
+# Falls back gracefully when artist/uploader is missing.
+-o '%(artist|uploader|channel)s - %(title)s.%(ext)s'
+
+# --- Performance -------------------------------------------
+--concurrent-fragments 4
+
+# --- Safety ------------------------------------------------
+--no-overwrites              # don't re-download files already on disk
+--no-playlist                # only the video/track you pass, not the whole playlist
