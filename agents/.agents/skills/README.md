@@ -4,67 +4,66 @@ Personal agent skills organized by activation intent. This file is a navigation 
 
 ## Cluster Map
 
-| Cluster | Use when | Skills |
-| --- | --- | --- |
-| Meta / System | Managing agent behavior, knowledge, plans, or the skill library itself | `skill-creator`, `find-skills`, `pk`, `plan` |
-| Think / Decide | The user needs structured thinking, pushback, goals, strategy, systems analysis, comparison, or decision support | `thought-partner`, `goal-setting`, `product-strategy`, `systems-thinking`, `parallel-explore` |
-| Communicate | Crafting content that lands with audiences — messages, pitches, landing pages, stakeholder alignment | `craft-message` |
-| Agent Style | Governing how the agent itself writes, formats, and frames its output | `output-style`, `caveman`, `argue-position` |
-| Build / Design | Changing software systems, artifacts, architecture, tests, or agent guardrails | `tdd`, `software-design`, `repo-guardrails`, `micro-app` |
-| Tools / Integrations | Operating a specific external tool, platform, or CLI | `github`, `npm-publish`, `fallow` |
-| Incubating / Cleanup | Invalid or experimental skill folders that need promotion, archiving, or deletion | none currently |
+| Cluster              | Use when                                                                                                         | Skills                                                                     |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Meta / System        | Managing agent behavior, knowledge, plans, or the skill library itself                                           | `skill-creator`, `find-skills`, `pk`, `plan`                               |
+| Think / Decide       | The user needs structured thinking, pushback, goals, strategy, systems analysis, comparison, or decision support | `goal-setting`, `product-strategy`, `systems-thinking`, `parallel-explore` |
+| Communicate          | Crafting content that lands with audiences — messages, pitches, landing pages, stakeholder alignment             | `craft-message`                                                            |
+| Agent Style          | Governing how the agent itself writes, formats, and frames its output                                            | `output-style`, `caveman`, `argue-position`                                |
+| Build / Design       | Changing software systems, artifacts, architecture, tests, or agent guardrails                                   | `tdd`, `software-design`, `repo-guardrails`, `micro-app`                   |
+| Tools / Integrations | Operating a specific external tool, platform, or CLI                                                             | `github`, `npm-publish`, `fallow`                                          |
+| Incubating / Cleanup | Invalid or experimental skill folders that need promotion, archiving, or deletion                                | none currently                                                             |
 
 ## Skills by Cluster
 
 ### Meta / System
 
-| Skill | What it does | Activate when |
-| --- | --- | --- |
-| `skill-creator` | Builds, reviews, validates, and improves agent skills. | Creating/reviewing skills, auditing prompts, checking description drift, applying skill-quality rubric. |
-| `find-skills` | Finds and installs skills from the open ecosystem. | User asks whether a skill exists, how to add capability, or wants skill discovery/installation. |
-| `pk` | Maintains durable project knowledge. | Capturing decisions, questions, research, sources, project memory, or when investigation produces durable context. |
-| `plan` | Creates lightweight ignored Markdown plans. | Complex, ambiguous, risky, or multi-session work needs preserved context/rationale. |
+| Skill           | What it does                                           | Activate when                                                                                                      |
+| --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `skill-creator` | Builds, reviews, validates, and improves agent skills. | Creating/reviewing skills, auditing prompts, checking description drift, applying skill-quality rubric.            |
+| `find-skills`   | Finds and installs skills from the open ecosystem.     | User asks whether a skill exists, how to add capability, or wants skill discovery/installation.                    |
+| `pk`            | Maintains durable project knowledge.                   | Capturing decisions, questions, research, sources, project memory, or when investigation produces durable context. |
+| `plan`          | Creates lightweight ignored Markdown plans.            | Complex, ambiguous, risky, or multi-session work needs preserved context/rationale.                                |
 
 ### Think / Decide
 
-| Skill | What it does | Activate when |
-| --- | --- | --- |
-| `thought-partner` | Routes conversational thinking requests to core pushback, root-ask, or plan-grilling modes. | User asks for a sparring partner, pushback, stress testing, root-cause/request investigation, devil's advocate, or help thinking through an ambiguous ask. |
-| `goal-setting` | Turns vague intent into honest, stable, detailed, falsifiable, incremental goals. | Defining success, choosing direction, prioritizing open-ended work, avoiding scope drift, recovering motivation, or clarifying what the user is actually trying to accomplish. |
-| `product-strategy` | Evaluates product/app direction before and after MVP. | Build-or-not decisions, MVP success criteria, product north stars, core-tech leverage, defining constraints, roadmap prioritization, post-MVP pivots, RICE, or opportunity trees. |
-| `systems-thinking` | Analyzes organizational, technical, and strategic problems as interacting systems. | Feedback loops, hidden dependencies, legacy constraints, unknown unknowns, repeated failures, causal loops, debt cascades, or change resistance. |
-| `parallel-explore` | Fans out subagents across competing hypotheses or paths, then synthesizes findings. | Wide search is useful: multiple hypotheses, architecture options, tech choices, debugging theories, product paths, or strategy directions need parallel investigation. |
+| Skill              | What it does                                                                        | Activate when                                                                                                                                                                     |
+| ------------------ | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `goal-setting`     | Turns vague intent into honest, stable, detailed, falsifiable, incremental goals.   | Defining success, choosing direction, prioritizing open-ended work, avoiding scope drift, recovering motivation, or clarifying what the user is actually trying to accomplish.    |
+| `product-strategy` | Evaluates product/app direction before and after MVP.                               | Build-or-not decisions, MVP success criteria, product north stars, core-tech leverage, defining constraints, roadmap prioritization, post-MVP pivots, RICE, or opportunity trees. |
+| `systems-thinking` | Analyzes organizational, technical, and strategic problems as interacting systems.  | Feedback loops, hidden dependencies, legacy constraints, unknown unknowns, repeated failures, causal loops, debt cascades, or change resistance.                                  |
+| `parallel-explore` | Fans out subagents across competing hypotheses or paths, then synthesizes findings. | Wide search is useful: multiple hypotheses, architecture options, tech choices, debugging theories, product paths, or strategy directions need parallel investigation.            |
 
 ### Communicate
 
-| Skill | What it does | Activate when |
-| --- | --- | --- |
+| Skill           | What it does                                                               | Activate when                                                                                                                                                                                                                         |
+| --------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `craft-message` | Makes messages land with audiences and drafts interpersonal communication. | Landing pages, pitches, stakeholder buy-in, proposal framing, or any email/Slack/text where audience shaping or situational strategy matters — disagreements, negotiations, bad news, feedback, apologies, cold outreach, delegation. |
 
 ### Agent Style
 
-| Skill | What it does | Activate when |
-| --- | --- | --- |
-| `output-style` | Controls how the agent formats output — scannable when needed, prose when not, tone, anti-over-formatting. | Making agent writing clearer/scannable, OR stopping over-formatting, sounding more natural, less corporate. |
-| `caveman` | Ultra-compressed communication mode. Drops filler while keeping technical accuracy. | User asks for caveman mode, fewer tokens, extreme brevity, or `/caveman`. |
-| `argue-position` | Applies neutral, balanced framing when presenting arguments on contested topics. | User asks to argue for/against a position, defend a controversial view, discuss politics, ethics, policy, or when the agent handles debated empirical claims. |
+| Skill            | What it does                                                                                               | Activate when                                                                                                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `output-style`   | Controls how the agent formats output — scannable when needed, prose when not, tone, anti-over-formatting. | Making agent writing clearer/scannable, OR stopping over-formatting, sounding more natural, less corporate.                                                   |
+| `caveman`        | Ultra-compressed communication mode. Drops filler while keeping technical accuracy.                        | User asks for caveman mode, fewer tokens, extreme brevity, or `/caveman`.                                                                                     |
+| `argue-position` | Applies neutral, balanced framing when presenting arguments on contested topics.                           | User asks to argue for/against a position, defend a controversial view, discuss politics, ethics, policy, or when the agent handles debated empirical claims. |
 
 ### Build / Design
 
-| Skill | What it does | Activate when |
-| --- | --- | --- |
-| `tdd` | Guides red-green-refactor test-first development. | Building behavior, fixing bugs, or writing integration tests using TDD. |
-| `software-design` | Finds deepening opportunities and designs better modules/APIs. | Architecture, refactoring, module boundaries, testability, deep modules, shallow modules, or codebase design quality. |
+| Skill             | What it does                                                                                                  | Activate when                                                                                                                                  |
+| ----------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tdd`             | Guides red-green-refactor test-first development.                                                             | Building behavior, fixing bugs, or writing integration tests using TDD.                                                                        |
+| `software-design` | Finds deepening opportunities and designs better modules/APIs.                                                | Architecture, refactoring, module boundaries, testability, deep modules, shallow modules, or codebase design quality.                          |
 | `repo-guardrails` | Turns conventions and failure patterns into deterministic repo checks — CI, linters, git hooks, custom rules. | Hardening a repo for agents, adding CI/pre-commit/pre-push guardrails, reducing AI code drift, or encoding design rules as enforceable checks. |
-| `micro-app` | Creates polished local-first HTML micro-apps and artifacts. | Interactive demos, visual explorers, slide decks, diagrams, planning docs, prompt tools, or static artifacts. |
+| `micro-app`       | Creates polished local-first HTML micro-apps and artifacts.                                                   | Interactive demos, visual explorers, slide decks, diagrams, planning docs, prompt tools, or static artifacts.                                  |
 
 ### Tools / Integrations
 
-| Skill | What it does | Activate when |
-| --- | --- | --- |
-| `github` | Uses GitHub through the `gh` CLI. | Issues, PRs, reviews, workflow runs, CI status, or GitHub API queries. |
+| Skill         | What it does                                  | Activate when                                                                                                     |
+| ------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `github`      | Uses GitHub through the `gh` CLI.             | Issues, PRs, reviews, workflow runs, CI status, or GitHub API queries.                                            |
 | `npm-publish` | Handles npm publishing and release workflows. | OIDC/trusted publishing, npm release CI, version/tag sync, package publish failures, scoped or monorepo packages. |
-| `fallow` | Analyzes TS/JS codebase health with `fallow`. | Dead code, unused exports/dependencies, complexity, hotspots, CRAP score, or refactoring targets. |
+| `fallow`      | Analyzes TS/JS codebase health with `fallow`. | Dead code, unused exports/dependencies, complexity, hotspots, CRAP score, or refactoring targets.                 |
 
 ### Incubating / Cleanup
 
@@ -104,36 +103,35 @@ Avoid moving trigger guidance into a body-only "When to use" section. If it affe
 
 ### Thinking / decision skills
 
-| If the user asks… | Prefer | Why |
-| --- | --- | --- |
-| "Help me think," "push back," "stress test this," "what am I missing?" | `thought-partner` | One conversational framework should guide the exchange. |
-| "What am I trying to accomplish?", "define success," "I'm drifting," "make this falsifiable" | `goal-setting` | The deliverable is an explicit goal system that guides progress, tradeoffs, and drift control. |
-| "Should I build this product?", "what after MVP?", "prioritize the roadmap," "pivot or continue?" | `product-strategy` | The decision is product/app direction, success criteria, or post-MVP prioritization. |
-| "This is a systemic mess," "map the feedback loops," "hidden dependencies," "unknown unknowns" | `systems-thinking` | The problem is interaction effects, change resistance, or constraints across a system. |
-| "Explore in parallel," "use subagents," "fan out," "compare these hypotheses/options" | `parallel-explore` | Wide search beats sequential dialogue; each path gets a distinct lens/investigation track. |
+| If the user asks…                                                                                 | Prefer             | Why                                                                                            |
+| ------------------------------------------------------------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------- |
+| "What am I trying to accomplish?", "define success," "I'm drifting," "make this falsifiable"      | `goal-setting`     | The deliverable is an explicit goal system that guides progress, tradeoffs, and drift control. |
+| "Should I build this product?", "what after MVP?", "prioritize the roadmap," "pivot or continue?" | `product-strategy` | The decision is product/app direction, success criteria, or post-MVP prioritization.           |
+| "This is a systemic mess," "map the feedback loops," "hidden dependencies," "unknown unknowns"    | `systems-thinking` | The problem is interaction effects, change resistance, or constraints across a system.         |
+| "Explore in parallel," "use subagents," "fan out," "compare these hypotheses/options"             | `parallel-explore` | Wide search beats sequential dialogue; each path gets a distinct lens/investigation track.     |
 
-Precedence: explicit goals/success criteria → `goal-setting`; product/app strategy → `product-strategy`; systems/feedback-loop diagnosis → `systems-thinking`; subagent/wide hypothesis search → `parallel-explore`; otherwise ambiguous thinking/pushback → `thought-partner`.
+Precedence: explicit goals/success criteria → `goal-setting`; product/app strategy → `product-strategy`; systems/feedback-loop diagnosis → `systems-thinking`; subagent/wide hypothesis search → `parallel-explore`; otherwise ambiguous thinking/pushback
 
 ### Communication vs. agent style
 
-| If the user asks… | Prefer | Why |
-| --- | --- | --- |
-| "Make this message land," "get stakeholder buy-in," "pre-align this proposal" | `craft-message` | The deliverable is content crafted for a specific audience. |
-| "Help me write this email/Slack/text," "how should I phrase this to my manager" | `craft-message` | Audience shaping + situational strategy are both part of crafting communication. See `references/situational-composing.md`. |
-| "Make this scannable," "simplify this," "cut the fluff" | `output-style` | The issue is how the agent writes and formats its output. |
-| "Stop over-formatting," "sound natural," "less corporate," "write like a human" | `output-style` | The problem is formatting excess and robotic tone in agent output. |
-| "Argue for/against X," "defend this position," "make the case for X" | `argue-position` | The task involves contested topics requiring balanced framing. |
-| "Caveman mode," "less tokens," "be brief" | `caveman` | Compression mode toggle. |
+| If the user asks…                                                               | Prefer           | Why                                                                                                                         |
+| ------------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| "Make this message land," "get stakeholder buy-in," "pre-align this proposal"   | `craft-message`  | The deliverable is content crafted for a specific audience.                                                                 |
+| "Help me write this email/Slack/text," "how should I phrase this to my manager" | `craft-message`  | Audience shaping + situational strategy are both part of crafting communication. See `references/situational-composing.md`. |
+| "Make this scannable," "simplify this," "cut the fluff"                         | `output-style`   | The issue is how the agent writes and formats its output.                                                                   |
+| "Stop over-formatting," "sound natural," "less corporate," "write like a human" | `output-style`   | The problem is formatting excess and robotic tone in agent output.                                                          |
+| "Argue for/against X," "defend this position," "make the case for X"            | `argue-position` | The task involves contested topics requiring balanced framing.                                                              |
+| "Caveman mode," "less tokens," "be brief"                                       | `caveman`        | Compression mode toggle.                                                                                                    |
 
 Precedence: audience-crafted content → `craft-message`; agent output formatting/tone → `output-style`; contested topic framing → `argue-position`; compression toggle → `caveman`.
 
 ### Build / design skills
 
-| If the user asks… | Prefer | Why |
-| --- | --- | --- |
-| "Use TDD," "red-green-refactor," "write the failing test first" | `tdd` | The work is implementing behavior through tests. |
-| "Review this architecture," "find refactors," "design this module/API," "make this more testable" | `software-design` | The work is diagnosis and module/interface design. |
-| "Harden this repo," "add CI/linters/hooks," "turn rules into checks," "reduce AI drift" | `repo-guardrails` | The work is making feedback deterministic and enforceable. |
+| If the user asks…                                                                                 | Prefer            | Why                                                        |
+| ------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------- |
+| "Use TDD," "red-green-refactor," "write the failing test first"                                   | `tdd`             | The work is implementing behavior through tests.           |
+| "Review this architecture," "find refactors," "design this module/API," "make this more testable" | `software-design` | The work is diagnosis and module/interface design.         |
+| "Harden this repo," "add CI/linters/hooks," "turn rules into checks," "reduce AI drift"           | `repo-guardrails` | The work is making feedback deterministic and enforceable. |
 
 Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; architectural diagnosis/design → `software-design`.
 
