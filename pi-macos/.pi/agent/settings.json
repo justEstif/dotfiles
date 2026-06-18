@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "0.78.0",
-  "hideThinkingBlock": true,
+  "lastChangelogVersion": "0.79.6",
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
@@ -13,6 +13,8 @@
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@narumitw/pi-subagents"
-  ]
+    "npm:@narumitw/pi-subagents",
+    "npm:pi-mcp-adapter"
+  ],
+  "theme": "dark"
 }
