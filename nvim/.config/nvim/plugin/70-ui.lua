@@ -47,6 +47,7 @@ later(function()
 	require("mini.animate").setup()
 	require("mini.cursorword").setup()
 	require("mini.cmdline").setup()
+	require("mini.input").setup()
 end)
 
 now(function()

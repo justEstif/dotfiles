@@ -1,4 +1,3 @@
-local add = vim.pack.add
 local now, later = Config.now, Config.later
 
 -- add all to quickfix list
@@ -130,6 +129,5 @@ later(function()
 end)
 
 later(function()
-	add({ "https://github.com/tiagovla/scope.nvim" })
-	require("scope").setup()
+	require("mini.visits").setup()
 end)
