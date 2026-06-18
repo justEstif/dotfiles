@@ -31,6 +31,24 @@ local xmap_leader = function(suffix, rhs, desc, opts)
 	vim.keymap.set("x", "<Leader>" .. suffix, rhs, opts)
 end
 
+-- a is for 'agent' (copy context to clipboard)
+nmap_leader("ac", function()
+	local loc = vim.fn.expand("%:p") .. ":" .. vim.api.nvim_win_get_cursor(0)[1]
+	vim.fn.setreg("+", loc)
+	vim.notify("Copied " .. loc)
+end, "Copy location")
+xmap_leader("ac", function()
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "x", false)
+	vim.schedule(function()
+		local file = vim.fn.expand("%:p")
+		local start_l, end_l = vim.fn.line("'<"), vim.fn.line("'>")
+		local lines = vim.api.nvim_buf_get_lines(0, start_l - 1, end_l, false)
+		local loc = file .. ":" .. start_l .. (end_l ~= start_l and ("-" .. end_l) or "")
+		vim.fn.setreg("+", loc .. "\n" .. table.concat(lines, "\n"))
+		vim.notify("Copied " .. loc)
+	end)
+end, "Copy selection")
+
 -- f is for 'explore' and 'edit'
 nmap_leader("fd", "<Cmd>lua MiniFiles.open()<CR>", "Directory")
 nmap_leader("ff", "<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", "File directory")
