@@ -1,4 +1,5 @@
 local now, later = Config.now, Config.later
+local add = vim.pack.add
 
 -- add all to quickfix list
 local choose_all = function()
@@ -126,6 +127,11 @@ later(function()
 	vim.keymap.set("n", "<C-q>", "<Cmd>lua MiniBufremove.delete()<CR>", {
 		desc = "close current buffer",
 	})
+end)
+
+later(function()
+	add({ "https://github.com/tiagovla/scope.nvim" })
+	require("scope").setup()
 end)
 
 later(function()
