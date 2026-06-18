@@ -36,10 +36,6 @@
       "rev": "228aabdb1b9cc74f0c0ccec88e79873857236e49",
       "src": "https://github.com/tiagovla/scope.nvim"
     },
-    "tokyonight.nvim": {
-      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
-      "src": "https://github.com/folke/tokyonight.nvim"
-    },
     "ts-comments.nvim": {
       "rev": "123a9fb12e7229342f807ec9e6de478b1102b041",
       "src": "https://github.com/folke/ts-comments.nvim"
