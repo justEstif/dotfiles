@@ -11,7 +11,6 @@ return {
 					"MiniIcons",
 					"MiniNotify",
 					"MiniCompletion",
-					"MiniFiles",
 					"MiniPick",
 				},
 				disable = { "need-check-nil" },
