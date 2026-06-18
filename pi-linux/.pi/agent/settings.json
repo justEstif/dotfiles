@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.79.6",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "minimal",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
