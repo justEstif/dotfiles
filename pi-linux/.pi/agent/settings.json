@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.79.3",
+  "lastChangelogVersion": "0.79.6",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "minimal",
   "defaultProvider": "zai",
-  "defaultModel": "glm-5.1",
+  "defaultModel": "glm-5.2",
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
@@ -15,5 +15,9 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:@narumitw/pi-subagents",
     "npm:pi-observational-memory"
-  ]
+  ],
+  "theme": "dark",
+  "collapseChangelog": true,
+  "enableInstallTelemetry": false,
+  "treeFilterMode": "no-tools"
 }
