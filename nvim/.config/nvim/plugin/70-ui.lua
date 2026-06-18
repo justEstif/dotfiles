@@ -1,8 +1,8 @@
-local add = MiniDeps.add
+local add = vim.pack.add
 local now, later = Config.now, Config.later
 
 later(function()
-	add("stevearc/quicker.nvim")
+	add({ "https://github.com/stevearc/quicker.nvim" })
 	local quicker = require("quicker")
 	quicker.setup({
 		keys = {

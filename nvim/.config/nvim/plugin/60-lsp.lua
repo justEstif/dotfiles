@@ -1,4 +1,4 @@
-local add = MiniDeps.add
+local add = vim.pack.add
 local now, later = Config.now, Config.later
 
 local diagnostic_opts = {
@@ -51,9 +51,11 @@ local langs = {
 }
 
 later(function()
-	add("mason-org/mason.nvim")
-	add("mason-org/mason-lspconfig.nvim")
-	add("neovim/nvim-lspconfig")
+	add({
+		"https://github.com/mason-org/mason.nvim",
+		"https://github.com/mason-org/mason-lspconfig.nvim",
+		"https://github.com/neovim/nvim-lspconfig",
+	})
 
 	require("mason").setup()
 	-- explicit: we enable servers ourselves below
@@ -66,7 +68,7 @@ end)
 vim.lsp.enable(langs.lsp)
 
 later(function()
-	add("stevearc/conform.nvim")
+	add({ "https://github.com/stevearc/conform.nvim" })
 	local conform = require("conform")
 
 	local formatters_by_ft = {}
@@ -80,7 +82,7 @@ later(function()
 end)
 
 later(function()
-	add("mfussenegger/nvim-lint")
+	add({ "https://github.com/mfussenegger/nvim-lint" })
 	local lint = require("lint")
 
 	local linters_by_ft = {}

@@ -1,4 +1,4 @@
-local add = MiniDeps.add
+local add = vim.pack.add
 local now, later = Config.now, Config.later
 
 -- Editing modules: text objects, completion, snippets, surround, movement, etc.
@@ -56,7 +56,7 @@ later(function()
 end)
 
 later(function()
-	add("folke/ts-comments.nvim")
+	add({ "https://github.com/folke/ts-comments.nvim" })
 	require("ts-comments").setup()
 end)
 
