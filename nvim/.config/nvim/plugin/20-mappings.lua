@@ -17,6 +17,7 @@ _G.Config.leader_group_clues = {
 	{ mode = "v", keys = "<Leader>a", desc = "+Agent" },
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
+	{ mode = "n", keys = "<Leader>t", desc = "+Terminal" },
 }
 
 -- Create `<Leader>` mappings
