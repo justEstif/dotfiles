@@ -1,4 +1,15 @@
-# Browser APIs
+# Browser APIs — micro-app decisions
+
+This file is the **decision layer**: which native API to pick, and how to wire it into the Tailwind + Alpine scaffold (notably the `x-transition` vs `startViewTransition` call). It is **not** the source of truth for API mechanics, gotchas, or Baseline/fallback data — those change fast.
+
+**Before writing any native-API code, confirm current mechanics with `modern-web-guidance`:**
+
+```sh
+npx -y modern-web-guidance@latest search "popover entering top layer animation"
+npx -y modern-web-guidance@latest retrieve "<id>"
+```
+
+When a retrieved guide conflicts with a pattern below, trust the guide. The patterns below stay valid as the *micro-app-specific* integration shape: Alpine state, feature-check wrappers, Tailwind interop.
 
 ## Native browser features
 
