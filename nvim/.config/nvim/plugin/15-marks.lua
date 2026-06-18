@@ -95,5 +95,10 @@ vim.api.nvim_create_user_command("Mark", set_mark, {})
 vim.api.nvim_create_user_command("MarkRemove", remove_line_mark, {})
 vim.api.nvim_create_user_command("MarkClear", clear_all, {})
 
+local function list_marks()
+	require("mini.extra").pickers.marks()
+end
+
 vim.keymap.set("n", "mm", set_mark, { desc = "Set project mark" })
+vim.keymap.set("n", "ml", list_marks, { desc = "List project marks" })
 vim.keymap.set("n", "mM", remove_line_mark, { desc = "Remove mark on current line" })
