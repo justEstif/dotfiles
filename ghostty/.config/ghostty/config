@@ -10,7 +10,7 @@
 # ---- General ----------------------------------------------------------------
 
 shell-integration = fish
-theme = dark:TokyoNight Night,light:TokyoNight Day
+theme = TokyoNight Night
 font-family = "Aporetic Sans Mono"
 window-save-state = always
 confirm-close-surface = false

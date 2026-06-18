@@ -9,8 +9,12 @@ _G.Config = {}
 -- now/later wrap mini.misc.safely(): errors surface as a WARN notification
 -- instead of being swallowed.
 local safely = require("mini.misc").safely
-_G.Config.now = function(f) safely("now", f) end
-_G.Config.later = function(f) safely("later", f) end
+_G.Config.now = function(f)
+	safely("now", f)
+end
+_G.Config.later = function(f)
+	safely("later", f)
+end
 
 -- Defined here, not in a plugin/ file, so colorscheme.lua's now() can read it.
 _G.Config.is_dark_mode = function()
