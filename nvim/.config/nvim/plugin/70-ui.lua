@@ -1,4 +1,5 @@
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local add = MiniDeps.add
+local now, later = Config.now, Config.later
 
 later(function()
 	add("stevearc/quicker.nvim")
@@ -21,12 +22,6 @@ later(function()
 			},
 		},
 	})
-end)
-
-now(function()
-	add("folke/tokyonight.nvim")
-	vim.cmd([[colorscheme tokyonight-night]])
-	vim.o.background = _G.Config.is_dark_mode() and "dark" or "light"
 end)
 
 now(function()

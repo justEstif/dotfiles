@@ -1,4 +1,4 @@
-local later = MiniDeps.later
+local later = Config.later
 
 later(function()
 	vim.api.nvim_create_autocmd("FileType", {

@@ -1,4 +1,5 @@
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local add = MiniDeps.add
+local now, later = Config.now, Config.later
 
 -- add all to quickfix list
 local choose_all = function()
