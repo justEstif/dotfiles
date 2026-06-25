@@ -27,6 +27,30 @@ end
 vim.opt.shadafile = shadafile .. ".shada"
 vim.opt.shada:append("f1")
 
+local mark_signs_ns = vim.api.nvim_create_namespace("project_marks_signs")
+
+local function refresh_mark_signs(bufnr)
+	bufnr = bufnr or vim.api.nvim_get_current_buf()
+	vim.api.nvim_buf_clear_namespace(bufnr, mark_signs_ns, 0, -1)
+
+	for _, item in ipairs(vim.fn.getmarklist()) do
+		local mark = item.mark:match("^'([A-Z])$")
+		if mark and item.pos[1] == bufnr and item.pos[2] > 0 then
+			vim.api.nvim_buf_set_extmark(bufnr, mark_signs_ns, item.pos[2] - 1, 0, {
+				sign_text = mark,
+				sign_hl_group = "DiagnosticHint",
+				priority = 20,
+			})
+		end
+	end
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	callback = function(args)
+		refresh_mark_signs(args.buf)
+	end,
+})
+
 -- Auto-allocate next free A-Z mark; Harpoon-style, no letter-picking.
 local used = {}
 for i = 65, 90 do
@@ -69,6 +93,7 @@ local function set_mark()
 	vim.api.nvim_buf_set_mark(0, mark, pos[1], pos[2], {})
 	used[mark] = true
 	vim.cmd("wshada!")
+	refresh_mark_signs()
 	vim.notify(string.format("Mark '%s' set", mark))
 end
 
@@ -77,6 +102,7 @@ local function remove_line_mark()
 	for mark, is_set in pairs(used) do
 		if is_set and vim.api.nvim_get_mark(mark, {})[1] == line then
 			release(mark)
+			refresh_mark_signs()
 			vim.notify(string.format("Mark '%s' removed", mark))
 			return
 		end
@@ -88,12 +114,13 @@ local function clear_all()
 	for mark in pairs(used) do
 		release(mark)
 	end
+	refresh_mark_signs()
 	vim.notify("All marks cleared")
 end
 
 vim.api.nvim_create_user_command("Mark", set_mark, {})
 vim.api.nvim_create_user_command("MarkRemove", remove_line_mark, {})
-vim.api.nvim_create_user_command("MarkClear", clear_all, {})
+vim.api.nvim_create_user_command("MarkClearAll", clear_all, {})
 
 local function list_marks()
 	require("mini.extra").pickers.marks()
@@ -102,3 +129,4 @@ end
 vim.keymap.set("n", "mm", set_mark, { desc = "Set project mark" })
 vim.keymap.set("n", "ml", list_marks, { desc = "List project marks" })
 vim.keymap.set("n", "mM", remove_line_mark, { desc = "Remove mark on current line" })
+vim.keymap.set("n", "mC", clear_all, { desc = "Clear all project marks" })
