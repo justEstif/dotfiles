@@ -24,10 +24,6 @@
       "rev": "bfcc0171a43f22afa61d927ffe9fcb6cb85dc99e",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
-    "oil.nvim": {
-      "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
-      "src": "https://github.com/stevearc/oil.nvim"
-    },
     "quicker.nvim": {
       "rev": "4a6883cb13fe097a20a046eb55f6dffd239276e3",
       "src": "https://github.com/stevearc/quicker.nvim"
