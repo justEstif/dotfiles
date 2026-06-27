@@ -1,0 +1,31 @@
+# nb config — sourced by nb on every run.
+# Docs:    https://xwmx.github.io/nb/#settings
+# Managed: stow (dotfiles/nb/.nbrc -> ~/.nbrc)
+#
+# nb's native config location is ~/.nbrc (a sourced shell script).
+# Notebook DATA lives separately at $NB_DIR (default ~/.nb) and is NOT config.
+
+# ── Editor ───────────────────────────────────────────────────────────────────
+# Used by `nb add` / `nb edit`. (Also falls back to $EDITOR, but pin explicitly
+# so it's correct even outside fish.)
+export NB_EDITOR="nvim"
+
+# ── Rendering ────────────────────────────────────────────────────────────────
+# `nb show` renders markdown with this. glow is already on PATH via mise; pin it
+# instead of relying on auto-detection.
+export NB_MARKDOWN_TOOL="glow"
+
+# ── Sync (the reason we use nb over zk) ──────────────────────────────────────
+# auto_sync=1 → nb auto-commits AND auto-pushes every change to the configured
+# remote, every time a command runs in the notebook. zk has no equivalent.
+# Remote is set per-notebook with:  nb remote set <url>
+export NB_AUTO_SYNC="1"
+
+# ── Notes ────────────────────────────────────────────────────────────────────
+# Default extension for new notes.
+export NB_DEFAULT_EXTENSION="md"
+
+# ── Bookmarks ────────────────────────────────────────────────────────────────
+# `nb <url>` extracts main page content into the bookmark note. readability-cli
+# is the cleanup tool nb supports natively (called as: readable --base <url> --quiet).
+export NB_BOOKMARK_CONTENT_CLEANUP_TOOL="readable"
