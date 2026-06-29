@@ -5,6 +5,7 @@ go = "latest"
 rust = "latest"
 usage = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
+"npm:@oh-my-pi/pi-coding-agent" = "latest"
 lazygit = "latest"
 glow = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
@@ -13,18 +14,12 @@ television = "latest"
 "npm:@justestif/pk" = "latest"
 "npm:nb.sh" = "latest"
 "npm:readability-cli" = "latest"
-# "go:github.com/justestif/shelf-cli" = "latest"
 yt-dlp = "latest"
-# "npm:opencode-ai" = "latest"
-# bat = "latest"
-# uv = "latest"
-# "github:can1357/oh-my-pi" = "latest"
 
-# [hooks]
-# enter = "mise install"
 
 [settings]
 experimental = true
 idiomatic_version_file_enable_tools = ["node"]
 locked = false
 env_shell_expand = true
+npm.package_manager = "bun"

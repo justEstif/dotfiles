@@ -34,7 +34,7 @@ commands:
   enableOpencodeUser: false
   enableOpencodeProject: false
 task: 
-  eager: true
+  eager: always
   agentModelOverrides: 
     designer: sonnet-4-6
   disabledAgents: 
@@ -64,3 +64,6 @@ eval:
   js: false
 python: 
   kernelMode: session
+setupVersion: 1
+tui: 
+  renderMermaid: false
