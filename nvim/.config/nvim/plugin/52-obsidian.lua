@@ -8,7 +8,7 @@ later(function()
 	add({
 		{
 			src = "https://github.com/obsidian-nvim/obsidian.nvim",
-			version = vim.version.range "*", -- latest release; drop to track `main`
+			version = vim.version.range("*"), -- latest release; drop to track `main`
 		},
 	})
 
@@ -17,7 +17,11 @@ later(function()
 		workspaces = {
 			{
 				name = "personal",
-				path = "~/Documents/obsidian-vault",
+				path = "~/vaults/personal",
+			},
+			{
+				name = "work",
+				path = "~/vaults/work",
 			},
 		},
 		picker = {

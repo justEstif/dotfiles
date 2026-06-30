@@ -12,9 +12,6 @@ glow = "latest"
 television = "latest"
 "npm:agent-browser" = 'latest'
 "npm:@justestif/pk" = "latest"
-"npm:nb.sh" = "latest"
-"npm:readability-cli" = "latest"
-yt-dlp = "latest"
 
 
 [settings]
