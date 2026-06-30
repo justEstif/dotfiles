@@ -4,26 +4,26 @@ Personal agent skills organized by activation intent. This file is a navigation 
 
 ## Cluster Map
 
-| Cluster              | Use when                                                                                                         | Skills                                                                     |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Meta / System        | Managing agent behavior, knowledge, plans, or the skill library itself                                           | `skill-creator`, `find-skills`, `pk`, `plan`                               |
-| Think / Decide       | The user needs structured thinking, pushback, goals, strategy, systems analysis, comparison, or decision support | `goal-setting`, `product-strategy`, `systems-thinking`, `parallel-explore` |
-| Communicate          | Crafting content that lands with audiences — messages, pitches, landing pages, stakeholder alignment             | `craft-message`                                                            |
-| Agent Style          | Governing how the agent itself writes, formats, and frames its output                                            | `output-style`, `caveman`, `argue-position`                                |
-| Build / Design       | Changing software systems, artifacts, architecture, tests, or agent guardrails                                   | `tdd`, `software-design`, `repo-guardrails`, `micro-app`                   |
-| Tools / Integrations | Operating a specific external tool, platform, or CLI                                                             | `github`, `npm-publish`, `fallow`                                          |
-| Incubating / Cleanup | Invalid or experimental skill folders that need promotion, archiving, or deletion                                | none currently                                                             |
+| Cluster              | Use when                                                                                                         | Skills                                                                                                             |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Meta / System        | Managing agent behavior, plans, loops, or the skill library itself                                               | `skill-creator`, `find-skills`, `plan`, `loop-engineering`                                                         |
+| Think / Decide       | The user needs structured thinking, pushback, goals, strategy, systems analysis, comparison, or decision support | `goal-setting`, `product-strategy`, `systems-thinking`, `parallel-explore`                                         |
+| Communicate          | Crafting content that lands with audiences — messages, pitches, landing pages, stakeholder alignment             | `craft-message`                                                                                                    |
+| Agent Style          | Governing how the agent itself writes, formats, and frames its output                                            | `output-style`, `caveman`, `argue-position`, `karpathy-guidelines`                                                 |
+| Build / Design       | Changing software systems, artifacts, architecture, tests, web UIs, or repo/agent guardrails                     | `tdd`, `software-design`, `repo-guardrails`, `modern-web-guidance`, `micro-app`                                    |
+| Tools / Integrations | Operating a specific external tool, platform, or CLI                                                             | `github`, `npm-publish`, `fallow`                                                                                  |
+| Archived             | Older, superseded, or invalid skill folders moved out of discovery                                               | `_skills-archive/pk`, `_skills-archive/thought-partner`, `_skills-archive/playground`                              |
 
 ## Skills by Cluster
 
 ### Meta / System
 
-| Skill           | What it does                                           | Activate when                                                                                                      |
-| --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `skill-creator` | Builds, reviews, validates, and improves agent skills. | Creating/reviewing skills, auditing prompts, checking description drift, applying skill-quality rubric.            |
-| `find-skills`   | Finds and installs skills from the open ecosystem.     | User asks whether a skill exists, how to add capability, or wants skill discovery/installation.                    |
-| `pk`            | Maintains durable project knowledge.                   | Capturing decisions, questions, research, sources, project memory, or when investigation produces durable context. |
-| `plan`          | Creates lightweight ignored Markdown plans.            | Complex, ambiguous, risky, or multi-session work needs preserved context/rationale.                                |
+| Skill              | What it does                                                      | Activate when                                                                                                                |
+| ------------------ | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `skill-creator`    | Builds, reviews, validates, and improves agent skills.            | Creating/reviewing skills, auditing prompts, checking description drift, applying skill-quality rubric.                      |
+| `find-skills`      | Finds and installs skills from the open ecosystem.                | User asks whether a skill exists, how to add capability, or wants skill discovery/installation.                              |
+| `plan`             | Creates lightweight ignored Markdown plans.                       | Complex, ambiguous, risky, or multi-session work needs preserved context/rationale.                                          |
+| `loop-engineering` | Designs recurring agent loops with state, isolation, and checks.  | Replacing repeated prompting with scheduled/goal-driven automation, worktrees, durable state, connectors, and maker/checker. |
 
 ### Think / Decide
 
@@ -42,20 +42,22 @@ Personal agent skills organized by activation intent. This file is a navigation 
 
 ### Agent Style
 
-| Skill            | What it does                                                                                               | Activate when                                                                                                                                                 |
-| ---------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `output-style`   | Controls how the agent formats output — scannable when needed, prose when not, tone, anti-over-formatting. | Making agent writing clearer/scannable, OR stopping over-formatting, sounding more natural, less corporate.                                                   |
-| `caveman`        | Ultra-compressed communication mode. Drops filler while keeping technical accuracy.                        | User asks for caveman mode, fewer tokens, extreme brevity, or `/caveman`.                                                                                     |
-| `argue-position` | Applies neutral, balanced framing when presenting arguments on contested topics.                           | User asks to argue for/against a position, defend a controversial view, discuss politics, ethics, policy, or when the agent handles debated empirical claims. |
+| Skill                 | What it does                                                                                               | Activate when                                                                                                                                                 |
+| --------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `output-style`        | Controls how the agent formats output — scannable when needed, prose when not, tone, anti-over-formatting. | Making agent writing clearer/scannable, OR stopping over-formatting, sounding more natural, less corporate.                                                   |
+| `caveman`             | Ultra-compressed communication mode. Drops filler while keeping technical accuracy.                        | User asks for caveman mode, fewer tokens, extreme brevity, or `/caveman`.                                                                                     |
+| `argue-position`      | Applies neutral, balanced framing when presenting arguments on contested topics.                           | User asks to argue for/against a position, defend a controversial view, discuss politics, ethics, policy, or when the agent handles debated empirical claims. |
+| `karpathy-guidelines` | Reduces common LLM coding mistakes with surgical, simple, verifiable coding behavior.                      | Writing, reviewing, or refactoring code where overcomplication, broad edits, or hidden assumptions are risks.                                                 |
 
 ### Build / Design
 
-| Skill             | What it does                                                                                                  | Activate when                                                                                                                                  |
-| ----------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tdd`             | Guides red-green-refactor test-first development.                                                             | Building behavior, fixing bugs, or writing integration tests using TDD.                                                                        |
-| `software-design` | Finds deepening opportunities and designs better modules/APIs.                                                | Architecture, refactoring, module boundaries, testability, deep modules, shallow modules, or codebase design quality.                          |
-| `repo-guardrails` | Turns conventions and failure patterns into deterministic repo checks — CI, linters, git hooks, custom rules. | Hardening a repo for agents, adding CI/pre-commit/pre-push guardrails, reducing AI code drift, or encoding design rules as enforceable checks. |
-| `micro-app`       | Creates polished local-first HTML micro-apps and artifacts.                                                   | Interactive demos, visual explorers, slide decks, diagrams, planning docs, prompt tools, or static artifacts.                                  |
+| Skill                 | What it does                                                                                                                | Activate when                                                                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tdd`                 | Guides red-green-refactor test-first development.                                                                           | Building behavior, fixing bugs, or writing integration tests using TDD.                                                                                          |
+| `software-design`     | Finds deepening opportunities and designs better modules/APIs.                                                              | Architecture, refactoring, module boundaries, testability, deep modules, shallow modules, or codebase design quality.                                            |
+| `repo-guardrails`     | Designs deterministic repo feedback loops — CI, linters, hooks, custom rules, branch protection, logging, and agent safety. | Hardening a repo for agents, reducing AI code drift, encoding design rules as checks, or setting up guardrail loops.                                             |
+| `modern-web-guidance` | Steers frontend work toward modern baseline web platform APIs and accessibility/performance patterns.                        | HTML/CSS/client-side JS tasks involving dialogs, popovers, forms, CSS, View Transitions, browser APIs, a11y, or Core Web Vitals.                                 |
+| `micro-app`           | Creates polished local-first HTML micro-apps and artifacts.                                                                 | Interactive demos, visual explorers, slide decks, diagrams, planning docs, prompt tools, or static artifacts.                                                    |
 
 ### Tools / Integrations
 
@@ -65,15 +67,21 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | `npm-publish` | Handles npm publishing and release workflows. | OIDC/trusted publishing, npm release CI, version/tag sync, package publish failures, scoped or monorepo packages. |
 | `fallow`      | Analyzes TS/JS codebase health with `fallow`. | Dead code, unused exports/dependencies, complexity, hotspots, CRAP score, or refactoring targets.                 |
 
-### Incubating / Cleanup
+### Archived
 
-No invalid or incubating skill folders are currently present.
+These are intentionally outside active skill discovery in `/Users/ebeyene/dotfiles/agents/.agents/_skills-archive`:
+
+| Archived skill/folder | Reason |
+| --------------------- | ------ |
+| `pk` | Replaced by Pi prompt `/pk` and external `pk` CLI workflow. |
+| `thought-partner` | Superseded by more specific thinking skills such as `goal-setting`, `systems-thinking`, and `parallel-explore`. |
+| `playground` | Invalid/empty experimental folder; archived to keep active skills clean. |
 
 ## Naming Standards
 
 - Use lowercase hyphenated names: `output-style`, not `Output Style` or `output_style`.
 - Prefer domain/action names over clever names when the skill is broad: `software-design`, `craft-message`.
-- Keep short tool names when the tool itself is the activation keyword: `github`, `fallow`, `pk`.
+- Keep short tool names when the tool itself is the activation keyword: `github`, `fallow`.
 - Avoid renames unless they materially improve activation. Renames break user muscle memory and may break references.
 - Do not encode clusters into folder names unless the agent platform supports nested skill discovery.
 
@@ -110,7 +118,7 @@ Avoid moving trigger guidance into a body-only "When to use" section. If it affe
 | "This is a systemic mess," "map the feedback loops," "hidden dependencies," "unknown unknowns"    | `systems-thinking` | The problem is interaction effects, change resistance, or constraints across a system.         |
 | "Explore in parallel," "use subagents," "fan out," "compare these hypotheses/options"             | `parallel-explore` | Wide search beats sequential dialogue; each path gets a distinct lens/investigation track.     |
 
-Precedence: explicit goals/success criteria → `goal-setting`; product/app strategy → `product-strategy`; systems/feedback-loop diagnosis → `systems-thinking`; subagent/wide hypothesis search → `parallel-explore`; otherwise ambiguous thinking/pushback
+Precedence: explicit goals/success criteria → `goal-setting`; product/app strategy → `product-strategy`; systems/feedback-loop diagnosis → `systems-thinking`; subagent/wide hypothesis search → `parallel-explore`; otherwise ambiguous thinking/pushback.
 
 ### Communication vs. agent style
 
@@ -125,20 +133,24 @@ Precedence: explicit goals/success criteria → `goal-setting`; product/app stra
 
 Precedence: audience-crafted content → `craft-message`; agent output formatting/tone → `output-style`; contested topic framing → `argue-position`; compression toggle → `caveman`.
 
-### Build / design skills
+### Build / design / loop skills
 
-| If the user asks…                                                                                 | Prefer            | Why                                                        |
-| ------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------- |
-| "Use TDD," "red-green-refactor," "write the failing test first"                                   | `tdd`             | The work is implementing behavior through tests.           |
-| "Review this architecture," "find refactors," "design this module/API," "make this more testable" | `software-design` | The work is diagnosis and module/interface design.         |
-| "Harden this repo," "add CI/linters/hooks," "turn rules into checks," "reduce AI drift"           | `repo-guardrails` | The work is making feedback deterministic and enforceable. |
+| If the user asks…                                                                                         | Prefer                | Why                                                                 |
+| --------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------- |
+| "Use TDD," "red-green-refactor," "write the failing test first"                                           | `tdd`                 | The work is implementing behavior through tests.                    |
+| "Review this architecture," "find refactors," "design this module/API," "make this more testable"         | `software-design`     | The work is diagnosis and module/interface design.                  |
+| "Harden this repo," "add CI/linters/hooks," "turn rules into checks," "reduce AI drift"                   | `repo-guardrails`     | The work is making repo feedback deterministic and enforceable.     |
+| "Set up a recurring agent workflow," "design a loop," "scheduled triage," "automate this agent process" | `loop-engineering`    | The work is the control system around agents over time.             |
+| "Modern frontend," "popover/dialog/forms/CSS/browser API/a11y/performance"                                | `modern-web-guidance` | The work should use modern platform APIs and web-specific guidance. |
+| "Build a playground/demo/static HTML artifact"                                                            | `micro-app`           | The deliverable is a polished local-first artifact.                 |
 
-Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; architectural diagnosis/design → `software-design`.
+Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; agent loop/control-system design → `loop-engineering`; architectural diagnosis/design → `software-design`; frontend platform task → `modern-web-guidance`; standalone HTML artifact → `micro-app`.
 
 ## Quality Pass Queue
 
 1. Add short examples only where they improve activation or prevent misuse.
-2. Re-run overlap audit when adding any broad thinking, design, or writing skill.
+2. Re-run overlap audit when adding any broad thinking, design, loop, or writing skill.
+3. Keep archived skills out of active cluster tables unless restored to `/skills`.
 
 ## Validation Commands
 
@@ -148,15 +160,15 @@ Run validation for one skill:
 /Users/ebeyene/.agents/skills/skill-creator/scripts/validate-skill /Users/ebeyene/.agents/skills/<skill-name>
 ```
 
-Run validation for all skill directories:
+Run validation for all active skill directories:
 
 ```bash
 for d in /Users/ebeyene/.agents/skills/*; do
-  [ -d "$d" ] && /Users/ebeyene/.agents/skills/skill-creator/scripts/validate-skill "$d"
+  [ -d "$d" ] && [ -f "$d/SKILL.md" ] && /Users/ebeyene/.agents/skills/skill-creator/scripts/validate-skill "$d"
 done
 ```
 
-List valid skill entry points:
+List valid active skill entry points:
 
 ```bash
 find /Users/ebeyene/.agents/skills -maxdepth 2 -name SKILL.md -print | sort

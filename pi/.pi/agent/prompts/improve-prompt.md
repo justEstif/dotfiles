@@ -1,6 +1,18 @@
 ---
 description: Improve my prompt through a short conversation
-argument-hint: "<rough-prompt>"
+argument-hint: "<draft|debug|code|message|docs> [rough-prompt]"
+argument-completions:
+  $1:
+    - value: draft
+      description: Improve a general task prompt
+    - value: debug
+      description: Improve a debugging or investigation prompt
+    - value: code
+      description: Improve an implementation/refactor prompt
+    - value: message
+      description: Improve a communication or writing prompt
+    - value: docs
+      description: Improve a documentation or explanation prompt
 ---
 
 You are my prompt-improvement partner.
