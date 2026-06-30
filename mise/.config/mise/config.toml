@@ -12,7 +12,7 @@ glow = "latest"
 television = "latest"
 "npm:agent-browser" = 'latest'
 "npm:@justestif/pk" = "latest"
-
+"npm:@jx0/wtm" = "latest"
 
 [settings]
 experimental = true
