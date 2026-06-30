@@ -1,4 +1,5 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { homedir } from "node:os";
 import { basename, join } from "node:path";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import type { AutocompleteItem } from "@earendil-works/pi-tui";
@@ -13,7 +14,7 @@ type EnhancedPrompt = {
 	body: string;
 };
 
-const PROMPTS_DIR = "/Users/ebeyene/.pi/agent/prompts";
+const PROMPTS_DIR = join(homedir(), ".pi/agent/prompts");
 
 function parseFrontmatter(raw: string): { frontmatter: Record<string, unknown>; body: string } {
 	if (!raw.startsWith("---\n")) return { frontmatter: {}, body: raw };
@@ -157,6 +158,7 @@ function inferCompletionsFromHint(hint: unknown): CompletionMap {
 }
 
 function loadEnhancedPrompts(): EnhancedPrompt[] {
+	if (!existsSync(PROMPTS_DIR)) return [];
 	const prompts: EnhancedPrompt[] = [];
 	for (const entry of readdirSync(PROMPTS_DIR, { withFileTypes: true })) {
 		const path = join(PROMPTS_DIR, entry.name);
