@@ -18,6 +18,7 @@
   ],
   "theme": "dark",
   "prompts": [
-    "-/Users/ebeyene/.pi/agent/prompts/pk.md"
+    "-/Users/ebeyene/.pi/agent/prompts/pk.md",
+    "-/Users/ebeyene/.pi/agent/prompts/setup-guardrails.md"
   ]
 }
