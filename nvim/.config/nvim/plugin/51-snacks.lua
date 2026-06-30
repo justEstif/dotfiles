@@ -27,16 +27,6 @@ later(function()
 			folds = { open = false },
 		},
 
-		-- Bottom split terminal. See plugin/75-terminal.lua for the keymaps.
-		terminal = {
-			win = {
-				style = "terminal",
-				position = "bottom",
-				height = 0.30,
-				border = "rounded",
-			},
-		},
-
 		-- Distraction-free writing. Toggled on for markdown buffers below.
 		zen = {
 			center = true,

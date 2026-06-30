@@ -12,9 +12,20 @@ later(function()
 		},
 	})
 
-	require("obsidian").setup({
-		legacy_commands = false, -- removed in 4.0.0; command-only API
-		workspaces = {
+	-- In this dotfiles/stow setup, Darwin is the work laptop; Linux is personal.
+	local is_work_machine = vim.loop.os_uname().sysname == "Darwin"
+	local workspaces = is_work_machine
+			and {
+				{
+					name = "work",
+					path = "~/vaults/work",
+				},
+				{
+					name = "personal",
+					path = "~/vaults/personal",
+				},
+			}
+		or {
 			{
 				name = "personal",
 				path = "~/vaults/personal",
@@ -23,7 +34,11 @@ later(function()
 				name = "work",
 				path = "~/vaults/work",
 			},
-		},
+		}
+
+	require("obsidian").setup({
+		legacy_commands = false, -- removed in 4.0.0; command-only API
+		workspaces = workspaces,
 		picker = {
 			name = "snacks.picker",
 		},
@@ -39,9 +54,9 @@ later(function()
 
 	local actions = require("obsidian.actions")
 
-	-- Invoke `:Obsidian <name>` (no args) — wraps nvim's structured cmd call.
+	-- Invoke `:Obsidian <name>` — structured command args must be a list.
 	local obs_cmd = function(name)
-		vim.cmd.Obsidian({ args = name })
+		vim.cmd.Obsidian({ args = { name } })
 	end
 
 	-- Smart keys (work in any markdown buffer inside the vault) ----------------
@@ -61,12 +76,12 @@ later(function()
 		vim.keymap.set("n", "<Leader>o" .. suffix, rhs, { desc = desc })
 	end
 
-	nmap("o", function()
-		obs_cmd("open")
-	end, "Open in Obsidian app")
 	nmap("n", function()
 		obs_cmd("new")
 	end, "New note")
+	nmap("u", function()
+		obs_cmd("unique_note")
+	end, "New unique note")
 	nmap("d", function()
 		obs_cmd("today")
 	end, "Today's daily note")
