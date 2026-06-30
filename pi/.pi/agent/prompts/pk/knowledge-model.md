@@ -1,0 +1,1 @@
+/Users/ebeyene/.agents/skills/pk/references/knowledge-model.md

@@ -1,6 +1,7 @@
 ---
 name: pk
-description: "Load when maintaining project knowledge, capturing decisions or questions, looking up what the project knows, organizing notes, running knowledge intake, or initializing a project knowledge base. Keywords: pk, project knowledge, decision log, note, source, question log, knowledge base, intake. Auto-trigger when: agent has read 3+ source files during investigation, produced a proposal or recommendation, or encountered unresolved ambiguity — regardless of user keywords."
+description: "Disabled: pk is now invoked explicitly through the /pk prompt template. Kept only as archived documentation for the former skill workflow."
+disable-model-invocation: true
 ---
 
 # pk

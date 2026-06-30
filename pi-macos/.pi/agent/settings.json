@@ -16,5 +16,8 @@
     "npm:@narumitw/pi-subagents",
     "npm:pi-mcp-adapter"
   ],
-  "theme": "dark"
+  "theme": "dark",
+  "prompts": [
+    "-/Users/ebeyene/.pi/agent/prompts/pk.md"
+  ]
 }
