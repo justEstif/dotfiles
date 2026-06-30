@@ -60,6 +60,7 @@ Rules:
 When creating or updating pk entries, first read:
 
 `/Users/ebeyene/dotfiles/pi/.pi/agent/prompts/pk/knowledge-model.md`
+`/Users/ebeyene/dotfiles/pi/.pi/agent/prompts/pk/source-principles.md`
 
 Use it as the source of truth for note types, statuses, required sections, frontmatter, intake triage, update policy, and lint policy.
 
