@@ -14,6 +14,9 @@ later(function()
 			-- Match mini.pick-ish ergonomics: filename-first, frecency weighting.
 			matcher = { frecency = true, cwd_bonus = true },
 			formatters = { file = { filename_first = true } },
+			sources = {
+				files = { hidden = true },
+			},
 		},
 
 		-- Sign + fold column. `sign` renders our project marks (15-marks.lua)

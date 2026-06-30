@@ -72,6 +72,39 @@ now(function()
 	})
 
 	vim.notify = notify.make_notify()
+
+	table.insert(Config.leader_group_clues, { mode = "n", keys = "<Leader>n", desc = "+Notifications" })
+
+	local sorted_notifications = function()
+		local notifications = MiniNotify.get_all()
+		table.sort(notifications, function(a, b)
+			return a.ts_update < b.ts_update
+		end)
+		return notifications
+	end
+
+	local formatted_notifications = function(notifications)
+		return vim.tbl_map(MiniNotify.default_format, notifications)
+	end
+
+	vim.keymap.set("n", "<Leader>nh", MiniNotify.show_history, { desc = "Notification history" })
+	vim.keymap.set("n", "<Leader>ny", function()
+		local notifications = sorted_notifications()
+		local latest = notifications[#notifications]
+		if latest == nil then
+			return vim.notify("No notifications to copy", vim.log.levels.WARN)
+		end
+		vim.fn.setreg("+", MiniNotify.default_format(latest))
+		vim.notify("Copied latest notification")
+	end, { desc = "Copy latest notification" })
+	vim.keymap.set("n", "<Leader>nY", function()
+		local lines = formatted_notifications(sorted_notifications())
+		if #lines == 0 then
+			return vim.notify("No notifications to copy", vim.log.levels.WARN)
+		end
+		vim.fn.setreg("+", table.concat(lines, "\n"))
+		vim.notify("Copied notification history")
+	end, { desc = "Copy notification history" })
 end)
 
 later(function()

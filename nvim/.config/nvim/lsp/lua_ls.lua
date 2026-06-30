@@ -7,12 +7,11 @@ return {
 			diagnostics = {
 				globals = {
 					"vim",
-					"MiniExtra",
 					"MiniIcons",
 					"MiniNotify",
 					"MiniCompletion",
-					"MiniPick",
 					"MiniFiles",
+					"Snacks",
 				},
 				disable = { "need-check-nil" },
 				workspaceDelay = -1,

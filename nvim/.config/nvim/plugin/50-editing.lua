@@ -22,6 +22,14 @@ later(function()
 		vim.bo[args.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
 	end
 	vim.api.nvim_create_autocmd("LspAttach", { callback = on_attach })
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "snacks_picker_input",
+		callback = function()
+			vim.b.minicompletion_disable = true
+			vim.bo.omnifunc = ""
+			vim.bo.completefunc = ""
+		end,
+	})
 	if vim.fn.has("nvim-0.11") == 1 then
 		vim.lsp.config("*", { capabilities = MiniCompletion.get_lsp_capabilities() })
 	end
