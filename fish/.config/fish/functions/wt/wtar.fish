@@ -14,7 +14,7 @@ function wtar --description "Add a worktree for a remote branch"
     _wt_assert_git_root || return 1
     set branch $argv[1]
     set dirname (echo $branch | sed 's/\//-/g')
-    git fetch origin $branch:$branch \
+    git fetch origin $branch:refs/remotes/origin/$branch \
         && git worktree add .worktrees/$dirname $branch \
         && git -C .worktrees/$dirname branch --set-upstream-to origin/$branch $branch
 end
