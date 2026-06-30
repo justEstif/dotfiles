@@ -7,8 +7,8 @@ vim.keymap.set("v", "p", [["_dP]], { desc = "Keep the yanked text when pasting i
 vim.keymap.set("n", [[s]], [[<Nop>]])
 vim.keymap.set("x", [[s]], [[<Nop>]])
 
--- use "Pick" spell suggest
-vim.keymap.set("n", "z=", "<Cmd>lua MiniExtra.pickers.spellsuggest()<CR>", { desc = "Spelling suggest" })
+-- native spell suggest (snacks has no spelling picker)
+vim.keymap.set("n", "z=", "z=", { desc = "Spelling suggest" })
 
 -- Leader mappings ============================================================
 _G.Config.leader_group_clues = {
@@ -53,17 +53,17 @@ end, "Copy selection")
 -- f is for 'explore' and 'edit'
 nmap_leader("fd", "<Cmd>lua MiniFiles.open()<CR>", "Directory")
 nmap_leader("ff", "<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", "File directory")
-nmap_leader("fh", "<Cmd>Pick help<CR>", "Help")
-nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
-nmap_leader("fv", "<Cmd>Pick visit_paths<CR>", "Frecency")
-xmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
+nmap_leader("fh", function() Snacks.picker.help() end, "Help")
+nmap_leader("f*", function() Snacks.picker.grep_word() end, "Grep under cursor")
+nmap_leader("fv", function() Snacks.picker.recent() end, "Frecency")
+xmap_leader("f*", function() Snacks.picker.grep_word() end, "Grep under cursor")
 
 -- l is for 'LSP' (Language Server Protocol)
 nmap_leader("la", "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Actions")
-nmap_leader("lD", '<Cmd>Pick diagnostic scope="all"<CR>', "Diagnostic workspace")
+nmap_leader("lD", function() Snacks.picker.diagnostics() end, "Diagnostic workspace")
 nmap_leader("lr", "<Cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
-nmap_leader("lR", "<Cmd>lua MiniExtra.pickers.lsp({ scope = 'references' })<CR>", "References")
-nmap_leader("ls", "<Cmd>lua MiniExtra.pickers.lsp({ scope = 'definition' })<CR>", "Source Definition")
+nmap_leader("lR", function() Snacks.picker.lsp_references() end, "References")
+nmap_leader("ls", function() Snacks.picker.lsp_definitions() end, "Source Definition")
 nmap_leader("lf", '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR><Cmd>w<CR>', "Format")
 xmap_leader("lf", '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR><Cmd>w<CR>', "Format selection")
 

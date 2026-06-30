@@ -123,7 +123,7 @@ vim.api.nvim_create_user_command("MarkRemove", remove_line_mark, {})
 vim.api.nvim_create_user_command("MarkClearAll", clear_all, {})
 
 local function list_marks()
-	require("mini.extra").pickers.marks()
+	Snacks.picker.marks()
 end
 
 vim.keymap.set("n", "mm", set_mark, { desc = "Set project mark" })

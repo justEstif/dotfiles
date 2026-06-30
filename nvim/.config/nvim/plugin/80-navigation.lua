@@ -1,27 +1,18 @@
 local now, later = Config.now, Config.later
 local add = vim.pack.add
 
-local choose_all = function()
-	local mappings = MiniPick.get_picker_opts().mappings
-	vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)
-end
-
+-- Picker keymaps (snacks.picker, configured in 51-snacks.lua). ui_select is
+-- handled by snacks itself, so no manual vim.ui.select override here.
 later(function()
-	local pick = require("mini.pick")
-
-	pick.setup({
-		mappings = {
-			choose_all = { char = "<C-q>", func = choose_all },
-		},
-	})
-
-	vim.ui.select = pick.ui_select
-	vim.keymap.set("n", [[g/]], "<Cmd>Pick grep_live<cr>", {
-		desc = "live grep",
-	})
-	vim.keymap.set("n", "<C-p>", "<Cmd>Pick files<CR>", {
-		desc = "files",
-	})
+	vim.keymap.set("n", [[g/]], function()
+		Snacks.picker.grep()
+	end, { desc = "live grep" })
+	vim.keymap.set("n", "<C-p>", function()
+		Snacks.picker.files()
+	end, { desc = "files" })
+	vim.keymap.set("n", "gb", function()
+		Snacks.picker.buffers()
+	end, { desc = "buffers" })
 end)
 
 now(function()
