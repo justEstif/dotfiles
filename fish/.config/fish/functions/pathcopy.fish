@@ -1,4 +1,4 @@
-function pcp --description 'Copy current directory or resolved file/folder path(s) to clipboard'
+function pathcopy --description 'Copy current directory or resolved file/folder path(s) to clipboard'
     set -l paths
 
     if test (count $argv) -eq 0
@@ -19,11 +19,11 @@ function pcp --description 'Copy current directory or resolved file/folder path(
             else if type -q xsel
                 printf '%s\n' $paths | xsel --clipboard --input
             else
-                echo 'pcp: no clipboard tool found (wl-copy, xclip, or xsel)' >&2
+                echo 'pathcopy: no clipboard tool found (wl-copy, xclip, or xsel)' >&2
                 return 1
             end
         case '*'
-            echo 'pcp: unsupported OS' >&2
+            echo 'pathcopy: unsupported OS' >&2
             return 1
     end
 
