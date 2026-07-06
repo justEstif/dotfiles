@@ -42,19 +42,6 @@ now(function()
 		},
 	})
 
-	-- Zen for markdown: auto-enter on .md buffers, and `<Leader>z` toggles anytime.
-	vim.api.nvim_create_autocmd("FileType", {
-		pattern = "markdown",
-		callback = function()
-			-- Defer so the buffer is fully open before entering zen.
-			vim.schedule(function()
-				if vim.bo.filetype == "markdown" then
-					Snacks.zen()
-				end
-			end)
-		end,
-	})
-
 	vim.keymap.set("n", "<Leader>z", function()
 		Snacks.zen()
 	end, { desc = "Toggle zen mode" })

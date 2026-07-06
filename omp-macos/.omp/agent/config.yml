@@ -4,13 +4,14 @@ browser:
 defaultThinkingLevel: minimal
 hideThinkingBlock: true
 compaction: 
-  strategy: context-full
-  thresholdPercent: 80
+  strategy: handoff
+  handoffSaveToDisk: true
+  thresholdPercent: -1
   thresholdTokens: -1
 memories: 
   enabled: true
 edit: 
-  mode: hashline
+  mode: replace
   fuzzyMatch: true
 lsp: 
   formatOnWrite: true
@@ -21,26 +22,27 @@ github:
   enabled: true
 async: 
   enabled: false
-modelRoles: 
-  default: anthropic/claude-sonnet-4-6:low
 stt: 
   enabled: false
 startup: 
-  quiet: false
+  quiet: true
+  setupWizard: false
 commands: 
   enableClaudeUser: false
   enableClaudeProject: false
   enableOpencodeUser: false
   enableOpencodeProject: false
 task: 
-  eager: true
+  eager: always
   agentModelOverrides: 
     designer: sonnet-4-6
   disabledAgents: 
     []
 colorBlindMode: false
 display: 
-  showTokenUsage: false
+  showTokenUsage: true
+  shimmer: disabled
+  cacheMissMarker: true
 contextPromotion: 
   enabled: false
 memory: 
@@ -53,9 +55,6 @@ tools:
   intentTracing: false
 mcp: 
   enableProjectConfig: false
-  discoveryMode: true
-  discoveryDefaultServers: 
-    []
 secrets: 
   enabled: false
 exa: 
@@ -67,3 +66,11 @@ eval:
 python: 
   kernelMode: session
 setupVersion: 1
+tui: 
+  renderMermaid: false
+  tight: false
+showHardwareCursor: false
+personality: default
+collapseChangelog: true
+modelRoles: 
+  default: openai-codex/gpt-5.5
