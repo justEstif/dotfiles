@@ -21,7 +21,18 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
-## 2. Simplicity First
+## 2. Surface Unknowns Before Committing
+
+The map (prompts, skills, context you were given) is not the territory (codebase, real constraints, actual users). Before implementing, classify the task's unknowns — the quadrant drives the move:
+
+- **Known knowns** (in the prompt) — trust but verify; stale ones are worse than admitted gaps.
+- **Known unknowns** (you know the gap exists) — map only what this decision needs, not everything.
+- **Unknown knowns** ("I'd know it on sight": taste, conventions, fit) — surface them with a prototype or a few options to react to. Finding these *during* implementation is expensive: a small spec change can force a different structure and a costly revert.
+- **Unknown unknowns** (you don't know what you don't know) — ask, up front, what questions you don't yet know to ask and what "good" even looks like.
+
+When unknown-knowns or unknown-unknowns dominate, prefer a cheap probe (brainstorm, throwaway prototype, one-question-at-a-time interview) over committing to implementation. Discovery is cheap; reverts are not. If unknowns are high, ask the user for their starting point and experience first.
+
+## 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -33,7 +44,7 @@ Before implementing:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
+## 4. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -51,7 +62,7 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-## 4. Goal-Driven Execution
+## 5. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
 
