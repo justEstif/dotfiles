@@ -10,7 +10,7 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | Think / Decide       | The user needs structured thinking, pushback, goals, strategy, systems analysis, comparison, or decision support | `goal-setting`, `product-strategy`, `systems-thinking`, `parallel-explore`                                         |
 | Communicate          | Crafting content that lands with audiences — messages, pitches, landing pages, stakeholder alignment             | `craft-message`                                                                                                    |
 | Agent Style          | Governing how the agent itself writes, formats, and frames its output                                            | `output-style`, `caveman`, `argue-position`, `karpathy-guidelines`                                                 |
-| Build / Design       | Changing software systems, artifacts, architecture, tests, web UIs, or repo/agent guardrails                     | `tdd`, `software-design`, `repo-guardrails`, `modern-web-guidance`, `micro-app`                                    |
+| Build / Design       | Changing software systems, artifacts, architecture, tests, web UIs, or repo/agent guardrails                     | `tdd`, `software-design`, `repo-guardrails`, `modern-web-guidance`, `micro-app`, `typst-doc`                                    |
 | Tools / Integrations | Operating a specific external tool, platform, or CLI                                                             | `github`, `npm-publish`, `fallow`                                                                                  |
 | Archived             | Older, superseded, or invalid skill folders moved out of discovery                                               | `_skills-archive/pk`, `_skills-archive/thought-partner`, `_skills-archive/playground`                              |
 
@@ -57,7 +57,8 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | `software-design`     | Finds deepening opportunities and designs better modules/APIs.                                                              | Architecture, refactoring, module boundaries, testability, deep modules, shallow modules, or codebase design quality.                                            |
 | `repo-guardrails`     | Designs deterministic repo feedback loops — CI, linters, hooks, custom rules, branch protection, logging, and agent safety. | Hardening a repo for agents, reducing AI code drift, encoding design rules as checks, or setting up guardrail loops.                                             |
 | `modern-web-guidance` | Steers frontend work toward modern baseline web platform APIs and accessibility/performance patterns.                        | HTML/CSS/client-side JS tasks involving dialogs, popovers, forms, CSS, View Transitions, browser APIs, a11y, or Core Web Vitals.                                 |
-| `micro-app`           | Creates polished local-first HTML micro-apps and artifacts.                                                                 | Interactive demos, visual explorers, slide decks, diagrams, planning docs, prompt tools, or static artifacts.                                                    |
+| `micro-app`           | Creates polished local-first HTML micro-apps and artifacts.                                                                 | Interactive demos, visual explorers, clickable prototypes, filterable boards/editors, or any artifact whose value comes from runtime interaction.                                                    |
+| `typst-doc`           | Generates consistently-styled PDF documents with Typst.                                                    | Reports, specs, status updates, slide decks, diagrams, Gantt charts, CVs — composed/paginated documents needing real layout (ToC, page numbers, figures, math) that compile to PDF. |
 
 ### Tools / Integrations
 
@@ -142,9 +143,10 @@ Precedence: audience-crafted content → `craft-message`; agent output formattin
 | "Harden this repo," "add CI/linters/hooks," "turn rules into checks," "reduce AI drift"                   | `repo-guardrails`     | The work is making repo feedback deterministic and enforceable.     |
 | "Set up a recurring agent workflow," "design a loop," "scheduled triage," "automate this agent process" | `loop-engineering`    | The work is the control system around agents over time.             |
 | "Modern frontend," "popover/dialog/forms/CSS/browser API/a11y/performance"                                | `modern-web-guidance` | The work should use modern platform APIs and web-specific guidance. |
-| "Build a playground/demo/static HTML artifact"                                                            | `micro-app`           | The deliverable is a polished local-first artifact.                 |
+| "Build an interactive playground/demo/HTML artifact"                                                            | `micro-app`           | The deliverable is a polished local-first artifact.                 |
+| "Make a PDF/report/spec/Gantt/CV," "printable document," "needs a TOC or page numbers" | `typst-doc`           | The deliverable is a composed, paginated document compiled to PDF — cheaper than HTML when no runtime interaction is needed. |
 
-Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; agent loop/control-system design → `loop-engineering`; architectural diagnosis/design → `software-design`; frontend platform task → `modern-web-guidance`; standalone HTML artifact → `micro-app`.
+Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; agent loop/control-system design → `loop-engineering`; architectural diagnosis/design → `software-design`; frontend platform task → `modern-web-guidance`; standalone HTML artifact → `micro-app`; composed/print document → `typst-doc`.
 
 ## Quality Pass Queue
 
