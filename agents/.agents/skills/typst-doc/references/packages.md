@@ -54,14 +54,6 @@ Both compile cleanly on typst 0.14.2. Use them as the shape for any `@preview` i
 
 For `timeliney`, `touying`, `codly`, `gentle-clues`, `iconify`, `hydra`: the versions above resolve and accept `: *`, but each has its own entry function / theme API. **Verify the call signature on the package's universe page before writing the body** — same rule as `cetz`/`fletcher`.
 
-## Diagrams — alternatives (search, don't default)
-
-Reach for these only when `fletcher`/`cetz` can't express the shape:
-
-- `chronos` — sequence diagrams (incident timelines, protocol flows)
-- `diagraph` / `merman` — render Graphviz / Mermaid
-- `facade` — recursive architecture block diagrams
-
 ## Tables — built-in, no package
 
 Typst's `#table()` is capable on its own. A polished default to pair with the preamble:
@@ -73,11 +65,3 @@ Typst's `#table()` is capable on its own. A polished default to pair with the pr
 ```
 
 `booktabs` exists (0.0.4, early) — only reach for it if you specifically want LaTeX booktabs rules.
-
-## Math — built-in, no package
-
-Typst math is built in (`$ ... $`). See `math.md` for syntax. Reach for `mitex` only when the user needs literal LaTeX math macros.
-
-## Code blocks — `codly` notes
-
-`codly` gives line numbers, highlighting, and smart indentation. It exposes a `#codly(config: (...))` setup + a `#show raw.where(block: true): codly.render` show rule. Verify the exact config keys on its universe page — they change between minor versions.

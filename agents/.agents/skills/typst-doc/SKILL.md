@@ -22,10 +22,6 @@ This skill covers **both** the workflow (what to build, what values to set, whic
 
 Only one answer wins. Pick the dominant need.
 
-## What Typst can't do — route away
-
-If the request contains any of these, stop and use `micro-app` instead: live demo, clickable prototype, drag-and-drop board, filterable/sortable table, config/flag/prompt editor, anything with a form whose output matters, local-first app, animation/easing tuner. A static PDF of an interactive artifact is a dead artifact.
-
 ## The pinned prose preamble — apply to every prose document
 
 This is the **consistent-styling benefit**: one typography system across every artifact (the print analog of `micro-app`'s token palette). Start every prose document from this:
@@ -37,12 +33,17 @@ This is the **consistent-styling benefit**: one typography system across every a
 
 #set page(paper: "a4", margin: (x: 4cm, top: 2.5cm, bottom: 2.5cm), numbering: "1")
 #set text(font: "New Computer Modern", size: 11pt, lang: "en", fill: ink)
-#set par(leading: 0.8em, justify: true, spacing: 1.1em)   // report style
+#set par(leading: 0.8em, justify: true, spacing: 1.6em)   // report style — airier gaps
 #set heading(numbering: "1.")
+#show heading: set block(above: 2.4em, below: 1.2em)      // breathing room around sections
+#show heading: it => { set text(fill: accent); it }       // accent-colored headings
+#set figure(gap: 0.8em)                                   // body-to-caption gap
+#show figure: set block(above: 2em, below: 2em)           // figures read as distinct blocks
+#show figure.caption: set text(size: 9.5pt, fill: rule)   // smaller, greyer captions
 #show link: it => { set text(fill: accent); it }
 ```
 
-Why these values (the decisions, not the syntax): `x: 4cm` → ~66–70 char measure (readable range); `leading: 0.8em` ≈ 1.3× line height (Typst's 0.65em default is too tight for body); report-style paragraph spacing over book-style indent for scannability; one accent color for visual coherence. **For the reasoning behind every value, font alternatives, and report-vs-book style, MANDATORY READ `references/prose.md`.**
+Why these values (the decisions, not the syntax): `x: 4cm` → ~66–70 char measure (readable range); `leading: 0.8em` ≈ 1.3× line height (Typst's 0.65em default is too tight for body); airier `spacing: 1.6em` between paragraphs and `2.4em`/`1.2em` around headings give sections breathing room; figures get `2em` above/below with grey `9.5pt` captions so they read as distinct blocks; one accent color (headings + links) for visual coherence. **For the reasoning behind every value, font alternatives, the report-vs-book choice, and an optional centered title block, MANDATORY READ `references/prose.md`.**
 
 This preamble is for **prose documents**. Slides, CVs, and diagrams have their own engines — see the routing table; do not force body-prose settings onto them.
 

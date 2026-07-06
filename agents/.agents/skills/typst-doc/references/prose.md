@@ -9,7 +9,9 @@ The preamble in SKILL.md is the **single source of consistent styling**. This fi
 | Page margins `x: 4cm` | A4 → ~13 cm text column | ~66–70 characters per line — the readable measure. Wider lines tire the eye; narrower wastes the page. |
 | `leading: 0.8em` | ~1.3× font size | Typst's default `0.65em` is tight (tuned for dense academic output). 0.8em is comfortable for reports and reading. |
 | `size: 11pt` | body | 11pt is the readable floor for print; 10pt strains on paper. |
-| `spacing: 1.1em` | paragraph gap (report style) | Clear paragraph breaks without first-line indent. Use for status reports, specs, explainers. |
+| `spacing: 1.6em` | paragraph gap (report style) | Airier breaks between paragraphs without first-line indent — gives the page room to breathe. Use for status reports, specs, explainers. |
+| `heading` block `above: 2.4em / below: 1.2em` | space around section titles | Sections get clear separation from preceding text and a beat before the next paragraph — composed, not cramped. |
+| `figure` `2em` around, `gap: 0.8em`, caption `9.5pt` rule | figures as distinct blocks | Figures read as self-contained units, not crammed into prose; small grey captions stay subordinate to body text. |
 | `justify: true` | flush both edges | An even right margin reads as a composed document, not a chat transcript. |
 | One `accent` color | headings + links | Visual coherence — the document looks designed, not assembled. |
 | `numbering: "1."` headings | numbered sections | Lets reviewers cite "see §2.3". Drop for one-pagers and letters. |
@@ -24,6 +26,21 @@ The preamble in SKILL.md is the **single source of consistent styling**. This fi
   Use for essays, narratives, long-form reading.
 
 Pick one per document; don't mix.
+
+## Optional title block
+
+A centered title block opens a report or essay without a full cover page. Title in `ink` (not accent — the ochre stays the signal for section headings); descriptor and byline in small grey:
+
+```typst
+#align(center)[#text(size: 22pt, weight: "bold", fill: ink)[Composed documents with Typst]]
+#v(0.2em)
+#align(center)[#text(size: 11pt, fill: rule)[Style guide]]
+#v(0.8em)
+#align(center)[#text(size: 9.5pt, fill: rule)[typst-doc skill · 6 July 2026]]
+#v(1.6em)   // gap before the ToC or first heading
+```
+
+Use it for reports, specs, and essays. Skip it for one-pagers, comparison matrices, and diagrams — those open straight into content.
 
 ## Fonts — what ships and what to choose
 
