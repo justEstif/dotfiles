@@ -13,6 +13,7 @@ television = "latest"
 "npm:agent-browser" = 'latest'
 "npm:@justestif/pk" = "latest"
 "npm:@jx0/wtm" = "latest"
+typst = "0.14.2"
 
 [settings]
 experimental = true
