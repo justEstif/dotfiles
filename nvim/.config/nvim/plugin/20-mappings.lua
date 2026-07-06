@@ -50,8 +50,7 @@ xmap_leader("ac", function()
 end, "Copy selection")
 
 -- f is for 'explore' and 'edit'
-nmap_leader("fd", function() Snacks.explorer.open() end, "Directory")
-nmap_leader("ff", function() Snacks.explorer.reveal() end, "Reveal file")
+nmap_leader("ff", function() Snacks.explorer.open() end, "Directory")
 nmap_leader("fh", function() Snacks.picker.help() end, "Help")
 nmap_leader("f*", function() Snacks.picker.grep_word() end, "Grep under cursor")
 nmap_leader("fv", function() Snacks.picker.recent() end, "Frecency")

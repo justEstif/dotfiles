@@ -2,9 +2,9 @@
 -- modules we actually use: picker (replaces mini.pick), statuscolumn, terminal,
 -- and zen. Picking modules explicitly avoids surprising autocommands.
 local add = vim.pack.add
-local later = Config.later
+local now = Config.now
 
-later(function()
+now(function()
 	add({ "https://github.com/folke/snacks.nvim" })
 
 	require("snacks").setup({
