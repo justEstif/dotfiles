@@ -27,7 +27,8 @@ modelRoles:
 stt: 
   enabled: false
 startup: 
-  quiet: false
+  quiet: true
+  setupWizard: false
 commands: 
   enableClaudeUser: false
   enableClaudeProject: false
@@ -41,7 +42,9 @@ task:
     []
 colorBlindMode: false
 display: 
-  showTokenUsage: false
+  showTokenUsage: true
+  shimmer: disabled
+  cacheMissMarker: true
 contextPromotion: 
   enabled: false
 memory: 
@@ -67,3 +70,7 @@ python:
 setupVersion: 1
 tui: 
   renderMermaid: false
+  tight: false
+showHardwareCursor: false
+personality: default
+collapseChangelog: true
