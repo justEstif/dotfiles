@@ -111,9 +111,10 @@ Set paper size and margins. Use dictionary syntax for asymmetric margins.
 #set page(
   paper: "a4",            // or "us-letter", "a5", etc.
   margin: 2cm,            // uniform margin
-  margin: (x: 2cm, y: 3cm),  // horizontal/vertical
-  margin: (top: 3cm, bottom: 2cm, left: 2.5cm, right: 2.5cm),
 )
+// Asymmetric alternatives (pick one — Typst rejects duplicate keys in one call):
+//   margin: (x: 2cm, y: 3cm)                                     // horizontal/vertical
+//   margin: (top: 3cm, bottom: 2cm, left: 2.5cm, right: 2.5cm)   // per-side
 ```
 
 ### Page Numbering

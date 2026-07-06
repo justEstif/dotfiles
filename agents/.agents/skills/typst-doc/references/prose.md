@@ -52,7 +52,7 @@ Verified available in the default `typst` install (always confirm with `typst fo
 | Body sans | `Noto Sans` | `DejaVu Sans` |
 | Mono (raw blocks) | auto | `DejaVu Sans Mono` |
 
-`New Computer Modern` is Typst's default and renders cleanly with no setup — keep it unless the user asks for a specific look. **Never reference a font you have not confirmed with `typst fonts`** in the target environment; a missing font silently falls back and breaks the design.
+`New Computer Modern` is the preamble's default and ships with the Typst CLI, so it renders with no setup — keep it unless the user asks for a specific look. **Never reference a font you have not confirmed with `typst fonts`** in the target environment; a missing font silently falls back and breaks the design.
 
 ## The palette
 
