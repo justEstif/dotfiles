@@ -1,0 +1,158 @@
+# =============================================================================
+# Herdr Config — terminal multiplexer (launched via `exec herdr` in fish)
+# =============================================================================
+# Docs:               https://herdr.dev/docs/configuration/
+# Print defaults:     herdr --default-config
+# Reload after edit:  herdr server reload-config
+# =============================================================================
+
+# Skip the first-run onboarding flow; we manage this file ourselves.
+onboarding = false
+
+# ---- Terminal ---------------------------------------------------------------
+[terminal]
+# fish is the interactive shell (see fish/conf.d/herdr.fish).
+default_shell = "fish"
+# Login shells on macOS (Homebrew / path_helper PATH setup); non-login elsewhere.
+shell_mode = "auto"
+# New panes/tabs/workspaces inherit the source pane's cwd.
+new_cwd = "follow"
+
+# ---- Worktrees --------------------------------------------------------------
+[worktrees]
+# Sidebar-created git worktree checkouts live under <dir>/<repo>/<branch-slug>.
+directory = "~/.herdr/worktrees"
+
+# ---- Updates ----------------------------------------------------------------
+[update]
+channel = "stable"      # "preview" for dev-branch builds (ignored by brew/mise/nix)
+version_check = true    # background checks for new herdr versions
+manifest_check = true   # background remote agent-detection manifest checks
+
+# ---- Keybindings ------------------------------------------------------------
+# Prefix-first (tmux-style) so direct shortcuts don't steal shell/editor keys.
+# Prefix is ctrl+b to avoid clashing with Ghostty's ctrl+a leader; set
+# `prefix = "ctrl+a"` here to consolidate onto one leader key.
+[keys]
+prefix = "ctrl+b"
+
+# Workspaces
+detach = "prefix+q"
+workspace_picker = "prefix+w"
+goto = "prefix+g"
+new_workspace = "prefix+shift+n"
+new_worktree = "prefix+shift+g"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+
+# Tabs
+new_tab = "prefix+c"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+rename_tab = "prefix+shift+t"
+close_tab = "prefix+shift+x"
+
+# Panes
+copy_mode = "prefix+["
+split_vertical = "prefix+v"
+split_horizontal = "prefix+minus"
+close_pane = "prefix+x"
+zoom = "prefix+z"
+resize_mode = "prefix+r"
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+swap_pane_left = "prefix+shift+h"
+swap_pane_down = "prefix+shift+j"
+swap_pane_up = "prefix+shift+k"
+swap_pane_right = "prefix+shift+l"
+cycle_pane_next = "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"
+
+# Sidebar / remote
+toggle_sidebar = "prefix+b"
+remote_image_paste = "ctrl+v"
+
+# Navigate-mode-only shortcuts (plain keys; may NOT use prefix/esc/enter/tab/arrows-1..9).
+navigate_workspace_up = "up"
+navigate_workspace_down = "down"
+navigate_pane_left = "h"
+navigate_pane_down = "j"
+navigate_pane_up = "k"
+navigate_pane_right = "l"
+
+# Optional, unset by default
+open_worktree = "prefix+shift+o"
+remove_worktree = "prefix+alt+d"
+
+# ---- Custom command: lazygit in a throwaway pane ----------------------------
+[[keys.command]]
+key = "prefix+alt+g"
+type = "pane"           # "pane" = temp pane that closes on exit; "shell" = background
+command = "lazygit"
+description = "lazygit"
+
+# ---- Theme ------------------------------------------------------------------
+# Matches Ghostty's `TokyoNight Night`. Use name = "terminal" to follow the
+# host terminal's ANSI palette instead.
+[theme]
+name = "tokyo-night"
+auto_switch = true             # follow host terminal light/dark appearance
+light_name = "tokyo-night-day"
+dark_name = "tokyo-night"
+
+# ---- UI / sidebar -----------------------------------------------------------
+[ui]
+sidebar_width = 32
+sidebar_min_width = 18
+sidebar_max_width = 36
+mobile_width_threshold = 64    # <= this width switches to mobile single-column layout
+mouse_capture = true
+right_click_passthrough_modifier = ""
+redraw_on_focus_gained = true
+mouse_scroll_lines = 3
+confirm_close = true
+prompt_new_tab_name = true
+pane_borders = true
+pane_gaps = true
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "spaces"    # "spaces" (default) or "priority"
+accent = "cyan"
+
+# ---- Notifications ----------------------------------------------------------
+# "herdr" shows an in-UI toast when background agents finish or need input.
+# Alternatives: "off" (default), "terminal" (desktop notify over SSH), "system".
+[ui.toast]
+delivery = "herdr"
+delay_seconds = 1
+
+[ui.toast.herdr]
+position = "bottom-right"      # top-left/top-right/bottom-left/bottom-right
+
+[ui.toast.clipboard]
+enabled = true
+position = "bottom-center"
+
+# ---- Sound ------------------------------------------------------------------
+# Off by default — safe for shared/remote hosts. Set enabled = true locally.
+# macOS uses afplay; Linux tries paplay/pw-play/ffplay/mpg123/mpv.
+[ui.sound]
+enabled = false
+
+# ---- Scrollback -------------------------------------------------------------
+[advanced]
+scrollback_limit_bytes = 10485760   # 10 MiB per new pane
+
+# ---- Session ----------------------------------------------------------------
+[session]
+# Restart supported agent panes (Claude Code, Codex, Pi, OpenCode, ...) in
+# their native conversation sessions after a full server restart.
+resume_agents_on_restore = true
+
+# ---- Experimental -----------------------------------------------------------
+[experimental]
+pane_history = false     # saves pane contents across restarts (may hold secrets)
+allow_nested = false
+kitty_graphics = false

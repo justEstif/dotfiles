@@ -27,87 +27,11 @@ config-file = ?linux.conf
 config-file = ?macos.conf
 
 # ---- Keybinds ---------------------------------------------------------------
-# Modal, Zellij-style. Enter a mode, use single keys, Esc to exit.
-#
-#   ctrl+a > t  →  tab mode   (n new  x close  h/l prev/next  1-9 jump)
-#   ctrl+a > p  →  pane mode  (n/d split  h/j/k/l nav  H/J/K/L resize  f zoom  x close)
-#   ctrl+a > [  →  scroll mode
-# -----------------------------------------------------------------------------
-
 keybind = clear
 keybind = ctrl+shift+r=reload_config
 keybind = performable:ctrl+shift+c=copy_to_clipboard
 keybind = performable:ctrl+shift+v=paste_from_clipboard
 
-# Mode triggers
-keybind = ctrl+a>t=activate_key_table:tab
-keybind = ctrl+a>p=activate_key_table:pane
-keybind = ctrl+a>[=activate_key_table:scroll
-keybind = ctrl+a>ctrl+a=text:\x01
-
-# ---- Tab mode ---------------------------------------------------------------
-# n new  x close  h/l prev/next  1-9 jump  Esc exit
-
-keybind = tab/n=new_tab
-keybind = tab/x=close_surface
-keybind = tab/h=previous_tab
-keybind = tab/l=next_tab
-keybind = tab/left=previous_tab
-keybind = tab/right=next_tab
-keybind = tab/1=goto_tab:1
-keybind = tab/2=goto_tab:2
-keybind = tab/3=goto_tab:3
-keybind = tab/4=goto_tab:4
-keybind = tab/5=goto_tab:5
-keybind = tab/6=goto_tab:6
-keybind = tab/7=goto_tab:7
-keybind = tab/8=goto_tab:8
-keybind = tab/9=goto_tab:9
-keybind = tab/escape=deactivate_key_table
-keybind = tab/enter=deactivate_key_table
-keybind = tab/catch_all=deactivate_key_table
-
-# ---- Pane mode --------------------------------------------------------------
-# n split right  d split down  h/j/k/l nav  H/J/K/L resize  f zoom  x close  = equalize  Esc exit
-
-keybind = pane/n=new_split:right
-keybind = pane/d=new_split:down
-keybind = pane/h=goto_split:left
-keybind = pane/j=goto_split:down
-keybind = pane/k=goto_split:up
-keybind = pane/l=goto_split:right
-keybind = pane/shift+h=resize_split:left,10
-keybind = pane/shift+j=resize_split:down,10
-keybind = pane/shift+k=resize_split:up,10
-keybind = pane/shift+l=resize_split:right,10
-keybind = pane/f=toggle_split_zoom
-keybind = pane/x=close_surface
-keybind = pane/equal=equalize_splits
-keybind = pane/escape=deactivate_key_table
-keybind = pane/enter=deactivate_key_table
-keybind = pane/catch_all=deactivate_key_table
-
-# ---- Scroll mode ------------------------------------------------------------
-# j/k scroll  ctrl+u/d half page  ctrl+b/f full page  g/G top/bottom  / search  Esc exit
-
-keybind = scroll/k=scroll_page_lines:-1
-keybind = scroll/j=scroll_page_lines:1
-keybind = scroll/up=scroll_page_lines:-1
-keybind = scroll/down=scroll_page_lines:1
-keybind = scroll/ctrl+u=scroll_page_fractional:-0.5
-keybind = scroll/ctrl+d=scroll_page_fractional:0.5
-keybind = scroll/ctrl+b=scroll_page_up
-keybind = scroll/ctrl+f=scroll_page_down
-keybind = scroll/g=scroll_to_top
-keybind = scroll/shift+g=scroll_to_bottom
-keybind = scroll/slash=start_search
-keybind = scroll/n=navigate_search:next
-keybind = scroll/ctrl+n=navigate_search:previous
-keybind = scroll/escape=deactivate_key_table
-keybind = scroll/enter=deactivate_key_table
-keybind = scroll/catch_all=deactivate_key_table
-
 # ---- Misc -------------------------------------------------------------------
-
 # Shift+Enter sends Esc-Enter (useful for some TUI programs)
 keybind = shift+enter=text:\x1b\r

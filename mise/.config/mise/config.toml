@@ -14,6 +14,7 @@ television = "latest"
 "npm:@justestif/pk" = "latest"
 "npm:@jx0/wtm" = "latest"
 typst = "0.14.2"
+herdr = "latest"
 
 [settings]
 experimental = true
