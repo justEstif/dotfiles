@@ -14,7 +14,8 @@
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",
     "npm:@narumitw/pi-subagents",
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "npm:@majorgilles/pi-learning-tutor"
   ],
   "theme": "dark",
   "prompts": [
