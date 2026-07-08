@@ -15,6 +15,7 @@ television = "latest"
 "npm:@jx0/wtm" = "latest"
 typst = "0.14.2"
 herdr = "latest"
+rtk = "latest"                                   # filters/compresses command outputs before they reach your LLM context.
 
 [settings]
 experimental = true
