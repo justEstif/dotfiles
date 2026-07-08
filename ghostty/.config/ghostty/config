@@ -35,3 +35,7 @@ keybind = performable:ctrl+shift+v=paste_from_clipboard
 # ---- Misc -------------------------------------------------------------------
 # Shift+Enter sends Esc-Enter (useful for some TUI programs)
 keybind = shift+enter=text:\x1b\r
+
+# Ctrl+Enter sends Kitty keyboard protocol Ctrl+Enter for TUIs inside Herdr/Pi.
+# Without this, many terminals encode Ctrl+Enter the same as plain Enter.
+keybind = ctrl+enter=text:\x1b[13;5u
