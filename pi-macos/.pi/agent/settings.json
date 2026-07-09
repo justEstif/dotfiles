@@ -15,7 +15,8 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:@narumitw/pi-subagents",
     "npm:pi-mcp-adapter",
-    "npm:@majorgilles/pi-learning-tutor"
+    "npm:@majorgilles/pi-learning-tutor",
+    "npm:pi-hermes-memory"
   ],
   "theme": "dark",
   "prompts": [

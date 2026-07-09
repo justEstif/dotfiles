@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.80.3",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "low",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
@@ -14,7 +14,8 @@
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",
     "npm:@narumitw/pi-subagents",
-    "npm:pi-observational-memory"
+    "npm:pi-observational-memory",
+    "npm:pi-hermes-memory"
   ],
   "theme": "dark",
   "collapseChangelog": true,
