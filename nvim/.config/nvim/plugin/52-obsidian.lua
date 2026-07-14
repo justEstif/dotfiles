@@ -14,6 +14,7 @@ later(function()
 
 	-- In this dotfiles/stow setup, Darwin is the work laptop; Linux is personal.
 	local is_work_machine = vim.loop.os_uname().sysname == "Darwin"
+	-- TODO Figure out a way to sync across the two devices
 	local workspaces = is_work_machine
 			and {
 				{

@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.80.6",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "medium",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultModel": "gpt-5.6-sol",
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,

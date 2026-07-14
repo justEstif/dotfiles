@@ -74,3 +74,5 @@ personality: default
 collapseChangelog: true
 modelRoles: 
   default: openai-codex/gpt-5.6-terra
+power: 
+  sleepPrevention: system
