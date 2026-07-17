@@ -73,6 +73,12 @@ showHardwareCursor: false
 personality: default
 collapseChangelog: true
 modelRoles: 
-  default: openai-codex/gpt-5.6-terra
+  default: openai-codex/gpt-5.6-luna
 power: 
   sleepPrevention: system
+advisor: 
+  enabled: true
+  subagents: true
+dev: 
+  autoqa: 
+    consent: granted

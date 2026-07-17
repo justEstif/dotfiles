@@ -12,34 +12,14 @@ later(function()
 		},
 	})
 
-	-- In this dotfiles/stow setup, Darwin is the work laptop; Linux is personal.
-	local is_work_machine = vim.loop.os_uname().sysname == "Darwin"
-	-- TODO Figure out a way to sync across the two devices
-	local workspaces = is_work_machine
-			and {
-				{
-					name = "work",
-					path = "~/vaults/work",
-				},
-				{
-					name = "personal",
-					path = "~/vaults/personal",
-				},
-			}
-		or {
-			{
-				name = "personal",
-				path = "~/vaults/personal",
-			},
-			{
-				name = "work",
-				path = "~/vaults/work",
-			},
-		}
-
 	require("obsidian").setup({
 		legacy_commands = false, -- removed in 4.0.0; command-only API
-		workspaces = workspaces,
+		workspaces = {
+			{
+				name = "obsidian",
+				path = "~/vaults/obsidian",
+			},
+		},
 		picker = {
 			name = "snacks.picker",
 		},
