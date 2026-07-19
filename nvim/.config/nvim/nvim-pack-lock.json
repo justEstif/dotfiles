@@ -48,6 +48,11 @@
     "ts-comments.nvim": {
       "rev": "a59d6092213447450191122c9346f309161504cb",
       "src": "https://github.com/folke/ts-comments.nvim"
+    },
+    "zk-nvim": {
+      "rev": "bca7e4a119353f18f2a819385fb7ce10269ef747",
+      "src": "https://github.com/zk-org/zk-nvim",
+      "version": ">=0.0.0"
     }
   }
 }

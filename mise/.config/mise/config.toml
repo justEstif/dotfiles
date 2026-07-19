@@ -8,6 +8,7 @@ usage = "latest"
 "npm:@oh-my-pi/pi-coding-agent" = "latest"
 lazygit = "latest"
 glow = "latest"
+"aqua:zk-org/zk" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "npm:agent-browser" = 'latest'
 "npm:@justestif/pk" = "latest"
