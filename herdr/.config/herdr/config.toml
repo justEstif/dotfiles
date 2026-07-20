@@ -4,6 +4,14 @@
 
 onboarding = false
 
+# ---- Terminal / rendering ----
+# Inline images via the Kitty graphics protocol. Ghostty is compatible.
+# (experimental in herdr, but addresses missing image support)
+kitty_graphics = true
+# Don't force a full redraw every time the terminal regains focus.
+# Cuts redraw churn that triggers semantic-frame desyncs in heavy TUIs (nvim + LSP).
+redraw_on_focus_gained = false
+
 [theme]
 name = "tokyo-night"
 auto_switch = true
