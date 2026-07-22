@@ -10,6 +10,7 @@ return {
 					"MiniIcons",
 					"MiniNotify",
 					"MiniCompletion",
+					"MiniFiles",
 					"Snacks",
 				},
 				disable = { "need-check-nil" },

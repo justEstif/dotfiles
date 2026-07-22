@@ -50,7 +50,8 @@ xmap_leader("ac", function()
 end, "Copy selection")
 
 -- f is for 'explore' and 'edit'
-nmap_leader("ff", function() Snacks.explorer.open() end, "Directory")
+nmap_leader("fd", "<Cmd>lua MiniFiles.open()<CR>", "Directory")
+nmap_leader("ff", "<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", "File directory")
 nmap_leader("fh", function() Snacks.picker.help() end, "Help")
 nmap_leader("f*", function() Snacks.picker.grep_word() end, "Grep under cursor")
 nmap_leader("fv", function() Snacks.picker.recent() end, "Frecency")

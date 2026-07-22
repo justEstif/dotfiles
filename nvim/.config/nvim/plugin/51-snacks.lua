@@ -16,11 +16,8 @@ now(function()
 			formatters = { file = { filename_first = true } },
 			sources = {
 				files = { hidden = true },
-				explorer = { hidden = true },
 			},
 		},
-
-		explorer = { replace_netrw = false, trash = true },
 
 		-- Sign + fold column. `sign` renders our project marks (15-marks.lua)
 		-- and any other placed signs; we omit `mark` to avoid duplicate letters.
