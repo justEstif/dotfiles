@@ -4,9 +4,7 @@
 
 # Live pi/omp runtime state retained under legacy package dirs (not migrated)
 /omp/
-/pi/.pi/agent/sessions/
-/pi/.pi/agent/themes/
-/pi/.pi/agent/auth.json
+/pi/
 
 # Stray local cruft at repo root (not part of any package)
 /.pi/
