@@ -2,7 +2,7 @@ browser:
   headless: false
   enabled: false
 defaultThinkingLevel: minimal
-hideThinkingBlock: false
+hideThinkingBlock: true
 compaction: 
   strategy: handoff
   handoffSaveToDisk: true
@@ -23,7 +23,7 @@ github:
 async: 
   enabled: false
 modelRoles: 
-  default: zai/glm-5.1:low
+  default: zai/glm-5.2
 stt: 
   enabled: false
 startup: 

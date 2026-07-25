@@ -13,7 +13,8 @@
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@narumitw/pi-subagents",
+    "@ogulcancelik/pi-codex-subagents",
+    "@ogulcancelik/pi-session-recall",
     "npm:pi-observational-memory",
     "npm:pi-hermes-memory",
     "npm:pi-mcp-adapter"

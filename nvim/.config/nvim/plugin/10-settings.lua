@@ -8,6 +8,10 @@ vim.o.switchbuf = "usetab" -- Use already opened buffers when switching
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
 vim.cmd("filetype plugin indent on") -- Enable all filetype plugins
 
+-- Mouse ======================================================================
+-- address herdr's lone-Esc wedge (#1266).
+vim.o.mouse = ""
+
 -- Clipboard ====================================================================
 local sysname = vim.loop.os_uname().sysname
 if sysname ~= "Linux" then
