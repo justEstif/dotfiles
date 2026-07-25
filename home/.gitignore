@@ -18,3 +18,7 @@ mise.local.toml
 # Jujutsu
 .jj/
 .pk/
+
+# Agent local settings (machine-specific)
+**/.claude/settings.local.json
+**/CLAUDE.local.md

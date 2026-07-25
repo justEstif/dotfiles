@@ -16,6 +16,11 @@ glow = "latest"
 typst = "0.14.2"                                 # fancy markdown
 rtk = "latest"                                   # filters/compresses command outputs before they reach your LLM context.
 zellij = "latest"
+ripgrep = "latest"
+fd = "latest"
+bat = "latest"
+zoxide = "latest"
+gh = "latest"
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/notes"
@@ -55,6 +60,11 @@ dotfiles.default_mode = "symlink"
 "~/.pi/agent/prompts"          = {}
 "~/.pi/agent/npm"              = {}
 "~/.pi/agent/keybindings.json" = {}
+
+[bootstrap.packages]
+# fish is the login shell mise activates into — must be OS-installed (not a mise tool)
+"apt:fish"  = "latest"
+"brew:fish" = "latest"
 
 [bootstrap.repos]
 "~/dotfiles" = { url = "git@github.com:justEstif/dotfiles.git", ref = "main" }
