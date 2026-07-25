@@ -1,3 +1,6 @@
+[tools]
+btop = "latest"                                  # resource monitor (aqua backend supports Linux)
+
 [dotfiles]
 "~/.config/ghostty/linux.conf" = {}
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.linux.yml" }

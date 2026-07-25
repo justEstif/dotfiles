@@ -9,5 +9,17 @@ _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
 
+# macOS-only packages installed via Homebrew during `mise bootstrap`.
+# mise pours these into /opt/homebrew and coexists with a real brew install.
+# Kept here (not in [tools]) because they are container/daemon or GNU tools
+# that Linux already ships or that behave best as brew formulae.
+[bootstrap.packages]
+"brew:btop"      = "latest"   # resource monitor (aqua backend is Linux-only)
+"brew:colima"    = "latest"   # container runtime VM (macOS)
+"brew:podman"    = "latest"   # container engine
+"brew:ollama"    = "latest"   # local LLM runner
+"brew:coreutils" = "latest"   # GNU coreutils (Linux ships these natively)
+"brew:grep"      = "latest"   # GNU grep (Linux ships this natively)
+
 [bootstrap.user]
 login_shell = "/opt/homebrew/bin/fish"
