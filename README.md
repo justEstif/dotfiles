@@ -15,7 +15,6 @@ workstation on Linux **or** macOS.
     config.linux.toml    # Linux-only  (auto-loaded on Linux)
     config.macos.toml    # macOS-only  (auto-loaded on macOS)
   omp/ pi/     # live runtime state (sessions, dbs, auth.json) — gitignored, retained
-  bootstrap-macos.sh     # one-shot macOS cutover script (clone→converge)
 ```
 
 mise reads its global config from `~/.config/mise/`, which symlinks into `mise/`.
@@ -40,9 +39,6 @@ ln -sf ~/dotfiles/mise/{miserc,config,config.linux,config.macos}.toml ~/.config/
 mise trust
 mise bootstrap --yes     # repos + dotfiles + fish shell-activate + login shell + tools
 ```
-
-On macOS you can instead run [`bootstrap-macos.sh`](bootstrap-macos.sh), which also
-handles the cutover from the old stow layout and the `chsh` follow-up.
 
 Platform configs load automatically — `mise config` should list `config.toml`
 **and** `config.<os>.toml`.
