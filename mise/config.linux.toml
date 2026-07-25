@@ -1,6 +1,3 @@
-[env]
-_.path = "{{env.HOME}}/.config/emacs/bin"
-
 [dotfiles]
 "~/.config/ghostty/linux.conf" = {}
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.linux.yml" }
