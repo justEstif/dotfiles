@@ -1,30 +1,32 @@
 # Local/runtime state
 .lasso/
-pi/.pi/agent/auth.json
-pi/.pi/agent/sessions/
 .beans/
+
+# Live pi/omp runtime state retained under legacy package dirs (not migrated)
+/omp/
+/pi/.pi/agent/sessions/
+/pi/.pi/agent/themes/
+/pi/.pi/agent/auth.json
+
+# Stray local cruft at repo root (not part of any package)
+/.pi/
+
 # pi subagent artifacts
 **/.pi/subagents/
 
 # Generated dependency/install artifacts
 node_modules/
-agents/.agents/skills/dist/
-opencode/.config/opencode/package-lock.json
-television/.config/television/cable/
+home/.agents/skills/dist/
+
+# Fontconfig cache artifacts
+**/.uuid
 
 # Agent/tool generated files
-agents/.agents/.skill-lock.json
-zed/.config/zed/prompts/prompts-library-db.0.mdb
+home/.agents/.skill-lock.json
+home/.config/zed/prompts/prompts-library-db.0.mdb
 
 # Debug/log output
 om-debug.log
 om-last-observer-response.json
 .lasso/db.sqlite*
 .lasso/debug/
-/pi/.pi/squad
-
-# Oh My Pi agent state (keep config.yml)
-/omp/.omp/*
-!/omp/.omp/agent
-/omp/.omp/agent/*
-!/omp/.omp/agent/config.yml

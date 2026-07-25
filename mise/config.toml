@@ -1,0 +1,63 @@
+[tools]
+node = "22.12.0"
+bun = "latest"
+go = "latest"
+rust = "latest"
+usage = "latest"
+"npm:@earendil-works/pi-coding-agent" = "latest"
+"npm:@oh-my-pi/pi-coding-agent" = "latest"
+lazygit = "latest"
+glow = "latest"
+"aqua:zk-org/zk" = "latest"                      # notes, but cli
+"go:golang.org/x/tools/gopls" = "latest"
+"npm:agent-browser" = 'latest'                   # browser, but cli
+"npm:@justestif/pk" = "latest"                   # notes for ai
+"npm:@jx0/wtm" = "latest"                        # worktrees
+typst = "0.14.2"                                 # fancy markdown
+rtk = "latest"                                   # filters/compresses command outputs before they reach your LLM context.
+zellij = "latest"
+
+[env]
+ZK_NOTEBOOK_DIR = "{{env.HOME}}/notes"
+
+[settings]
+experimental = true
+idiomatic_version_file_enable_tools = ["node"]
+locked = false
+env_shell_expand = true
+npm.package_manager = "bun"
+dotfiles.root = "~/dotfiles/home"
+dotfiles.default_mode = "symlink"
+
+# --- mise self-management (explicit sources; these live outside home/) ---
+[dotfiles]
+"~/.config/mise/miserc.toml"       = "~/dotfiles/mise/miserc.toml"
+"~/.config/mise/config.toml"       = "~/dotfiles/mise/config.toml"
+"~/.config/mise/config.linux.toml" = "~/dotfiles/mise/config.linux.toml"
+"~/.config/mise/config.macos.toml" = "~/dotfiles/mise/config.macos.toml"
+
+"~/.gitconfig"                 = { mode = "symlink" }
+"~/.gitignore"                 = { mode = "symlink" }
+"~/AGENTS.md"                  = {}
+"~/.agents"                    = {}
+"~/.config/fish"               = {}
+"~/.config/ghostty/config"     = {}
+"~/.config/glow"               = {}
+"~/.config/lazygit"            = {}
+"~/.config/nvim"               = {}
+"~/.config/ripgrep"            = {}
+"~/.config/yt-dlp"             = {}
+"~/.config/zed"                = {}
+"~/.config/zk"                 = {}
+"~/.config/zellij"             = {}
+"~/.local/share/fonts"         = {}
+"~/.pi/agent/extensions"       = {}
+"~/.pi/agent/prompts"          = {}
+"~/.pi/agent/npm"              = {}
+"~/.pi/agent/keybindings.json" = {}
+
+[bootstrap.repos]
+"~/dotfiles" = { url = "git@github.com:justEstif/dotfiles.git", ref = "main" }
+
+[bootstrap.mise_shell_activate]
+fish = "activate"

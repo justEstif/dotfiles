@@ -1,0 +1,13 @@
+[env]
+XDG_CONFIG_HOME = "{{env.HOME}}/.config"
+HOMEBREW_NO_REQUIRE_TAP_TRUST = "1"
+_.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+[dotfiles]
+"~/.config/ghostty/macos.conf" = {}
+"~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.macos.yml" }
+"~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
+"~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
+
+[bootstrap.user]
+login_shell = "/opt/homebrew/bin/fish"

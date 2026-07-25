@@ -1,0 +1,11 @@
+[env]
+_.path = "{{env.HOME}}/.config/emacs/bin"
+
+[dotfiles]
+"~/.config/ghostty/linux.conf" = {}
+"~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.linux.yml" }
+"~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.linux.json" }
+"~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.linux.json" }
+
+[bootstrap.user]
+login_shell = "/usr/bin/fish"
