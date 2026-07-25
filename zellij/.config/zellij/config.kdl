@@ -1,0 +1,23 @@
+// Restored from git history (commit 80e3031^, prior to "chore: Remove zellij").
+// Keeps zellij's default modal keybinds; only tweaks Quit + UI.
+
+keybinds {
+  session {
+    unbind "q"
+    bind "Ctrl q" { Quit; }
+  }
+
+  shared_except "locked" {
+    unbind "Ctrl q"
+  }
+}
+
+ui {
+  pane_frames {
+    hide_session_name true
+  }
+}
+
+theme "catppuccin-macchiato"
+styled_underlines false
+pane_frames false

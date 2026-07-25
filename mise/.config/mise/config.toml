@@ -14,8 +14,8 @@ glow = "latest"
 "npm:@justestif/pk" = "latest"                   # notes for ai
 "npm:@jx0/wtm" = "latest"                        # worktrees
 typst = "0.14.2"                                 # fancy markdown
-herdr = "latest"                                 # tmux, but new
 rtk = "latest"                                   # filters/compresses command outputs before they reach your LLM context.
+zellij = "latest"
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/notes"

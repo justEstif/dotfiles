@@ -6,10 +6,11 @@ vim.g.mapleader = ","
 vim.o.mousescroll = "ver:25,hor:6" -- Customize mouse scroll
 vim.o.switchbuf = "usetab" -- Use already opened buffers when switching
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
+vim.o.swapfile = false -- No swap files (git is the safety net)
 vim.cmd("filetype plugin indent on") -- Enable all filetype plugins
 
 -- Mouse ======================================================================
--- address herdr's lone-Esc wedge (#1266).
+-- disabled (keyboard-driven).
 vim.o.mouse = ""
 
 -- Clipboard ====================================================================
