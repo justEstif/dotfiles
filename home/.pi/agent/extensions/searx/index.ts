@@ -13,6 +13,7 @@ interface SearxConfig {
   baseUrl: string;
   user?: string;
   pass?: string;
+  engines?: string[];
 }
 
 let _cachedConfig: SearxConfig | null = null;
@@ -34,6 +35,11 @@ function loadConfig(): SearxConfig {
         baseUrl: entry.baseUrl || "http://localhost:8888",
         user: entry.user,
         pass: entry.pass,
+        engines: Array.isArray(entry.engines)
+          ? entry.engines.filter((engine: unknown): engine is string =>
+              typeof engine === "string" && engine.length > 0,
+            )
+          : undefined,
       };
       return _cachedConfig;
     }
@@ -69,15 +75,23 @@ interface SearchResult {
   engine: string;
 }
 
+interface SearchResponse {
+  results: SearchResult[];
+  unresponsiveEngines: Array<[engine: string, reason: string]>;
+}
+
 async function searxSearch(
   query: string,
   opts: { category?: string; limit?: number; signal?: AbortSignal },
-): Promise<SearchResult[]> {
+): Promise<SearchResponse> {
   const url = new URL("/search", getBaseUrl());
   url.searchParams.set("q", query);
   url.searchParams.set("format", "json");
 
   if (opts.category) url.searchParams.set("categories", opts.category);
+
+  const { engines } = loadConfig();
+  if (engines?.length) url.searchParams.set("engines", engines.join(","));
 
   const res = await fetch(url.toString(), {
     signal: opts.signal,
@@ -98,6 +112,7 @@ async function searxSearch(
       content?: string | null;
       engine?: string | null;
     }>;
+    unresponsive_engines?: Array<[engine: string, reason: string]>;
   };
 
   const results = (body.results ?? [])
@@ -109,7 +124,10 @@ async function searxSearch(
       engine: r.engine ?? "unknown",
     }));
 
-  return results.slice(0, opts.limit ?? 10);
+  return {
+    results: results.slice(0, opts.limit ?? 10),
+    unresponsiveEngines: body.unresponsive_engines ?? [],
+  };
 }
 
 // --- Extract (HTML → markdown via Defuddle) ---
@@ -219,30 +237,28 @@ export default function (pi: ExtensionAPI) {
         };
       }
 
-      try {
-        const results = await searxSearch(params.query, {
-          category: params.category,
-          limit: params.limit ?? 10,
-          signal,
-        });
+      const { results, unresponsiveEngines } = await searxSearch(params.query, {
+        category: params.category,
+        limit: params.limit ?? 10,
+        signal,
+      });
 
-        const text = formatResults(results);
-
-        return {
-          content: [{ type: "text", text }],
-          details: {
-            query: params.query,
-            status: "success",
-            resultCount: results.length,
-          },
-        };
-      } catch (err: any) {
-        const msg = err?.message ?? String(err);
-        return {
-          content: [{ type: "text", text: `Error: ${msg}` }],
-          details: { query: params.query, status: "error", error: msg },
-        };
+      if (results.length === 0 && unresponsiveEngines.length > 0) {
+        const failures = unresponsiveEngines
+          .map(([engine, reason]) => `${engine}: ${reason}`)
+          .join("; ");
+        throw new Error(`SearXNG engines failed: ${failures}`);
       }
+
+      return {
+        content: [{ type: "text", text: formatResults(results) }],
+        details: {
+          query: params.query,
+          status: "success",
+          resultCount: results.length,
+          unresponsiveEngines,
+        },
+      };
     },
 
     renderCall(args, theme) {
@@ -299,36 +315,28 @@ export default function (pi: ExtensionAPI) {
         };
       }
 
-      try {
-        const { markdown, title } = await extractUrl(params.url, signal);
+      const { markdown, title } = await extractUrl(params.url, signal);
 
-        const truncation = truncateHead(markdown, {
-          maxLines: DEFAULT_MAX_LINES,
-          maxBytes: DEFAULT_MAX_BYTES,
-        });
+      const truncation = truncateHead(markdown, {
+        maxLines: DEFAULT_MAX_LINES,
+        maxBytes: DEFAULT_MAX_BYTES,
+      });
 
-        let text = `# ${title}\n\n${truncation.content}`;
+      let text = `# ${title}\n\n${truncation.content}`;
 
-        if (truncation.truncated) {
-          text += `\n\n[Content truncated: ${truncation.outputLines} of ${truncation.totalLines} lines shown]`;
-        }
-
-        return {
-          content: [{ type: "text", text }],
-          details: {
-            url: params.url,
-            status: "success",
-            title,
-            truncated: truncation.truncated,
-          },
-        };
-      } catch (err: any) {
-        const msg = err?.message ?? String(err);
-        return {
-          content: [{ type: "text", text: `Error: ${msg}` }],
-          details: { url: params.url, status: "error", error: msg },
-        };
+      if (truncation.truncated) {
+        text += `\n\n[Content truncated: ${truncation.outputLines} of ${truncation.totalLines} lines shown]`;
       }
+
+      return {
+        content: [{ type: "text", text }],
+        details: {
+          url: params.url,
+          status: "success",
+          title,
+          truncated: truncation.truncated,
+        },
+      };
     },
 
     renderCall(args, theme) {
