@@ -9,15 +9,16 @@
     "reserveTokens": 60000,
     "keepRecentTokens": 10000
   },
+  "terminal": {
+    "showImages": false
+  },
   "packages": [
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",
-    "@ogulcancelik/pi-codex-subagents",
-    "@ogulcancelik/pi-session-recall",
-    "npm:pi-observational-memory",
     "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "npm:@ogulcancelik/pi-codex-subagents"
   ],
   "theme": "dark",
   "collapseChangelog": true,
