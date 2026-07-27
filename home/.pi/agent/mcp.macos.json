@@ -1,12 +1,9 @@
 {
   "mcpServers": {
     "atlassian": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@latest",
-        "https://mcp.atlassian.com/v1/mcp/authv2"
-      ]
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2",
+      "auth": "oauth"
     },
     "figma": {
       "url": "http://127.0.0.1:3845/mcp"
