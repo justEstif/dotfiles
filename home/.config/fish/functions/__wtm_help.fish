@@ -1,0 +1,35 @@
+function __wtm_help --description "Print wtm help"
+    echo "🌳 wtm — worktree manager for bare git repositories"
+    echo
+    echo "USAGE"
+    echo "    wtm <command> [args] [flags]"
+    echo
+    echo "COMMANDS"
+    echo "    init <url> [path]                 Clone a repo into a wtm-managed bare structure"
+    echo "    create <name> --from <base>       Create a worktree + branch, then cd into it"
+    echo "          --no-shell                  Create without cd-ing into the worktree"
+    echo "    checkout <name>                   Create a worktree from an existing remote branch"
+    echo "    list                              List all worktrees"
+    echo "    delete <name> [--force]           Remove a worktree"
+    echo "    cleanup [options]                 Find and delete merged worktrees"
+    echo "    help                              Show this help"
+    echo
+    echo "CLEANUP OPTIONS"
+    echo "    --base <branch>                   Base branch for merge detection (auto-detected)"
+    echo "    --dry-run                         Show what would be deleted without deleting"
+    echo "    --yes                             Delete all candidates without prompting"
+    echo
+    echo "EXAMPLES"
+    echo "    wtm init git@github.com:user/repo.git"
+    echo "    wtm create feature-auth --from main"
+    echo "    wtm create hotfix --from main --no-shell"
+    echo "    wtm checkout existing-remote-branch"
+    echo "    wtm list"
+    echo "    wtm delete feature-auth"
+    echo "    wtm cleanup --dry-run"
+    echo
+    echo "HOOKS"
+    echo "    Place a script at .wtm/post_create (committed on your base branch) to run"
+    echo "    setup after a worktree is created. It receives these env vars:"
+    echo "      WORKTREE_DIR  WORKTREE_NAME  BASE_BRANCH  BARE_REPO_PATH"
+end

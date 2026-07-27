@@ -12,7 +12,6 @@ glow = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "npm:agent-browser" = 'latest'                   # browser, but cli
 "npm:@justestif/pk" = "latest"                   # notes for ai
-"npm:@jx0/wtm" = "latest"                        # worktrees
 typst = "0.14.2"                                 # fancy markdown
 rtk = "latest"                                   # filters/compresses command outputs before they reach your LLM context.
 zellij = "latest"
