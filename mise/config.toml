@@ -29,6 +29,8 @@ fd = "latest"
 bat = "latest"
 zoxide = "latest"
 gh = "latest"
+newrelic-cli = "latest"
+"npm:@jx0/wtm" = "1.3.0"
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/notes"
@@ -44,34 +46,34 @@ dotfiles.default_mode = "symlink"
 
 # --- mise self-management (explicit sources; these live outside home/) ---
 [dotfiles]
-"~/.config/mise/miserc.toml"       = "~/dotfiles/mise/miserc.toml"
-"~/.config/mise/config.toml"       = "~/dotfiles/mise/config.toml"
+"~/.config/mise/miserc.toml" = "~/dotfiles/mise/miserc.toml"
+"~/.config/mise/config.toml" = "~/dotfiles/mise/config.toml"
 "~/.config/mise/config.linux.toml" = "~/dotfiles/mise/config.linux.toml"
 "~/.config/mise/config.macos.toml" = "~/dotfiles/mise/config.macos.toml"
 
-"~/.gitconfig"                 = { mode = "symlink" }
-"~/.gitignore"                 = { mode = "symlink" }
-"~/AGENTS.md"                  = {}
-"~/.agents"                    = {}
-"~/.config/fish"               = {}
-"~/.config/ghostty/config"     = {}
-"~/.config/glow"               = {}
-"~/.config/lazygit"            = {}
-"~/.config/nvim"               = {}
-"~/.config/ripgrep"            = {}
-"~/.config/yt-dlp"             = {}
-"~/.config/zed"                = {}
-"~/.config/zk"                 = {}
-"~/.config/zellij"             = {}
-"~/.local/share/fonts"         = {}
-"~/.pi/agent/extensions"       = {}
-"~/.pi/agent/prompts"          = {}
-"~/.pi/agent/npm"              = {}
+"~/.gitconfig" = { mode = "symlink" }
+"~/.gitignore" = { mode = "symlink" }
+"~/AGENTS.md" = {}
+"~/.agents" = {}
+"~/.config/fish" = {}
+"~/.config/ghostty/config" = {}
+"~/.config/glow" = {}
+"~/.config/lazygit" = {}
+"~/.config/nvim" = {}
+"~/.config/ripgrep" = {}
+"~/.config/yt-dlp" = {}
+"~/.config/zed" = {}
+"~/.config/zk" = {}
+"~/.config/zellij" = {}
+"~/.local/share/fonts" = {}
+"~/.pi/agent/extensions" = {}
+"~/.pi/agent/prompts" = {}
+"~/.pi/agent/npm" = {}
 "~/.pi/agent/keybindings.json" = {}
 
 [bootstrap.packages]
 # fish is the login shell mise activates into — must be OS-installed (not a mise tool)
-"apt:fish"  = "latest"
+"apt:fish" = "latest"
 "brew:fish" = "latest"
 
 [bootstrap.repos]

@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.82.0",
+  "lastChangelogVersion": "0.84.1",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "medium",
   "defaultProvider": "openai-codex",
@@ -13,10 +13,9 @@
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@narumitw/pi-subagents",
+    "npm:pi-hermes-memory",
     "npm:pi-mcp-adapter@2.11.0",
-    "npm:@majorgilles/pi-learning-tutor",
-    "npm:pi-hermes-memory"
+    "npm:@ogulcancelik/pi-codex-subagents"
   ],
   "theme": "dark",
   "prompts": [

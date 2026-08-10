@@ -8,6 +8,10 @@
     "figma": {
       "url": "http://127.0.0.1:3845/mcp"
     },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
     "chrome-devtools": {
       "command": "npx",
       "args": ["-y", "chrome-devtools-mcp@latest", "--isolated=true"]
@@ -18,6 +22,10 @@
       "headers": {
         "Authorization": "${POSTMAN_MCP_TOKEN}"
       }
+    },
+    "echo-mcp": {
+      "command": "npx",
+      "args": ["--yes", "-p", "@redventures/echo@latest", "echo-mcp"]
     }
   }
 }

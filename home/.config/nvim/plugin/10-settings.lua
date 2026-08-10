@@ -22,6 +22,7 @@ else
 end
 
 -- UI =========================================================================
+vim.o.termguicolors = true -- Enable truecolor in terminal UIs
 vim.o.relativenumber = true -- Show relative line number
 vim.o.cursorlineopt = "screenline,number" -- Show cursor line only screen line when wrapped
 vim.o.breakindentopt = "list:-1" -- Add padding for lists when 'wrap' is on

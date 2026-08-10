@@ -2,6 +2,8 @@
 fish_add_path ~/.local/share/mise/shims
 
 set -gx EDITOR nvim
+set -gx TERM xterm-256color
+set -gx COLORTERM truecolor
 set fish_greeting
 
 set -x RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/ripgreprc
