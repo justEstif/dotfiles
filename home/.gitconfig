@@ -1,15 +1,53 @@
+# Consolidated git config — single source of truth (repo-managed via mise).
+# Absorbed the omarchy installer's ~/.config/git/config (now removed):
+# rerere, histogram diffs, sorts, column, commit.verbose, co/br/ci/st aliases.
+# Precedence note: ~/.gitconfig overrides any XDG ~/.config/git/config, so if
+# an omarchy reinstall ever recreates the XDG file, the values below still win.
+
 [user]
-	name = estifanos
+  name = estifanos
   email = 95101485+justEstif@users.noreply.github.com
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
 [pull]
-	rebase = false
-[core]
-	excludesfile = ~/.gitignore
+  rebase = false
+
 [push]
-	default = upstream
+  default = upstream
+  autoSetupRemote = true
+
+[core]
+  excludesfile = ~/.gitignore
+
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+
+[commit]
+  verbose = true
+
+[column]
+  ui = auto
+
+[branch]
+  sort = -committerdate
+
+[tag]
+  sort = -version:refname
+
+[rerere]
+  enabled = true
+  autoupdate = true
+
 [alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+
   # Worktree aliases
   wt = worktree
 
@@ -34,9 +72,9 @@
   # Create a new worktree with a new branch based on a remote branch
   # Usage: git wtanbr new-branch-name origin/remote-branch-name [directory-name]
   # If directory-name is not provided, it defaults to using the branch name
-	wtanbr = "!f() { BRANCH=\"$1\"; REMOTE_BRANCH=\"$2\"; if [ -z \"$3\" ]; then DIRNAME=$(echo $BRANCH | sed 's/\\//\\-/g'); else DIRNAME=\"$3\"; fi; git fetch && git worktree add -b \"$BRANCH\" \".worktrees/$DIRNAME\" \"$REMOTE_BRANCH\"; }; f"
+  wtanbr = "!f() { BRANCH=\"$1\"; REMOTE_BRANCH=\"$2\"; if [ -z \"$3\" ]; then DIRNAME=$(echo $BRANCH | sed 's/\\//\\-/g'); else DIRNAME=\"$3\"; fi; git fetch && git worktree add -b \"$BRANCH\" \".worktrees/$DIRNAME\" \"$REMOTE_BRANCH\"; }; f"
 
   # Create a new worktree with a new branch based on a remote branch from origin
   # Usage: git wtanbro new-branch-name remote-branch-name [directory-name]
   # Example: git wtanbro feature/new-work feature/base-work
-	wtanbro = "!f() { BRANCH=\"$1\"; REMOTE_BRANCH=\"origin/$2\"; if [ -z \"$3\" ]; then DIRNAME=$(echo $BRANCH | sed 's/\\//\\-/g'); else DIRNAME=\"$3\"; fi; git fetch && git worktree add -b \"$BRANCH\" \".worktrees/$DIRNAME\" \"$REMOTE_BRANCH\"; }; f"
+  wtanbro = "!f() { BRANCH=\"$1\"; REMOTE_BRANCH=\"$2\"; if [ -z \"$3\" ]; then DIRNAME=$(echo $BRANCH | sed 's/\\//\\-/g'); else DIRNAME=\"$3\"; fi; git fetch && git worktree add -b \"$BRANCH\" \".worktrees/$DIRNAME\" \"$REMOTE_BRANCH\"; }; f"

@@ -1,3 +1,17 @@
+# Machines
+
+- **Linux (primary): Omarchy** — Arch + Hyprland. Never edit `/usr/share/omarchy/` (read-only, overwritten on update); prefer `omarchy <group> <action>` commands; user overrides live in `~/.config/`. The omarchy skill (`~/.agents/skills/omarchy/`) is required reading before touching hypr/terminal/theme config.
+- **macOS**: standard Homebrew setup.
+
+# Dotfiles repo (`~/dotfiles`)
+
+Every managed dotfile is a symlink into this repo — editing in place edits the repo.
+
+- Commit before running `mise bootstrap` (it refuses on a dirty tree).
+- Capture drift after a tool rewrites a managed file (e.g. `git config --global`): `mise dotfiles add <path>`, then commit.
+- `omarchy font set`/`sed -i` on managed files **breaks symlinks** (atomic replace): check `mise dotfiles status` for `differs` entries and re-link.
+- Secrets stay out: API keys live in `~/mise.local.toml` (untracked); pi auth/sessions are runtime state.
+
 # Worktrees
 
 - Use `wtm` for repository work that requires code changes.
