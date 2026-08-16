@@ -1,7 +1,7 @@
 {
   "theme": "omarchy-system",
   "lastChangelogVersion": "0.84.2",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
