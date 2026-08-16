@@ -55,10 +55,12 @@ type -q docker; and abbr -a d docker
 abbr -a h herdr
 abbr -a mup 'MISE_MINIMUM_RELEASE_AGE=0 mise up'
 
-# Herdr dev layouts (formerly tmux's tdl/tdl c aliases — herdr replaces tmux)
-abbr -a ic 'hdl c'
-abbr -a ix 'hdl cx'
-abbr -a icx 'hdl c cx'
+# Herdr dev layouts (formerly tmux's tdl/tdl c aliases — herdr replaces tmux).
+# Target real binaries: abbreviations can't expand inside `herdr pane run`,
+# so these must name actual commands (pi/codex via mise), not abbrs like c/cx.
+abbr -a ic 'hdl pi'
+abbr -a ix 'hdl codex'
+abbr -a icx 'hdl pi codex'
 
 # Git
 abbr -a g git

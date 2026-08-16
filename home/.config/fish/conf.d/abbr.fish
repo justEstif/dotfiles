@@ -1,10 +1,8 @@
 abbr -a v nvim
 abbr -a lz lazygit
-abbr -a oc opencode
 abbr -a l ls -1hA # ls column view, hidden files
 abbr -a killnode "killall -9 node" # kill all node apps
 abbr -a fzfp 'find "$PWD" | fzf' # full file path - fzf
-abbr -a hermes 'docker exec -it hermes-agent /opt/hermes/.venv/bin/hermes' # hermes agent CLI
 
 set -l os (uname)
 

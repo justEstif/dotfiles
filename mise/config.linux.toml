@@ -33,6 +33,7 @@ node = "26.7.0"                                   # newer than the shared 22.12.
 [bootstrap.packages]
 "pacman:fish" = "latest"
 "pacman:ghostty" = "latest"
+"pacman:lsof" = "latest"                             # killport fish function
 
 [bootstrap.user]
 login_shell = "/usr/bin/fish"
