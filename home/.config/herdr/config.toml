@@ -16,7 +16,9 @@ panel_bg = "black"
 new_cwd = "follow"
 
 [keys]
-prefix = "ctrl+space"
+# ctrl+b — herdr upstream default (tmux-style). The omarchy template ships
+# ctrl+space, but the shipped default fits muscle memory better.
+prefix = "ctrl+b"
 
 # Config and help
 reload_config = "prefix+q"
