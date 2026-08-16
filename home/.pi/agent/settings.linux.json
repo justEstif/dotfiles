@@ -21,7 +21,6 @@
     "npm:pi-mcp-adapter",
     "npm:@ogulcancelik/pi-codex-subagents"
   ],
-  "theme": "dark",
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
   "treeFilterMode": "no-tools"
