@@ -258,3 +258,13 @@ function lip --description 'List active SSH port forwards'
     pgrep -af "ssh.*-L [0-9]+:localhost:[0-9]+"
     or echo "No active forwards"
 end
+
+# ---- symlink drift self-heal -------------------------------------------------
+# Tools that sed-rewrite configs (`omarchy font set`, `omarchy display text
+# size`) atomically replace files, severing mise dotfiles symlinks. One cheap
+# stat per prompt on the known target; heal-mise-dotfiles sweeps all drift.
+function __omarchy_heal_dotfiles --on-event fish_prompt
+    if not test -L ~/.config/ghostty/config; and type -q heal-mise-dotfiles
+        heal-mise-dotfiles >/dev/null 2>&1
+    end
+end

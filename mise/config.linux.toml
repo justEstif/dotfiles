@@ -10,6 +10,12 @@ node = "26.7.0"                                   # newer than the shared 22.12.
 # hypr = user-override files (load after omarchy defaults); input.lua holds caps->ctrl
 # fontconfig: sans-serif default -> Aporetic (survives omarchy font set rewrites)
 "~/.config/fontconfig/conf.d/50-aporetic-default.conf" = {}
+
+# Symlink-drift self-heal: one script, two delivery paths — on PATH for manual
+# + fish_prompt use, and symlinked into omarchy's font-set hook for immediate
+# repair after `omarchy font set` (display text size is covered by fish_prompt).
+"~/.local/bin/heal-mise-dotfiles" = {}
+"~/.config/omarchy/hooks/font-set.d/heal-mise-dotfiles" = { source = "~/dotfiles/home/.local/bin/heal-mise-dotfiles" }
 "~/.config/btop/btop.conf" = {}
 "~/.config/herdr/config.toml" = {}
 "~/.config/hypr/autostart.lua" = {}
