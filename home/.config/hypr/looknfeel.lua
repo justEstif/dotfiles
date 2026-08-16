@@ -1,5 +1,13 @@
 -- Change the default Omarchy look'n'feel.
 
+-- Tighter spacing than stock (5/10) — less dead space at screen edges.
+hl.config({
+  general = {
+    gaps_in = 3,
+    gaps_out = 3,
+  },
+})
+
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
 -- hl.config({
 --   general = {
