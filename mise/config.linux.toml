@@ -8,6 +8,8 @@ node = "26.7.0"                                   # newer than the shared 22.12.
 
 # --- Omarchy desktop (Linux-only) ---
 # hypr = user-override files (load after omarchy defaults); input.lua holds caps->ctrl
+# fontconfig: sans-serif default -> Aporetic (survives omarchy font set rewrites)
+"~/.config/fontconfig/conf.d/50-aporetic-default.conf" = {}
 "~/.config/btop/btop.conf" = {}
 "~/.config/herdr/config.toml" = {}
 "~/.config/hypr/autostart.lua" = {}
