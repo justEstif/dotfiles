@@ -4,8 +4,6 @@ bun = "latest"
 go = "latest"
 rust = "latest"
 usage = "latest"
-"npm:@earendil-works/pi-coding-agent" = "latest"
-"npm:@oh-my-pi/pi-coding-agent" = "latest"
 lazygit = "latest"
 glow = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
@@ -13,7 +11,6 @@ glow = "latest"
 "npm:@justestif/pk" = "latest"                   # notes for ai
 typst = "0.14.2"                                 # fancy markdown
 rtk = "latest"                                   # filters/compresses command outputs before they reach your LLM context.
-zellij = "latest"
 neovim = "latest"                                # editor ($EDITOR)
 fzf = "latest"                                   # fuzzy finder (fzfp abbr, FZF_DEFAULT_OPTS)
 delta = "latest"                                 # git syntax-highlighting pager
@@ -55,21 +52,14 @@ dotfiles.default_mode = "symlink"
 "~/.config/ghostty/config" = {}
 "~/.config/glow" = {}
 "~/.config/lazygit" = {}
-"~/.config/nvim" = {}
 "~/.config/ripgrep" = {}
 "~/.config/yt-dlp" = {}
 "~/.config/zed" = {}
-"~/.config/zellij" = {}
 "~/.local/share/fonts" = {}
 "~/.pi/agent/extensions" = {}
 "~/.pi/agent/prompts" = {}
 "~/.pi/agent/npm" = {}
 "~/.pi/agent/keybindings.json" = {}
-
-[bootstrap.packages]
-# fish is the login shell mise activates into — must be OS-installed (not a mise tool)
-"apt:fish" = "latest"
-"brew:fish" = "latest"
 
 [bootstrap.repos]
 "~/dotfiles" = { url = "git@github.com:justEstif/dotfiles.git", ref = "main" }

@@ -1,11 +1,21 @@
 [tools]
 btop = "latest"                                  # resource monitor (aqua backend supports Linux)
+pi = "latest"                                     # pi agent — core registry native binary (omarchy's install channel)
+codex = "latest"                                  # OpenAI codex CLI
+node = "26.7.0"                                   # newer than the shared 22.12.0 pin (this machine's toolchain)
 
 [dotfiles]
 "~/.config/ghostty/linux.conf" = {}
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.linux.yml" }
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.linux.json" }
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.linux.json" }
+
+# Omarchy (Arch Linux) system packages installed during `mise bootstrap`.
+# fish is the login shell; ghostty is the default terminal (omarchy default terminal).
+# Managers absent on a distro are skipped automatically.
+[bootstrap.packages]
+"pacman:fish" = "latest"
+"pacman:ghostty" = "latest"
 
 [bootstrap.user]
 login_shell = "/usr/bin/fish"

@@ -9,7 +9,12 @@ abbr -a hermes 'docker exec -it hermes-agent /opt/hermes/.venv/bin/hermes' # her
 set -l os (uname)
 
 if test "$os" = Linux
-    abbr -a apt-up "sudo apt update && sudo apt upgrade && sudo apt autoremove && mise cache clear && mise up"
+    # Arch/omarchy system update (name kept as apt-up for muscle memory)
+    if type -q omarchy
+        abbr -a apt-up "omarchy update && mise cache clear && mise up"
+    else
+        abbr -a apt-up "sudo pacman -Syu && mise cache clear && mise up"
+    end
 
     # Linux clipboard commands - check available tools
     if type -q wl-copy

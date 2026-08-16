@@ -13,6 +13,9 @@
 # Ignore local mise.local
 mise.local.toml
 
+# fish runtime state (lands here via the ~/.config/fish symlink)
+home/.config/fish/fish_variables
+
 .orchestrator/
 
 # Jujutsu

@@ -1,37 +1,58 @@
 # =============================================================================
-# Ghostty Config — replaces Zellij as multiplexer
+# Ghostty — omarchy base + personal additions
 # =============================================================================
-# Modal, Zellij-style: ctrl+a leader, then t/p/[ to enter a mode.
-# Tabs and splits only — no window management.
-# Works on both macOS and Linux. Platform overrides in linux.conf / macos.conf
-# Requires Ghostty >= 1.3.0 for key tables.
-# =============================================================================
+# Theme follows `omarchy theme set` via the state file below (the ? prefix
+# suppresses the error on machines without omarchy, e.g. macOS — macos.conf
+# sets a static theme there).
+config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 
-# ---- General ----------------------------------------------------------------
+# ---- Font -------------------------------------------------------------------
+
+font-family = "Aporetic Sans Mono"
+font-style = Regular
+
+# ---- Shell ------------------------------------------------------------------
 
 shell-integration = fish
-theme = TokyoNight Night
-font-family = "Aporetic Sans Mono"
-window-save-state = always
+
+# ---- Window -----------------------------------------------------------------
+
+window-theme = ghostty
+window-padding-x = 14
+window-padding-y = 14
 confirm-close-surface = false
+resize-overlay = never
+gtk-toolbar-style = flat
+gtk-tabs-location = top
+window-save-state = always
 quit-after-last-window-closed = true
 
-# ---- UI ---------------------------------------------------------------------
+# ---- Cursor + SSH terminfo --------------------------------------------------
+# (all shell integration options must be passed together)
+cursor-style = "block"
+cursor-style-blink = false
+shell-integration-features = no-cursor,ssh-env
 
-# Hide titlebar on macOS; hide GTK tabs on Linux (we manage our own)
-gtk-tabs-location = top
+# ---- Keyboard bindings ------------------------------------------------------
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+# Send Shift+Enter as CSI-u so TUIs can distinguish it from Enter.
+keybind = shift+enter=csi:13;2u
+# Legacy encoding sends Alt+Shift+Enter the same as Alt+Enter; send CSI-u so tmux can match M-S-Enter.
+keybind = alt+shift+enter=csi:13;4u
+keybind = super+control+shift+alt+arrow_down=resize_split:down,100
+keybind = super+control+shift+alt+arrow_up=resize_split:up,100
+keybind = super+control+shift+alt+arrow_left=resize_split:left,100
+keybind = super+control+shift+alt+arrow_right=resize_split:right,100
+
+# ---- Misc -------------------------------------------------------------------
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll
 
 # ---- Platform-specific includes ---------------------------------------------
 # The ? prefix suppresses errors if the file doesn't exist.
 config-file = ?linux.conf
 config-file = ?macos.conf
-
-# ---- Keybinds ---------------------------------------------------------------
-keybind = clear
-keybind = ctrl+shift+r=reload_config
-keybind = performable:ctrl+shift+c=copy_to_clipboard
-keybind = performable:ctrl+shift+v=paste_from_clipboard
-
-# ---- Misc -------------------------------------------------------------------
-# Shift+Enter sends Esc-Enter (useful for some TUI programs)
-keybind = shift+enter=text:\x1b\r
