@@ -9,7 +9,6 @@ _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [dotfiles]
 "~/.config/ghostty/macos.conf" = {}
-"~/.config/nvim" = {}                            # Linux runs omarchy's LazyVim; this config is mini.nvim-based (macOS only)
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.macos.yml" }
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }

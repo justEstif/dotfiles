@@ -45,6 +45,7 @@ dotfiles.default_mode = "symlink"
 "~/.config/ghostty/config" = {}
 "~/.config/glow" = {}
 "~/.config/lazygit" = {}
+"~/.config/nvim" = {}
 "~/.config/mise/config.linux.toml" = "~/dotfiles/mise/config.linux.toml"
 "~/.config/mise/config.macos.toml" = "~/dotfiles/mise/config.macos.toml"
 "~/.config/mise/config.toml" = "~/dotfiles/mise/config.toml"
