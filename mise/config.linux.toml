@@ -5,6 +5,21 @@ codex = "latest"                                  # OpenAI codex CLI
 node = "26.7.0"                                   # newer than the shared 22.12.0 pin (this machine's toolchain)
 
 [dotfiles]
+
+# --- Omarchy desktop (Linux-only) ---
+# hypr = user-override files (load after omarchy defaults); input.lua holds caps->ctrl
+"~/.config/btop/btop.conf" = {}
+"~/.config/herdr/config.toml" = {}
+"~/.config/hypr/autostart.lua" = {}
+"~/.config/hypr/bindings.lua" = {}
+"~/.config/hypr/hyprland.lua" = {}
+"~/.config/hypr/hyprsunset.conf" = {}
+"~/.config/hypr/input.lua" = {}
+"~/.config/hypr/looknfeel.lua" = {}
+"~/.config/hypr/monitors.lua" = {}
+"~/.config/hypr/xdph.conf" = {}
+"~/.config/mimeapps.list" = {}
+"~/.config/omarchy/shell.json" = {}
 "~/.config/ghostty/linux.conf" = {}
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.linux.yml" }
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.linux.json" }
