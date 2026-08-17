@@ -4,12 +4,15 @@ HOMEBREW_NO_REQUIRE_TAP_TRUST = "1"
 _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [tools]
+herdr = "latest"                                  # terminal multiplexer (Omarchy provides it on Linux)
 "npm:@earendil-works/pi-coding-agent" = "latest"
 "npm:@oh-my-pi/pi-coding-agent" = "latest"
 
 [dotfiles]
 "~/.config/ghostty/macos.conf" = {}
+"~/.config/herdr/config.toml"  = {}
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.macos.yml" }
+"~/.omp/agent/mcp.json"         = { source = "~/dotfiles/home/.omp/agent/mcp.macos.json" }
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
 

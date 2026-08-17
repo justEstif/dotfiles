@@ -30,6 +30,7 @@ node = "26.7.0"                                   # newer than the shared 22.12.
 "~/.config/omarchy/shell.json" = {}
 "~/.config/ghostty/linux.conf" = {}
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.linux.yml" }
+"~/.omp/agent/mcp.json"         = { source = "~/dotfiles/home/.omp/agent/mcp.linux.json" }
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.linux.json" }
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.linux.json" }
 

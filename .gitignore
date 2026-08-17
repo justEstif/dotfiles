@@ -21,6 +21,7 @@ home/.agents/skills/dist/
 
 # Agent/tool generated files
 home/.agents/.skill-lock.json
+home/.omp/agent/*.lock
 home/.config/zed/prompts/prompts-library-db.0.mdb
 
 # Debug/log output
