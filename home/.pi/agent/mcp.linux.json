@@ -11,6 +11,10 @@
         "Z_AI_MODE": "ZAI"
       },
       "directTools": true
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--isolated=true"]
     }
   }
 }

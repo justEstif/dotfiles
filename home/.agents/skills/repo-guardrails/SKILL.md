@@ -102,6 +102,17 @@ Do not jump from level 0 to unattended level 4. Roll out as **report-only → as
 - import-boundary rules to prevent information leakage
 - flag wrapper-only modules that hide no complexity
 
+## AGENTS.md guidance generation
+
+When generating or migrating agent guidance files for a repo, prefer a single **AGENTS.md** over CLAUDE.md (AGENTS.md is the vendor-neutral convention). When migrating an existing CLAUDE.md, rename/replace it with AGENTS.md and update references.
+
+Structure guidance for adherence using `<important if="condition">` blocks — agents discount context files marked "may or may not be relevant", so give the model explicit relevance signals:
+
+- **Bare at top**: identity, project map, tech stack — relevant to ~90%+ of tasks.
+- **Wrapped in `<important if>`**: domain guidance with narrow, specific triggers (e.g. `if="you are adding or modifying imports"`, `if="you are creating new files or directories"`). Avoid broad conditions like `if="you are writing code"`.
+- **Keep it short**: don't shard into files the agent must discover via tool calls.
+- Then, where possible, promote the wrapped rules into deterministic checks (lint/CI) per the loops above — guidance tells, checks enforce.
+
 For JS/TS: ESLint with strict TypeScript, SonarJS, unicorn, import boundaries, a11y, React hooks, Playwright/screenshot tests. Other stacks: Ruff/mypy/pytest (Python), RuboCop (Ruby), clippy/rustfmt (Rust), golangci-lint (Go).
 
 ## NEVER
