@@ -15,6 +15,7 @@ herdr = "latest"                                  # terminal multiplexer (Omarch
 "~/.omp/agent/mcp.json"         = { source = "~/dotfiles/home/.omp/agent/mcp.macos.json" }
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
+"~/.pi/agent/themes"           = {}
 
 # macOS-only packages installed via Homebrew during `mise bootstrap`.
 # mise pours these into /opt/homebrew and coexists with a real brew install.

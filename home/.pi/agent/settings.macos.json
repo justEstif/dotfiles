@@ -17,7 +17,7 @@
     "npm:pi-mcp-adapter@2.11.0",
     "npm:@ogulcancelik/pi-codex-subagents"
   ],
-  "theme": "dark",
+  "theme": "tokyo-night",
   "prompts": [
     "-/Users/ebeyene/.pi/agent/prompts/pk.md",
     "-/Users/ebeyene/.pi/agent/prompts/setup-guardrails.md"

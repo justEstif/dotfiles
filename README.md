@@ -84,7 +84,7 @@ Platform configs load automatically — `mise config` should list `config.toml`
 
 File-level platform splits live in `config.linux.toml` / `config.macos.toml`
 (`[dotfiles]` sources: ghostty `<os>.conf`, omp `config.<os>.yml`, pi
-`settings/mcp.<os>.json`). Platform **env vars / PATH** go in those files'
+`settings/mcp.<os>.json`; macOS also manages the Tokyo Night Pi theme). Platform **env vars / PATH** go in those files'
 `[env]`; platform **runtime logic** (e.g. fish clipboard detection in
 `abbr.fish` / `pcp.fish`) stays as shell conditionals — mise config can't
 express runtime branching.
@@ -92,7 +92,7 @@ express runtime branching.
 ## Notes
 
 - `omp/` and `pi/` hold live runtime state reached via `~/.omp/*` and
-  `~/.pi/agent/{sessions,themes,auth.json}` symlinks — gitignored, intentionally
+  `~/.pi/agent/{sessions,auth.json}` symlinks — gitignored, intentionally
   not migrated. To de-symlink later, physically move the real files into `~/.omp/`
   / `~/.pi/agent/`, then `rm -rf omp pi` and drop the matching `.gitignore` lines.
 - Fish mise-activation is owned by `[bootstrap.mise_shell_activate]` (a managed
