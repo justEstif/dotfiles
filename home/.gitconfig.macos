@@ -7,3 +7,6 @@
 
 [includeIf "gitdir:~/Documents/personal/"]
   path = ~/.gitconfig-personal
+
+[url "git@github-justEstif:justEstif"]
+  insteadOf = git@github.com:justEstif
