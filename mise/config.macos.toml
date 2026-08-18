@@ -9,6 +9,7 @@ herdr = "latest"                                  # terminal multiplexer (Omarch
 "npm:@oh-my-pi/pi-coding-agent" = "latest"
 
 [dotfiles]
+"~/.gitconfig"                  = { source = "~/dotfiles/home/.gitconfig.macos" }
 "~/.config/ghostty/macos.conf" = {}
 "~/.config/herdr/config.toml"  = {}
 "~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.macos.yml" }

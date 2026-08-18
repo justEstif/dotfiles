@@ -1,12 +1,6 @@
-# Consolidated git config — single source of truth (repo-managed via mise).
-# Absorbed the omarchy installer's ~/.config/git/config (now removed):
-# rerere, histogram diffs, sorts, column, commit.verbose, co/br/ci/st aliases.
-# Precedence note: ~/.gitconfig overrides any XDG ~/.config/git/config, so if
-# an omarchy reinstall ever recreates the XDG file, the values below still win.
-
-[user]
-  name = estifanos
-  email = 95101485+justEstif@users.noreply.github.com
+# Shared git settings (repo-managed via mise).
+# Platform-specific ~/.gitconfig files include this file and set the identity.
+# These settings override any XDG ~/.config/git/config values.
 
 [init]
   defaultBranch = main

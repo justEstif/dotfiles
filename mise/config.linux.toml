@@ -5,6 +5,7 @@ codex = "latest"                                  # OpenAI codex CLI
 node = "26.7.0"                                   # newer than the shared 22.12.0 pin (this machine's toolchain)
 
 [dotfiles]
+"~/.gitconfig" = { source = "~/dotfiles/home/.gitconfig.linux" }
 
 # --- Omarchy desktop (Linux-only) ---
 # hypr = user-override files (load after omarchy defaults); input.lua holds caps->ctrl

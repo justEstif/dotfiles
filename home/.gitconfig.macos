@@ -1,0 +1,9 @@
+[include]
+  path = ~/dotfiles/home/.gitconfig
+
+[user]
+  name = ebeyene
+  email = ebeyene@redventures.com
+
+[includeIf "gitdir:~/Documents/personal/"]
+  path = ~/.gitconfig-personal
