@@ -5,6 +5,11 @@
       "url": "https://mcp.atlassian.com/v1/mcp/authv2",
       "auth": "oauth"
     },
+    "monarch": {
+      "type": "http",
+      "url": "https://mcp.monarch.cohesionapps.com/mcp",
+      "auth": "oauth"
+    },
     "figma": {
       "url": "http://127.0.0.1:3845/mcp"
     },
