@@ -3,7 +3,7 @@
 
 [user]
   name = ebeyene
-  email = ebeyene@redventures.com
+	email = 171644405+e-beyene@users.noreply.github.com
 
 [includeIf "gitdir:~/Documents/personal/"]
   path = ~/.gitconfig-personal
