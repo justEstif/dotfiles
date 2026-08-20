@@ -9,6 +9,7 @@ glow = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "npm:agent-browser" = 'latest'                   # browser, but cli
 "npm:@justestif/pk" = "latest"                   # notes for ai
+"npm:obsidian-headless" = "0.0.14"                # headless Obsidian Sync client (`ob`)
 typst = "0.14.2"                                 # fancy markdown
 rtk = "latest"                                   # filters/compresses command outputs before they reach your LLM context.
 neovim = "latest"                                # editor ($EDITOR)
@@ -58,6 +59,7 @@ dotfiles.default_mode = "symlink"
 "~/.gitconfig" = { mode = "symlink" }
 "~/.gitconfig-personal" = { mode = "symlink" }
 "~/.gitignore" = { mode = "symlink" }
+"~/.local/bin/obsidian-sync" = {}
 "~/.local/share/fonts" = {}
 "~/.pi/agent/extensions" = {}
 "~/.pi/agent/keybindings.json" = {}

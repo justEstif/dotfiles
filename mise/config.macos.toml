@@ -33,3 +33,12 @@ herdr = "latest"                                  # terminal multiplexer (Omarch
 
 [bootstrap.user]
 login_shell = "/opt/homebrew/bin/fish"
+
+[bootstrap.macos.launchd.agents.obsidian-sync]
+program = "~/.local/bin/obsidian-sync"
+run_at_load = true
+keep_alive = true
+throttle_interval = 10
+working_directory = "~/Documents/obsidian-vault"
+stdout_path = "~/Library/Logs/obsidian-sync.log"
+stderr_path = "~/Library/Logs/obsidian-sync.err.log"
