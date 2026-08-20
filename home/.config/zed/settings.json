@@ -68,23 +68,8 @@
       "enabled": false
     }
   },
-  "agent": {
-    "dock": "right",
-    "tool_permissions": {
-      "default": "allow"
-    },
-    "inline_assistant_model": {
-      "provider": "google",
-      "model": "gemini-2.5-flash"
-    },
-    "default_model": {
-      "provider": "ollama",
-      "model": "deepseek-r1:1.5b"
-    },
-    "model_parameters": []
-  },
   "toolbar": {
-    "agent_review": true,
+    "agent_review": false,
     "quick_actions": false,
     "breadcrumbs": false
   },

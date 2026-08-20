@@ -5,5 +5,17 @@
       "ctrl-b": "workspace::ToggleLeftDock",
       "ctrl-f": "buffer_search::Deploy"
     }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-p": [
+        "task::Spawn",
+        {
+          "task_name": "Pi coding agent",
+          "reveal_target": "center"
+        }
+      ]
+    }
   }
 ]
