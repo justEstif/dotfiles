@@ -1,5 +1,28 @@
 gui:
   sidePanelWidth: 0.2 # Starting/default width
+  theme:
+    activeBorderColor:
+      - "#61afef"
+      - bold
+    inactiveBorderColor:
+      - "#5c6370"
+    searchingActiveBorderColor:
+      - "#e5c07b"
+      - bold
+    optionsTextColor:
+      - "#61afef"
+    selectedLineBgColor:
+      - "#3e4451"
+    selectedRangeBgColor:
+      - "#31353f"
+    cherryPickedCommitBgColor:
+      - "#3e4451"
+    cherryPickedCommitFgColor:
+      - "#c678dd"
+    unstagedChangesColor:
+      - "#e06c75"
+    defaultFgColor:
+      - "#abb2bf"
 os:
   edit: 'nvim {{filename}}'
   editAtLine: 'nvim +{{line}} {{filename}}'
