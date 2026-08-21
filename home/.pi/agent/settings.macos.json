@@ -20,13 +20,8 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-hermes-memory",
     "npm:pi-mcp-adapter@2.11.0",
-    "npm:@narumitw/pi-subagents",
-    "npm:@narumitw/pi-github-pr",
-    "npm:@narumitw/pi-analytics"
+    "npm:@narumitw/pi-subagents"
   ],
   "theme": "tokyo-night",
-  "prompts": [
-    "-/Users/ebeyene/.pi/agent/prompts/pk.md",
-    "-/Users/ebeyene/.pi/agent/prompts/setup-guardrails.md"
-  ]
+  "prompts": []
 }
