@@ -57,8 +57,6 @@
       }
     },
     "TypeScript": {
-      // tsgo for features it supports and fallback
-      "language_servers": ["tsgo", "vtsls"],
       "format_on_save": "on",
       "formatter": {
         "external": {

@@ -30,7 +30,7 @@ local langs = {
 
 	lsp = {
 		"lua_ls",
-		"tsgo",
+		"tsc",
 		"cssls",
 		"svelte",
 		"tailwindcss",
@@ -39,7 +39,7 @@ local langs = {
 
 	ensure_installed = {
 		"lua_ls",
-		"tsgo",
+		"tsc",
 		"cssls",
 		"svelte",
 		"tailwindcss",
