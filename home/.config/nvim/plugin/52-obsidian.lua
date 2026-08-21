@@ -1,6 +1,6 @@
 -- obsidian.nvim: note-taking inside Obsidian vaults. Completion + navigation
 -- come from its in-process LSP (triggered by `[[`, `#`, `[^`); pickers use
--- snacks.picker to match the rest of the config.
+-- mini.pick to match the rest of the config.
 -- Skips cleanly on machines where the vault (~/Documents/obsidian-vault) is absent —
 -- copy/sync the vault there and the plugin activates on next start.
 local add = vim.pack.add
@@ -26,7 +26,7 @@ later(function()
 			{ path = vault_path },
 		},
 		picker = {
-			name = "snacks.picker",
+			name = "mini.pick",
 		},
 		-- Daily notes land here; override if you keep them elsewhere.
 		daily_notes = {

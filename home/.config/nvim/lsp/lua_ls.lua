@@ -11,7 +11,7 @@ return {
 					"MiniNotify",
 					"MiniCompletion",
 					"MiniFiles",
-					"Snacks",
+					"MiniPick",
 				},
 				disable = { "need-check-nil" },
 				workspaceDelay = -1,
