@@ -60,6 +60,10 @@ next_workspace = "prefix+shift+n"
 [ui]
 accent = "blue"
 
+# Keep the workspace sidebar fully hidden; the recent navigator replaces it.
+sidebar_start_collapsed = true
+sidebar_collapsed_mode = "hidden"
+
 # Approximate tmux's single-line dividers with shared pane borders.
 pane_borders = true
 pane_gaps = false
