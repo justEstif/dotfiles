@@ -9,8 +9,8 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | Meta / System        | Managing agent behavior, plans, loops, or the skill library itself                                               | `skill-creator`, `find-skills`, `plan`, `loop-engineering`                                   |
 | Think / Decide       | The user needs structured thinking, pushback, goals, strategy, systems analysis, comparison, or decision support | `goal-setting`, `product-strategy`, `systems-thinking`                                       |
 | Communicate          | Crafting content that lands with audiences — messages, pitches, landing pages, stakeholder alignment             | `craft-message`                                                                              |
-| Agent Style          | Governing how the agent itself writes, formats, and frames its output                                            | `output-style`, `caveman`, `argue-position`, `karpathy-guidelines`                           |
-| Build / Design       | Changing software systems, artifacts, architecture, tests, web UIs, or repo/agent guardrails                     | `tdd`, `software-design`, `repo-guardrails`, `modern-web-guidance`, `micro-app`, `typst-doc` |
+| Agent Style          | Governing how the agent itself writes, formats, and frames its output                                            | `output-style`, `argue-position`                           |
+| Build / Design       | Changing software systems, artifacts, architecture, tests, web UIs, or repo/agent guardrails                     | `tdd`, `software-design`, `repo-guardrails`, `modern-web-guidance`, `diagram-design`, `typst-doc` |
 | Tools / Integrations | Operating a specific external tool, platform, or CLI                                                             | `github`, `npm-publish`, `fallow`                                                            |
 | Archived             | Older, superseded, or invalid skill folders moved out of discovery                                               | `_skills-archive/pk`, `_skills-archive/thought-partner`, `_skills-archive/playground`        |
 
@@ -44,9 +44,7 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | Skill                 | What it does                                                                                               | Activate when                                                                                                                                                 |
 | --------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `output-style`        | Controls how the agent formats output — scannable when needed, prose when not, tone, anti-over-formatting. | Making agent writing clearer/scannable, OR stopping over-formatting, sounding more natural, less corporate.                                                   |
-| `caveman`             | Ultra-compressed communication mode. Drops filler while keeping technical accuracy.                        | User asks for caveman mode, fewer tokens, extreme brevity, or `/caveman`.                                                                                     |
 | `argue-position`      | Applies neutral, balanced framing when presenting arguments on contested topics.                           | User asks to argue for/against a position, defend a controversial view, discuss politics, ethics, policy, or when the agent handles debated empirical claims. |
-| `karpathy-guidelines` | Reduces common LLM coding mistakes with surgical, simple, verifiable coding behavior.                      | Writing, reviewing, or refactoring code where overcomplication, broad edits, or hidden assumptions are risks.                                                 |
 
 ### Build / Design
 
@@ -56,7 +54,7 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | `software-design`     | Finds deepening opportunities and designs better modules/APIs.                                                              | Architecture, refactoring, module boundaries, testability, deep modules, shallow modules, or codebase design quality.                                                               |
 | `repo-guardrails`     | Designs deterministic repo feedback loops — CI, linters, hooks, custom rules, branch protection, logging, and agent safety. | Hardening a repo for agents, reducing AI code drift, encoding design rules as checks, or setting up guardrail loops.                                                                |
 | `modern-web-guidance` | Steers frontend work toward modern baseline web platform APIs and accessibility/performance patterns.                       | HTML/CSS/client-side JS tasks involving dialogs, popovers, forms, CSS, View Transitions, browser APIs, a11y, or Core Web Vitals.                                                    |
-| `micro-app`           | Creates polished local-first HTML micro-apps and artifacts.                                                                 | Interactive demos, visual explorers, clickable prototypes, filterable boards/editors, or any artifact whose value comes from runtime interaction.                                   |
+| `diagram-design`     | Creates branded diagrams (39 types) as standalone HTML/SVG/PNG.                                                            | Architecture, flowchart, sequence, ER, timeline, Gantt, Wardley, Sankey diagrams, or redrawing .drawio/Mermaid sources; diagram figures, not interactive apps.                       |
 | `typst-doc`           | Generates consistently-styled PDF documents with Typst.                                                                     | Reports, specs, status updates, slide decks, diagrams, Gantt charts, CVs — composed/paginated documents needing real layout (ToC, page numbers, figures, math) that compile to PDF. |
 
 ### Tools / Integrations
@@ -69,13 +67,19 @@ Personal agent skills organized by activation intent. This file is a navigation 
 
 ### Archived
 
-These are intentionally outside active skill discovery in `/Users/ebeyene/dotfiles/agents/.agents/_skills-archive`:
+These are intentionally outside active skill discovery in `~/.agents/skills-archive`:
 
 | Archived skill/folder | Reason                                                                                                          |
 | --------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `pk`                  | Replaced by Pi prompt `/pk` and external `pk` CLI workflow.                                                     |
 | `thought-partner`     | Superseded by more specific thinking skills such as `goal-setting`, `systems-thinking`, and `parallel-explore`. |
 | `playground`          | Invalid/empty experimental folder; archived to keep active skills clean.                                        |
+| `micro-app`           | Replaced by `diagram-design`; most capabilities unused in practice.                                               |
+| `cohesion-har-qa`     | No longer needed; archived from active rotation.                                                                 |
+| `build-iterated-agentic-loop` | Unused; archived from active rotation.                                                                    |
+| `design-control-loop` | Superseded by `loop-engineering`; archived from active rotation.                                                 |
+| `karpathy-guidelines` | Behavioral guidelines better inlined into AGENTS.md; archived from active rotation.                             |
+| `caveman`             | Rarely used; archived from active rotation.                                                                     |
 
 ## Naming Standards
 
@@ -129,9 +133,8 @@ Precedence: explicit goals/success criteria → `goal-setting`; product/app stra
 | "Make this scannable," "simplify this," "cut the fluff"                         | `output-style`   | The issue is how the agent writes and formats its output.                                                                   |
 | "Stop over-formatting," "sound natural," "less corporate," "write like a human" | `output-style`   | The problem is formatting excess and robotic tone in agent output.                                                          |
 | "Argue for/against X," "defend this position," "make the case for X"            | `argue-position` | The task involves contested topics requiring balanced framing.                                                              |
-| "Caveman mode," "less tokens," "be brief"                                       | `caveman`        | Compression mode toggle.                                                                                                    |
 
-Precedence: audience-crafted content → `craft-message`; agent output formatting/tone → `output-style`; contested topic framing → `argue-position`; compression toggle → `caveman`.
+Precedence: audience-crafted content → `craft-message`; agent output formatting/tone → `output-style`; contested topic framing → `argue-position`.
 
 ### Build / design / loop skills
 
@@ -145,7 +148,7 @@ Precedence: audience-crafted content → `craft-message`; agent output formattin
 | "Build an interactive playground/demo/HTML artifact"                                                    | `micro-app`           | The deliverable is a polished local-first artifact.                                                                          |
 | "Make a PDF/report/spec/Gantt/CV," "printable document," "needs a TOC or page numbers"                  | `typst-doc`           | The deliverable is a composed, paginated document compiled to PDF — cheaper than HTML when no runtime interaction is needed. |
 
-Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; agent loop/control-system design → `loop-engineering`; architectural diagnosis/design → `software-design`; frontend platform task → `modern-web-guidance`; standalone HTML artifact → `micro-app`; composed/print document → `typst-doc`.
+Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; agent loop/control-system design → `loop-engineering`; architectural diagnosis/design → `software-design`; frontend platform task → `modern-web-guidance`; standalone diagram → `diagram-design`; composed/print document → `typst-doc`.
 
 ## Quality Pass Queue
 
