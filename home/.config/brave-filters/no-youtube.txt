@@ -1,6 +1,7 @@
 ! Title: No YouTube in browser
-! Blocks navigation to YouTube. FreeTube (desktop app) is unaffected.
-! Apply via: brave://settings/shields/filters -> Create custom filters (inline box).
-! Note: ||youtube.com^ matches all subdomains incl. www/m/music.
-||youtube.com^$document,redirect=noop.html
-||youtu.be^$document,redirect=noop.html
+! Blocks YouTube subresources (thumbnails, embeds, api calls) in Brave.
+! NOTE: Brave's adblock-rust does NOT support $document strict blocking
+! (uBlock-only feature), so navigation blocking needs an extension instead.
+||youtube.com^$all,badfilter
+||youtube.com^$third-party
+||youtu.be^$third-party
