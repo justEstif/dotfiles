@@ -1,0 +1,7 @@
+! Title: No YouTube in browser
+! Blocks navigation to YouTube. FreeTube (desktop app) is unaffected.
+||youtube.com^$document,redirect=noop.html
+||www.youtube.com^$document,redirect=noop.html
+||m.youtube.com^$document,redirect=noop.html
+||youtu.be^$document,redirect=noop.html
+||music.youtube.com^$document,redirect=noop.html
