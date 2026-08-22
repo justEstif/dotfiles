@@ -1,8 +1,6 @@
 ! Title: No YouTube in browser
 ! Blocks navigation to YouTube. FreeTube (desktop app) is unaffected.
-! Register via: brave://settings/shields/filters -> Create custom filters (inline box)
+! Apply via: brave://settings/shields/filters -> Create custom filters (inline box).
+! Note: ||youtube.com^ matches all subdomains incl. www/m/music.
 ||youtube.com^$document,redirect=noop.html
-||www.youtube.com^$document,redirect=noop.html
-||m.youtube.com^$document,redirect=noop.html
 ||youtu.be^$document,redirect=noop.html
-||music.youtube.com^$document,redirect=noop.html
