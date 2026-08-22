@@ -1,5 +1,0 @@
-! Title: No YouTube in browser
-! Blocks navigation to YouTube (hosts-form rule enables implicit document
-! blocking in adblock-rust). FreeTube (desktop app) is unaffected.
-youtube.com
-youtu.be
