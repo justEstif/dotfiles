@@ -1,7 +1,5 @@
 ! Title: No YouTube in browser
-! Blocks YouTube subresources (thumbnails, embeds, api calls) in Brave.
-! NOTE: Brave's adblock-rust does NOT support $document strict blocking
-! (uBlock-only feature), so navigation blocking needs an extension instead.
-||youtube.com^$all,badfilter
-||youtube.com^$third-party
-||youtu.be^$third-party
+! Blocks navigation to YouTube (hosts-form rule enables implicit document
+! blocking in adblock-rust). FreeTube (desktop app) is unaffected.
+youtube.com
+youtu.be
