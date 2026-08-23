@@ -5,9 +5,7 @@
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
-  "enabledModels": [
-    "zai/*"
-  ],
+  "enabledModels": ["zai/*"],
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
@@ -18,11 +16,9 @@
   },
   "packages": [
     "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:@juicesharp/rpiv-btw",
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter",
-    "npm:@ogulcancelik/pi-codex-subagents"
+    "npm:pi-mcp-adapter"
   ],
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
