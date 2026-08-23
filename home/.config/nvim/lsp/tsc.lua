@@ -1,5 +1,5 @@
 return {
-	cmd = { "tsgo", "--lsp", "--stdio" },
+	cmd = { vim.fn.stdpath("data") .. "/mason/bin/tsc", "--lsp", "--stdio" },
 	filetypes = {
 		"javascript",
 		"javascriptreact",
