@@ -1,5 +1,5 @@
 return {
-	cmd = { "tsc", "--lsp", "--stdio" },
+	cmd = { "tsgo", "--lsp", "--stdio" },
 	filetypes = {
 		"javascript",
 		"javascriptreact",
