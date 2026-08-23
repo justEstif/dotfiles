@@ -14,12 +14,7 @@
     "reserveTokens": 60000,
     "keepRecentTokens": 10000
   },
-  "packages": [
-    "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:@juicesharp/rpiv-todo",
-    "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter@2.11.0"
-  ],
+  "packages": ["npm:pi-hermes-memory", "npm:pi-mcp-adapter@2.11.0"],
   "theme": "tokyo-night",
   "prompts": []
 }

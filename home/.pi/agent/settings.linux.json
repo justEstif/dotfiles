@@ -14,12 +14,7 @@
   "terminal": {
     "showImages": false
   },
-  "packages": [
-    "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:@juicesharp/rpiv-todo",
-    "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter"
-  ],
+  "packages": ["npm:pi-hermes-memory", "npm:pi-mcp-adapter"],
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
   "treeFilterMode": "no-tools"
