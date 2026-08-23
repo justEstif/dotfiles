@@ -23,7 +23,8 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { Container, DynamicBorder, type SelectItem, SelectList, Text } from "@earendil-works/pi-tui";
+import { DynamicBorder } from "@earendil-works/pi-coding-agent";
+import { Container, type SelectItem, SelectList, Text } from "@earendil-works/pi-tui";
 
 const EXTENSIONS_DIR = path.dirname(fileURLToPath(import.meta.url)); // ~/.pi/agent/extensions (this file lives there)
 const AGENT_DIR = path.resolve(EXTENSIONS_DIR, ".."); // ~/.pi/agent
