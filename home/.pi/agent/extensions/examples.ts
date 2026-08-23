@@ -23,6 +23,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { Container, DynamicBorder, type SelectItem, SelectList, Text } from "@earendil-works/pi-tui";
 
 const EXTENSIONS_DIR = path.dirname(fileURLToPath(import.meta.url)); // ~/.pi/agent/extensions (this file lives there)
 const AGENT_DIR = path.resolve(EXTENSIONS_DIR, ".."); // ~/.pi/agent
@@ -108,6 +109,9 @@ function scanExamples(examplesDir: string): Example[] {
 function copyRecursive(src: string, dest: string) {
 	fs.cpSync(src, dest, { recursive: true });
 }
+
+// Max visible rows in the interactive browser
+const MAX_LIST_HEIGHT = 12;
 
 function labelFor(e: Example): string {
 	const tags: string[] = [];
@@ -230,22 +234,80 @@ export default function examplesExtension(pi: ExtensionAPI) {
 				return;
 			}
 
-			// Interactive browser (also handles "list")
-			const items = examples.map(labelFor);
-			const selected = await ctx.ui.select(
-				`Examples (${examples.filter((e) => e.installed).length}/${examples.length} installed) — pick one to toggle, esc to quit`,
-				items,
-			);
+			// Interactive browser (also handles "list") — searchable SelectList, capped height
+			const items: SelectItem[] = examples.map((e) => ({
+				value: e.name,
+				label: e.name,
+				description: [
+					e.installed ? "installed" : null,
+					e.hasDeps ? "deps" : null,
+					e.hasAgents ? "agents" : null,
+					e.hasPrompts ? "prompts" : null,
+				]
+					.filter(Boolean)
+					.join(", ") || "—",
+			}));
+			const selected = await ctx.ui.custom<string | null>((tui, theme, _kb, done) => {
+				let query = "";
+				const container = new Container();
+				container.addChild(new DynamicBorder((s: string) => theme.fg("accent", s)));
+				container.addChild(
+					new Text(
+						theme.fg(
+							"accent",
+							theme.bold(
+								`Examples (${examples.filter((e) => e.installed).length}/${examples.length} installed)`,
+							),
+						),
+						1,
+						0,
+					),
+				);
+				const searchLine = new Text(theme.fg("muted", "search: │"), 1, 0);
+				container.addChild(searchLine);
+				const selectList = new SelectList(items, Math.min(items.length, MAX_LIST_HEIGHT), {
+					selectedPrefix: (t) => theme.fg("accent", t),
+					selectedText: (t) => theme.fg("accent", t),
+					description: (t) => theme.fg("muted", t),
+					scrollInfo: (t) => theme.fg("dim", t),
+					noMatch: (t) => theme.fg("warning", t),
+				});
+				selectList.onSelect = (item: SelectItem) => done(item.value as string);
+				selectList.onCancel = () => done(null);
+				container.addChild(selectList);
+				container.addChild(new Text(theme.fg("dim", "type to search • ↑↓ navigate • enter toggle • esc cancel"), 1, 0));
+				container.addChild(new DynamicBorder((s: string) => theme.fg("accent", s)));
+				const updateSearch = () => {
+					searchLine.setText(theme.fg("muted", `search: ${query}│`));
+					selectList.setFilter(query);
+				};
+				return {
+					render: (w: number) => container.render(w),
+					invalidate: () => container.invalidate(),
+					handleInput: (data: string) => {
+						// printable chars and backspace feed the search query; the rest go to the list
+						if (/^[\x20-\x7E]$/.test(data)) {
+							query += data;
+							updateSearch();
+						} else if (data === "\x7f") {
+							query = query.slice(0, -1);
+							updateSearch();
+						} else {
+							selectList.handleInput(data);
+						}
+						tui.requestRender();
+					},
+				};
+			});
 			if (!selected) return;
-			const name = selected.split("  [")[0].trim();
-			const e = find(name);
+			const e = find(selected);
 			if (!e) return;
 			const action = e.installed ? "Remove" : "Install";
-			const confirm = await ctx.ui.confirm(action, `${action} ${name}?`);
+			const confirm = await ctx.ui.confirm(action, `${action} ${selected}?`);
 			if (!confirm) return;
 			const err = e.installed ? remove(e, log) : install(e, log);
 			if (err) ctx.ui.notify(err, "error");
-			else log(`${e.installed ? "installed" : "removed"} ${name}`);
+			else log(`${e.installed ? "installed" : "removed"} ${selected}`);
 			ctx.ui.notify("Restart pi for changes to take effect", "info");
 		},
 	});
