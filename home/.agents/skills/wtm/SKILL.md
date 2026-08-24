@@ -15,6 +15,17 @@ This file is a discovery stub. Before running wtm commands, load the version-mat
 wtm skills get core --full    # layout, core loop, command reference, conventions, pitfalls
 ```
 
+## Shell requirement
+
+`wtm` is configured as a Fish function on this machine. From Pi's Bash tool, always invoke it through Fish:
+
+```bash
+fish -lc 'wtm list'
+fish -lc 'wtm create "feature-x" --from main --no-shell'
+```
+
+Calling `wtm` directly from Bash can hit the inactive `mise` shim and fail with `No version is set for shim: wtm`.
+
 ## Quick reference
 
 ```fish

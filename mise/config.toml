@@ -23,7 +23,7 @@ fd = "latest"
 bat = "latest"
 zoxide = "latest"
 gh = "latest"
-pi = "latest"
+"npm:@earendil-works/pi-coding-agent" = "latest"
 herdr = "latest"
 
 [settings]
@@ -58,6 +58,7 @@ dotfiles.default_mode = "symlink"
 "~/.gitignore" = { mode = "symlink" }
 "~/.local/bin/obsidian-sync" = {}
 "~/.local/share/fonts" = {}
+"~/.pi/agent/agents" = {}
 "~/.pi/agent/extensions" = {}
 "~/.pi/agent/keybindings.json" = {}
 "~/.pi/agent/npm" = {}

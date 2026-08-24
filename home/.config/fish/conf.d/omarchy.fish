@@ -11,8 +11,13 @@
 #   - tmux layout fns tdl/tds/tdlm/tsl + alias t (tmux removed; herdr replaces)
 # =============================================================================
 
+# This config is shared across machines; only load it on Omarchy Linux.
+if not test (uname -s) = Linux; or not test -d /usr/share/omarchy
+    return
+end
+
 if not status is-interactive
-    exit 0
+    return
 end
 
 # ---- env parity (/usr/share/omarchy/default/bash/envs) ----------------------
