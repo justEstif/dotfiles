@@ -34,6 +34,8 @@ function wtm --description "Manage git worktrees in a bare repository"
             __wtm_cmd_delete $rest
         case cleanup
             __wtm_cmd_cleanup $rest
+        case skills
+            __wtm_cmd_skills $rest
         case help -h --help
             __wtm_help
         case '*'

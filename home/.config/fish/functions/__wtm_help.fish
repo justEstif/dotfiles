@@ -12,6 +12,7 @@ function __wtm_help --description "Print wtm help"
     echo "    list                              List all worktrees"
     echo "    delete <name> [--force]           Remove a worktree"
     echo "    cleanup [options]                 Find and delete merged worktrees"
+    echo "    skills [list|get|path]            Load usage guides from ~/.config/wtm/skills"
     echo "    help                              Show this help"
     echo
     echo "CLEANUP OPTIONS"
