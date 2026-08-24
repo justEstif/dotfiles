@@ -4,9 +4,9 @@ HOMEBREW_NO_REQUIRE_TAP_TRUST = "1"
 _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [tools]
-herdr = "latest"                                  # terminal multiplexer (Omarchy provides it on Linux)
-"npm:@earendil-works/pi-coding-agent" = "latest"
-"npm:@oh-my-pi/pi-coding-agent" = "latest"
+newrelic-cli = "latest"
+awscli = "latest"                        # AWS CLI
+duckdb = "latest"                        # in-process analytical SQL
 
 [dotfiles]
 "~/.gitconfig"                  = { source = "~/dotfiles/home/.gitconfig.macos" }
