@@ -1,5 +1,5 @@
 {"_id":"baseTheme","value":"dark"}
-{"_id":"bounds","value":{"x":360,"y":200,"width":1200,"height":800,"maximized":true,"fullScreen":false}}
+{"_id":"bounds","value":{"x":0,"y":0,"width":1756,"height":1098,"maximized":true,"fullScreen":false}}
 {"_id":"channelsHidden","value":"[]"}
 {"_id":"defaultPlayback","value":1}
 {"_id":"defaultViewingMode","value":"theatre"}
