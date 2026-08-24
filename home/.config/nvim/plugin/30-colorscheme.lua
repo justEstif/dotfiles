@@ -2,11 +2,12 @@ local add = vim.pack.add
 local now = Config.now
 
 -- Loads before first render; its boot-order position matters (hence its own file).
-add({ "https://github.com/navarasu/onedark.nvim" })
+add({ "https://github.com/olimorris/onedarkpro.nvim" })
 now(function()
-	require("onedark").setup({
-		style = "dark", -- deep | warm | darker | cool | warm
-		transparent = false,
+	require("onedarkpro").setup({
+		colors = {
+			onedark = { bg = "#21252b" },
+		},
 	})
 	vim.cmd("colorscheme onedark")
 end)

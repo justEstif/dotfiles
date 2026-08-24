@@ -33,6 +33,10 @@
       "rev": "df4792accde9db0043121f32628bcf8e645d9aea",
       "src": "https://github.com/navarasu/onedark.nvim"
     },
+    "onedarkpro.nvim": {
+      "rev": "ef009ae60769935a4eced9b3d545ae6013d3d271",
+      "src": "https://github.com/olimorris/onedarkpro.nvim"
+    },
     "quicker.nvim": {
       "rev": "4a6883cb13fe097a20a046eb55f6dffd239276e3",
       "src": "https://github.com/stevearc/quicker.nvim"

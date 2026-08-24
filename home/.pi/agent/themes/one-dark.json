@@ -1,21 +1,21 @@
 {
   "$schema": "https://raw.githubusercontent.com/earendil-works/pi/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
-  "name": "tokyo-night",
+  "name": "one-dark",
   "vars": {
-    "bg": "#1a1b26",
-    "bgDark": "#16161e",
-    "bgHighlight": "#292e42",
-    "fg": "#c0caf5",
-    "fgDark": "#a9b1d6",
-    "comment": "#565f89",
-    "blue": "#7aa2f7",
-    "cyan": "#7dcfff",
-    "green": "#9ece6a",
-    "yellow": "#e0af68",
-    "orange": "#ff9e64",
-    "red": "#f7768e",
-    "magenta": "#bb9af7",
-    "purple": "#9d7cd8"
+    "bg": "#282c34",
+    "bgDark": "#21252b",
+    "bgHighlight": "#3e4451",
+    "fg": "#abb2bf",
+    "fgDark": "#828997",
+    "comment": "#5c6370",
+    "blue": "#61afef",
+    "cyan": "#56b6c2",
+    "green": "#98c379",
+    "yellow": "#e5c07b",
+    "orange": "#d19a66",
+    "red": "#e06c75",
+    "magenta": "#c678dd",
+    "purple": "#c678dd"
   },
   "colors": {
     "accent": "blue",
@@ -37,8 +37,8 @@
     "customMessageText": "fg",
     "customMessageLabel": "magenta",
     "toolPendingBg": "bgDark",
-    "toolSuccessBg": "#1f2d27",
-    "toolErrorBg": "#35232e",
+    "toolSuccessBg": "#29352d",
+    "toolErrorBg": "#3b2b30",
     "toolTitle": "blue",
     "toolOutput": "fgDark",
     "mdHeading": "yellow",
@@ -73,8 +73,8 @@
     "bashMode": "green"
   },
   "export": {
-    "pageBg": "#16161e",
-    "cardBg": "#1a1b26",
-    "infoBg": "#292e42"
+    "pageBg": "#21252b",
+    "cardBg": "#282c34",
+    "infoBg": "#3e4451"
   }
 }

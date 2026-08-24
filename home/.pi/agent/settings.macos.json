@@ -15,6 +15,6 @@
     "keepRecentTokens": 10000
   },
   "packages": ["npm:pi-hermes-memory", "npm:pi-mcp-adapter@2.11.0"],
-  "theme": "tokyo-night",
+  "theme": "one-dark",
   "prompts": []
 }

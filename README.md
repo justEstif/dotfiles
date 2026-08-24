@@ -84,7 +84,7 @@ Platform configs load automatically — `mise config` should list `config.toml`
 
 File-level platform splits live in `config.linux.toml` / `config.macos.toml`
 (`[dotfiles]` sources: ghostty `<os>.conf`, omp `config.<os>.yml`, pi
-`settings/mcp.<os>.json`; macOS also manages the Tokyo Night Pi theme). Platform **env vars / PATH** go in those files'
+`settings/mcp.<os>.json`; macOS also manages a One Dark Pi theme). Platform **env vars / PATH** go in those files'
 `[env]`; platform **runtime logic** (e.g. fish clipboard detection in
 `abbr.fish` / `pcp.fish`) stays as shell conditionals — mise config can't
 express runtime branching.

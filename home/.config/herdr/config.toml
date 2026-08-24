@@ -5,6 +5,21 @@ onboarding = false
 [theme]
 name = "one-dark"
 
+# Keep Herdr's UI surfaces aligned with the shared Ghostty/Pi One Dark tokens.
+# The built-in theme already uses the canonical accent colors.
+[theme.custom]
+panel_bg = "#282c34"
+sidebar_bg = "#21252b"
+active_row_bg = "#3e4451"
+selection_bg = "#3e4451"
+surface0 = "#21252b"
+surface1 = "#3e4451"
+surface_dim = "#282c34"
+overlay0 = "#5c6370"
+overlay1 = "#828997"
+text = "#abb2bf"
+subtext0 = "#828997"
+
 [terminal]
 # Matches -c "#{pane_current_path}" on every split, window, and session
 new_cwd = "follow"
