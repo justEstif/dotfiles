@@ -50,6 +50,7 @@ dotfiles.default_mode = "symlink"
 "~/.config/nvim" = {}
 "~/.config/ripgrep" = {}
 "~/.config/starship.toml" = {}
+"~/.config/wtm" = {}
 "~/.config/yt-dlp" = {}
 "~/.config/zed" = {}
 
