@@ -10,6 +10,8 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
     set -l allow_write
     set -l allow_net
     set -l allow_env
+    set -l allow_commands
+    set -l ask_commands
     set -l deny_flags --deny-all
     set -l pi_argv
     set -l saw_separator 0
@@ -28,7 +30,7 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
             case -h --help
                 __pi_sandbox_help
                 return 0
-            case -C --cwd --allow-read --allow-write --allow-net --allow-env --state-dir
+            case -C --cwd --allow-read --allow-write --allow-net --allow-env --allow-command --ask-command --state-dir
                 if test (count $argv) -eq 0
                     printf 'pi-sandbox: %s requires a value\n' $arg >&2
                     return 2
@@ -41,9 +43,11 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
                     case --allow-write; set -a allow_write $value
                     case --allow-net; set -a allow_net $value
                     case --allow-env; set -a allow_env $value
+                    case --allow-command; set -a allow_commands $value
+                    case --ask-command; set -a ask_commands $value
                     case --state-dir; set state_dir $value
                 end
-            case '--allow-read=*' '--allow-write=*' '--allow-net=*' '--allow-env=*' '--state-dir=*' '--cwd=*'
+            case '--allow-read=*' '--allow-write=*' '--allow-net=*' '--allow-env=*' '--allow-command=*' '--ask-command=*' '--state-dir=*' '--cwd=*'
                 set -l name (string split -m1 = -- $arg)[1]
                 set -l value (string split -m1 = -- $arg)[2]
                 if test -z "$value"
@@ -56,6 +60,8 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
                     case --allow-write; set -a allow_write $value
                     case --allow-net; set -a allow_net $value
                     case --allow-env; set -a allow_env $value
+                    case --allow-command; set -a allow_commands $value
+                    case --ask-command; set -a ask_commands $value
                     case --state-dir; set state_dir $value
                 end
             case --keep-state
@@ -99,6 +105,12 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
             return 2
         end
     end
+    for rule in $allow_commands $ask_commands
+        if test -z "$rule"; or string match -qr '[\n\r]' -- $rule
+            printf 'pi-sandbox: command rules must be non-empty single lines\n' >&2
+            return 2
+        end
+    end
     for host in $allow_net
         if not string match -qr '^(\*\.)?[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?$' -- $host
             printf 'pi-sandbox: invalid hostname: %s\n' $host >&2
@@ -112,8 +124,8 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
 
     set -l function_file (status filename)
     set -l extension_dir (path resolve (path dirname $function_file)/../../../../.pi/agent/extensions/pi-sandbox)
-    if not test -f $extension_dir/index.ts; or not test -d $extension_dir/node_modules/@anthropic-ai/sandbox-runtime
-        printf 'pi-sandbox: sandbox extension is not installed; run npm install in %s\n' $extension_dir >&2
+    if not test -f $extension_dir/index.ts
+        printf 'pi-sandbox: permission-gate extension is missing: %s\n' $extension_dir >&2
         command rm -rf -- $state_dir
         return 1
     end
@@ -135,7 +147,7 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
     for item in $allow_env
         set -a mise_args --allow-env=$item
     end
-    for item in MISE_DATA_DIR MISE_OFFLINE PI_CODING_AGENT_DIR PI_SANDBOX_READ PI_SANDBOX_WRITE PI_SANDBOX_NET
+    for item in MISE_DATA_DIR MISE_OFFLINE PI_CODING_AGENT_DIR PI_SANDBOX_ALLOW_COMMANDS PI_SANDBOX_ASK_COMMANDS
         set -a mise_args --allow-env=$item
     end
 
@@ -144,9 +156,8 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
         MISE_OFFLINE=1 \
         HOME=$state_dir/home \
         PI_CODING_AGENT_DIR=$state_dir/agent \
-        PI_SANDBOX_READ=(string join \n -- $allow_read) \
-        PI_SANDBOX_WRITE=(string join \n -- $allow_write) \
-        PI_SANDBOX_NET=(string join \n -- $allow_net)
+        PI_SANDBOX_ALLOW_COMMANDS=(string join \n -- $allow_commands) \
+        PI_SANDBOX_ASK_COMMANDS=(string join \n -- $ask_commands)
     set -l command_args mise exec $mise_args pi@$pi_version -- pi \
         --no-tools --no-session --no-context-files --no-extensions --no-skills \
         --no-prompt-templates --no-themes --no-approve --extension $extension_dir/index.ts \

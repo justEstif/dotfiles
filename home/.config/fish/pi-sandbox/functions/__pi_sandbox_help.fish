@@ -12,6 +12,8 @@ function __pi_sandbox_help
         '      --allow-write PATH Permit filesystem writes; repeatable' \
         '      --allow-net HOST   Reserved; rejected until nested proxying is safe' \
         '      --allow-env NAME   Inherit an environment variable/glob; repeatable' \
+        '      --allow-command CMD Allow one exact, simple Bash command; repeatable' \
+        '      --ask-command CMD  Ask once before one exact Bash command; repeatable' \
         '      --deny-read        Deny filesystem reads except explicit grants' \
         '      --deny-write       Deny filesystem writes except explicit grants' \
         '      --deny-net         Deny network access except explicit grants' \
@@ -23,14 +25,16 @@ function __pi_sandbox_help
         '  -h, --help             Show this wrapper help' \
         '' \
         'Defaults: read the working directory; no writes; no network; sanitized' \
-        'environment; temporary Pi state; no Pi tools.' \
+        'environment; temporary Pi state; no Pi tools; no Bash commands.' \
         '' \
         'Examples:' \
         '  pi-sandbox --help               # wrapper help' \
         '  pi-sandbox -- --help            # Pi help' \
         '  pi-sandbox --allow-read . -- --tools read,grep -p "Review this repo"' \
+        '  pi-sandbox --allow-command "git status" -- --tools bash' \
         '' \
-        'Mise constrains Pi and descendants. The explicit Pi extension adds Bash' \
-        'confinement when bash is enabled. Network grants currently fail closed:' \
-        'Mise and sandbox-runtime cannot safely nest host proxy permissions yet.'
+        'Mise constrains Pi and descendants. The explicit Pi extension denies Bash' \
+        'commands unless an exact simple command is allowed or approved. Network' \
+        'grants currently fail closed because Mise host allowlists are unavailable' \
+        'on Linux and unreliable with the current macOS Seatbelt generator.'
 end
