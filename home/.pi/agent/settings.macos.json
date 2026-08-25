@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.84.3",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
@@ -16,8 +16,15 @@
   },
   "packages": [
     "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter@2.11.0"
+    "npm:pi-mcp-adapter@2.11.0",
+    "npm:pi-mermaid"
   ],
   "theme": "one-dark",
-  "prompts": []
+  "prompts": [],
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "collapseChangelog": true,
+  "enableInstallTelemetry": false,
+  "tuiMode": "fullscreen"
 }
