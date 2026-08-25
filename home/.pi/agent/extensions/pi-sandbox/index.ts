@@ -11,9 +11,10 @@ function rules(name: string): Set<string> {
   return new Set(value ? value.split("\n").map(rule => rule.trim()).filter(Boolean) : []);
 }
 
-// Keep v1 deliberately small: only one simple shell command can be granted.
-// Composition, expansion, redirection, and escaping remain denied even when a
-// rule accidentally contains them.
+// Only exact, simple shell commands can be granted. Composition, expansion,
+// redirection, and escaping remain denied even when a rule contains them.
+// Docker is the security boundary; this classifier is deliberately narrow
+// permission UX layered on top of that confinement.
 const opaqueShellSyntax = /[\n\r;&|`$<>\\(){}]/;
 
 export function classifyCommand(
