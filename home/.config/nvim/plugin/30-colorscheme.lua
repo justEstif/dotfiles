@@ -6,7 +6,7 @@ add({ "https://github.com/olimorris/onedarkpro.nvim" })
 now(function()
 	require("onedarkpro").setup({
 		colors = {
-			onedark = { bg = "#21252b" },
+			onedark = { bg = "#282c34" }, -- match ghostty's One Dark (omarchy ghostty.conf & macOS Atom One Dark)
 		},
 	})
 	vim.cmd("colorscheme onedark")
