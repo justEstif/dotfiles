@@ -1,6 +1,7 @@
 [env]
 XDG_CONFIG_HOME = "{{env.HOME}}/.config"
 HOMEBREW_NO_REQUIRE_TAP_TRUST = "1"
+AGENT_BROWSER_EXECUTABLE_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [tools]
