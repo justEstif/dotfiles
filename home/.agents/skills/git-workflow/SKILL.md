@@ -58,3 +58,4 @@ All three load via MANDATORY READ triggers in the procedure above:
 Rules appended when this skill is violated. One concise rule per violation; keep entries specific.
 
 - Never set a feature branch upstream to `origin/main`; push first with explicit `HEAD:refs/heads/<feature>` and verify the destination before proceeding.
+- Before any `wtm` invocation, read `references/wtm.md` and run from the bare repository root.
