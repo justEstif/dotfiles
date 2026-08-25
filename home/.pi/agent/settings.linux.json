@@ -22,5 +22,6 @@
   ],
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
-  "treeFilterMode": "no-tools"
+  "treeFilterMode": "no-tools",
+  "tuiMode": "fullscreen"
 }
