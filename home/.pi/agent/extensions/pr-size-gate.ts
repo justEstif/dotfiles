@@ -13,6 +13,8 @@
 
 import { isToolCallEventType } from "@earendil-works/pi-coding-agent";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+// NOTE: staged delta is computed vs HEAD (not merge-base) to avoid
+// double-counting already-committed lines. wouldBe = committed + staged.
 
 /** Max additions+deletions allowed on a branch vs its base. */
 export const PR_LINE_BUDGET = 500;
@@ -87,11 +89,9 @@ async function committedLines(pi: ExtensionAPI, cwd: string): Promise<number | n
 	return sumNumstat(diff.out);
 }
 
-/** Additions+deletions staged vs merge-base (what the next commit would add). Null on failure. */
+/** Staged additions+deletions vs HEAD (the delta the next commit adds). Null on failure. */
 async function stagedLines(pi: ExtensionAPI, cwd: string): Promise<number | null> {
-	const mb = await mergeBaseWithDefault(pi, cwd);
-	if (!mb) return null;
-	const diff = await git(pi, cwd, ["diff", "--numstat", "--cached", mb]);
+	const diff = await git(pi, cwd, ["diff", "--numstat", "--cached", "HEAD"]);
 	if (!diff.ok) return null;
 	return sumNumstat(diff.out);
 }
