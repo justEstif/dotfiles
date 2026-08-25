@@ -23,8 +23,8 @@ fd = "latest"
 bat = "latest"
 zoxide = "latest"
 gh = "latest"
-"npm:@earendil-works/pi-coding-agent" = "latest"
 herdr = "latest"
+pi = "latest"
 
 [settings]
 experimental = true

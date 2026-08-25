@@ -1,11 +1,13 @@
 {
   "theme": "omarchy-system",
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.84.3",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
-  "enabledModels": ["zai/*"],
+  "enabledModels": [
+    "zai/*"
+  ],
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
@@ -14,7 +16,10 @@
   "terminal": {
     "showImages": false
   },
-  "packages": ["npm:pi-hermes-memory", "npm:pi-mcp-adapter"],
+  "packages": [
+    "npm:pi-hermes-memory",
+    "npm:pi-mcp-adapter"
+  ],
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
   "treeFilterMode": "no-tools"
