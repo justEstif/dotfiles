@@ -2,4 +2,3 @@ all: false
 pager: false
 style: auto
 tui: true
-width: 88

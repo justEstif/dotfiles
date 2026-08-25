@@ -5,7 +5,7 @@ description: Browser automation on this machine — replaces the removed chrome-
 
 # agent-browser
 
-Fast browser automation CLI (Chrome via CDP, no Playwright). On this machine there is no Chrome — set `AGENT_BROWSER_EXECUTABLE_PATH=/usr/bin/brave`.
+Fast browser automation CLI (Chrome via CDP, no Playwright). `AGENT_BROWSER_EXECUTABLE_PATH` is platform-managed by the user's mise config: Google Chrome on macOS and Brave on Omarchy/Linux. Use that environment variable as-is; only discover another installed Chromium browser if the configured executable is unavailable. For eventing or tracking QA, record the exact browser because privacy protections can change observed traffic.
 
 The chrome-devtools MCP server was deliberately removed from pi mcp.json — do not re-add it; use agent-browser instead.
 

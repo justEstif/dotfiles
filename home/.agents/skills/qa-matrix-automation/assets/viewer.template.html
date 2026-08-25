@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QA Matrix Viewer</title>
+<link
+  href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+  :root {
+    --paper: #f3f2f0;
+    --paper-2: #ebe7e4;
+    --ink: #252f3d;
+    --muted: #5c5752;
+    --soft: #7d7a76;
+    --rule: rgba(37, 47, 61, 0.12);
+    --accent: #b86b52;
+    --accent-tint: rgba(184, 107, 82, 0.08);
+    --link: #4b607c;
+    --ok: #4b7a5f;
+    --ok-tint: rgba(75, 122, 95, 0.08);
+    --bad-tint: rgba(184, 107, 82, 0.1);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Geist", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  [x-cloak] { display: none !important; }
+  header {
+    padding: 24px 32px 16px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-family: "Instrument Serif", serif;
+    font-weight: 400;
+    font-size: 1.75rem;
+    margin: 0;
+  }
+  .eyebrow {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    color: var(--soft);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  button, .file-btn {
+    font-family: "Geist", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border: 1px solid var(--rule);
+    background: #fff;
+    color: var(--ink);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover, .file-btn:hover { border-color: var(--soft); }
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  button.primary:hover { background: #a35c44; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  main { padding: 24px 32px; }
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    font-family: "Geist Mono", monospace;
+    font-size: 12px;
+  }
+  select, input[type="text"] {
+    font-family: "Geist Mono", monospace;
+    font-size: 12px;
+    padding: 6px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ink);
+  }
+  .summary {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    color: var(--soft);
+  }
+  .summary b { color: var(--ink); font-size: 13px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  thead th {
+    text-align: left;
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--soft);
+    background: var(--paper-2);
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    font-size: 13px;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--paper); }
+  td.mono, .mono { font-family: "Geist Mono", monospace; font-size: 12px; }
+  .status-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .status-PASS { background: var(--ok-tint); color: var(--ok); }
+  .status-FAIL { background: var(--bad-tint); color: var(--accent); }
+  .status-OPEN { background: rgba(75, 96, 124, 0.08); color: var(--link); }
+  .status-BLOCKED { background: rgba(37, 47, 61, 0.06); color: var(--soft); }
+  .status-NEEDS_HUMAN { background: rgba(37, 47, 61, 0.06); color: var(--ink); }
+  .row-actions { display: flex; gap: 6px; }
+  .row-actions button {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  .empty {
+    padding: 48px 0;
+    text-align: center;
+    color: var(--soft);
+  }
+  dialog {
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 0;
+    width: min(520px, 90vw);
+  }
+  dialog::backdrop { background: rgba(37, 47, 61, 0.35); }
+  .dialog-head {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--rule);
+    font-family: "Instrument Serif", serif;
+    font-size: 1.25rem;
+  }
+  .dialog-body {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field.full { grid-column: 1 / -1; }
+  label {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--soft);
+  }
+  .field input, .field select, .field textarea {
+    font-family: "Geist", sans-serif;
+    font-size: 13px;
+    padding: 8px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+  }
+  .dialog-foot {
+    padding: 12px 20px 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: 1px solid var(--rule);
+  }
+  .hint {
+    font-size: 11px;
+    color: var(--soft);
+    margin: 4px 0 0;
+  }
+</style>
+</head>
+<body x-data="qaViewer()" x-init="init()" x-cloak>
+
+<header>
+  <div>
+    <p class="eyebrow">qa-matrix-automation</p>
+    <h1>QA Matrix Viewer</h1>
+  </div>
+  <div class="toolbar">
+    <button @click="reload()" title="Re-fetch the auto-load file">↻ Reload</button>
+    <button class="file-btn" @click="openFile()" x-text="fsAccessSupported ? 'Open .jsonl' : 'Import .jsonl'"></button>
+    <input type="file" x-ref="importInput" accept=".jsonl,.json,.ndjson" style="display:none" @change="importFile($event)" />
+    <button @click="addRow()" :disabled="!loaded">+ Add row</button>
+    <button class="primary" @click="save()" :disabled="!loaded || !dirty" x-text="fsAccessSupported && fileHandle ? 'Save' : 'Download .jsonl'"></button>
+  </div>
+</header>
+
+<main>
+  <template x-if="!loaded">
+    <div class="empty">
+      <p x-text="autoLoadError ? ('Could not auto-load ' + autoLoadFile + '.') : ('Loading ' + autoLoadFile + '…')"></p>
+      <template x-if="autoLoadError">
+        <div class="hint" style="max-width: 520px; margin: 12px auto 0; text-align: left;">
+          <p>This page was opened directly (<code>file://</code>) — browsers block <code>fetch()</code> of local files that way, so it can't auto-read a sibling results file. Serve this folder over HTTP instead, from the same directory as this file and <code x-text="autoLoadFile"></code>:</p>
+          <pre style="background: var(--paper-2); padding: 10px 12px; border-radius: 6px; font-family: 'Geist Mono', monospace; font-size: 12px; overflow-x: auto;">bunx serve .
+# or: npx serve . / python3 -m http.server 8000</pre>
+          <p>Then open the printed <code>http://localhost:...</code> URL instead of double-clicking this file. Override the auto-load filename with <code>?file=name.jsonl</code> in the URL. The <span x-text="fsAccessSupported ? 'Open .jsonl' : 'Import .jsonl'"></span> button above still works over plain <code>file://</code>, for a one-off manual pick.</p>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <template x-if="loaded">
+    <div>
+      <div class="summary">
+        <div><b x-text="rows.length"></b> total</div>
+        <template x-for="s in ['PASS','FAIL','OPEN','BLOCKED','NEEDS_HUMAN']" :key="s">
+          <div><b x-text="rows.filter(r => r.status === s).length"></b> <span x-text="s"></span></div>
+        </template>
+      </div>
+
+      <div class="filters">
+        <select x-model="filterStatus">
+          <option value="">status: any</option>
+          <template x-for="s in ['PASS','FAIL','OPEN','BLOCKED','NEEDS_HUMAN']" :key="s">
+            <option :value="s" x-text="s"></option>
+          </template>
+        </select>
+        <input type="text" x-model="filterScenario" placeholder="filter scenario..." />
+        <input type="text" x-model="filterRunId" placeholder="filter run_id..." />
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>status</th>
+            <th>scenario</th>
+            <th>address_category</th>
+            <th>viewport</th>
+            <th>browser</th>
+            <th>page</th>
+            <th>figma</th>
+            <th>run_id</th>
+            <th>checked_at</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="row in filteredRows()" :key="row._id">
+            <tr>
+              <td><span class="status-pill" :class="'status-' + row.status" x-text="row.status"></span></td>
+              <td class="mono" x-text="row.scenario"></td>
+              <td class="mono" x-text="row.address_category || '—'"></td>
+              <td class="mono" x-text="row.viewport || '—'"></td>
+              <td class="mono" x-text="row.browser || '—'"></td>
+              <td class="mono" x-text="row.page || '—'"></td>
+              <td class="mono">
+                <a x-show="row.figma_url" :href="row.figma_url" target="_blank" rel="noopener" style="color: var(--link);">open</a>
+                <span x-show="!row.figma_url">—</span>
+              </td>
+              <td class="mono" x-text="row.run_id"></td>
+              <td class="mono" x-text="row.checked_at"></td>
+              <td>
+                <div class="row-actions">
+                  <button @click="editRow(row)">Edit</button>
+                  <button @click="deleteRow(row)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </template>
+</main>
+
+<dialog x-ref="editDialog">
+  <form @submit.prevent="commitEdit()">
+    <div class="dialog-head" x-text="editing._new ? 'Add row' : 'Edit row'"></div>
+    <div class="dialog-body">
+      <div class="field full">
+        <label>scenario</label>
+        <input type="text" x-model="editing.scenario" placeholder="eventing.sessionStarted" required />
+      </div>
+      <div class="field">
+        <label>status</label>
+        <select x-model="editing.status" required>
+          <template x-for="s in ['PASS','FAIL','OPEN','BLOCKED','NEEDS_HUMAN']" :key="s">
+            <option :value="s" x-text="s"></option>
+          </template>
+        </select>
+      </div>
+      <div class="field">
+        <label>run_id</label>
+        <input type="text" x-model="editing.run_id" required />
+      </div>
+      <div class="field">
+        <label>address_category</label>
+        <select x-model="editing.address_category">
+          <option value="">—</option>
+          <option>BAU Serviceable</option>
+          <option>BAU Serviceable - No Apartment</option>
+          <option>Unserviceable Redirect (Cox)</option>
+          <option>Unserviceable Redirect (Xfinity)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>page</label>
+        <input type="text" x-model="editing.page" placeholder="/order" />
+      </div>
+      <div class="field">
+        <label>viewport</label>
+        <select x-model="editing.viewport">
+          <option value="">—</option>
+          <option>mobile</option>
+          <option>desktop</option>
+          <option>tablet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>browser</label>
+        <select x-model="editing.browser">
+          <option value="">—</option>
+          <option>chrome</option>
+          <option>safari</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>har_path</label>
+        <input type="text" x-model="editing.har_path" placeholder="hars/example.har" />
+      </div>
+      <div class="field full">
+        <label>figma_url (visual.* scenarios)</label>
+        <input type="text" x-model="editing.figma_url" placeholder="https://figma.com/file/.../Name?node-id=..." />
+      </div>
+      <div class="field full">
+        <label>notes</label>
+        <textarea x-model="editing.notes" rows="2"></textarea>
+      </div>
+      <div class="field full">
+        <label>checked_at (ISO 8601)</label>
+        <input type="text" x-model="editing.checked_at" required />
+      </div>
+    </div>
+    <div class="dialog-foot">
+      <button type="button" @click="closeDialog()">Cancel</button>
+      <button type="submit" class="primary">Save row</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+function qaViewer() {
+  return {
+    fsAccessSupported: "showOpenFilePicker" in window,
+    fileHandle: null,
+    loaded: false,
+    dirty: false,
+    rows: [],
+    filterStatus: "",
+    filterScenario: "",
+    filterRunId: "",
+    editing: {},
+    _seq: 0,
+    autoLoadFile: new URLSearchParams(location.search).get("file") || "results.jsonl",
+    autoLoadError: false,
+
+    async init() {
+      await this.reload();
+    },
+
+    async reload() {
+      this.autoLoadError = false;
+      try {
+        const res = await fetch(this.autoLoadFile, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        this.rows = this.parseJsonl(text);
+        this.loaded = true;
+        this.dirty = false;
+      } catch (e) {
+        this.loaded = false;
+        this.autoLoadError = true;
+      }
+    },
+
+    filteredRows() {
+      return this.rows.filter(r =>
+        (!this.filterStatus || r.status === this.filterStatus) &&
+        (!this.filterScenario || r.scenario.toLowerCase().includes(this.filterScenario.toLowerCase())) &&
+        (!this.filterRunId || r.run_id.toLowerCase().includes(this.filterRunId.toLowerCase()))
+      );
+    },
+
+    parseJsonl(text) {
+      return text
+        .split("\n")
+        .map(l => l.trim())
+        .filter(Boolean)
+        .map(l => JSON.parse(l))
+        .map(r => (r._id = ++this._seq, r));
+    },
+
+    toJsonl() {
+      return this.rows
+        .map(r => {
+          const { _id, ...clean } = r;
+          return JSON.stringify(clean);
+        })
+        .join("\n") + "\n";
+    },
+
+    async openFile() {
+      if (!this.fsAccessSupported) {
+        this.$refs.importInput.click();
+        return;
+      }
+      try {
+        const [handle] = await window.showOpenFilePicker({
+          types: [{ description: "JSONL", accept: { "application/jsonl": [".jsonl", ".ndjson"] } }],
+        });
+        this.fileHandle = handle;
+        const file = await handle.getFile();
+        const text = await file.text();
+        this.rows = this.parseJsonl(text);
+        this.loaded = true;
+        this.dirty = false;
+      } catch (e) {
+        if (e.name !== "AbortError") console.error(e);
+      }
+    },
+
+    importFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.rows = this.parseJsonl(reader.result);
+        this.loaded = true;
+        this.dirty = false;
+      };
+      reader.readAsText(file);
+    },
+
+    async save() {
+      const text = this.toJsonl();
+      if (this.fsAccessSupported && this.fileHandle) {
+        const writable = await this.fileHandle.createWritable();
+        await writable.write(text);
+        await writable.close();
+        this.dirty = false;
+        return;
+      }
+      const blob = new Blob([text], { type: "application/x-ndjson" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "qa-results.jsonl";
+      a.click();
+      URL.revokeObjectURL(a.href);
+      this.dirty = false;
+    },
+
+    nowIso() {
+      return new Date().toISOString();
+    },
+
+    addRow() {
+      this.editing = {
+        _id: null,
+        _new: true,
+        run_id: "",
+        scenario: "",
+        address_category: "",
+        viewport: "",
+        browser: "",
+        page: "",
+        status: "OPEN",
+        har_path: "",
+        figma_url: "",
+        notes: "",
+        checked_at: this.nowIso(),
+      };
+      this.$refs.editDialog.showModal();
+    },
+
+    editRow(row) {
+      this.editing = { ...row, _new: false };
+      this.$refs.editDialog.showModal();
+    },
+
+    closeDialog() {
+      this.$refs.editDialog.close();
+    },
+
+    commitEdit() {
+      const clean = { ...this.editing };
+      delete clean._new;
+      for (const k of ["address_category", "viewport", "browser", "page", "har_path", "figma_url", "notes"]) {
+        if (clean[k] === "") clean[k] = null;
+      }
+      if (clean._id) {
+        const idx = this.rows.findIndex(r => r._id === clean._id);
+        this.rows[idx] = clean;
+      } else {
+        clean._id = ++this._seq;
+        this.rows.push(clean);
+      }
+      this.dirty = true;
+      this.closeDialog();
+    },
+
+    deleteRow(row) {
+      if (!confirm(`Delete ${row.scenario} (${row.run_id})?`)) return;
+      this.rows = this.rows.filter(r => r._id !== row._id);
+      this.dirty = true;
+    },
+  };
+}
+</script>
+</body>
+</html>

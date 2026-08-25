@@ -1,0 +1,149 @@
+{
+  "$comment": "Copy this into a project (e.g. qa/scenarios.json) and edit the fixture/scenario list to match that project's own QA sheet. This template's entries are derived from a Spectrum LP release QA sheet — dot-namespaced scenario ids double as the `scenario` field written into result JSONL rows.",
+  "address_fixtures": [
+    {
+      "id": "BAU Serviceable",
+      "address": "145 New Bern St. Apt 348, Charlotte, NC 28209",
+      "expected_outcome": "serviceable"
+    },
+    {
+      "id": "BAU Serviceable - No Apartment",
+      "address": "145 New Bern St. Charlotte, NC 28209",
+      "expected_outcome": "serviceable"
+    },
+    {
+      "id": "Unserviceable Redirect (Cox)",
+      "address": "14 Fairlane Rd, Enfield, CT 06082",
+      "expected_outcome": "redirect:cox"
+    },
+    {
+      "id": "Unserviceable Redirect (Xfinity)",
+      "address": "14 Fairlane Rd, Enfield, CT 06082",
+      "expected_outcome": "redirect:xfinity"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "eventing.sessionStarted",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Exactly one SessionStarted request in the boot HAR (capture started before navigation). Does not re-fire on reload with the same sessionID/anonID."
+    },
+    {
+      "id": "eventing.pageViewed",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "PageViewed fires before any elementViewed in the same HAR window; payload matches the eventing standards doc."
+    },
+    {
+      "id": "eventing.domCompleted",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Exactly one DomCompleted request per page load."
+    },
+    {
+      "id": "eventing.elementViewed",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "View events fire for every tracked asset entering viewport. Only flag as duplicate when htmlId + elementType + location repeat for the same owner."
+    },
+    {
+      "id": "eventing.elementClicked",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Click events fire for every CTA, payload matches standards doc, and a manual click never also emits an auto-click for the same interaction."
+    },
+    {
+      "id": "eventing.pageScrolled",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Fires once per 25/50/75/100 threshold per page view. Repeated identical scrollDistance values are the defect signal."
+    },
+    {
+      "id": "eventing.coreIdentify",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Fires twice: once early, once after DomCompleted with both Tealium and Adobe IDs present. Does not fire for ID stitching when GPC is enabled."
+    },
+    {
+      "id": "eventing.monarchEvaluated",
+      "category": "monarch",
+      "automatable": true,
+      "assertion": "See references/monarch.md — returnable.experience.experienceName equals the expected default experience (e.g. 'Default Internet Hero Experience'). Cross-check against rendered UI; Monarch fails silently to local defaults."
+    },
+    {
+      "id": "eventing.pageEngaged",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Fires once after ~15-30s of dwell/interaction (scroll or click), not immediately."
+    },
+    {
+      "id": "eventing.addressCaptured",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Fires on localization submission; inspect across the handoff/navigation boundary, not just pre-navigation state."
+    },
+    {
+      "id": "eventing.consentCaptured",
+      "category": "eventing",
+      "automatable": true,
+      "assertion": "Fires with full payload. GPC enabled -> only 001/002 cookies fire. GPC disabled -> 001-005 fire and coreIdentify exchanges IDs."
+    },
+    {
+      "id": "urlparam.pre-loc",
+      "category": "url-params",
+      "automatable": true,
+      "assertion": "V-param, TFN, cmp, and related params persist to non-RV-owned pages before localization."
+    },
+    {
+      "id": "urlparam.post-loc",
+      "category": "url-params",
+      "automatable": true,
+      "assertion": "AFFPN, address info, V-param persist through and after localization for attribution/TFN."
+    },
+    {
+      "id": "path.serviceable",
+      "category": "user-path",
+      "automatable": true,
+      "assertion": "Serviceable address proceeds through order flow without error."
+    },
+    {
+      "id": "path.no-apartment",
+      "category": "user-path",
+      "automatable": true,
+      "assertion": "Address missing an apartment number prompts for apartment input before proceeding."
+    },
+    {
+      "id": "path.unserviceable-cox",
+      "category": "user-path",
+      "automatable": true,
+      "assertion": "Unserviceable address redirects to the Cox partner surface."
+    },
+    {
+      "id": "path.unserviceable-xfinity",
+      "category": "user-path",
+      "automatable": true,
+      "assertion": "Unserviceable address redirects to the Xfinity partner surface."
+    },
+    {
+      "id": "path.error-page",
+      "category": "user-path",
+      "automatable": true,
+      "assertion": "Invalid/unknown route (e.g. /fdfd) renders the error page, not a blank/crashed one."
+    },
+    {
+      "id": "visual.hero",
+      "category": "visual",
+      "automatable": false,
+      "figma_url": "https://figma.com/file/REPLACE/ReleaseName?node-id=REPLACE",
+      "assertion": "NEEDS_HUMAN — content + design must match Figma 1:1. See references/visual-figma.md: pull figma_url via the Figma MCP, diff against an agent-browser screenshot of the same viewport, and write the specific discrepancies (or none found) to notes. A human still resolves PASS/FAIL — this only narrows what they review."
+    },
+    {
+      "id": "visual.header",
+      "category": "visual",
+      "automatable": false,
+      "figma_url": "https://figma.com/file/REPLACE/ReleaseName?node-id=REPLACE",
+      "assertion": "NEEDS_HUMAN — same as visual.hero, applied per-component (product cards, FAQs, footer, legal, order-page disclaimer, etc). Add one entry per component actually being reviewed, each with its own node-level figma_url, rather than reusing this row or pointing at the whole file."
+    }
+  ]
+}

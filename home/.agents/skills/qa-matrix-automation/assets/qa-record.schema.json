@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QA Matrix Record",
+  "description": "One row = one (scenario x address_category x viewport x browser) check. Append one JSON object per line to a .jsonl results file — never rewrite the file in place.",
+  "type": "object",
+  "required": ["run_id", "scenario", "status", "checked_at"],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "description": "Groups all checks from one agent-browser run, e.g. 2026-08-24T14-00-agentbrowser-1"
+    },
+    "scenario": {
+      "type": "string",
+      "description": "Dot-namespaced check id, e.g. eventing.sessionStarted, path.unserviceable-cox, visual.hero, urlparam.pre-loc"
+    },
+    "address_category": {
+      "type": ["string", "null"],
+      "enum": [
+        "BAU Serviceable",
+        "BAU Serviceable - No Apartment",
+        "Unserviceable Redirect (Cox)",
+        "Unserviceable Redirect (Xfinity)",
+        null
+      ],
+      "description": "Fixed fixture set from the source QA sheet. Null for scenarios that don't vary by address."
+    },
+    "viewport": {
+      "type": ["string", "null"],
+      "enum": ["mobile", "desktop", "tablet", null]
+    },
+    "browser": {
+      "type": ["string", "null"],
+      "enum": ["chrome", "safari", null]
+    },
+    "page": {
+      "type": ["string", "null"],
+      "description": "Path under test, e.g. / or /order"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "OPEN", "BLOCKED", "NEEDS_HUMAN"],
+      "description": "OPEN = incomplete evidence, not a pass or fail. NEEDS_HUMAN = out of scope for scripted assertion (e.g. visual-vs-Figma)."
+    },
+    "har_path": {
+      "type": ["string", "null"],
+      "description": "Relative path to the captured HAR/evidence file backing this check, if any."
+    },
+    "figma_url": {
+      "type": ["string", "null"],
+      "description": "Figma node/frame link this row is compared against (visual.* scenarios). See references/visual-figma.md — used to pull design context/screenshot via the Figma MCP for a first-pass diff; a human still confirms before flipping status off NEEDS_HUMAN."
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Free text — required when status is FAIL, OPEN, or BLOCKED."
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

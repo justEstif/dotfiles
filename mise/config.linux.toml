@@ -1,3 +1,6 @@
+[env]
+AGENT_BROWSER_EXECUTABLE_PATH = "/usr/bin/brave"
+
 [tools]
 btop = "latest"                                  # resource monitor (aqua backend supports Linux)
 node = "26.7.0"                                   # newer than the shared 22.12.0 pin (this machine's toolchain)
