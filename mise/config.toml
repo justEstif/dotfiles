@@ -24,6 +24,8 @@ bat = "latest"
 zoxide = "latest"
 gh = "latest"
 herdr = "latest"
+pitchfork = "latest"                    # manage background and delayed agent commands
+hk = "latest"                           # fast local git hooks and project lints
 pi = "latest"
 
 [settings]
