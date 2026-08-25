@@ -1,4 +1,4 @@
-function __wtm_cmd_skills --description "Load wtm usage guides (served from fish/functions/wtm-skills)"
+function __wtm_cmd_skills --description "Load wtm usage guides (served from fish/wtm/skills)"
     set -l rest $argv
     set -l sub list
     if test (count $rest) -ge 1
@@ -7,7 +7,7 @@ function __wtm_cmd_skills --description "Load wtm usage guides (served from fish
 
     # Skill docs live next to the CLI in wtm-skills/, so they ship and
     # version together with the functions.
-    set -l skills_dir (dirname (status filename))/wtm-skills
+    set -l skills_dir (dirname (status filename))/../skills
 
     switch $sub
         case list ""
