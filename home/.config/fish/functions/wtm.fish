@@ -30,6 +30,8 @@ function wtm --description "Manage git worktrees in a bare repository"
             __wtm_cmd_checkout $rest
         case list ls
             __wtm_cmd_list $rest
+        case status st
+            __wtm_cmd_status $rest
         case delete rm
             __wtm_cmd_delete $rest
         case cleanup

@@ -17,6 +17,7 @@ myrepo/
 
 ```fish
 wtm list                          # see what exists
+wtm status                        # inspect Git, PR, review, and CI state
 wtm create "feature-x" --from main --no-shell   # new worktree + branch
 # ... edit files in main/feature-x ...
 wtm delete feature-x              # remove when done
@@ -31,6 +32,7 @@ wtm cleanup --dry-run             # sweep merged worktrees
 | `wtm create <name> --from <base>` | Create worktree + branch; cd's into it unless `--no-shell` |
 | `wtm checkout <name>` | Create a worktree from an existing remote branch |
 | `wtm list` | List all worktrees |
+| `wtm status [worktree] [--base <branch>] [--local]` | Show Git, base, PR, review-thread, and CI state |
 | `wtm delete <name> [--force]` | Remove a worktree (refuses if dirty/unpushed unless forced) |
 | `wtm cleanup [--dry-run] [--yes] [--base <branch>]` | Delete merged worktrees |
 | `wtm skills [list\|get\|path]` | Load these usage guides (always version-matched) |
