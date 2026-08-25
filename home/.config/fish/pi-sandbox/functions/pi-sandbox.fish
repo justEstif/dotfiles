@@ -1,8 +1,5 @@
-function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions'
+function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     set -l cwd $PWD
-    set -l real_home $HOME
-    set -l mise_data_dir $MISE_DATA_DIR
-    test -n "$mise_data_dir"; or set mise_data_dir $real_home/.local/share/mise
     set -l keep_state 0
     set -l dry_run 0
     set -l state_dir
@@ -12,7 +9,6 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
     set -l allow_env
     set -l allow_commands
     set -l ask_commands
-    set -l deny_flags --deny-all
     set -l pi_argv
     set -l saw_separator 0
 
@@ -47,9 +43,10 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
                     case --ask-command; set -a ask_commands $value
                     case --state-dir; set state_dir $value
                 end
-            case '--allow-read=*' '--allow-write=*' '--allow-net=*' '--allow-env=*' '--allow-command=*' '--ask-command=*' '--state-dir=*' '--cwd=*'
-                set -l name (string split -m1 = -- $arg)[1]
-                set -l value (string split -m1 = -- $arg)[2]
+            case '--cwd=*' '--allow-read=*' '--allow-write=*' '--allow-net=*' '--allow-env=*' '--allow-command=*' '--ask-command=*' '--state-dir=*'
+                set -l pair (string split -m1 = -- $arg)
+                set -l name $pair[1]
+                set -l value $pair[2]
                 if test -z "$value"
                     printf 'pi-sandbox: %s requires a value\n' $name >&2
                     return 2
@@ -69,7 +66,7 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
             case --dry-run
                 set dry_run 1
             case --deny-read --deny-write --deny-net --deny-env --deny-all
-                set -a deny_flags $arg
+                # Docker starts denied; these flags are explicit, idempotent documentation.
             case '*'
                 printf 'pi-sandbox: unknown option before --: %s\n' $arg >&2
                 return 2
@@ -80,8 +77,8 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
         printf 'pi-sandbox: missing required -- separator\n' >&2
         return 2
     end
-    if not command -q mise
-        printf 'pi-sandbox: mise is required\n' >&2
+    if not command -q docker
+        printf 'pi-sandbox: docker-cli is required (install with mise)\n' >&2
         return 127
     end
 
@@ -90,15 +87,13 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
         printf 'pi-sandbox: working directory does not exist\n' >&2
         return 2
     end
-
     if test (count $allow_net) -gt 0
-        printf 'pi-sandbox: --allow-net is not yet safe with nested Bash confinement\n' >&2
+        printf 'pi-sandbox: --allow-net requires the planned allowlisting proxy\n' >&2
         return 2
     end
 
     set allow_read (__pi_sandbox_resolve_paths read $cwd $allow_read); or return $status
     set allow_write (__pi_sandbox_resolve_paths write $allow_write); or return $status
-
     for name in $allow_env
         if not string match -qr '^[A-Za-z_][A-Za-z0-9_]*(\*)?$' -- $name
             printf 'pi-sandbox: invalid environment name/glob: %s\n' $name >&2
@@ -111,66 +106,78 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
             return 2
         end
     end
-    for host in $allow_net
-        if not string match -qr '^(\*\.)?[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?$' -- $host
-            printf 'pi-sandbox: invalid hostname: %s\n' $host >&2
-            return 2
-        end
-    end
 
     set -l state (__pi_sandbox_create_state $state_dir); or return $status
     set state_dir $state[1]
     set -l nonce $state[2]
 
     set -l function_file (status filename)
-    set -l extension_dir (path resolve (path dirname $function_file)/../../../../.pi/agent/extensions/pi-sandbox)
-    if not test -f $extension_dir/index.ts
-        printf 'pi-sandbox: permission-gate extension is missing: %s\n' $extension_dir >&2
-        command rm -rf -- $state_dir
+    set -l plugin_dir (path resolve (path dirname $function_file)/..)
+    set -l dockerfile $plugin_dir/Dockerfile
+    set -l extension_file (path resolve $plugin_dir/../../../.pi/agent/extensions/pi-sandbox/index.ts)
+    set -l image pi-sandbox:0.84.3
+    if not test -f $dockerfile; or not test -f $extension_file
+        printf 'pi-sandbox: Dockerfile or permission extension is missing\n' >&2
+        __pi_sandbox_cleanup_state $state_dir $nonce $cwd >/dev/null
         return 1
     end
+    set -l isolated_extension $state_dir/home/.pi/agent/extensions/pi-sandbox/index.ts
+    command mkdir -m 700 -p -- (path dirname $isolated_extension); or return 1
+    command cp -- $extension_file $isolated_extension; or return 1
+    command chmod 600 $isolated_extension; or return 1
 
-    set -l pi_version (command mise --cd /tmp current pi 2>/dev/null)
-    if test -z "$pi_version"
-        printf 'pi-sandbox: no Mise-managed Pi version is active\n' >&2
-        command rm -rf -- $state_dir
-        return 127
+    set -l docker_args run --rm --interactive --init \
+        --read-only \
+        --network none \
+        --cap-drop ALL \
+        --security-opt no-new-privileges \
+        --pids-limit 512 \
+        --user (id -u):(id -g) \
+        --tmpfs /tmp:rw,noexec,nosuid,nodev,size=512m \
+        --workdir $cwd \
+        --mount type=bind,src=$state_dir/home,dst=/home/pi \
+        --env HOME=/home/pi \
+        --env PI_CODING_AGENT_DIR=/home/pi/.pi/agent \
+        --env=PI_SANDBOX_ALLOW_COMMANDS=(string join \n -- $allow_commands) \
+        --env=PI_SANDBOX_ASK_COMMANDS=(string join \n -- $ask_commands)
+
+    if isatty stdin; and isatty stdout
+        set -a docker_args --tty
+    end
+    for item in $allow_read
+        if not contains -- $item $allow_write
+            set -a docker_args --mount type=bind,src=$item,dst=$item,readonly
+        end
+    end
+    for item in $allow_write
+        set -a docker_args --mount type=bind,src=$item,dst=$item
+    end
+    for pattern in $allow_env
+        for name in (set -n -x)
+            if string match -q $pattern -- $name
+                set -a docker_args --env $name
+            end
+        end
     end
 
-    set -l mise_args $deny_flags
-    for item in $allow_read $extension_dir
-        set -a mise_args --allow-read=$item
-    end
-    for item in $allow_write $state_dir
-        set -a mise_args --allow-write=$item
-    end
-    for item in $allow_env
-        set -a mise_args --allow-env=$item
-    end
-    for item in MISE_DATA_DIR MISE_OFFLINE PI_CODING_AGENT_DIR PI_SANDBOX_ALLOW_COMMANDS PI_SANDBOX_ASK_COMMANDS
-        set -a mise_args --allow-env=$item
-    end
-
-    set -l env_args \
-        MISE_DATA_DIR=$mise_data_dir \
-        MISE_OFFLINE=1 \
-        HOME=$state_dir/home \
-        PI_CODING_AGENT_DIR=$state_dir/agent \
-        PI_SANDBOX_ALLOW_COMMANDS=(string join \n -- $allow_commands) \
-        PI_SANDBOX_ASK_COMMANDS=(string join \n -- $ask_commands)
-    set -l command_args mise exec $mise_args pi@$pi_version -- pi \
+    set -l pi_args \
         --no-tools --no-session --no-context-files --no-extensions --no-skills \
-        --no-prompt-templates --no-themes --no-approve --extension $extension_dir/index.ts \
+        --no-prompt-templates --no-themes --no-approve \
+        --extension /home/pi/.pi/agent/extensions/pi-sandbox/index.ts \
         $pi_argv
 
     if test $dry_run -eq 1
-        string join ' ' -- (string escape -- env $env_args $command_args)
+        string join ' ' -- (string escape -- docker $docker_args $image $pi_args)
         set keep_state 0
         set -l status_code 0
     else
-        cd $cwd; or return 1
-        env $env_args $command_args
-        set status_code $status
+        __pi_sandbox_ensure_image $image $dockerfile
+        if test $status -ne 0
+            set status_code 1
+        else
+            command docker $docker_args $image $pi_args
+            set status_code $status
+        end
     end
 
     if test $keep_state -eq 1
