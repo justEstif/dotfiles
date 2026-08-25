@@ -5,7 +5,8 @@ network, and environment permissions.
 
 ## Layout
 
-- `functions/pi-sandbox.fish` — wrapper implementation
+- `functions/pi-sandbox.fish` — wrapper entrypoint and option parsing
+- `functions/__pi_sandbox_*.fish` — autoloaded help, path, state, and cleanup helpers
 - `completions/pi-sandbox.fish` — command-line completions
 - `../conf.d/pi-sandbox.fish` — adds both directories to Fish's search paths
 - `~/.pi/agent/extensions/pi-sandbox/` — fail-closed Bash sandbox extension

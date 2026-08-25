@@ -26,40 +26,7 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
             case --
                 set saw_separator 1
             case -h --help
-                printf '%s\n' \
-                    'Usage: pi-sandbox [OPTIONS] -- [PI_ARG...]' \
-                    '' \
-                    'Run Pi inside a least-privilege Mise sandbox. Arguments after --' \
-                    'are passed to Pi unchanged. Pi tools are disabled by default; enable' \
-                    'only the tools needed with Pi’s own --tools flag after --.' \
-                    '' \
-                    'Options:' \
-                    '  -C, --cwd PATH         Working directory (default: current directory)' \
-                    '      --allow-read PATH  Permit filesystem reads; repeatable' \
-                    '      --allow-write PATH Permit filesystem writes; repeatable' \
-                    '      --allow-net HOST   Reserved; rejected until nested proxying is safe' \
-                    '      --allow-env NAME   Inherit an environment variable/glob; repeatable' \
-                    '      --deny-read        Deny filesystem reads except explicit grants' \
-                    '      --deny-write       Deny filesystem writes except explicit grants' \
-                    '      --deny-net         Deny network access except explicit grants' \
-                    '      --deny-env         Deny environment inheritance except grants' \
-                    '      --deny-all         Deny reads, writes, network, and environment' \
-                    '      --state-dir PATH   Create isolated Pi state at PATH (must not exist)' \
-                    '      --keep-state       Retain isolated state and print its location' \
-                    '      --dry-run          Print the escaped command without executing it' \
-                    '  -h, --help             Show this wrapper help' \
-                    '' \
-                    'Defaults: read the working directory; no writes; no network; sanitized' \
-                    'environment; temporary Pi state; no Pi tools.' \
-                    '' \
-                    'Examples:' \
-                    '  pi-sandbox --help               # wrapper help' \
-                    '  pi-sandbox -- --help            # Pi help' \
-                    '  pi-sandbox --allow-read . -- --tools read,grep -p "Review this repo"' \
-                    '' \
-                    'Mise constrains Pi and descendants. The explicit Pi extension adds Bash' \
-                    'confinement when bash is enabled. Network grants currently fail closed:' \
-                    'Mise and sandbox-runtime cannot safely nest host proxy permissions yet.'
+                __pi_sandbox_help
                 return 0
             case -C --cwd --allow-read --allow-write --allow-net --allow-env --state-dir
                 if test (count $argv) -eq 0
@@ -123,27 +90,8 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
         return 2
     end
 
-    set -l normalized_read $cwd
-    for item in $allow_read
-        set -l resolved (path resolve -- $item 2>/dev/null)
-        if test -z "$resolved"; or not test -e "$resolved"
-            printf 'pi-sandbox: read path does not exist: %s\n' $item >&2
-            return 2
-        end
-        set -a normalized_read $resolved
-    end
-    set allow_read $normalized_read
-
-    set -l normalized_write
-    for item in $allow_write
-        set -l resolved (path resolve -- $item 2>/dev/null)
-        if test -z "$resolved"; or not test -d "$resolved"
-            printf 'pi-sandbox: write path must be an existing directory: %s\n' $item >&2
-            return 2
-        end
-        set -a normalized_write $resolved
-    end
-    set allow_write $normalized_write
+    set allow_read (__pi_sandbox_resolve_paths read $cwd $allow_read); or return $status
+    set allow_write (__pi_sandbox_resolve_paths write $allow_write); or return $status
 
     for name in $allow_env
         if not string match -qr '^[A-Za-z_][A-Za-z0-9_]*(\*)?$' -- $name
@@ -158,26 +106,9 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
         end
     end
 
-    set -l tmp_root $TMPDIR
-    test -n "$tmp_root"; or set tmp_root /tmp
-    set -l created_state 0
-    if test -n "$state_dir"
-        if not string match -q '/*' -- $state_dir
-            set state_dir $PWD/$state_dir
-        end
-        set state_dir (path normalize -- $state_dir)
-        if test -z "$state_dir"; or test -e "$state_dir"
-            printf 'pi-sandbox: --state-dir must name a path that does not exist\n' >&2
-            return 2
-        end
-        command mkdir -m 700 -p -- $state_dir; or return 1
-    else
-        set state_dir (command mktemp -d "$tmp_root/pi-sandbox.XXXXXX"); or return 1
-    end
-    set created_state 1
-    command mkdir -m 700 -p -- $state_dir/agent $state_dir/home
-    set -l nonce (random)(random)(random)
-    printf '%s\n' $nonce >$state_dir/.pi-sandbox-state
+    set -l state (__pi_sandbox_create_state $state_dir); or return $status
+    set state_dir $state[1]
+    set -l nonce $state[2]
 
     set -l function_file (status filename)
     set -l extension_dir (path resolve (path dirname $function_file)/../../../../.pi/agent/extensions/pi-sandbox)
@@ -233,14 +164,8 @@ function pi-sandbox --description 'Run Pi with explicit Mise sandbox permissions
 
     if test $keep_state -eq 1
         printf 'pi-sandbox: state retained at %s\n' $state_dir >&2
-    else if test $created_state -eq 1
-        set -l marker (string trim -- (command cat $state_dir/.pi-sandbox-state 2>/dev/null))
-        if test "$marker" = "$nonce"; and test "$state_dir" != /; and test "$state_dir" != "$HOME"; and test "$state_dir" != "$cwd"
-            command rm -rf -- $state_dir
-        else
-            printf 'pi-sandbox: refusing unsafe state cleanup: %s\n' $state_dir >&2
-            test $status_code -ne 0; or set status_code 1
-        end
+    else if not __pi_sandbox_cleanup_state $state_dir $nonce $cwd
+        test $status_code -ne 0; or set status_code 1
     end
     return $status_code
 end
