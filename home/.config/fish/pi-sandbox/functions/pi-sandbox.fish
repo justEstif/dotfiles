@@ -93,9 +93,13 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
         printf 'pi-sandbox: working directory does not exist\n' >&2
         return 2
     end
+    set -l network_mode none
     if test (count $allow_net) -gt 0
-        printf 'pi-sandbox: --allow-net requires the planned allowlisting proxy\n' >&2
-        return 2
+        if test (count $allow_net) -ne 1; or test "$allow_net[1]" != all
+            printf 'pi-sandbox: --allow-net currently accepts only "all"; host allowlists require a proxy\n' >&2
+            return 2
+        end
+        set network_mode bridge
     end
 
     set -l host_auth_file
@@ -154,7 +158,7 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
 
     set -l docker_args run --rm --interactive --init \
         --read-only \
-        --network none \
+        --network $network_mode \
         --cap-drop ALL \
         --security-opt no-new-privileges \
         --pids-limit 512 \

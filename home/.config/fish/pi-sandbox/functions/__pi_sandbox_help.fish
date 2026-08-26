@@ -14,7 +14,7 @@ function __pi_sandbox_help
         '  -C, --cwd PATH          Working directory (default: current directory)' \
         '      --allow-read PATH   Bind-mount a readable path; repeatable' \
         '      --allow-write PATH  Bind-mount a writable directory; repeatable' \
-        '      --allow-net HOST    Reserved for the allowlisting proxy; fails closed' \
+        '      --allow-net all     Allow unrestricted outbound network access' \
         '      --allow-env NAME    Forward an environment variable/glob; repeatable' \
         '      --allow-command PAT Allow Bash commands matching PAT; repeatable' \
         '      --ask-command PAT   Ask before Bash commands matching PAT; repeatable' \
@@ -30,8 +30,8 @@ function __pi_sandbox_help
         'temporary Pi state, no Pi tools, and no Bash commands.' \
         '' \
         'Provider access:' \
-        '  Network isolation currently blocks model API calls; --allow-net remains' \
-        '  unavailable until the allowlisting proxy is implemented. Pass credentials' \
+        '  Network is disabled by default. Use --allow-net all for unrestricted' \
+        '  outbound access. Hostname allowlists require a future proxy. Pass credentials' \
         '  through normal Pi --api-key arguments after --, grant a provider variable' \
         '  with --allow-env, or explicitly mount host auth with --share-auth.' \
         '  Shared auth is read/write so refreshed OAuth tokens persist on the host;' \
@@ -40,6 +40,6 @@ function __pi_sandbox_help
         'Examples:' \
         '  pi-sandbox --help' \
         '  pi-sandbox -- --help' \
-        '  pi-sandbox --share-auth --allow-read . -- --tools read,grep -p "Review this repo"' \
+        '  pi-sandbox --share-auth --allow-net all --allow-read . -- --tools read,grep -p "Review this repo"' \
         '  pi-sandbox --allow-write . --allow-command "git status*" -- --tools bash'
 end

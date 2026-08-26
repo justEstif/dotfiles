@@ -30,16 +30,15 @@ sudo systemctl enable --now docker
 
 Provider connectivity has two parts:
 
-1. Network access must be granted through the planned provider allowlisting
-   proxy. Until then, `--allow-net` fails closed and prompted model calls cannot
-   leave the container.
+1. Network is disabled by default. Explicitly pass `--allow-net all` for
+   unrestricted outbound access. Hostname-specific grants remain unavailable
+   until an allowlisting proxy is added.
 2. Credentials can be supplied through normal Pi arguments after `--`, such as
    `--api-key`, through a provider environment variable explicitly granted with
    `--allow-env`, or from existing host Pi login state with `--share-auth`.
 
 ```fish
-# Credential side of the setup; provider calls also require network support.
-pi-sandbox --share-auth -- \
+pi-sandbox --share-auth --allow-net all -- \
   --provider openai-codex -p 'Review this repo'
 ```
 
@@ -87,5 +86,6 @@ Rules are emitted broad-to-specific as deny-by-default, then allow, ask, and
 deny, so the more restrictive wrapper options win when patterns overlap. No
 Git or AWS operations are enabled unless the caller supplies patterns.
 
-Selective host networking remains reserved until an allowlisting proxy is
-added; `--allow-net` fails closed in the meantime.
+`--allow-net all` enables unrestricted outbound connectivity, including access
+to internet, LAN, and potentially host services. Use it only for trusted local
+runs. Any hostname value fails closed until an allowlisting proxy is added.
