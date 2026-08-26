@@ -34,14 +34,21 @@ Provider connectivity has two parts:
    proxy. Until then, `--allow-net` fails closed and prompted model calls cannot
    leave the container.
 2. Credentials can be supplied through normal Pi arguments after `--`, such as
-   `--api-key`, or through a provider environment variable explicitly granted
-   with `--allow-env`. The host credential store is never mounted.
+   `--api-key`, through a provider environment variable explicitly granted with
+   `--allow-env`, or from existing host Pi login state with `--share-auth`.
 
 ```fish
 # Credential side of the setup; provider calls also require network support.
-pi-sandbox --allow-env ANTHROPIC_API_KEY -- \
-  --provider anthropic --model claude-sonnet-4 -p 'Review this repo'
+pi-sandbox --share-auth -- \
+  --provider openai-codex -p 'Review this repo'
 ```
+
+`--share-auth` bind-mounts the host `auth.json` read/write so Pi can use existing
+logins and persist refreshed OAuth tokens. This intentionally gives Pi and any
+code allowed to read that path access to host credentials. Use it only for the
+local trusted-sandbox case; omit it for stronger credential isolation. Avoid
+concurrent host and sandbox login/logout operations because their auth lock files
+live in different directories.
 
 The first non-dry run builds the pinned Pi 0.84.3 image with
 `@gotgenes/pi-permission-system` 27.0.1.

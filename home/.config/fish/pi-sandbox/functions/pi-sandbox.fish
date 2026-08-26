@@ -1,6 +1,7 @@
 function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     set -l cwd $PWD
     set -l keep_state 0
+    set -l share_auth 0
     set -l dry_run 0
     set -l state_dir
     set -l allow_read
@@ -66,6 +67,8 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
                 end
             case --keep-state
                 set keep_state 1
+            case --share-auth
+                set share_auth 1
             case --dry-run
                 set dry_run 1
             case --deny-read --deny-write --deny-net --deny-env --deny-all
@@ -93,6 +96,17 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     if test (count $allow_net) -gt 0
         printf 'pi-sandbox: --allow-net requires the planned allowlisting proxy\n' >&2
         return 2
+    end
+
+    set -l host_auth_file
+    if test $share_auth -eq 1
+        set -l host_agent_dir $PI_CODING_AGENT_DIR
+        test -n "$host_agent_dir"; or set host_agent_dir $HOME/.pi/agent
+        set host_auth_file (path resolve -- $host_agent_dir/auth.json 2>/dev/null)
+        if test -z "$host_auth_file"; or not test -f $host_auth_file
+            printf 'pi-sandbox: --share-auth requires host Pi auth at %s/auth.json\n' $host_agent_dir >&2
+            return 2
+        end
     end
 
     set allow_read (__pi_sandbox_resolve_paths read $cwd $allow_read); or return $status
@@ -151,6 +165,13 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
         --env HOME=/home/pi \
         --env PI_CODING_AGENT_DIR=/home/pi/.pi/agent
 
+    if test $share_auth -eq 1
+        if not command touch $state_dir/home/.pi/agent/auth.json
+            __pi_sandbox_cleanup_state $state_dir $nonce $cwd >/dev/null
+            return 1
+        end
+        set -a docker_args --mount type=bind,src=$host_auth_file,dst=/home/pi/.pi/agent/auth.json
+    end
     if isatty stdin; and isatty stdout
         set -a docker_args --tty
     end

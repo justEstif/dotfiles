@@ -21,6 +21,7 @@ function __pi_sandbox_help
         '      --deny-command PAT  Deny Bash commands matching PAT; repeatable' \
         '      --state-dir PATH    Create isolated Pi state at PATH (must not exist)' \
         '      --keep-state        Retain isolated state and print its location' \
+        '      --share-auth        Mount host Pi auth read/write for token refresh' \
         '      --dry-run           Print the escaped Docker command without running it' \
         '  -h, --help              Show this wrapper help' \
         '' \
@@ -31,12 +32,14 @@ function __pi_sandbox_help
         'Provider access:' \
         '  Network isolation currently blocks model API calls; --allow-net remains' \
         '  unavailable until the allowlisting proxy is implemented. Pass credentials' \
-        '  through normal Pi --api-key arguments after --, or grant a provider' \
-        '  environment variable with --allow-env. Host Pi auth is never mounted.' \
+        '  through normal Pi --api-key arguments after --, grant a provider variable' \
+        '  with --allow-env, or explicitly mount host auth with --share-auth.' \
+        '  Shared auth is read/write so refreshed OAuth tokens persist on the host;' \
+        '  use it only when the sandbox and allowed code are trusted with credentials.' \
         '' \
         'Examples:' \
         '  pi-sandbox --help' \
         '  pi-sandbox -- --help' \
-        '  pi-sandbox --allow-read . -- --tools read,grep -p "Review this repo"' \
+        '  pi-sandbox --share-auth --allow-read . -- --tools read,grep -p "Review this repo"' \
         '  pi-sandbox --allow-write . --allow-command "git status*" -- --tools bash'
 end
