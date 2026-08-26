@@ -9,6 +9,7 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     set -l allow_env
     set -l allow_commands
     set -l ask_commands
+    set -l deny_commands
     set -l pi_argv
     set -l saw_separator 0
 
@@ -26,7 +27,7 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
             case -h --help
                 __pi_sandbox_help
                 return 0
-            case -C --cwd --allow-read --allow-write --allow-net --allow-env --allow-command --ask-command --state-dir
+            case -C --cwd --allow-read --allow-write --allow-net --allow-env --allow-command --ask-command --deny-command --state-dir
                 if test (count $argv) -eq 0
                     printf 'pi-sandbox: %s requires a value\n' $arg >&2
                     return 2
@@ -41,9 +42,10 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
                     case --allow-env; set -a allow_env $value
                     case --allow-command; set -a allow_commands $value
                     case --ask-command; set -a ask_commands $value
+                    case --deny-command; set -a deny_commands $value
                     case --state-dir; set state_dir $value
                 end
-            case '--cwd=*' '--allow-read=*' '--allow-write=*' '--allow-net=*' '--allow-env=*' '--allow-command=*' '--ask-command=*' '--state-dir=*'
+            case '--cwd=*' '--allow-read=*' '--allow-write=*' '--allow-net=*' '--allow-env=*' '--allow-command=*' '--ask-command=*' '--deny-command=*' '--state-dir=*'
                 set -l pair (string split -m1 = -- $arg)
                 set -l name $pair[1]
                 set -l value $pair[2]
@@ -59,6 +61,7 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
                     case --allow-env; set -a allow_env $value
                     case --allow-command; set -a allow_commands $value
                     case --ask-command; set -a ask_commands $value
+                    case --deny-command; set -a deny_commands $value
                     case --state-dir; set state_dir $value
                 end
             case --keep-state
@@ -100,9 +103,9 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
             return 2
         end
     end
-    for rule in $allow_commands $ask_commands
-        if test -z "$rule"; or string match -qr '[\n\r]' -- $rule
-            printf 'pi-sandbox: command rules must be non-empty single lines\n' >&2
+    for rule in $allow_commands $ask_commands $deny_commands
+        if test -z "$rule"; or string match -qr '[[:cntrl:]]' -- $rule
+            printf 'pi-sandbox: command patterns must be non-empty and contain no control characters\n' >&2
             return 2
         end
     end
@@ -114,17 +117,26 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     set -l function_file (status filename)
     set -l plugin_dir (path resolve (path dirname $function_file)/..)
     set -l dockerfile $plugin_dir/Dockerfile
-    set -l extension_file (path resolve $plugin_dir/../../../.pi/agent/extensions/pi-sandbox/index.ts)
-    set -l image pi-sandbox:0.84.3
-    if not test -f $dockerfile; or not test -f $extension_file
-        printf 'pi-sandbox: Dockerfile or permission extension is missing\n' >&2
+    set -l image pi-sandbox:0.84.3-permissions-27.0.1
+    if not test -f $dockerfile
+        printf 'pi-sandbox: Dockerfile is missing\n' >&2
         __pi_sandbox_cleanup_state $state_dir $nonce $cwd >/dev/null
         return 1
     end
-    set -l isolated_extension $state_dir/home/.pi/agent/extensions/pi-sandbox/index.ts
-    command mkdir -m 700 -p -- (path dirname $isolated_extension); or return 1
-    command cp -- $extension_file $isolated_extension; or return 1
-    command chmod 600 $isolated_extension; or return 1
+    set -l policy_rules
+    for pattern in $allow_commands
+        set -a policy_rules allow:$pattern
+    end
+    for pattern in $ask_commands
+        set -a policy_rules ask:$pattern
+    end
+    for pattern in $deny_commands
+        set -a policy_rules deny:$pattern
+    end
+    if not __pi_sandbox_write_policy $state_dir $policy_rules
+        __pi_sandbox_cleanup_state $state_dir $nonce $cwd >/dev/null
+        return 1
+    end
 
     set -l docker_args run --rm --interactive --init \
         --read-only \
@@ -137,9 +149,7 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
         --workdir $cwd \
         --mount type=bind,src=$state_dir/home,dst=/home/pi \
         --env HOME=/home/pi \
-        --env PI_CODING_AGENT_DIR=/home/pi/.pi/agent \
-        --env=PI_SANDBOX_ALLOW_COMMANDS=(string join \n -- $allow_commands) \
-        --env=PI_SANDBOX_ASK_COMMANDS=(string join \n -- $ask_commands)
+        --env PI_CODING_AGENT_DIR=/home/pi/.pi/agent
 
     if isatty stdin; and isatty stdout
         set -a docker_args --tty
@@ -163,7 +173,7 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     set -l pi_args \
         --no-tools --no-session --no-context-files --no-extensions --no-skills \
         --no-prompt-templates --no-themes --no-approve \
-        --extension /home/pi/.pi/agent/extensions/pi-sandbox/index.ts \
+        --extension /usr/local/lib/node_modules/@gotgenes/pi-permission-system/src/index.ts \
         $pi_argv
 
     if test $dry_run -eq 1

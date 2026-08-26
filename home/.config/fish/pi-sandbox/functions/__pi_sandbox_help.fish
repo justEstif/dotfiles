@@ -11,8 +11,9 @@ function __pi_sandbox_help
         '      --allow-write PATH  Bind-mount a writable directory; repeatable' \
         '      --allow-net HOST    Reserved for the allowlisting proxy; fails closed' \
         '      --allow-env NAME    Forward an environment variable/glob; repeatable' \
-        '      --allow-command CMD Allow one exact, simple Bash command; repeatable' \
-        '      --ask-command CMD   Ask once before one exact Bash command; repeatable' \
+        '      --allow-command PAT Allow Bash commands matching PAT; repeatable' \
+        '      --ask-command PAT   Ask before Bash commands matching PAT; repeatable' \
+        '      --deny-command PAT  Deny Bash commands matching PAT; repeatable' \
         '      --state-dir PATH    Create isolated Pi state at PATH (must not exist)' \
         '      --keep-state        Retain isolated state and print its location' \
         '      --dry-run           Print the escaped Docker command without running it' \
@@ -26,5 +27,5 @@ function __pi_sandbox_help
         '  pi-sandbox --help' \
         '  pi-sandbox -- --help' \
         '  pi-sandbox --allow-read . -- --tools read,grep -p "Review this repo"' \
-        '  pi-sandbox --allow-write . --allow-command "git status" -- --tools bash'
+        '  pi-sandbox --allow-write . --allow-command "git status*" -- --tools bash'
 end
