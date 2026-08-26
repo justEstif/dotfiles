@@ -5,6 +5,11 @@ function __pi_sandbox_help
         'Run Pi in a least-privilege Docker container. Arguments after -- are' \
         'passed to Pi unchanged. Pi tools and Bash commands are denied by default.' \
         '' \
+        'Prerequisites:' \
+        '  Docker CLI and a running daemon. Prefer rootless Docker on Linux;' \
+        '  access to a conventional Docker daemon is effectively root-equivalent.' \
+        '  On macOS, start the Colima daemon with: colima start' \
+        '' \
         'Options:' \
         '  -C, --cwd PATH          Working directory (default: current directory)' \
         '      --allow-read PATH   Bind-mount a readable path; repeatable' \
@@ -22,6 +27,12 @@ function __pi_sandbox_help
         'The container defaults to a read-only root, read-only working directory,' \
         'no network, isolated tmpfs /tmp, no Linux capabilities, no-new-privileges,' \
         'temporary Pi state, no Pi tools, and no Bash commands.' \
+        '' \
+        'Provider access:' \
+        '  Network isolation currently blocks model API calls; --allow-net remains' \
+        '  unavailable until the allowlisting proxy is implemented. Pass credentials' \
+        '  through normal Pi --api-key arguments after --, or grant a provider' \
+        '  environment variable with --allow-env. Host Pi auth is never mounted.' \
         '' \
         'Examples:' \
         '  pi-sandbox --help' \
