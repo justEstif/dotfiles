@@ -27,6 +27,9 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
         switch $arg
             case --
                 set saw_separator 1
+            case skills
+                __pi_sandbox_cmd_skills $argv
+                return $status
             case -h --help
                 __pi_sandbox_help
                 return 0
