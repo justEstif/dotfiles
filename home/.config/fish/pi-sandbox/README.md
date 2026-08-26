@@ -14,14 +14,33 @@ state and a deny-by-default Bash command gate.
 
 ## Setup
 
-Mise installs `docker-cli` on both platforms and Colima on macOS.
+Mise installs `docker-cli` on both platforms and Colima on macOS. A running
+Docker daemon is required. Prefer rootless Docker; access to a conventional
+Docker daemon is effectively root-equivalent and should be an explicit setup
+choice.
 
 ```fish
-# macOS
+# macOS (Colima runs the daemon in its Linux VM)
 colima start
 
-# Linux, after bootstrap installs Docker Engine
+# Linux: prefer Docker's rootless mode. If using the system daemon installed
+# by bootstrap instead, enable it explicitly:
 sudo systemctl enable --now docker
+```
+
+Provider connectivity has two parts:
+
+1. Network access must be granted through the planned provider allowlisting
+   proxy. Until then, `--allow-net` fails closed and prompted model calls cannot
+   leave the container.
+2. Credentials can be supplied through normal Pi arguments after `--`, such as
+   `--api-key`, or through a provider environment variable explicitly granted
+   with `--allow-env`. The host credential store is never mounted.
+
+```fish
+# Credential side of the setup; provider calls also require network support.
+pi-sandbox --allow-env ANTHROPIC_API_KEY -- \
+  --provider anthropic --model claude-sonnet-4 -p 'Review this repo'
 ```
 
 The first non-dry run builds the pinned Pi 0.84.3 image with
