@@ -8,6 +8,7 @@ _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 newrelic-cli = "latest"
 awscli = "latest"                        # AWS CLI
 duckdb = "latest"                        # in-process analytical SQL
+colima = "latest"                        # lightweight Docker-compatible VM/daemon
 
 [dotfiles]
 "~/.gitconfig"                  = { source = "~/dotfiles/home/.gitconfig.macos" }
@@ -26,7 +27,6 @@ duckdb = "latest"                        # in-process analytical SQL
 [bootstrap.packages]
 "brew:fish" = "latest"      # login shell (activated by bootstrap.mise_shell_activate)
 "brew:btop"      = "latest"   # resource monitor (aqua backend is Linux-only)
-"brew:colima"    = "latest"   # container runtime VM (macOS)
 "brew:podman"    = "latest"   # container engine
 "brew:ollama"    = "latest"   # local LLM runner
 "brew:coreutils" = "latest"   # GNU coreutils (Linux ships these natively)
