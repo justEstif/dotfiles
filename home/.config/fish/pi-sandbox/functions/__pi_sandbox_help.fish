@@ -43,6 +43,11 @@ function __pi_sandbox_help
         '  Shared auth is read/write so refreshed OAuth tokens persist on the host;' \
         '  use it only when the sandbox and allowed code are trusted with credentials.' \
         '' \
+        'Maintenance:' \
+        '  The sandbox pins Pi and its permission-system dependency. After upgrading' \
+        '  host Pi, update and test the Dockerfile versions, image tag, README, core' \
+        '  skill guide, and agent skill stub together.' \
+        '' \
         'Examples:' \
         '  pi-sandbox --help' \
         '  pi-sandbox -- --help' \
