@@ -29,3 +29,6 @@ om-debug.log
 om-last-observer-response.json
 .lasso/db.sqlite*
 .lasso/debug/
+
+# FreeTube runtime state
+home/.config/FreeTube/settings.db
