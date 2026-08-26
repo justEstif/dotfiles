@@ -8,6 +8,7 @@ state and a deny-by-default Bash command gate.
 - `Dockerfile` — pinned Pi runtime image
 - `functions/pi-sandbox.fish` — wrapper entrypoint and option parsing
 - `functions/__pi_sandbox_*.fish` — autoloaded help, path, image, state, and cleanup helpers
+- `proxy/hostname-connect-proxy.js` — hostname-aware HTTPS CONNECT egress proxy
 - `completions/pi-sandbox.fish` — command-line completions
 - `../conf.d/pi-sandbox.fish` — adds both Fish directories to search paths
 - `@gotgenes/pi-permission-system` — pinned structured Bash policy gate
@@ -30,9 +31,10 @@ sudo systemctl enable --now docker
 
 Provider connectivity has two parts:
 
-1. Network is disabled by default. Explicitly pass `--allow-net all` for
-   unrestricted outbound access. Hostname-specific grants remain unavailable
-   until an allowlisting proxy is added.
+1. Network is disabled by default. Either pass `--allow-net all` for
+   unrestricted outbound access, or use `--allow-net-host` / `--deny-net-host`
+   to enable a hostname-aware HTTPS CONNECT proxy mode on an internal Docker
+   network with no direct internet route from the sandbox.
 2. Credentials can be supplied through normal Pi arguments after `--`, such as
    `--api-key`, through a provider environment variable explicitly granted with
    `--allow-env`, or from existing host Pi login state with `--share-auth`.
@@ -88,4 +90,19 @@ Git or AWS operations are enabled unless the caller supplies patterns.
 
 `--allow-net all` enables unrestricted outbound connectivity, including access
 to internet, LAN, and potentially host services. Use it only for trusted local
-runs. Any hostname value fails closed until an allowlisting proxy is added.
+runs.
+
+```fish
+pi-sandbox \
+  --allow-net-host api.openai.com \
+  --allow-net-host '*.openai.com' \
+  --deny-net-host telemetry.example.com \
+  -- --provider openai-codex -p 'Review this repo'
+```
+
+Host-rule mode allows HTTPS CONNECT only. Policies match exact hostnames and
+constrained `*.` subdomain globs; deny rules override allow rules. Unknown
+hosts fail closed, direct-IP CONNECT is denied, and direct egress is blocked by
+the sandbox's internal-only network attachment. CONNECT policy applies to
+hostname and port (default 443) only; encrypted URL paths and request bodies
+remain opaque without TLS interception.
