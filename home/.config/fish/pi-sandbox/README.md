@@ -8,6 +8,7 @@ state and a deny-by-default Bash command gate.
 - `Dockerfile` — pinned Pi runtime image
 - `functions/pi-sandbox.fish` — wrapper entrypoint and option parsing
 - `functions/__pi_sandbox_*.fish` — autoloaded help, path, image, state, and cleanup helpers
+- `skills/` — usage guides exposed through `pi-sandbox skills`
 - `proxy/hostname-connect-proxy.js` — hostname-aware HTTPS CONNECT egress proxy
 - `completions/pi-sandbox.fish` — command-line completions
 - `../conf.d/pi-sandbox.fish` — adds both Fish directories to search paths

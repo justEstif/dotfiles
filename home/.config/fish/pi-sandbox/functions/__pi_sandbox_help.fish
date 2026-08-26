@@ -1,6 +1,7 @@
 function __pi_sandbox_help
     printf '%s\n' \
-        'Usage: pi-sandbox [OPTIONS] -- [PI_ARG...]' \
+        'Usage: pi-sandbox [OPTIONS] -- [PI_ARG...]
+       pi-sandbox skills [list] | get <name> [--full] | path [name]' \
         '' \
         'Run Pi in a least-privilege Docker container. Arguments after -- are' \
         'passed to Pi unchanged. Pi tools and Bash commands are denied by default.' \

@@ -1,3 +1,4 @@
+complete -c pi-sandbox -n '__fish_use_subcommand' -f -a skills -d 'Load pi-sandbox usage guides'
 complete -c pi-sandbox -s h -l help -d 'Show wrapper help'
 complete -c pi-sandbox -s C -l cwd -r -d 'Set working directory'
 complete -c pi-sandbox -l allow-read -r -d 'Allow filesystem reads (repeatable)'
