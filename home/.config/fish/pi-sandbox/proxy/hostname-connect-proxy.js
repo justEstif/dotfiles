@@ -57,7 +57,12 @@ function isPrivateAddress(address) {
     );
   }
   if (family === 6) {
-    const normalized = address.toLowerCase();
+    let normalized = address.toLowerCase();
+    // Reject IPv4-mapped IPv6 addresses unless the embedded IPv4 is also public.
+    const mapped = normalized.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+    if (mapped) {
+      return isPrivateAddress(mapped[1]);
+    }
     return (
       normalized === "::1" ||
       normalized === "::" ||

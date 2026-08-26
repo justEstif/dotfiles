@@ -204,7 +204,8 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
 
     set -l run_network $network_mode
     if test $host_proxy_mode -eq 1
-        set run_network pi-sandbox-net-dynamic
+        # The internal network name is randomized at run time; this is a placeholder.
+        set run_network '<internal-network>'
     end
     set -l docker_args run --rm --interactive --init \
         --read-only \
@@ -246,7 +247,6 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     if test $host_proxy_mode -eq 1
         set -a docker_args --env HTTPS_PROXY=http://pi-sandbox-proxy:8443 \
             --env HTTP_PROXY=http://pi-sandbox-proxy:8443 \
-            --env ALL_PROXY=http://pi-sandbox-proxy:8443 \
             --env NO_PROXY=localhost,127.0.0.1
     end
 
