@@ -27,6 +27,7 @@ herdr = "latest"
 pitchfork = "latest"                    # manage background and delayed agent commands
 hk = "latest"                           # fast local git hooks and project lints
 pi = "latest"
+docker-cli = "latest"                    # Docker client; daemon is Colima (macOS) or system Docker (Linux)
 
 [settings]
 experimental = true
