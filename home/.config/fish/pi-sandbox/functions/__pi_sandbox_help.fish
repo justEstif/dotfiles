@@ -15,6 +15,8 @@ function __pi_sandbox_help
         '      --allow-read PATH   Bind-mount a readable path; repeatable' \
         '      --allow-write PATH  Bind-mount a writable directory; repeatable' \
         '      --allow-net all     Allow unrestricted outbound network access' \
+        '      --allow-net-host H  Allow HTTPS CONNECT only to hostname rule H; repeatable' \
+        '      --deny-net-host H   Deny HTTPS CONNECT to hostname rule H; repeatable' \
         '      --allow-env NAME    Forward an environment variable/glob; repeatable' \
         '      --allow-command PAT Allow Bash commands matching PAT; repeatable' \
         '      --ask-command PAT   Ask before Bash commands matching PAT; repeatable' \
@@ -31,7 +33,10 @@ function __pi_sandbox_help
         '' \
         'Provider access:' \
         '  Network is disabled by default. Use --allow-net all for unrestricted' \
-        '  outbound access. Hostname allowlists require a future proxy. Pass credentials' \
+        '  outbound access, or --allow-net-host/--deny-net-host for a hostname-aware' \
+        '  HTTPS CONNECT proxy (host/port policy only; encrypted paths and bodies are opaque).' \
+        '  Hostname rules support exact names and *.subdomain globs; deny rules override allow.' \
+        '  Pass credentials' \
         '  through normal Pi --api-key arguments after --, grant a provider variable' \
         '  with --allow-env, or explicitly mount host auth with --share-auth.' \
         '  Shared auth is read/write so refreshed OAuth tokens persist on the host;' \
