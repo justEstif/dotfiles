@@ -203,6 +203,9 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     end
 
     set -l run_network $network_mode
+    if test $host_proxy_mode -eq 1
+        set run_network pi-sandbox-net-dynamic
+    end
     set -l docker_args run --rm --interactive --init \
         --read-only \
         --cap-drop ALL \
@@ -293,7 +296,9 @@ function pi-sandbox --description 'Run Pi in a least-privilege Docker container'
     if test $host_proxy_mode -eq 1
         __pi_sandbox_cleanup_net_proxy $host_proxy_network $host_proxy_container >/dev/null
         if test $status -ne 0
-            test -n "$status_code"; and test $status_code -ne 0; or set status_code 1
+            if test -z "$status_code"; or test $status_code -eq 0
+                set status_code 1
+            end
         end
     end
 

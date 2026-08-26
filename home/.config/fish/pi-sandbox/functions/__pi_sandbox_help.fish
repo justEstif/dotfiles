@@ -36,7 +36,7 @@ function __pi_sandbox_help
         '  outbound access, or --allow-net-host/--deny-net-host for a hostname-aware' \
         '  HTTPS CONNECT proxy (host/port policy only; encrypted paths and bodies are opaque).' \
         '  Hostname rules support exact names and *.subdomain globs; deny rules override allow.' \
-        '  Pass credentials' \
+        '  For API authentication, pass credentials' \
         '  through normal Pi --api-key arguments after --, grant a provider variable' \
         '  with --allow-env, or explicitly mount host auth with --share-auth.' \
         '  Shared auth is read/write so refreshed OAuth tokens persist on the host;' \

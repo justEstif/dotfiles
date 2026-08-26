@@ -41,6 +41,34 @@ function sendError(socket, code, message) {
   socket.destroy();
 }
 
+function isPrivateAddress(address) {
+  const family = net.isIP(address);
+  if (family === 4) {
+    const octets = address.split(".").map((item) => Number.parseInt(item, 10));
+    if (octets.length !== 4 || octets.some((item) => Number.isNaN(item))) {
+      return true;
+    }
+    return (
+      octets[0] === 10 ||
+      octets[0] === 127 ||
+      (octets[0] === 169 && octets[1] === 254) ||
+      (octets[0] === 172 && octets[1] >= 16 && octets[1] <= 31) ||
+      (octets[0] === 192 && octets[1] === 168)
+    );
+  }
+  if (family === 6) {
+    const normalized = address.toLowerCase();
+    return (
+      normalized === "::1" ||
+      normalized === "::" ||
+      normalized.startsWith("fc") ||
+      normalized.startsWith("fd") ||
+      normalized.startsWith("fe80:")
+    );
+  }
+  return true;
+}
+
 function parseConnectAuthority(authority) {
   if (!authority) {
     return null;
@@ -64,7 +92,7 @@ const server = http.createServer((req, res) => {
   res.end("CONNECT required\n");
 });
 
-server.on("connect", async (req, clientSocket, head) => {
+server.on("connect", (req, clientSocket, head) => {
   const target = parseConnectAuthority(req.url || "");
   if (!target || !target.host || !target.port) {
     sendError(clientSocket, 400, "Bad Request");
@@ -90,22 +118,36 @@ server.on("connect", async (req, clientSocket, head) => {
     return;
   }
 
-  dns.lookup(host, { all: true }, (lookupError) => {
-    if (lookupError) {
+  dns.lookup(host, { all: true, verbatim: true }, (lookupError, addresses) => {
+    if (lookupError || !addresses || addresses.length === 0) {
       sendError(clientSocket, 502, "Bad Gateway");
       return;
     }
+    const destination = addresses.find((entry) => !isPrivateAddress(entry.address));
+    if (!destination) {
+      sendError(clientSocket, 403, "Forbidden");
+      return;
+    }
 
-    const upstream = net.connect(targetPort, host, () => {
-      clientSocket.write("HTTP/1.1 200 Connection Established\r\n\r\n");
-      if (head && head.length > 0) {
-        upstream.write(head);
-      }
-      upstream.pipe(clientSocket);
-      clientSocket.pipe(upstream);
-    });
+    let connected = false;
+    const upstream = net.connect(
+      { host: destination.address, port: targetPort, family: destination.family },
+      () => {
+        connected = true;
+        clientSocket.write("HTTP/1.1 200 Connection Established\r\n\r\n");
+        if (head && head.length > 0) {
+          upstream.write(head);
+        }
+        upstream.pipe(clientSocket);
+        clientSocket.pipe(upstream);
+      },
+    );
 
     upstream.on("error", () => {
+      if (connected) {
+        clientSocket.destroy();
+        return;
+      }
       sendError(clientSocket, 502, "Bad Gateway");
     });
   });
