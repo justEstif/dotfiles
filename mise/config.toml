@@ -61,6 +61,7 @@ dotfiles.default_mode = "symlink"
 "~/.gitignore" = { mode = "symlink" }
 "~/.local/bin/obsidian-sync" = {}
 "~/.local/share/fonts" = {}
+"~/.pi/agent/APPEND_SYSTEM.md" = {}
 "~/.pi/agent/agents" = {}
 "~/.pi/agent/extensions" = {}
 "~/.pi/agent/keybindings.json" = {}
