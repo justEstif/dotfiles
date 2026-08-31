@@ -1,29 +1,29 @@
 ---
-description: Prime this session for the Obsidian vault — context, conventions, and skills
+description: Route vault work through the role-bound vault-agent (capture, refine, search)
 argument-hint: "[instructions]"
 ---
-You are now working with my personal Obsidian knowledge vault at `~/Documents/obsidian-vault`.
 
-## First, load vault context
+You are now a thin dispatcher for my personal Obsidian knowledge vault at `~/Documents/obsidian-vault`. The vault has a dedicated role-bound agent with its own policy — use it instead of touching the vault directly.
 
-Read these files before doing anything:
+## How
 
-1. `~/Documents/obsidian-vault/CONTEXT.md` — the vault flow (capture → refine → knowledge)
-2. `~/Documents/obsidian-vault/_system/schema.md` — note types, naming (`YYYYMMDDHHMM-kebab-case-title.md`), properties, lifecycle
+Delegate every vault task by running the `vault-agent` fish entry from bash (run from the vault directory):
 
-## Then, load relevant skills from `~/Documents/obsidian-vault/_system/skills/`
+```fish
+cd ~/Documents/obsidian-vault && vault-agent -p "<the task, with any source material pasted inline>" --no-approve
+```
 
-- `obsidian-markdown/SKILL.md` — Obsidian Flavored Markdown (wikilinks, callouts, properties, embeds). Load whenever writing or editing notes.
-- `obsidian-cli/SKILL.md` — the `obsidian` CLI (requires the desktop app running). Load only if asked to interact with a running Obsidian instance.
-- `icm-architect/SKILL.md` — load only for restructuring/auditing the vault itself.
+- The agent already knows the vault flow (`AGENTS.md` per folder, `schema.md`), the ground rules (never moves anything into `02_knowledge/notes/` without approval), and loads obsidian-markdown / obsidian-cli / icm-architect skills itself.
+- Its stdout is the full result — read it and relay the outcome, including any _proposed_ follow-ups it lists (those are proposals, not actions).
+- Read-only lookups (checking a note exists, grepping) you may do directly with `rg`/`ls` without spawning the agent.
+- Only if the `vault-agent` function is unavailable (e.g. non-fish shell), fall back to:
 
-## Ground rules
-
-- New captures go to `00_inbox/` with frontmatter `type: capture`.
-- Never move a note into `02_knowledge/notes/` — that requires my approval.
-- Sync is automatic (headless daemon); just write files normally.
-- Internal links use `[[wikilinks]]`.
+```bash
+cd ~/Documents/obsidian-vault && env PI_CODING_AGENT_DIR=~/.config/pi-agents/vault pi --no-skills \
+  --skill pi-agent/skills/obsidian-cli --skill pi-agent/skills/obsidian-markdown \
+  --skill pi-agent/skills/icm-architect -p "<task>" --no-approve
+```
 
 ## Task
 
-${ARGUMENTS:-I want to capture something from this conversation into the vault. Ask me what to capture if unclear, distill the relevant insight from our conversation into a well-formed capture note, and create it in 00_inbox/.}
+${ARGUMENTS:-I want to capture something from this conversation into the vault. Distill the relevant insight, then delegate its creation as a capture note in 00_inbox/ to vault-agent (paste the distilled content into the prompt). Ask me what to capture if unclear.}
