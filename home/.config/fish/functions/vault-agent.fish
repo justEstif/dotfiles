@@ -1,6 +1,6 @@
 function vault-agent --description 'role-bound pi agent for the Obsidian knowledge vault'
     # State (sessions, auth, models-store) lives outside the vault so Obsidian Sync
-    # never sees it; policy in the vault's pi-agent/ is symlinked in from there.
+    # never sees it; policy remains in the vault's pi-agent/ directory.
     set -l skill_args
     for skill_dir in ~/Documents/obsidian-vault/pi-agent/skills/*/
         set -a skill_args --skill $skill_dir

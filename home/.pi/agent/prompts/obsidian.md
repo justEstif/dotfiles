@@ -15,7 +15,7 @@ cd ~/Documents/obsidian-vault && vault-agent -p "<the task, with any source mate
 
 - The `vault-agent` wrapper supplies `--no-extensions`, `--no-skills`, and `--no-approve`, then explicitly loads every directory under `pi-agent/skills/`. Do not add an explicit model flag.
 - Prefer explicit Pi CLI isolation flags in the wrapper rather than prompt instructions when preventing unexpected discovery or reads. See `~/dotfiles/home/.config/fish/completions/pi.fish` for the available flags.
-- The agent already knows the vault flow (`AGENTS.md` per folder, `schema.md`) and the ground rules (never moves anything into `02_knowledge/notes/` without approval). The wrapper loads all vault-owned skills automatically.
+- The agent already knows the vault flow (`AGENTS.md` per folder) and the ground rules (never creates, moves, or edits anything in `02_knowledge/` without approval). The wrapper loads all vault-owned skills automatically.
 - Its stdout is the full result — read it and relay the outcome, including any _proposed_ follow-ups it lists (those are proposals, not actions).
 - Read-only lookups (checking a note exists, grepping) you may do directly with `rg`/`ls` without spawning the agent.
 - Only if the `vault-agent` function is unavailable (e.g. non-fish shell), fall back to:
