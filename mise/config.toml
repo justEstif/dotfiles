@@ -8,7 +8,7 @@ lazygit = "latest"
 glow = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "npm:agent-browser" = 'latest'           # browser, but cli
-"npm:obsidian-headless" = "0.0.14"       # headless Obsidian Sync client (`ob`)
+"npm:readability-cli" = "latest"         # article cleanup for `nb bookmark`
 typst = "0.14.2"                         # fancy markdown
 rtk = "latest"                           # filters/compresses command outputs before they reach your LLM context.
 neovim = "latest"                        # editor ($EDITOR)
@@ -62,8 +62,12 @@ dotfiles.default_mode = "symlink"
 "~/.gitconfig" = { mode = "symlink" }
 "~/.gitconfig-personal" = { mode = "symlink" }
 "~/.gitignore" = { mode = "symlink" }
-"~/.local/bin/obsidian-sync" = {}
 "~/.local/share/fonts" = {}
+"~/.nbrc/nb-vault" = { block = '''
+export NB_AUTO_SYNC="1"
+export NB_BOOKMARK_CONTENT_CLEANUP_TOOL="readability"
+export NB_BOOKMARK_CONTENT_CONVERSION_TOOL="pandoc"
+''' }
 "~/.pi/agent/APPEND_SYSTEM.md" = {}
 "~/.pi/agent/agents" = {}
 "~/.pi/agent/extensions" = {}
@@ -74,6 +78,15 @@ dotfiles.default_mode = "symlink"
 
 [bootstrap.repos]
 "~/dotfiles" = { url = "git@github.com:justEstif/dotfiles.git", ref = "main" }
+"~/.nb/nb-vault" = { url = "git@github.com:e-beyene/nb-vault.git", ref = "main" }
+
+[tasks.bootstrap]
+description = "Configure the nb knowledge vault"
+run = '''
+git -C "$HOME/.nb/nb-vault" config user.name "$(git config -f "$HOME/.gitconfig-personal" user.name)"
+git -C "$HOME/.nb/nb-vault" config user.email "$(git config -f "$HOME/.gitconfig-personal" user.email)"
+python3 "$HOME/.nb/nb-vault/pi-agent/scripts/validate-vault.py"
+'''
 
 [bootstrap.mise_shell_activate]
 fish = "activate"
