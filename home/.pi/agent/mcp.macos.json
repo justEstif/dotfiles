@@ -23,10 +23,6 @@
       "headers": {
         "Authorization": "${POSTMAN_MCP_TOKEN}"
       }
-    },
-    "echo-mcp": {
-      "command": "npx",
-      "args": ["--yes", "-p", "@redventures/echo@latest", "echo-mcp"]
     }
   }
 }
