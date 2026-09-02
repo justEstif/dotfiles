@@ -25,3 +25,7 @@ home/.config/fish/fish_variables
 # Agent local settings (machine-specific)
 **/.claude/settings.local.json
 **/CLAUDE.local.md
+
+# OpenSpec (untracked usage — specs/changes stay local per-repo)
+**/*openspec*
+**/opsx*

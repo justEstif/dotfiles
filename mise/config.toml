@@ -17,7 +17,6 @@ delta = "latest"                         # git syntax-highlighting pager
 act = "latest"                           # run GitHub Actions locally
 eza = "latest"                           # modern ls
 gitleaks = "latest"                      # secret scanner
-fnox = "latest"                          # secrets manager frontend
 bitwarden = "latest"                     # Bitwarden CLI (`bw`)
 television = "latest"                    # fuzzy finder TUI (tv)
 ripgrep = "latest"
@@ -31,6 +30,7 @@ hk = "latest"                            # fast local git hooks and project lint
 pi = "latest"
 docker-cli = "latest"                    # Docker client; daemon is Colima (macOS) or system Docker (Linux)
 hunk = "latest"
+"npm:@fission-ai/openspec" = "latest"
 
 [settings]
 experimental = true
