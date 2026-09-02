@@ -25,6 +25,8 @@ colima = "latest"                        # lightweight Docker-compatible VM/daem
 # Kept here (not in [tools]) because they are container/daemon or GNU tools
 # that Linux already ships or that behave best as brew formulae.
 [bootstrap.packages]
+"brew:nb"        = "latest"   # portable Git-backed notes and bookmarks
+"brew:pandoc"    = "latest"   # convert captured pages to Markdown
 "brew:fish" = "latest"      # login shell (activated by bootstrap.mise_shell_activate)
 "brew:btop"      = "latest"   # resource monitor (aqua backend is Linux-only)
 "brew:podman"    = "latest"   # container engine
@@ -34,12 +36,3 @@ colima = "latest"                        # lightweight Docker-compatible VM/daem
 
 [bootstrap.user]
 login_shell = "/opt/homebrew/bin/fish"
-
-[bootstrap.macos.launchd.agents.obsidian-sync]
-program = "~/.local/bin/obsidian-sync"
-run_at_load = true
-keep_alive = true
-throttle_interval = 10
-working_directory = "~"
-stdout_path = "~/Library/Logs/obsidian-sync.log"
-stderr_path = "~/Library/Logs/obsidian-sync.err.log"
