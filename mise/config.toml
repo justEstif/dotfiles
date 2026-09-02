@@ -17,7 +17,6 @@ delta = "latest"                         # git syntax-highlighting pager
 act = "latest"                           # run GitHub Actions locally
 eza = "latest"                           # modern ls
 gitleaks = "latest"                      # secret scanner
-fnox = "latest"                          # secrets manager frontend
 bitwarden = "latest"                     # Bitwarden CLI (`bw`)
 television = "latest"                    # fuzzy finder TUI (tv)
 ripgrep = "latest"
