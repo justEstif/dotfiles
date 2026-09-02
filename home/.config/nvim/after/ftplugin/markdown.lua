@@ -1,4 +1,4 @@
--- Enable spell checking, soft wrap, and Obsidian/render-markdown conceal UI.
+-- Enable spell checking, soft wrap, and Markdown conceal UI.
 vim.opt_local.spell = true
 vim.opt_local.wrap = true
 vim.opt_local.conceallevel = 2
