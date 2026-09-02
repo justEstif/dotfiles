@@ -47,14 +47,3 @@ node = "26.7.0"                                   # newer than the shared 22.12.
 
 [bootstrap.user]
 login_shell = "/usr/bin/fish"
-
-[bootstrap.linux.systemd.units.obsidian-sync]
-description = "Continuously sync the Obsidian vault"
-exec_start = "~/.local/bin/obsidian-sync"
-after = ["network-online.target"]
-wants = ["network-online.target"]
-working_directory = "~/Documents/obsidian-vault"
-restart = "on-failure"
-restart_sec = "10s"
-standard_output = "append:%h/.local/state/obsidian-sync.log"
-standard_error = "journal"
