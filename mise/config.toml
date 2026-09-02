@@ -29,6 +29,7 @@ pitchfork = "latest"                     # manage background and delayed agent c
 hk = "latest"                            # fast local git hooks and project lints
 pi = "latest"
 docker-cli = "latest"                    # Docker client; daemon is Colima (macOS) or system Docker (Linux)
+"npm:@fission-ai/openspec" = "latest"
 
 [settings]
 experimental = true
