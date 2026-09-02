@@ -65,6 +65,9 @@ dotfiles.default_mode = "symlink"
 "~/.local/share/fonts" = {}
 "~/.nbrc/nb-vault" = { block = '''
 export NB_AUTO_SYNC="1"
+export NB_DEFAULT_EXTENSION="md"
+export NB_EDITOR="nvim"
+export NB_FOLDERS_FIRST="1"
 export NB_BOOKMARK_CONTENT_CLEANUP_TOOL="readability"
 export NB_BOOKMARK_CONTENT_CONVERSION_TOOL="pandoc"
 ''' }
@@ -78,7 +81,7 @@ export NB_BOOKMARK_CONTENT_CONVERSION_TOOL="pandoc"
 
 [bootstrap.repos]
 "~/dotfiles" = { url = "git@github.com:justEstif/dotfiles.git", ref = "main" }
-"~/.nb/nb-vault" = { url = "git@github.com:e-beyene/nb-vault.git", ref = "main" }
+"~/.nb/nb-vault" = { url = "git@github-justEstif:justEstif/nb-vault.git", ref = "main" }
 
 [tasks.bootstrap]
 description = "Configure the nb knowledge vault"
