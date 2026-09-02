@@ -33,3 +33,6 @@ openspec/
 .claude/commands/opsx*/
 .claude/skills/openspec-*/
 .codex/prompts/opsx-*.md
+.pi/skills/openspec-*/
+.pi/prompts/opsx*.md
+.openspec-target
