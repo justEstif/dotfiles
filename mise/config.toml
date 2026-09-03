@@ -92,6 +92,8 @@ git -C "$HOME/.nb/nb-vault" config user.name "$(git config -f "$HOME/.gitconfig-
 git -C "$HOME/.nb/nb-vault" config user.email "$(git config -f "$HOME/.gitconfig-personal" user.email)"
 python3 "$HOME/.nb/nb-vault/pi-agent/scripts/validate-vault.py"
 nb plugin install "$HOME/.nb/nb-vault/pi-agent/plugins/vault-move.nb-plugin" >/dev/null 2>&1 || true  # idempotent: exits nonzero when already installed
+nb notebooks delete home --force >/dev/null 2>&1 || true  # nb recreates an empty home on some mutating commands
+nb use nb-vault >/dev/null
 '''
 
 [bootstrap.mise_shell_activate]
