@@ -14,8 +14,6 @@ colima = "latest"                        # lightweight Docker-compatible VM/daem
 "~/.gitconfig"                  = { source = "~/dotfiles/home/.gitconfig.macos" }
 "~/.config/ghostty/macos.conf" = {}
 "~/.config/herdr/config.toml"  = {}
-"~/.omp/agent/config.yml"      = { source = "~/dotfiles/home/.omp/agent/config.macos.yml" }
-"~/.omp/agent/mcp.json"         = { source = "~/dotfiles/home/.omp/agent/mcp.macos.json" }
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
 "~/.pi/agent/themes"           = {}
