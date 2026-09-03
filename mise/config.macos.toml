@@ -30,6 +30,7 @@ colima = "latest"                        # lightweight Docker-compatible VM/daem
 "brew:podman"    = "latest"   # container engine
 "brew:ollama"    = "latest"   # local LLM runner
 "brew:coreutils" = "latest"   # GNU coreutils (Linux ships these natively)
+"brew:w3m"       = "latest"   # TUI browser for `nb browse`
 "brew:grep"      = "latest"   # GNU grep (Linux ships this natively)
 
 [bootstrap.user]

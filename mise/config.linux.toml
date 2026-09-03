@@ -41,6 +41,7 @@ node = "26.7.0"                                   # newer than the shared 22.12.
 "pacman:fish" = "latest"
 "pacman:ghostty" = "latest"
 "pacman:lsof" = "latest"                             # killport fish function
+"pacman:w3m" = "latest"                              # TUI browser for `nb browse`
 "pacman:docker" = "latest"                           # Docker Engine daemon/service
 
 [bootstrap.user]
