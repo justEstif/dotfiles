@@ -59,3 +59,4 @@ Rules appended when this skill is violated. One concise rule per violation; keep
 
 - Never set a feature branch upstream to `origin/main`; push first with explicit `HEAD:refs/heads/<feature>` and verify the destination before proceeding.
 - Before any `wtm` invocation, read `references/wtm.md` and run from the bare repository root.
+- Never disable hooks to bypass a miscounting PR-size gate; refresh the clean local base ref or pause before recommitting normally.
