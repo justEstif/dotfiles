@@ -88,7 +88,7 @@ export default function (pi: ExtensionAPI) {
 	});
 
 	registerBashGate(pi, {
-		name: "pr-size-gate",
+		name: "pr-size-advisory",
 		matches: (command) => COMMIT_RE.test(command) || PUSH_RE.test(command),
 		check: async (command, ctx) => {
 			if (COMMIT_RE.test(command)) {
@@ -99,20 +99,20 @@ export default function (pi: ExtensionAPI) {
 				if (committed === null || staged === null) return; // Fail open on git errors.
 				const wouldBe = committed + staged;
 				if (wouldBe > PR_LINE_BUDGET && committed <= PR_LINE_BUDGET) {
-					return {
-						block: true,
-						reason: `this commit would push the branch diff to ${wouldBe} changed lines (>${PR_LINE_BUDGET} budget; already committed: ${committed}). Start a stacked branch off HEAD, then commit there. Current branch becomes PR 1 of the stack.`,
-					};
+					ctx.ui.notify(
+						`PR size advisory: this commit would push the branch diff to ${wouldBe} changed lines (>${PR_LINE_BUDGET} budget; already committed: ${committed}). Consider starting a stacked branch off HEAD.`,
+						"warning",
+					);
 				}
 				return;
 			}
 
 			const lines = await committedLines(pi, ctx.cwd);
 			if (lines === null || lines <= PR_LINE_BUDGET) return;
-			return {
-				block: true,
-				reason: `branch diff is ${lines} changed lines (>${PR_LINE_BUDGET} budget). Split it into stacked PRs, or shrink and explicitly justify the oversized PR before publishing.`,
-			};
+			ctx.ui.notify(
+				`PR size advisory: branch diff is ${lines} changed lines (>${PR_LINE_BUDGET} budget). Consider splitting it into stacked PRs, or justify the oversized PR before publishing.`,
+				"warning",
+			);
 		},
 	});
 }

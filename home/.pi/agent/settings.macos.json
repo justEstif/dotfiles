@@ -20,7 +20,7 @@
     "npm:@mcuste/pi-diagram@0.5.1"
   ],
   "theme": "one-dark",
-  "prompts": [],
+  "prompts": ["/Users/ebeyene/Documents/spectrum/.pi/prompts"],
   "terminal": {
     "showTerminalProgress": true
   },
