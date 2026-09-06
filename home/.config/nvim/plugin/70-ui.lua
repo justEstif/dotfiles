@@ -149,8 +149,3 @@ later(function()
 		},
 	})
 end)
-
-later(function()
-	add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
-	require("render-markdown").setup({})
-end)
