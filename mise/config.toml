@@ -80,6 +80,10 @@ export NB_BOOKMARK_CONTENT_CONVERSION_TOOL="pandoc"
 "~/.pi/agent/keybindings.json" = {}
 "~/.pi/agent/npm" = {}
 "~/.pi/agent/prompts" = {}
+
+# --- custom scripts on PATH (file-level; ~/.local/bin also holds machine-local binaries) ---
+"~/.local/bin/web" = {}
+"~/.local/share/web" = {}
 "~/AGENTS.md" = {}
 
 [bootstrap.repos]

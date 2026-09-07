@@ -1,0 +1,3 @@
+#!/bin/sh
+# web — self-hosted SearXNG CLI (bun). See ~/dotfiles/home/.local/share/web/cli.ts
+exec bun "$HOME/.local/share/web/cli.ts" "$@"
