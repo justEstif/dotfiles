@@ -37,3 +37,9 @@ if test "$os" = Darwin
     abbr -a pp pbpaste
     abbr -a git-pb 'git branch --show-current | pbcopy'
 end
+
+# television — primary fuzzy picker
+abbr -a tvf 'tv files'       # pick a file (frecency-ranked)
+abbr -a tvd 'tv dirs'        # pick a directory
+abbr -a tvg 'tv git-commits' # browse commits
+abbr -a tvh 'tv history'     # shell history
