@@ -1,0 +1,8 @@
+# https://alexpasmantier.github.io/television/
+# Minimal UI + frecency ranking are tv defaults; this file only overrides what differs.
+
+# Share selection history across channels (frecency still applies)
+global_history = true
+
+[ui]
+ui_scale = 80
