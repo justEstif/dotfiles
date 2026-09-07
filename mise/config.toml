@@ -58,6 +58,7 @@ dotfiles.default_mode = "symlink"
 "~/.config/nvim" = {}
 "~/.config/ripgrep" = {}
 "~/.config/starship.toml" = {}
+"~/.config/television" = {}
 "~/.config/yt-dlp" = {}
 "~/.config/zed" = {}
 
@@ -95,6 +96,7 @@ bun "$HOME/.nb/nb-vault/_system/validate-vault.ts"
 nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-move.nb-plugin" --force >/dev/null 2>&1 || true
 nb plugin install "$HOME/.nb/nb-vault/_plugins/work-log.nb-plugin" --force >/dev/null 2>&1 || true
 nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-bookmark.nb-plugin" --force >/dev/null 2>&1 || true
+nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-todo.nb-plugin" --force >/dev/null 2>&1 || true
 yes | nb notebooks delete home --force >/dev/null 2>&1 || true  # nb recreates an empty home on some mutating commands
 nb use nb-vault >/dev/null
 '''
