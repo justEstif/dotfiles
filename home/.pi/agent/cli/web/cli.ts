@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// searx — self-hosted SearXNG CLI: search the web and extract pages as markdown.
+// web — self-hosted SearXNG CLI: search the web and fetch pages as markdown.
 // Config: ~/.pi/agent/auth.json -> { "searxng": { baseUrl, user?, pass?, engines? } }
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -142,11 +142,11 @@ async function extract(url: string, opts: { maxLines?: number; raw?: boolean }):
 
 // --- CLI ---
 
-const USAGE = `searx — self-hosted SearXNG CLI
+const USAGE = `web — self-hosted SearXNG CLI (web search + web fetch)
 
 Usage:
-  searx search <query> [options]
-  searx extract <url> [options]
+  web search <query> [options]
+  web extract <url> [options]
 
 Options:
   search: --category <cat>   Category: general, images, videos, news, it, science, files, social media
@@ -169,9 +169,9 @@ const flag = (name: string): string | undefined => {
 const has = (name: string): boolean => rest.includes(name);
 
 try {
-  if (has("-h") || has("--help") || cmd === "help") {
+  if (!cmd || has("-h") || has("--help") || cmd === "help" || cmd === "-h" || cmd === "--help") {
     console.log(USAGE);
-    process.exit(0);
+    process.exit(cmd ? 0 : 1);
   }
   if (cmd === "search") {
     const query = positional.join(" ");
