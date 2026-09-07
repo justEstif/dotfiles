@@ -1,0 +1,3 @@
+#!/bin/sh
+# searx — self-hosted SearXNG CLI (bun). See ~/dotfiles/home/.pi/agent/cli/searx/cli.ts
+exec bun "$(dirname "$(readlink -f "$0")")/../cli/searx/cli.ts" "$@"

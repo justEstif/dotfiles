@@ -1,0 +1,10 @@
+{
+  "name": "searx-cli",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "defuddle": "^0.18.1",
+    "linkedom": "^0.18.12"
+  }
+}
