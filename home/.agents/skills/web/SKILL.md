@@ -5,7 +5,7 @@ description: Search the web and fetch web pages as clean markdown via the self-h
 
 # web — SearXNG web search & web fetch CLI
 
-`web` is on PATH at `~/.pi/agent/bin/web` (bun script: `~/.pi/agent/cli/web/cli.ts`).
+`web` is on PATH at `~/.local/bin/web` (bun script: `~/.local/share/web/cli.ts`, mise-dotfiles-symlinked from ~/dotfiles).
 Config lives in `~/.pi/agent/auth.json` under `"searxng"` (`baseUrl`, optional `user`/`pass`/`engines`).
 
 ## When to Use

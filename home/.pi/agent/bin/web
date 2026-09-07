@@ -1,3 +1,0 @@
-#!/bin/sh
-# web — self-hosted SearXNG CLI (bun). See ~/dotfiles/home/.pi/agent/cli/web/cli.ts
-exec bun "$(dirname "$(readlink -f "$0")")/../cli/web/cli.ts" "$@"
