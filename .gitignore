@@ -32,3 +32,6 @@ om-last-observer-response.json
 
 # FreeTube runtime state
 home/.config/FreeTube/settings.db
+
+# television runtime-generated cable channels
+home/.config/television/cable/
