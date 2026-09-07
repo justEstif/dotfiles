@@ -28,8 +28,11 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 
--- Herdr terminal (mnemonic twin of SUPER+CTRL+RETURN's herdr binding)
-o.bind("SUPER + SHIFT + T", "Herdr terminal", { omarchy = "terminal-herdr" })
+-- SUPER+RETURN opens Herdr (default terminal binding replaced);
+-- SUPER+CTRL+RETURN herdr binding removed.
+hl.unbind("SUPER + RETURN")
+hl.unbind("SUPER + CTRL + RETURN")
+o.bind("SUPER + RETURN", "Herdr", { omarchy = "terminal-herdr" })
 
 -- Omarchy Cleaner: unbind packaged defaults for removed apps (2026-08-16)
 hl.unbind("SUPER + SHIFT + A")
