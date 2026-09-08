@@ -101,6 +101,9 @@ nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-move.nb-plugin" --force >/d
 nb plugin install "$HOME/.nb/nb-vault/_plugins/work-log.nb-plugin" --force >/dev/null 2>&1 || true
 nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-bookmark.nb-plugin" --force >/dev/null 2>&1 || true
 nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-todo.nb-plugin" --force >/dev/null 2>&1 || true
+nb plugin install "$HOME/.nb/nb-vault/_plugins/agent.nb-plugin" --force >/dev/null 2>&1 || true
+nb plugin install "$HOME/.nb/nb-vault/_plugins/gui.nb-plugin" --force >/dev/null 2>&1 || true
+git -C "$HOME/.nb/nb-vault" config hook.hk-pre-push.command 'test "${HK:-1}" = "0" || PATH="$HOME/.local/share/mise/shims:$PATH" hk run pre-push --from-hook'
 yes | nb notebooks delete home --force >/dev/null 2>&1 || true  # nb recreates an empty home on some mutating commands
 nb use nb-vault >/dev/null
 '''
