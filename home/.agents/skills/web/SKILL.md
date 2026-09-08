@@ -1,6 +1,10 @@
 ---
 name: web
-description: Search the web and fetch web pages as clean markdown via the self-hosted SearXNG `web` CLI (bun). Use when current information from the internet is needed (web search, news, images, videos, IT/science queries) or to read the full content of a URL. Replaces the old pi searx extension's web_search/web_extract tools. Keywords: search, web, searxng, google, extract url, fetch page, markdown, scrape.
+description: >
+  Search the web and fetch web pages as clean markdown via the self-hosted SearXNG `web` CLI (bun). Use when current
+  information from the internet is needed (web search, news, images, videos, IT/science queries) or to read the full
+  content of a URL. Replaces the old pi searx extension's web_search/web_extract tools. Keywords: search, web, searxng,
+  google, extract url, fetch page, markdown, scrape.
 ---
 
 # web — SearXNG web search & web fetch CLI
