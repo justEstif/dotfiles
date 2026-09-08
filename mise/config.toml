@@ -97,6 +97,10 @@ git -C "$HOME/.nb/nb-vault" config user.name "$(git config -f "$HOME/.gitconfig-
 git -C "$HOME/.nb/nb-vault" config user.email "$(git config -f "$HOME/.gitconfig-personal" user.email)"
 bun install --frozen-lockfile --cwd "$HOME/.nb/nb-vault"
 bun "$HOME/.nb/nb-vault/_system/validate-vault.ts"
+agent_dir="$HOME/.config/pi-agents/vault"
+mkdir -p "$agent_dir"
+ln -sfn "$HOME/.nb/nb-vault/pi-agent/settings.json" "$agent_dir/settings.json"
+ln -sfn "$HOME/.nb/nb-vault/pi-agent/mcp.json" "$agent_dir/mcp.json"
 nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-move.nb-plugin" --force >/dev/null 2>&1 || true
 nb plugin install "$HOME/.nb/nb-vault/_plugins/work-log.nb-plugin" --force >/dev/null 2>&1 || true
 nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-bookmark.nb-plugin" --force >/dev/null 2>&1 || true
