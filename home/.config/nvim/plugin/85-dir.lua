@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd("User", {
 		-- Split dirs/files (dirs sort first), drop dotfiles when filtering.
 		local dirs, files = {}, {}
 		for _, line in ipairs(lines) do
-			local name = line:gsub("/$", "")
+			local name = (line:gsub("/$", ""))
 			if not (vim.g.dir_hide_dotfiles and name:find("^%.") and name ~= "../") then
 				local target = line:find("/$") and dirs or files
 				target[#target + 1] = { line = line, name = name }
@@ -71,13 +71,14 @@ local function entry_path()
 	if line == "" then
 		return nil
 	end
-	return vim.fs.joinpath(vim.fn.expand("%:p"), line:gsub("/$", ""))
+	return vim.fs.joinpath(vim.fn.expand("%:p"), (line:gsub("/$", "")))
 end
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "directory",
 	callback = function(args)
 		local opts = { buffer = args.buf, silent = true }
+	vim.keymap.set("n", "<CR>", "<Plug>(nvim-dir-open)", vim.tbl_extend("force", opts, { remap = true, desc = "Open entry" }))
 		vim.keymap.set("n", "gy", function()
 			local p = entry_path()
 			if p then
@@ -125,48 +126,73 @@ local function is_tree_open()
 end
 
 local function open_tree()
-	local win = vim.api.nvim_get_current_win()
+	local main_win = vim.api.nvim_get_current_win()
 	vim.cmd("leftabove vertical 32split")
 	local tree_win = vim.api.nvim_get_current_win()
 	vim.w[tree_win].dir_tree = true
+	vim.w[tree_win].dir_main = main_win
 	vim.wo[tree_win].winpinned = true
 	vim.cmd("edit " .. vim.fn.fnameescape(vim.fn.getcwd()))
 
-	vim.api.nvim_set_current_win(win)
 	vim.api.nvim_set_current_win(tree_win)
 end
 
--- dir.lua's default <CR> edits in the listing's own window, which would
--- replace the tree. In tree windows, open files in the main window instead
--- (dirs still navigate in place). Applies to every listing buffer ( FileType
--- = 'directory' in 0.13), including when `-`-navigating into subdirectories.
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "directory",
-	callback = function(args)
-		local w = args.win
-		if not (w and vim.w[w].dir_tree) then
-			return
-		end
-		local tree_win = w
-		vim.keymap.set("n", "<CR>", function()
+-- dir.lua's default <CR> edits the entry in the listing's own window, which
+-- would replace the tree. Map the <Plug> globally (dir.lua only installs its
+-- own buffer-local <CR> when the <Plug> is unmapped, and its hasmapto() check
+-- ignores buffer-local maps, so a buffer-local override gets clobbered).
+-- In tree windows files open in the recorded main window (a fresh split if it
+-- died); directories navigate in place. Outside trees this is plain dir.lua.
+local function open_entry_tree_aware()
+	local tree_win = vim.api.nvim_get_current_win()
+	if not vim.w[tree_win].dir_tree then
+		require("nvim.dir")._open_entry()
+		return
+	end
+	do
 			local line = vim.api.nvim_get_current_line()
-			local path = vim.fs.joinpath(vim.fn.expand("%:p"), line:gsub("/$", ""))
+			if line == "" then
+				return
+			end
+			local path = vim.fs.joinpath(vim.api.nvim_buf_get_name(0), (line:gsub("/$", "")))
 			if vim.fn.isdirectory(path) == 1 then
 				vim.cmd.edit(vim.fn.fnameescape(path))
 				return
 			end
-			for _, w in ipairs(vim.api.nvim_list_wins()) do
-				if w ~= tree_win and vim.w[w].dir_tree ~= true and vim.api.nvim_win_get_config(w).relative == "" then
-					vim.api.nvim_set_current_win(w)
-					vim.cmd.edit(vim.fn.fnameescape(path))
-					return
+			-- Target: the recorded main window, else the first non-tree normal
+			-- window, else a fresh split created from the tree.
+			local target = vim.w[tree_win].dir_main
+			if not (target and vim.api.nvim_win_is_valid(target) and vim.w[target].dir_tree ~= true) then
+				target = nil
+				for _, cand in ipairs(vim.api.nvim_list_wins()) do
+					if cand ~= tree_win and vim.w[cand].dir_tree ~= true
+						and vim.api.nvim_win_get_config(cand).relative == ""
+					then
+						target = cand
+						break
 				end
 			end
-			-- No main window: open in the tree slot itself.
-			vim.cmd.edit(vim.fn.fnameescape(path))
-		end, { buffer = args.buf, desc = "Open entry (tree)" })
+			end
+			if not target then
+				vim.cmd("rightbelow vertical new")
+				target = vim.api.nvim_get_current_win()
+				vim.w[tree_win].dir_main = target
+				vim.api.nvim_set_current_win(tree_win)
+			end
+			vim.api.nvim_win_call(target, function()
+				vim.cmd.edit(vim.fn.fnameescape(path))
+			end)
+			vim.api.nvim_set_current_win(target)
+	end
+end
+-- $VIMRUNTIME sorts after ~/.config/nvim in 'runtimepath', so runtime's
+-- plugin/dir.lua re-grabs the <Plug> after this file loads. Claim it once the
+-- startup sequence is done.
+vim.api.nvim_create_autocmd("VimEnter", {
+	once = true,
+	callback = function()
+		vim.keymap.set("n", "<Plug>(nvim-dir-open)", open_entry_tree_aware, { silent = true, desc = "Open directory entry" })
 	end,
-	desc = "dir tree: open files in main window",
 })
 
 vim.keymap.set("n", "<Leader>ft", function()
