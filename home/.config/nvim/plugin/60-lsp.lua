@@ -35,6 +35,7 @@ local langs = {
 		"svelte",
 		"tailwindcss",
 		"gopls",
+		"markdown_oxide",
 	},
 
 	ensure_installed = {
@@ -47,6 +48,7 @@ local langs = {
 		"templ",
 		"stylua",
 		"eslint",
+		"markdown_oxide",
 	},
 }
 
