@@ -1,4 +1,4 @@
--- Nicer markdown viewing: render-markdown.nvim (minimal) + <mark> highlighting
+-- Nicer markdown viewing: render-markdown.nvim (defaults)
 local add = vim.pack.add
 local later = Config.later
 
@@ -8,18 +8,12 @@ later(function()
 	require("render-markdown").setup({
 		render_modes = { "n", "c", "t" },
 		anti_conceal = { enabled = true },
+		html = {
+			tag = {
+				mark = { scope_highlight = "MarkedText" },
+			},
+		},
 	})
 
-	-- <mark>...</mark> and ==text==: paint the inner text like browser <mark>
-	local group = vim.api.nvim_create_augroup("markdown_mark_hl", { clear = true })
-	vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType" }, {
-		group = group,
-		pattern = "*.md",
-		callback = function()
-			vim.api.nvim_set_hl(0, "MarkedText", { bg = "#e5c07b", fg = "#1c1c26" })
-			vim.fn.clearmatches()
-			vim.fn.matchadd("MarkedText", [[<mark>.\{-}</mark>]])
-			vim.fn.matchadd("MarkedText", [[==\zs.\{-}\ze==]])
-		end,
-	})
+	vim.api.nvim_set_hl(0, "MarkedText", { bg = "#e5c07b", fg = "#1c1c26" })
 end)
