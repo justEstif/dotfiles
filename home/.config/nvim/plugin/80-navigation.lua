@@ -32,6 +32,9 @@ end)
 now(function()
 	local files = require("mini.files")
 	files.setup({
+		-- Let Neovim 0.13's built-in dir.lua handle `:edit <dir>` (and the
+		-- `,ft` tree). mini.files is only opened explicitly via `,fd` / `,ff`.
+		options = { use_as_default_explorer = false },
 		mappings = {
 			go_in = "L",
 			go_in_plus = "l",
@@ -134,6 +137,8 @@ now(function()
 		end,
 	})
 end)
+
+
 
 later(function()
 	require("mini.bufremove").setup()

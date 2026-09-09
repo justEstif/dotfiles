@@ -7,6 +7,9 @@ vim.o.mousescroll = "ver:25,hor:6" -- Customize mouse scroll
 vim.o.switchbuf = "usetab" -- Use already opened buffers when switching
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
 vim.o.swapfile = false -- No swap files (git is the safety net)
+-- 0.13: 'autoread' now uses filesystem watchers, so external changes
+-- (formatters, AI agents, git ops) reload in real time without checktime hacks.
+vim.o.autoread = true
 vim.cmd("filetype plugin indent on") -- Enable all filetype plugins
 
 -- Mouse ======================================================================
