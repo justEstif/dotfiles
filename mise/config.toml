@@ -43,6 +43,9 @@ npm.package_manager = "bun"
 dotfiles.root = "~/dotfiles/home"
 dotfiles.default_mode = "symlink"
 
+[settings.upgrade]
+auto_prune = false
+
 # --- mise self-management (explicit sources; these live outside home/) ---
 [dotfiles]
 "~/.agents" = {}
