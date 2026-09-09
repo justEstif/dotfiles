@@ -55,6 +55,25 @@ nmap_leader("ff", "<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", "
 nmap_leader("fh", "<Cmd>Pick help<CR>", "Help")
 nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
 nmap_leader("fv", "<Cmd>Pick visit_paths<CR>", "Frecency")
+
+-- p is for 'packages'
+nmap_leader("pu", "<Cmd>packupdate<CR>", "Update plugins (vim.pack)")
+
+-- 0.13: structural Treesitter selection. In Visual mode, expand/adjust the
+-- selection to syntax-tree nodes; repeat to grow to sibling nodes.
+vim.keymap.set("v", "gs", function()
+	vim.treesitter.select()
+end, { desc = "Treesitter structural select" })
+
+-- 0.13: Q is now native multiple cursors (add/remove cursor, [count]Q after
+-- a search puts cursors on matches). Old Q (replay recorded macro) lives on
+-- leader-q below so nothing is lost.
+vim.keymap.set("n", "<Leader>q", function()
+	local reg = vim.fn.reg_recorded()
+	if reg ~= "" then
+		vim.cmd.normal({ "@" .. reg, bang = true })
+	end
+end, { desc = "Replay recorded macro (old Q)" })
 xmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
 
 -- l is for 'LSP' (Language Server Protocol)
