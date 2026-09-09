@@ -1,11 +1,12 @@
 {
-  "lastChangelogVersion": "0.84.4",
+  "lastChangelogVersion": "0.85.1",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "enabledModels": [
     "openai-codex/gpt-5.6-*",
+    "openai-codex/gpt-6-*",
     "anthropic/claude-opus-5",
     "anthropic/claude-sonnet-5"
   ],
@@ -20,7 +21,9 @@
     "npm:@mcuste/pi-diagram@0.5.1"
   ],
   "theme": "one-dark",
-  "prompts": ["/Users/ebeyene/Documents/spectrum/.pi/prompts"],
+  "prompts": [
+    "/Users/ebeyene/Documents/spectrum/.pi/prompts"
+  ],
   "terminal": {
     "showTerminalProgress": true
   },
