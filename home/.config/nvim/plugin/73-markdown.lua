@@ -8,6 +8,45 @@ later(function()
 	require("render-markdown").setup({
 		render_modes = { "n", "c", "t" },
 		anti_conceal = { enabled = true },
+
+		-- Minimal: quiet everything down
+		heading = {
+			icons = {}, -- no 󰲡 icons, just styled text
+			signs = { enabled = false },
+			position = "inline",
+			width = "full",
+			backgrounds = {}, -- no colored heading background
+			foregrounds = {
+				"MarkdownH1",
+				"MarkdownH2",
+				"MarkdownH3",
+				"MarkdownH4",
+				"MarkdownH5",
+				"MarkdownH6",
+			},
+		},
+		dash = { icon = "─" }, -- thin thematic break
+		bullet = {
+			icons = {}, -- keep plain -, 1. markers
+			right_pad = 1,
+		},
+		checkbox = {
+			position = "inline",
+			unchecked = { icon = "◯ " },
+			checked = { icon = "◉ " },
+			custom = { todo = { raw = "[-]", rendered = "◐ " } },
+		},
+		code = {
+			sign = false,
+			style = "language", -- just the language label, no background blocks
+			position = "left",
+		},
+		table = { style = "none" }, -- keep raw pipes
+		link = {
+			image = "󰇞 ", -- tiny image marker
+		},
+		quote = { icon = "" }, -- no big quote bar replacement
+		sign = { enabled = false },
 		html = {
 			tag = {
 				mark = { scope_highlight = "MarkedText" },
