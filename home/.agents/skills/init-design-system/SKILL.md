@@ -41,12 +41,14 @@ The generated local skill follows the proven Vercel `design.md` pattern — thre
 2. **Gather the brand inputs**: existing site, logo, marketing assets, or reference
    screenshots (desktop AND mobile, plus hover/empty/loading states). If none exist,
    confirm direction with the user before inventing anything.
-3. **Generate the local skill**, versioned with the code:
-   - `.pi/skills/design-system/SKILL.md` — frontmatter (name: design-system, description
+3. **Generate the local skill**, versioned with the code, under `.agents/skills/` —
+   the agent-agnostic Agent Skills standard location, discoverable by Pi, Claude Code,
+   Codex, and other compatible agents:
+   - `.agents/skills/design-system/SKILL.md` — frontmatter (name: design-system, description
      with the repo's UI triggers: pages, components, prototypes, slides), then the
      project's judgment: scope, reader and task, **observable** decisions, composition
      rules, the class/token vocabulary documentation, and a named anti-patterns section.
-   - `.pi/skills/design-system/references/brand.css` — copy this skill's
+   - `.agents/skills/design-system/references/brand.css` — copy this skill's
      `references/default-brand.css` and REPLACE every placeholder with the project's
      real brand values from step 2. Pages link this stylesheet; the agent uses only the
      documented class names.
@@ -87,7 +89,7 @@ The generated local skill follows the proven Vercel `design.md` pattern — thre
 
 ## Verification
 
-- Repo contains `.pi/skills/design-system/` (SKILL.md + references/brand.css) and a
+- Repo contains `.agents/skills/design-system/` (SKILL.md + references/brand.css) and a
   root `DESIGN.md`, all committed.
 - No placeholder token values remain in the generated `brand.css`.
 - The generated SKILL.md's rules are observable and its anti-patterns are named.
