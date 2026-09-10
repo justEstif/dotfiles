@@ -39,10 +39,11 @@ prototypes, or screenshot-to-UI matching.
    never override project tokens with personal preferences.
 3. **If no system exists → scaffold one first**, as small committed artifacts:
    - `DESIGN.md` at repo root: scope, reader and task, **observable** decisions, and
-     an anti-patterns section. Start from `references/default-tokens.md` and replace
-     placeholders with values derived from the project's actual references/brand.
-   - A stylesheet (`design/brand.css` or equivalent) packaging the tokens and
-     primitives as named classes, documented in `DESIGN.md`.
+     an anti-patterns section.
+   - A stylesheet — copy `references/default-brand.css` to `design/brand.css`, and
+     replace placeholder values with the project's actual brand derived from its
+     references (existing site, logo, marketing assets, or screenshots the user
+     supplies). Document the class/token vocabulary in `DESIGN.md`.
    - Confirm direction with the user if there is no source to derive from.
 4. **Write observable rules, never adjectives.** "Evidence tables use the full
    available width" — not "make the table less cramped." "Lead with the
@@ -77,8 +78,8 @@ enforce it, then update guidance — don't hand-tune the generated page:
 
 ## Pitfalls
 
-- Do not apply the default scaffold's placeholder values to a real project — they are
-  a template to be replaced, not a brand.
+- Do not apply the default scaffold's placeholder values to a real project —
+  `references/default-brand.css` is a template to be replaced, not a brand.
 - Do not start UI work before steps 1–3 resolve; that's how generic AI output happens.
 - Do not describe style in adjectives when an observable rule is possible.
 - Real reference images beat adjectives — "clean and modern" is not a spec.
