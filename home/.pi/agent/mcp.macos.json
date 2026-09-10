@@ -23,6 +23,10 @@
       "headers": {
         "Authorization": "${POSTMAN_MCP_TOKEN}"
       }
+    },
+    "excalidraw": {
+      "type": "http",
+      "url": "https://mcp.excalidraw.com/mcp"
     }
   }
 }
