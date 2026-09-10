@@ -5,9 +5,7 @@
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
-  "enabledModels": [
-    "zai/*"
-  ],
+  "enabledModels": ["zai/*"],
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
@@ -18,7 +16,8 @@
   },
   "packages": [
     "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "https://github.com/ayghri/i-have-adhd"
   ],
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
