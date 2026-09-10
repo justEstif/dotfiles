@@ -27,6 +27,9 @@
     "excalidraw": {
       "type": "http",
       "url": "https://mcp.excalidraw.com/mcp"
+    },
+    "rootly": {
+      "url": "https://mcp.rootly.com/mcp-codemode"
     }
   }
 }
