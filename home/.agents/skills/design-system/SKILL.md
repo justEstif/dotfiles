@@ -1,26 +1,20 @@
 ---
 name: design-system
 description: >
-  Per-project design-system discipline for UI work, following the Vercel design.md pattern.
-  Use FIRST for any UI/frontend/design task (pages, components, prototypes, slides):
-  locate and follow the project's own design system (DESIGN.md + stylesheet + primitives)
-  before writing any UI; if none exists, scaffold one first. Triggers: design, UI,
-  frontend, brand, tokens, styling, mockup, landing page, component, screenshot-to-UI, redline.
+  Bootstrap for per-project design-system skills, following the Vercel design.md pattern.
+  Use FIRST for any UI/frontend/design task (pages, components, prototypes, slides): the
+  project's design system should live as a LOCAL skill in that repo (DESIGN.md judgment +
+  brand.css vocabulary + named anti-patterns). If it exists, use it; if not, this skill's
+  job is to create it — then get out of the way. Triggers: design, UI, frontend, brand,
+  tokens, styling, mockup, landing page, component, screenshot-to-UI, redline.
 ---
 
-# Design System (per-project discipline, design.md pattern)
+# Design System (bootstrap → local skill)
 
-Pi has no taste by default — taste lives in the **project's** design system, not in a
-global default. The proven shape (Vercel's approach) is a three-part system:
-
-1. **`DESIGN.md`** — prose judgment: reader and task, page framing, copy rules,
-   composition, and named anti-patterns.
-2. **A stylesheet with a documented class/token vocabulary** — repeatable mechanics
-   (typography, spacing, tables, stat strips, headers) as named classes the agent
-   composes with. The agent uses the names; it never invents CSS and never needs to
-   read the stylesheet itself.
-3. **Deterministic checks** — mechanical failures (table ignoring available width,
-   missing focus states) checked in code, not prose.
+Pi has no taste by default — taste lives in the **project's** design system, encoded as a
+**local skill inside that repo**, not in any global default. This global skill is a
+bootstrap: it ensures a local design-system skill exists and is followed. It is never the
+source of truth itself.
 
 ## When to Use
 
@@ -29,68 +23,75 @@ prototypes, or screenshot-to-UI matching.
 
 ## Procedure
 
-1. **Discover the project's design system before writing UI.** Look for, in order:
-   `DESIGN.md`/`design.md` (+ its stylesheet URL or `tokens.css`), `design/tokens.*`,
-   a theme config (Tailwind config, global CSS custom properties), or a component
-   library (`src/components/ui/`, shadcn, internal primitives). OpenDesign projects:
+1. **Look for a local design-system skill in the repo** (loaded automatically by Pi):
+   `.pi/skills/`, `.agents/skills/`, or `SKILL.md`-style design packages. Also accept a
+   bare `DESIGN.md`/`design.md` (+ its stylesheet) at the repo root. OpenDesign projects:
    the curated design system lives under the project's `.od/` resources.
-2. **If a system exists → it is the only source of truth.** Build with its documented
-   class/token names instead of inventing CSS. Extend the vocabulary deliberately;
-   never override project tokens with personal preferences.
-3. **If no system exists → scaffold one first**, as small committed artifacts:
-   - `DESIGN.md` at repo root: scope, reader and task, **observable** decisions, and
-     an anti-patterns section.
-   - A stylesheet — copy `references/default-brand.css` to `design/brand.css`, and
-     replace placeholder values with the project's actual brand derived from its
-     references (existing site, logo, marketing assets, or screenshots the user
-     supplies). Document the class/token vocabulary in `DESIGN.md`.
-   - Confirm direction with the user if there is no source to derive from.
+2. **If it exists → follow it as the only source of truth.** Build with its documented
+   class/token names; extend its vocabulary deliberately; never override with global or
+   personal defaults. The remaining steps do not apply.
+3. **If none exists → bootstrap one** (this skill's core job). Create a local skill in
+   the repo, versioned with the code:
+   - `.pi/skills/design-system/SKILL.md` — frontmatter (name, description with UI
+     triggers), then the project's judgment: scope, reader and task, **observable**
+     decisions, composition rules, the class/token vocabulary documentation, and a
+     named anti-patterns section.
+   - `.pi/skills/design-system/references/brand.css` — copy
+     `references/default-brand.css` and REPLACE placeholders with the project's real
+     brand, derived from its references (existing site, logo, marketing assets, or
+     screenshots the user supplies). Pages link this stylesheet; the agent never needs
+     to read it — only the class names documented in SKILL.md.
+   - `DESIGN.md` at the repo root pointing at the local skill (compat with other
+     agents and tools that look for it).
+   - Confirm brand direction with the user if there is no source to derive from.
+   - Commit it as its own commit before any UI code.
 4. **Write observable rules, never adjectives.** "Evidence tables use the full
-   available width" — not "make the table less cramped." "Lead with the
-   recommendation" — not "make it punchy." A rule that can't be checked can't be
-   followed reliably.
+   available width" — not "make the table less cramped." A rule that can't be checked
+   can't be followed reliably.
 5. **Structure around the reader's job.** Same tokens, different page structure per
    artifact: a planning page puts controls first; a proposal leads with the
    recommendation. One design system ≠ one template.
 6. **Gather references before building** — desktop AND mobile, plus
    hover/empty/loading states where they exist. Map reference → tokens; call out gaps.
-7. **Build mobile-first**, then 768px / 1024px / 1280px, using only project classes/tokens.
-8. **Verify in a real browser** (agent-browser): screenshot at 390/768/1280 and
-   compare against references. Iterate on the comparison, not on "it compiles".
+7. **Build mobile-first**, then 768px / 1024px / 1280px, using only the local skill's
+   classes/tokens.
+8. **Verify in a real browser** (agent-browser): screenshot at 390/768/1280 and compare
+   against references. Iterate on the comparison, not on "it compiles".
 
-## Anti-patterns (name them in every DESIGN.md)
+## Anti-patterns (the local skill must name them)
 
-Give recurring generated-design failures explicit names in the project's `DESIGN.md`;
-named patterns are recognized and avoided far more reliably than vibes. Include at
-minimum: generic-SaaS-dashboard drift, centered-everything, decorative gradients
-substituting for hierarchy, truncated/width-starved tables, equal-weight card grids
-that bury the primary action, emoji-as-icon.
+Give recurring generated-design failures explicit names in the local skill; named
+patterns are recognized and avoided far more reliably than vibes. Include at minimum:
+generic-SaaS-dashboard drift, centered-everything, decorative gradients substituting
+for hierarchy, truncated/width-starved tables, equal-weight card grids that bury the
+primary action, emoji-as-icon.
 
 ## Corrections loop
 
 When the user corrects a design output, encode it in the narrowest place that can
-enforce it, then update guidance — don't hand-tune the generated page:
+enforce it, then update the local skill — don't hand-tune the generated page:
 
-- Judgment/composition → prose rule in `DESIGN.md`.
-- Repeatable mechanics → a named class in the stylesheet.
+- Judgment/composition → prose rule in the local skill.
+- Repeatable mechanics → a named class in `brand.css`.
 - Mechanical failure → deterministic check (agent-browser screenshot assertions).
 - Keep a fixed baseline scenario to A/B new guidance against; keep the first output.
 
 ## Pitfalls
 
-- Do not apply the default scaffold's placeholder values to a real project —
-  `references/default-brand.css` is a template to be replaced, not a brand.
+- Never apply `references/default-brand.css` placeholder values to a real project —
+  it is a template to be replaced, not a brand.
 - Do not start UI work before steps 1–3 resolve; that's how generic AI output happens.
 - Do not describe style in adjectives when an observable rule is possible.
 - Real reference images beat adjectives — "clean and modern" is not a spec.
 - Check state coverage (hover, focus-visible, disabled, empty, error), not just the happy path.
-- If the project has a component primitive or documented class, reuse it before creating a new one.
+- If the local skill defines a class or primitive, reuse it before creating a new one.
 
 ## Verification
 
-- No hardcoded hex/px values or bespoke CSS outside the project's stylesheet/tokens.
-- The repo contains an explicit design system (`DESIGN.md` + stylesheet) that the
-  UI work references by name.
-- `DESIGN.md` rules are observable, and its anti-patterns are named.
+- UI work in the repo references the local design-system skill (visible in loaded
+  skills), not this bootstrap.
+- The repo's local skill + `brand.css` are committed, and no hardcoded hex/px values
+  or bespoke CSS appear outside `brand.css`.
+- Local skill rules are observable, and its anti-patterns are named.
 - Screenshots at 390/768/1280 match references within reasonable tolerance.
 - Text contrast AA; focus-visible on all interactives.
