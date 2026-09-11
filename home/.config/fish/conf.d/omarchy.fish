@@ -41,11 +41,6 @@ if type -q eza
     alias lta='lt -a'
 end
 
-if type -q tv
-    alias ff="tv files --preview-command 'bat --style=numbers --color=always {}'"
-    alias eff='$EDITOR "(ff)"'
-end
-
 # Directories
 abbr -a .. 'cd ..'
 abbr -a ... 'cd ../..'
