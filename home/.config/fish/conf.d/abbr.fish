@@ -2,7 +2,7 @@ abbr -a v nvim
 abbr -a lz lazygit
 abbr -a l ls -1hA # ls column view, hidden files
 abbr -a killnode "killall -9 node" # kill all node apps
-abbr -a fzfp 'find "$PWD" | fzf' # full file path - fzf
+abbr -a fzfp 'tv files "$PWD"' # pick a full file path with Television
 
 set -l os (uname)
 
