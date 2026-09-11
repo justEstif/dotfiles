@@ -1,7 +1,6 @@
-# Omarchy launches Herdr itself on Linux; auto-start it only on macOS.
+# Auto-start Herdr in interactive shells outside Herdr.
 if status is-interactive
-    and test (uname) = Darwin
     and not set -q HERDR_ENV
     and command -q herdr
-    exec herdr
+    herdr
 end
