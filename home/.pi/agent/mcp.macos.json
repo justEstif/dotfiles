@@ -31,6 +31,10 @@
     },
     "rootly": {
       "url": "https://mcp.rootly.com/mcp-codemode"
+    },
+    "newrelic": {
+      "type": "http",
+      "url": "https://mcp.newrelic.com/mcp/"
     }
   }
 }
