@@ -41,8 +41,8 @@ if type -q eza
     alias lta='lt -a'
 end
 
-if type -q fzf
-    alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+if type -q tv
+    alias ff="tv files --preview-command 'bat --style=numbers --color=always {}'"
     alias eff='$EDITOR "(ff)"'
 end
 
