@@ -133,7 +133,22 @@ def check_spec(skill_dir: Path, skill_name: str, errors: list, warnings: list):
         if len(desc) > 1024:
             errors.append(f"description exceeds 1024 chars ({len(desc)})")
         if len(desc) < 20:
-            warnings.append(f"description is very short ({len(desc)} chars) — likely missing WHEN/KEYWORDS")
+            warnings.append(f"description is very short ({len(desc)} chars) — likely missing WHAT/WHEN")
+        if len(desc) > 500:
+            warnings.append(
+                f"description is long ({len(desc)} chars) — trim to WHAT + precise WHEN; "
+                f"long descriptions dilute triggers and bloat every session's context"
+            )
+        if re.search(r"\bKeywords:\s", desc):
+            warnings.append(
+                "description contains a 'Keywords:' list — selection is semantic; "
+                "keyword walls dilute the trigger and can contradict sibling skills"
+            )
+        if re.search(r"\bfor ANY\b|\bUse FIRST for\b", desc):
+            warnings.append(
+                "description uses an over-broad trigger ('for ANY ...' / 'Use FIRST for') — "
+                "narrow WHEN to the specific task it's for, not the domain it touches"
+            )
 
     # unknown fields
     allowed = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
@@ -182,8 +197,9 @@ def check_quality(skill_dir: Path, errors: list, warnings: list):
         if (skill_dir / f).exists():
             errors.append(f"Auxiliary file should not exist: {f}")
 
-    # Referenced files must exist
-    for ref in re.findall(r"references/[^\s\")\]`]+", body):
+    # Referenced files must exist (skill-relative paths only — not matches that are
+    # part of a longer absolute/foreign path like .agents/skills/x/references/y)
+    for ref in re.findall(r"(?<![\w/])references/[^\s\")\]`]+", body):
         if not (skill_dir / ref).exists():
             errors.append(f"Referenced file missing: {ref}")
 
