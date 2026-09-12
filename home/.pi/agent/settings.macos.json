@@ -21,9 +21,7 @@
     "https://github.com/ayghri/i-have-adhd"
   ],
   "theme": "one-dark",
-  "prompts": [
-    "/Users/ebeyene/Documents/spectrum/.pi/prompts"
-  ],
+  "prompts": ["~/Documents/spectrum/.pi/prompts"],
   "terminal": {
     "showTerminalProgress": true
   },

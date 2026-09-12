@@ -5,9 +5,7 @@
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
-  "enabledModels": [
-    "zai/*"
-  ],
+  "enabledModels": ["zai/*"],
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
