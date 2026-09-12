@@ -149,10 +149,6 @@ For JS/TS: ESLint with strict TypeScript, SonarJS, unicorn, import boundaries, a
   **Instead:** Emit one structured event per request with all user/business/error context attached.
   **Why:** String logs are optimized for writing, not querying. Wide events answer production questions directly.
 
-- **NEVER skip the audit step**
-  **Instead:** Run `audit_feedback_loop.py` first; know the current level before proposing changes.
-  **Why:** Adding level-4 loops to a level-0 repo creates rejection and revert, not adoption.
-
 - **NEVER delete a check because it's blocking someone right now**
   **Instead:** Quarantine it with a tracked task → fix the violation → re-enable. If the check is fundamentally wrong, change the rule via PR so the architecture discussion is explicit.
   **Why:** Deleting under pressure is how feedback loops die.
