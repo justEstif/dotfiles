@@ -1,6 +1,6 @@
 ---
 name: agent-browser
-description: Browser automation on this machine — replaces the removed chrome-devtools MCP server. Use for any web page inspection, scraping, form filling, screenshots, JS console evaluation, or browser testing with the agent-browser CLI.
+description: "Browser automation on this machine: web page inspection, scraping, form filling, screenshots, JS console evaluation, and browser testing via the agent-browser CLI."
 ---
 
 # agent-browser

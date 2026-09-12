@@ -1,6 +1,6 @@
 ---
 name: repo-guardrails
-description: "Design repo feedback loops for AI-assisted engineering: deterministic local/CI gates, lint/custom rules, worktree-safe agent flows, maker/checker subagents, durable state, observability-to-tasks, cost/safety limits, and git protections. Use when hardening a repo for agents, reducing AI code drift, migrating CLAUDE.md guidance into enforceable checks, encoding software-design red flags as checks, adding CI/pre-commit/pre-push/protected-branch guardrails, or designing scheduled/goal-driven maintenance loops. For diagnosing which modules/interfaces should change, use software-design first; for writing behavior through tests, use tdd."
+description: "Design repo feedback loops for AI-assisted engineering: deterministic local/CI gates, lint/custom rules, worktree-safe agent flows, maker/checker subagents, durable state, observability-to-tasks, cost/safety limits, and git protections. Use when hardening a repo for agents, reducing AI code drift, migrating CLAUDE.md guidance into enforceable checks, or adding CI/pre-commit/protected-branch guardrails."
 ---
 
 # Repo Guardrails as Loops

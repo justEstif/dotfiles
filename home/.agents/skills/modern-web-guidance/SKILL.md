@@ -1,17 +1,15 @@
 ---
 name: modern-web-guidance
-description: "Steer toward modern web platform APIs instead of legacy patterns. Use FIRST for any HTML/CSS/clientside JS task — modals, dialogs, popovers, anchor positioning, container queries, :has(), :user-valid, View Transitions, scroll-driven animations, INP/LCP optimization, autofill forms, custom scrollbars, scheduler.yield. The CLI runs local semantic search over expert-curated, Baseline-aware guides and returns token-efficient implementation patterns, gotchas, and fallbacks. Do NOT trigger for backend, SQL, CI/CD, Docker, or generic local scripts. Keywords: frontend, html, css, web, browser api, popover, dialog, view transition, baseline, web platform, modern css, accessibility, a11y, forms, autofill, performance, core web vitals."
+description: "Find current, Baseline-aware web platform patterns (popovers, View Transitions, container queries, forms, performance, a11y) via a local CLI instead of leaning on legacy patterns. Use for non-trivial HTML/CSS/client-side JS work or when unsure of the modern approach; not for backend, CI/CD, Docker, or generic scripts."
 ---
 
 # Modern Web Guidance
 
-An offline CLI that returns expert-curated, Baseline-aware best-practice guides for the modern web platform. Run it **before** writing any frontend code so you reach for native APIs (Popover, View Transitions, container queries, anchor positioning, `:has()`, `scheduler.yield`, on-device AI) instead of stale legacy patterns the model defaults to.
+An offline CLI that returns expert-curated, Baseline-aware best-practice guides for the modern web platform. Run it when doing frontend work so you reach for native APIs (Popover, View Transitions, container queries, anchor positioning, `:has()`, `scheduler.yield`, on-device AI) instead of stale legacy patterns.
 
-It pairs naturally with the **micro-app** skill: micro-app gives the scaffold (single HTML file, Tailwind v4 + Alpine + native APIs); this skill gives the *correct* details for each native API you reach for.
+## When to use
 
-## When to use — MANDATORY FIRST
-
-Run a search at the **start** of:
+Run a search before starting non-trivial work, or whenever you're about to hand-roll something a platform API may already cover:
 
 - **UI / layout**: modals, dialogs, popovers, tooltips, glassmorphism/backdrop-filters, anchor positioning, container queries, `:has()`, `:user-valid`, subgrid, `oklch`, `field-sizing`.
 - **Scroll / motion**: View Transitions, scroll-driven animations, parallax/reveals, entry/exit top-layer animations.
@@ -64,7 +62,7 @@ Returns the markdown guide: implementation steps, real code, gotchas, fallbacks,
 
 ## Working rules
 
-- **Search first, always.** Don't write a custom implementation before checking whether a standardized pattern exists.
+- **Check before hand-rolling.** If a standardized pattern likely exists, search before writing a custom implementation.
 - **Guides are framework-agnostic.** Adapt to the project's stack (plain HTML, Alpine, React, etc.).
 - **Don't hallucinate guides.** Only use what `retrieve` returns — they are the preferred local standard.
 - **Respect Baseline.** Guides assume Baseline *widely available* features need no fallback. For newer features, follow the guide's fallback advice unless the project has an explicit browser-support policy.
@@ -87,4 +85,4 @@ If no policy exists and the work is non-trivial, ask the user what targets matte
 
 ## Output discipline
 
-This skill returns *guidance*, not artifacts. Still follow the rest of the project's conventions (for micro-apps: write a real `.html` file, use `x-text`/`textContent` not `innerHTML`, mobile-responsive, accessible by default). The guide sharpens the implementation; the scaffold rules still apply.
+This skill returns *guidance*, not artifacts. Follow the project's own conventions for whatever artifacts it produces; the guide sharpens the implementation.

@@ -8,3 +8,5 @@ Use the subagent tool with the chain parameter to execute this workflow:
 3. Finally, use the "worker" agent to implement the plan from the previous step (use {previous} placeholder)
 
 Execute this as a chain, passing output between steps via {previous}.
+
+Done means: the implementation passes the repo's lint/tests and the worker reports what it ran to verify. Keep going until that's true — don't stop after a first pass.
