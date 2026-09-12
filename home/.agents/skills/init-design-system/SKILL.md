@@ -41,7 +41,7 @@ The generated local skill follows the proven Vercel `design.md` pattern — thre
      with the repo's UI triggers: pages, components, prototypes, slides), then the
      project's judgment: scope, reader and task, **observable** decisions, composition
      rules, the class/token vocabulary documentation, and a named anti-patterns section.
-   - `.agents/skills/design-system/references/brand.css` — copy this skill's
+   - `.agents/skills/design-system/references/` — `brand.css`: copy this skill's
      `references/default-brand.css` and REPLACE every placeholder with the project's
      real brand values from step 2. Pages link this stylesheet; the agent uses only the
      documented class names.
@@ -82,7 +82,7 @@ The generated local skill follows the proven Vercel `design.md` pattern — thre
 
 ## Verification
 
-- Repo contains `.agents/skills/design-system/` (SKILL.md + references/brand.css) and a
+- Repo contains `.agents/skills/design-system/` (SKILL.md + `brand.css` in references/) and a
   root `DESIGN.md`, all committed.
 - No placeholder token values remain in the generated `brand.css`.
 - The generated SKILL.md's rules are observable and its anti-patterns are named.
