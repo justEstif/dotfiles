@@ -41,7 +41,7 @@ Multiple groups apply additively.
 
 | ID  | Dimension              | Pts | 0–33%                   | 34–66%                        | 67–89%                          | 90%+                              |
 | --- | ---------------------- | --- | ----------------------- | ----------------------------- | ------------------------------- | --------------------------------- |
-| S1  | Spec Compliance        | 15  | Invalid frontmatter     | Vague description             | WHAT present, weak WHEN         | WHAT + WHEN + KEYWORDS            |
+| S1  | Spec Compliance        | 15  | Invalid frontmatter     | Vague description             | WHAT present, weak WHEN         | Short WHAT + precise WHEN, no stuffing |
 | S2  | Progressive Disclosure | 15  | Everything in SKILL.md  | References exist, no triggers | MANDATORY triggers present      | Triggers + "Do NOT load" guidance |
 | S3  | Pattern Recognition    | 10  | No recognizable pattern | Partial match                 | Clear pattern, minor deviations | Pattern fits task perfectly       |
 

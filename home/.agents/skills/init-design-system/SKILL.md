@@ -1,13 +1,6 @@
 ---
 name: init-design-system
-description: >
-  One-shot bootstrap that CREATES a project-local design-system skill (Vercel design.md
-  pattern: DESIGN.md judgment + brand.css vocabulary + named anti-patterns) in a repo
-  that lacks one. Use when starting UI/frontend/design work in a repo with no design
-  system, or when asked to set up brand/tokens/design-system for a project. For ongoing
-  UI work, the generated LOCAL skill is the source of truth — not this one. Triggers:
-  init design system, set up brand tokens, DESIGN.md, new project design, UI work in a
-  repo without a design system, screenshot-to-UI.
+description: "One-shot bootstrap that CREATES a project-local design-system skill (DESIGN.md judgment + brand.css vocabulary + named anti-patterns) in a repo that lacks one. Use when starting UI/design work in a repo with no design system, or when asked to set up brand/tokens/design-system for a project. For ongoing UI work the generated LOCAL skill is the source of truth."
 ---
 
 # Init Design System (bootstrap)

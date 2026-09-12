@@ -11,7 +11,7 @@ Quick-reference checklist. Check for these during evaluation.
 | 3   | Orphan References  | `references/` exists, never loaded     | Add MANDATORY READ triggers at workflow steps.                 |
 | 4   | Checkbox Procedure | Step 1, 2, 3... mechanical             | Transform to "Before X, ask yourself..."                       |
 | 5   | Vague Warning      | "Be careful", "avoid errors"           | Specific NEVER + non-obvious reason + alternative.             |
-| 6   | Invisible Skill    | Good content, never activates          | Description needs WHAT + WHEN + KEYWORDS.                      |
+| 6   | Invisible Skill    | Good content, never activates          | Description: short WHAT + precise WHEN (no keyword walls).     |
 | 7   | Wrong Location     | "When to use" in body, not description | Triggering info → description field. Body loads after trigger. |
 | 8   | Over-Engineered    | README, CHANGELOG, CONTRIBUTING        | Delete all auxiliary files.                                    |
 | 9   | Freedom Mismatch   | Rigid for creative, vague for fragile  | Match freedom to consequence of mistakes.                      |
@@ -31,3 +31,11 @@ Quick-reference checklist. Check for these during evaluation.
 | --- | --------------------- | -------------------------- | ------------------------------------------ |
 | 14  | Generic Shell Warning | "Be careful with commands" | Name exact construct + exact failure mode. |
 | 15  | Missing Alternative   | NEVER with no replacement  | Every NEVER needs INSTEAD.                 |
+
+## Capability-Mismatch Failures
+
+| #   | Pattern             | Symptom                                     | Fix                                                        |
+| --- | ------------------- | ------------------------------------------- | ---------------------------------------------------------- |
+| 16  | Over-Trigger        | Skill activates for adjacent domains        | Narrow WHEN to the task it's for; DO-NOT clause if confusable. |
+| 17  | Fear Boundary       | "Ask before X" halts safe work              | Reserve ask-first for destructive actions; state the safe path. |
+| 18  | Recipe Rot          | Step-by-step script for judgment task       | Convert to constraints + rationale; keep steps only for fragile ops. |

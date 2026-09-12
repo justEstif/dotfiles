@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: "Build, review, and improve agent skills. Validates against the agentskills.io spec, evaluates quality via a dimensional rubric, detects description drift, produces numbered improvements, and applies them with approval. Use when: creating a new skill, reviewing/auditing/judging a skill or prompt, updating/fixing a skill, evaluating prompt quality, 'skillify this', 'make this proper', 'audit all skills', 'grade report'. Triggers: skill, SKILL.md, prompt quality, knowledge delta, skill review, skill audit, judge prompt, skill creation."
+description: "Build, review, and improve agent skills: agentskills.io spec validation, quality rubric, description-drift detection, numbered improvements applied with approval. Use when creating, auditing, fixing, or grading a skill or prompt ('skillify this', 'audit all skills', 'grade report')."
 compatibility: Python 3.10+ recommended for skills-ref validation (optional). Works without it using built-in checks.
 ---
 
@@ -40,11 +40,19 @@ These are the things that take experience to learn. The agent won't figure them 
 
 **Read body before description.** When reviewing a skill, form an independent summary from the body first. Then compare to the description. Starting from the description anchors you to its framing — you'll miss drift.
 
-**Description > Body.** Agent sees only descriptions when selecting skills. A perfect body with a vague description is an invisible skill. Description must have WHAT + WHEN + KEYWORDS. All triggering info goes in description — "When to use" sections in the body are dead weight (body loads after selection).
+**Description > Body.** Agent sees only descriptions when selecting skills. A perfect body with a vague description is an invisible skill. All triggering info goes in description — "When to use" sections in the body are dead weight (body loads after selection).
+
+**Short, precise descriptions.** As short as possible while unambiguous about when to apply: WHAT (one clause) + WHEN (the specific task it's for, not the domain it touches). "Create and validate Postgres migrations. Use when adding or changing a migration, or reviewing its rollout" — not "use when working with databases, queries, or persistence." Add a DO-NOT-trigger clause only when a plausible confusable domain exists. No `Keywords:` lists — selection is semantic, and keyword walls dilute the trigger, bloat every session's context, and can contradict sibling skills' descriptions.
 
 **Every NEVER needs WHY + INSTEAD.** A prohibition without a reason gets forgotten. A prohibition without an alternative gets violated when the obvious path is blocked. No vague warnings ("be careful") — only specific patterns + what goes wrong + what to do instead.
 
-**Guardrails over workflows.** Prescribe constraints, not steps. The agent decides how; the human reviews output (grade, report, drift verdict), not process.
+**Guardrails over workflows.** Prescribe constraints, not steps — and match specificity to fragility. Modern models handle nuance, so elaborate step-by-step itineraries now hinder more than they help. Reserve exact sequences for fragile operations (exact commands, order-dependent steps); give rationale + freedom everywhere else — an agent that knows *why* adapts, an agent following a script can't.
+
+**Boundaries as outcomes, not fear.** Strong ALWAYS/ask-first language is for genuinely destructive or irreversible actions only. Capable models honor it to a fault — "ask before running anything" makes them stop work you'd want finished. State the boundary and the safe path instead: "local tests use disposable fixtures — run and rerun them without asking."
+
+**Define done.** Workflow skills must define completion — what to verify and report — rather than a review checkpoint after first pass. A "stop for review" line pulls the model to an early stopping point; if work should continue past first success (run it, inspect, fix what fails), say so, and say where exploration should stop.
+
+**Write for many models.** Repo skills outlive your current model and guide other contributors' agents. Don't encode workarounds for one model's weakness: guidance that only helps a weak model and overconstrains a strong one should be conditional or cut.
 
 ## Output Formats
 
@@ -95,3 +103,11 @@ One at a time with diff. Commit after each approval. Cap at 3 revisions per item
 - **NEVER prescribe a fixed workflow for tasks the agent can figure out**
   **Instead:** Give guardrails and let the agent choose the path.
   **Why:** Prescribed steps force a human mental model — loses parallelism, can't adapt, rots over time.
+
+- **NEVER stuff descriptions with keyword lists or over-broad triggers**
+  **Instead:** Short WHAT + precise WHEN; DO-NOT clause only for genuinely confusable domains.
+  **Why:** Long descriptions get truncated, contradict sibling skills, and over-trigger — loading guidance the task doesn't need.
+
+- **NEVER make reference loads unconditional**
+  **Instead:** Trigger each reference on the task state that needs it ("before configuring CI", "if validation fails").
+  **Why:** Forcing every read burns context on guidance that may never apply.

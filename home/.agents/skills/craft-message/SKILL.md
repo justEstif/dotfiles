@@ -1,6 +1,6 @@
 ---
 name: craft-message
-description: "Closes the gap between what you're trying to say and what your audience actually receives. Use when you know what something does but can't get it to land — landing page copy that isn't clicking, a presentation whose audience won't 'get it', a pitch that keeps getting 'but what is it?', a message to a colleague you can't phrase without friction, stakeholder buy-in, proposal pre-alignment, or lesson content that isn't connecting. Also use when drafting interpersonal messages — disagreements, negotiations, bad news, feedback, apologies, cold outreach, delegating, celebrating, or any email/Slack/text where the situation matters. Keywords: craft message, communication, message clarity, audience, positioning, stakeholder alignment, buy-in, prealignment, proposal, landing page, not resonating, make it obvious, email, slack, message, draft, compose, disagreement, negotiation, bad news, feedback, apology, decline, cold outreach, boundary, delegate."
+description: "Sharpen messages so the audience gets them — landing copy, pitches, presentations, stakeholder buy-in, or interpersonal drafts (feedback, bad news, negotiation, apology, outreach) where phrasing matters. Use when something isn't landing or a high-stakes message needs drafting."
 ---
 
 # Message Clarity
