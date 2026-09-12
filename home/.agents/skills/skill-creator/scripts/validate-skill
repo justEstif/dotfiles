@@ -1,250 +1,302 @@
-#!/usr/bin/env python3
-"""
-Validate a skill directory against agentskills.io spec + quality checks.
-Usage: validate-skill <path-to-skill-directory>
-Exit 0 = pass, 1 = errors, 2 = warnings only.
-Zero external dependencies — stdlib only.
-"""
+#!/usr/bin/env bun
+/**
+ * Validate a skill directory against the agentskills.io spec + quality checks.
+ * Usage: validate-skill <path-to-skill-directory> [--table] [--json]
+ *        validate-skill --all <skills-dir>   (parallel sweep, aggregate table)
+ * Exit 0 = pass, 1 = errors, 2 = warnings only.
+ *
+ * Frontmatter is parsed with Bun.YAML (real YAML — folded scalars, nested
+ * metadata maps, quoted strings all parse exactly like agentskills clients).
+ * Output: legacy ✗/⚠ text block (script-compatible) plus a console.table
+ * summary when stdout is a TTY or --table is passed.
+ */
 
-import re
-import sys
-from pathlib import Path
+import * as fs from "node:fs";
+import * as os from "node:os";
+import * as path from "node:path";
 
+const BANNED_FILES = ["README.md", "CHANGELOG.md", "INSTALLATION_GUIDE.md", "QUICK_REFERENCE.md", "CONTRIBUTING.md"];
+const ALLOWED_FIELDS = new Set(["name", "description", "license", "compatibility", "metadata", "allowed-tools"]);
+const useTable = process.argv.includes("--table") || process.stdout.isTTY;
 
-def parse_frontmatter(text: str) -> tuple[dict, str]:
-    """Parse simple YAML frontmatter (key: value / key: "value" only).
-    Returns (dict, body_text).
-    Raises ValueError on unsupported YAML features or parse errors.
-    """
-    parts = text.split("---\n", 2)
-    if len(parts) < 3:
-        raise ValueError("Could not find frontmatter delimiters (---)")
-    fm_raw = parts[1]
-    body = parts[2]
+type Severity = "error" | "warning";
+interface Finding {
+	severity: Severity;
+	check: string;
+	detail: string;
+}
 
-    result = {}
-    for i, line in enumerate(fm_raw.splitlines(), 1):
-        stripped = line.strip()
-        if not stripped:
-            continue
+function extractFrontmatter(skillMd: string): { fm: Record<string, unknown>; body: string } {
+	const text = fs.readFileSync(skillMd, "utf8");
+	const parts = text.split(/^---\n/m);
+	if (parts.length < 3) throw new Error("Could not find frontmatter delimiters (---)");
+	const fm = Bun.YAML.parse(parts[1]);
+	if (fm === null || typeof fm !== "object" || Array.isArray(fm)) {
+		throw new Error("Frontmatter must be a YAML mapping.");
+	}
+	return { fm: fm as Record<string, unknown>, body: parts.slice(2).join("---\n") };
+}
 
-        # Detect indented continuation (folded scalars, block scalars, etc.)
-        if stripped and line[0] in (" ", "\t") and not result:
-            raise ValueError(
-                f"Unsupported frontmatter format on line {i}: indented content. "
-                f"Use simple key: value or key: \"value\"."
-            )
+function checkSpec(skillDir: string, skillName: string, push: (f: Finding) => void): { fm: Record<string, unknown>; body: string } | null {
+	const candidates = [path.join(skillDir, "SKILL.md"), path.join(skillDir, "skill.md")];
+	const skillMd = candidates.find((f) => fs.existsSync(f));
+	if (!skillMd) {
+		push({ severity: "error", check: "SKILL.md", detail: "Missing required file: SKILL.md" });
+		return null;
+	}
 
-        colon = stripped.find(":")
-        if colon == -1:
-            raise ValueError(
-                f"Unsupported frontmatter format on line {i}: no key: value pair. "
-                f"Use simple key: value or key: \"value\"."
-            )
+	let fm: Record<string, unknown>;
+	let body: string;
+	try {
+		({ fm, body } = extractFrontmatter(skillMd));
+	} catch (e: any) {
+		push({ severity: "error", check: "frontmatter", detail: `Invalid frontmatter: ${e?.message ?? String(e)}` });
+		return null;
+	}
 
-        key = stripped[:colon].strip()
-        val = stripped[colon + 1:].strip()
+	// name
+	const name = fm.name;
+	if (!name) {
+		push({ severity: "error", check: "name", detail: "Missing required field: name" });
+	} else if (typeof name !== "string") {
+		push({ severity: "error", check: "name", detail: "name must be a string" });
+	} else {
+		if (name !== name.toLowerCase()) push({ severity: "error", check: "name", detail: `name must be lowercase: ${name}` });
+		if (name.startsWith("-") || name.endsWith("-")) push({ severity: "error", check: "name", detail: "name cannot start/end with hyphen" });
+		if (name.includes("--")) push({ severity: "error", check: "name", detail: "name cannot have consecutive hyphens" });
+		if (name.length > 64) push({ severity: "error", check: "name", detail: `name exceeds 64 chars (${name.length})` });
+		if (!/^[a-z0-9_-]+$/.test(name)) push({ severity: "error", check: "name", detail: `name contains invalid characters: ${name}` });
+		if (name !== skillName) push({ severity: "warning", check: "name", detail: `name '${name}' doesn't match directory '${skillName}'` });
+	}
 
-        if not val:
-            raise ValueError(
-                f"Unsupported frontmatter format on line {i}: empty value. "
-                f"Use simple key: value or key: \"value\"."
-            )
+	// description
+	const desc = fm.description;
+	if (!desc) {
+		push({ severity: "error", check: "description", detail: "Missing required field: description" });
+	} else if (typeof desc !== "string") {
+		push({ severity: "error", check: "description", detail: "description must be a string" });
+	} else {
+		if (desc.length > 1024) push({ severity: "error", check: "description", detail: `description exceeds 1024 chars (${desc.length})` });
+		if (desc.length < 20) push({ severity: "warning", check: "description", detail: `description is very short (${desc.length} chars) — likely missing WHAT/WHEN` });
+		if (desc.length > 500) {
+			push({
+				severity: "warning",
+				check: "description length",
+				detail: `description is long (${desc.length} chars) — trim to WHAT + precise WHEN; long descriptions dilute triggers and bloat every session's context`,
+			});
+		}
+		if (/\bKeywords:\s/.test(desc)) {
+			push({
+				severity: "warning",
+				check: "keyword wall",
+				detail: "description contains a 'Keywords:' list — selection is semantic; keyword walls dilute the trigger and can contradict sibling skills",
+			});
+		}
+		if (/\bfor ANY\b|\bUse FIRST for\b/.test(desc)) {
+			push({
+				severity: "warning",
+				check: "over-broad trigger",
+				detail: "description uses an over-broad trigger ('for ANY ...' / 'Use FIRST for') — narrow WHEN to the specific task it's for, not the domain it touches",
+			});
+		}
+	}
 
-        # Indented continuation lines after a key (e.g. YAML folded >)
-        if line[0] in (" ", "\t") and result:
-            raise ValueError(
-                f"Unsupported frontmatter format on line {i}: indented continuation. "
-                f"Use simple key: value or key: \"value\"."
-            )
+	// compatibility
+	if (typeof fm.compatibility === "string" && fm.compatibility.length > 500) {
+		push({ severity: "error", check: "compatibility", detail: `compatibility exceeds 500 chars (${fm.compatibility.length})` });
+	}
 
-        # Detect YAML special indicators
-        if val in (">", "|", "|-", "|+", ">-", ">+"):
-            raise ValueError(
-                f"Unsupported YAML feature on line {i}: '{val}' scalar. "
-                f"Use key: \"value\" instead."
-            )
+	// metadata: spec requires a map from string keys to string values
+	if (fm.metadata !== undefined) {
+		const meta = fm.metadata;
+		if (meta === null || typeof meta !== "object" || Array.isArray(meta)) {
+			push({ severity: "error", check: "metadata", detail: "metadata must be a mapping (key: value pairs)" });
+		} else {
+			for (const [k, v] of Object.entries(meta as Record<string, unknown>)) {
+				if (typeof v !== "string") {
+					push({ severity: "error", check: "metadata", detail: `metadata.${k} must be a string value (got ${Array.isArray(v) ? "array" : typeof v})` });
+				}
+			}
+		}
+	}
 
-        is_quoted = (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'"))
+	// unknown fields
+	for (const key of Object.keys(fm)) {
+		if (!ALLOWED_FIELDS.has(key)) push({ severity: "warning", check: "frontmatter", detail: `Unknown frontmatter field: ${key}` });
+	}
 
-        # YAML plain scalars cannot contain an unquoted colon followed by whitespace/end.
-        # Agentskills clients use real YAML parsers, so accepting this here creates
-        # false PASS results that later fail during skill loading.
-        if not is_quoted and re.search(r":(\s|$)", val):
-            errors_at = re.search(r":(\s|$)", val).start() + 1
-            raise ValueError(
-                f"Invalid YAML frontmatter on line {i}: unquoted ':' in value near column {colon + 1 + errors_at}. "
-                f"Quote the entire value, e.g. {key}: \"{val}\"."
-            )
+	return { fm, body };
+}
 
-        # Quoted string
-        if val.startswith('"') and val.endswith('"'):
-            val = val[1:-1]
-        elif val.startswith("'") and val.endswith("'"):
-            val = val[1:-1]
+function checkQuality(skillDir: string, fm: Record<string, unknown>, body: string, push: (f: Finding) => void): void {
+	const bodyLines = body.split("\n");
+	if (bodyLines.length > 300) push({ severity: "warning", check: "body length", detail: `Body is ${bodyLines.length} lines (recommended < 300)` });
 
-        result[key] = val
+	const desc = String(fm.description ?? "");
+	if (!/use when|trigger|use for/i.test(desc)) {
+		push({ severity: "warning", check: "WHEN trigger", detail: "Description lacks WHEN triggers — agent may not activate skill correctly" });
+	}
 
-    return result, body
+	// NEVER rules: each needs WHY + INSTEAD
+	const neverRules = (body.match(/\*\*NEVER\b/g) ?? []).length;
+	if (neverRules === 0) {
+		push({ severity: "warning", check: "anti-patterns", detail: "No NEVER rules found — consider adding anti-patterns" });
+	} else {
+		const insteadCount = (body.match(/\*\*Instead/gi) ?? []).length;
+		const whyCount = (body.match(/\*\*Why/gi) ?? []).length;
+		if (insteadCount < neverRules) push({ severity: "warning", check: "NEVER rules", detail: `Some NEVER rules missing INSTEAD (${insteadCount}/${neverRules})` });
+		if (whyCount < neverRules) push({ severity: "warning", check: "NEVER rules", detail: `Some NEVER rules missing WHY (${whyCount}/${neverRules})` });
+	}
 
+	// Auxiliary files that shouldn't exist
+	for (const f of BANNED_FILES) {
+		if (fs.existsSync(path.join(skillDir, f))) push({ severity: "error", check: "auxiliary files", detail: `Auxiliary file should not exist: ${f}` });
+	}
 
-def extract_frontmatter(skill_md: Path) -> tuple[dict, str]:
-    """Return (parsed frontmatter dict, body text) from a SKILL.md file."""
-    return parse_frontmatter(skill_md.read_text())
+	// Referenced files must exist (skill-relative paths only — not matches that
+	// are part of a longer absolute/foreign path like .agents/skills/x/references/y)
+	for (const ref of body.matchAll(/(?<![\w/])references\/[^\s"\)\]`]+/g)) {
+		if (!fs.existsSync(path.join(skillDir, ref[0]))) {
+			push({ severity: "error", check: "references", detail: `Referenced file missing: ${ref[0]}` });
+		}
+	}
 
+	// references/ dir needs MANDATORY READ triggers
+	const refsDir = path.join(skillDir, "references");
+	if (fs.existsSync(refsDir) && fs.statSync(refsDir).isDirectory()) {
+		const refCount = countFiles(refsDir);
+		const mandatoryCount = (body.match(/MANDATORY.*READ/g) ?? []).length;
+		if (refCount > 0 && mandatoryCount === 0) {
+			push({ severity: "warning", check: "orphan references", detail: `references/ has ${refCount} files but no MANDATORY READ triggers in body` });
+		}
+	}
+}
 
-def check_spec(skill_dir: Path, skill_name: str, errors: list, warnings: list):
-    skill_md = skill_dir / "SKILL.md"
-    if not skill_md.exists():
-        skill_md = skill_dir / "skill.md"
-    if not skill_md.exists():
-        errors.append("Missing required file: SKILL.md")
-        return
+function countFiles(dir: string): number {
+	let n = 0;
+	for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+		if (entry.isDirectory()) n += countFiles(path.join(dir, entry.name));
+		else n += 1;
+	}
+	return n;
+}
 
-    try:
-        fm, _ = extract_frontmatter(skill_md)
-    except ValueError as e:
-        errors.append(str(e))
-        return
+/** Validate one skill dir. No output — returns a structured result. */
+function validateOne(skillDir: string): Result {
+	const skillName = path.basename(skillDir);
+	const findings: Finding[] = [];
+	const push = (f: Finding): void => findings.push(f);
 
-    # name
-    name = fm.get("name", "")
-    if not name:
-        errors.append("Missing required field: name")
-    else:
-        if name != name.lower():
-            errors.append(f"name must be lowercase: {name}")
-        if name.startswith("-") or name.endswith("-"):
-            errors.append(f"name cannot start/end with hyphen: {name}")
-        if "--" in name:
-            errors.append(f"name cannot have consecutive hyphens: {name}")
-        if len(name) > 64:
-            errors.append(f"name exceeds 64 chars ({len(name)})")
-        if not re.fullmatch(r"[a-z0-9_-]+", name):
-            errors.append(f"name contains invalid characters: {name}")
-        if name != skill_name:
-            warnings.append(f"name '{name}' doesn't match directory '{skill_name}'")
+	const parsed = checkSpec(skillDir, skillName, push);
+	if (parsed) checkQuality(skillDir, parsed.fm, parsed.body, push);
 
-    # description
-    desc = fm.get("description", "")
-    if not desc:
-        errors.append("Missing required field: description")
-    else:
-        if len(desc) > 1024:
-            errors.append(f"description exceeds 1024 chars ({len(desc)})")
-        if len(desc) < 20:
-            warnings.append(f"description is very short ({len(desc)} chars) — likely missing WHAT/WHEN")
-        if len(desc) > 500:
-            warnings.append(
-                f"description is long ({len(desc)} chars) — trim to WHAT + precise WHEN; "
-                f"long descriptions dilute triggers and bloat every session's context"
-            )
-        if re.search(r"\bKeywords:\s", desc):
-            warnings.append(
-                "description contains a 'Keywords:' list — selection is semantic; "
-                "keyword walls dilute the trigger and can contradict sibling skills"
-            )
-        if re.search(r"\bfor ANY\b|\bUse FIRST for\b", desc):
-            warnings.append(
-                "description uses an over-broad trigger ('for ANY ...' / 'Use FIRST for') — "
-                "narrow WHEN to the specific task it's for, not the domain it touches"
-            )
+	const verdict = findings.some((f) => f.severity === "error") ? "FAIL" : findings.length ? "WARN" : "PASS";
+	return { name: skillName, verdict, findings };
+}
 
-    # unknown fields
-    allowed = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
-    for key in fm:
-        if key not in allowed:
-            warnings.append(f"Unknown frontmatter field: {key}")
+interface Result {
+	name: string;
+	verdict: "PASS" | "WARN" | "FAIL";
+	findings: Finding[];
+}
 
+function renderHuman(result: Result): void {
+	console.log(`${result.verdict} ${result.name}\n`);
+	const errors = result.findings.filter((f) => f.severity === "error");
+	const warnings = result.findings.filter((f) => f.severity === "warning");
+	if (errors.length) {
+		console.log("Errors:");
+		for (const e of errors) console.log(`  ✗ ${e.detail}`);
+	}
+	if (warnings.length) {
+		if (errors.length) console.log("");
+		console.log("Warnings:");
+		for (const w of warnings) console.log(`  ⚠ ${w.detail}`);
+	}
+	if (result.findings.length && useTable) {
+		console.log("");
+		console.table(result.findings.map((f) => ({ severity: f.severity, check: f.check, detail: f.detail })));
+	}
+}
 
-def check_quality(skill_dir: Path, errors: list, warnings: list):
-    skill_md = skill_dir / "SKILL.md"
-    if not skill_md.exists():
-        skill_md = skill_dir / "skill.md"
-    if not skill_md.exists():
-        return
+const CONCURRENCY = Math.max(4, Math.min(8, os.availableParallelism?.() ?? 8));
 
-    try:
-        fm, body = extract_frontmatter(skill_md)
-    except Exception:
-        return  # already reported in spec check
+/** Validate every skill dir under `root` in parallel subprocesses. */
+async function validateAll(root: string): Promise<Result[]> {
+	const skills = fs
+		.readdirSync(root, { withFileTypes: true })
+		.filter((d) => d.isDirectory() && (fs.existsSync(path.join(root, d.name, "SKILL.md")) || fs.existsSync(path.join(root, d.name, "skill.md"))))
+		.map((d) => path.join(root, d.name))
+		.sort();
 
-    # Body length
-    body_lines = len(body.splitlines())
-    if body_lines > 300:
-        warnings.append(f"Body is {body_lines} lines (recommended < 300)")
+	const results: Result[] = [];
+	let cursor = 0;
+	async function lane(): Promise<void> {
+		while (cursor < skills.length) {
+			const dir = skills[cursor++];
+			const proc = Bun.spawn({
+				cmd: [process.execPath, import.meta.path, "--json", dir],
+				stdout: "pipe",
+				stderr: "pipe",
+			});
+			const out = await new Response(proc.stdout).text();
+			await proc.exited;
+			try {
+				results.push(JSON.parse(out) as Result);
+			} catch {
+				results.push({ name: path.basename(dir), verdict: "FAIL", findings: [{ severity: "error", check: "validator", detail: out.trim() || "child crashed" }] });
+			}
+		}
+	}
+	await Promise.all(Array.from({ length: CONCURRENCY }, lane));
+	return results.sort((a, b) => a.name.localeCompare(b.name));
+}
 
-    # Description should have trigger hints
-    desc = str(fm.get("description", ""))
-    if not re.search(r"use when|trigger|use for", desc, re.IGNORECASE):
-        warnings.append("Description lacks WHEN triggers — agent may not activate skill correctly")
+function main(): void {
+	const argv = process.argv.slice(2);
+	const jsonMode = argv.includes("--json");
+	const allIndex = argv.indexOf("--all");
+	const positionals = argv.filter((a) => !a.startsWith("--"));
 
-    # NEVER rules: each needs WHY + INSTEAD
-    never_rules = len(re.findall(r"\*\*NEVER\b", body))
-    if never_rules == 0:
-        warnings.append("No NEVER rules found — consider adding anti-patterns")
-    else:
-        instead_count = len(re.findall(r"\*\*Instead", body, re.IGNORECASE))
-        why_count = len(re.findall(r"\*\*Why", body, re.IGNORECASE))
-        if instead_count < never_rules:
-            warnings.append(f"Some NEVER rules missing INSTEAD ({instead_count}/{never_rules})")
-        if why_count < never_rules:
-            warnings.append(f"Some NEVER rules missing WHY ({why_count}/{never_rules})")
+	// Batch mode: validate-skill --all <skills-dir>
+	if (allIndex !== -1) {
+		const root = path.resolve(positionals[0] ?? "");
+		if (!fs.existsSync(root)) {
+			console.error(`No such directory: ${root}`);
+			process.exit(1);
+		}
+		validateAll(root).then((results) => {
+			console.table(
+				results.map((r) => ({
+					skill: r.name,
+					result: r.verdict,
+					errors: r.findings.filter((f) => f.severity === "error").length,
+					warnings: r.findings.filter((f) => f.severity === "warning").length,
+				})),
+			);
+			for (const r of results) if (r.verdict !== "PASS") renderHuman(r);
+			const fails = results.filter((r) => r.verdict === "FAIL").length;
+			const warns = results.filter((r) => r.verdict === "WARN").length;
+			console.log(`\n${results.length} skills: ${results.length - fails - warns} PASS, ${warns} WARN, ${fails} FAIL`);
+			process.exit(fails ? 1 : warns ? 2 : 0);
+		});
+		return;
+	}
 
-    # Auxiliary files that shouldn't exist
-    banned = ["README.md", "CHANGELOG.md", "INSTALLATION_GUIDE.md", "QUICK_REFERENCE.md", "CONTRIBUTING.md"]
-    for f in banned:
-        if (skill_dir / f).exists():
-            errors.append(f"Auxiliary file should not exist: {f}")
+	if (argv.length < 1) {
+		console.error("Usage: validate-skill <path-to-skill-directory> [--table] [--json]\n       validate-skill --all <skills-dir>");
+		process.exit(1);
+	}
 
-    # Referenced files must exist (skill-relative paths only — not matches that are
-    # part of a longer absolute/foreign path like .agents/skills/x/references/y)
-    for ref in re.findall(r"(?<![\w/])references/[^\s\")\]`]+", body):
-        if not (skill_dir / ref).exists():
-            errors.append(f"Referenced file missing: {ref}")
+	const skillDir = path.resolve(positionals[0]!);
+	const result = validateOne(skillDir);
 
-    # references/ dir needs MANDATORY READ triggers
-    refs_dir = skill_dir / "references"
-    if refs_dir.is_dir():
-        ref_count = sum(1 for _ in refs_dir.rglob("*") if _.is_file())
-        mandatory_count = len(re.findall(r"MANDATORY.*READ", body, re.IGNORECASE))
-        if ref_count > 0 and mandatory_count == 0:
-            warnings.append(f"references/ has {ref_count} files but no MANDATORY READ triggers in body")
+	if (jsonMode) {
+		console.log(JSON.stringify(result));
+	} else {
+		renderHuman(result);
+	}
+	process.exit(result.verdict === "FAIL" ? 1 : result.verdict === "WARN" ? 2 : 0);
+}
 
-
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: validate-skill <path-to-skill-directory>", file=sys.stderr)
-        sys.exit(1)
-
-    skill_dir = Path(sys.argv[1]).resolve()
-    skill_name = skill_dir.name
-    errors: list[str] = []
-    warnings: list[str] = []
-
-    check_spec(skill_dir, skill_name, errors, warnings)
-    check_quality(skill_dir, errors, warnings)
-
-    if errors:
-        print(f"FAIL {skill_name}\n")
-        print("Errors:")
-        for e in errors:
-            print(f"  ✗ {e}")
-        if warnings:
-            print("\nWarnings:")
-            for w in warnings:
-                print(f"  ⚠ {w}")
-        sys.exit(1)
-    elif warnings:
-        print(f"WARN {skill_name}\n")
-        print("Warnings:")
-        for w in warnings:
-            print(f"  ⚠ {w}")
-        sys.exit(2)
-    else:
-        print(f"PASS {skill_name}")
-        sys.exit(0)
-
-
-if __name__ == "__main__":
-    main()
+main();

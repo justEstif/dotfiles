@@ -1,7 +1,7 @@
 ---
 name: skill-creator
 description: "Build, review, and improve agent skills: agentskills.io spec validation, quality rubric, description-drift detection, numbered improvements applied with approval. Use when creating, auditing, fixing, or grading a skill or prompt ('skillify this', 'audit all skills', 'grade report')."
-compatibility: Python 3.10+ recommended for skills-ref validation (optional). Works without it using built-in checks.
+compatibility: "Validator requires Bun (uses Bun.YAML for spec-compliant frontmatter parsing). Works entirely offline with built-in checks."
 ---
 
 # Skill Creator
