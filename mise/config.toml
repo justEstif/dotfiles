@@ -14,7 +14,7 @@ glow = "latest"
 typst = "0.14.2"                         # fancy markdown
 rtk = "latest"                           # filters/compresses command outputs before they reach your LLM context.
 neovim = "nightly"                        # editor ($EDITOR)
-fzf = "latest"                           # fuzzy finder (fzfp abbr, FZF_DEFAULT_OPTS)
+fzf = "latest"                           # multi-select picker for interactive wtm cleanup
 delta = "latest"                         # git syntax-highlighting pager
 act = "latest"                           # run GitHub Actions locally
 eza = "latest"                           # modern ls
@@ -25,6 +25,7 @@ ripgrep = "latest"
 fd = "latest"
 bat = "latest"
 zoxide = "latest"
+starship = "latest"                       # cross-shell prompt
 gh = "latest"                            # github cli
 herdr = "latest"                         # terminal multiplexer
 pitchfork = "latest"                     # manage background and delayed agent commands
@@ -62,7 +63,6 @@ auto_prune = false
 "~/.config/ripgrep" = {}
 "~/.config/starship.toml" = {}
 "~/.config/television" = {}
-"~/.config/yt-dlp" = {}
 "~/.config/zed" = {}
 
 "~/.gitconfig" = { mode = "symlink" }
@@ -76,6 +76,7 @@ export NB_EDITOR="nvim"
 export NB_FOLDERS_FIRST="1"
 ''' }
 "~/.pi/agent/APPEND_SYSTEM.md" = {}
+"~/.pi/agent/i-have-adhd.json" = {}
 "~/.pi/agent/agents" = {}
 "~/.pi/agent/extensions" = {}
 "~/.pi/agent/keybindings.json" = {}
