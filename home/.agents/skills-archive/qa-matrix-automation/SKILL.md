@@ -1,16 +1,16 @@
 ---
 name: qa-matrix-automation
-description: "Automates landing-page QA matrices (eventing, address/serviceability paths, URL param persistence) against staging/prod with agent-browser, writing results as append-only JSONL queryable in DuckDB instead of hand-filled Google Sheet cells. Use when: a CE/QA sheet asks for SessionID-per-cell sign-off across browser/device combos, eventing checks are marked N/A for lack of tooling, or someone wants to replace manual QA matrix busywork with scripted runs. Triggers: QA sheet, eventing QA, Cohesion/Tagular event checks, Monarch evaluation testing, address category testing, serviceability redirect testing, session ID sign-off, browser/device matrix, DuckDB QA results."
-compatibility: Works in Claude Cowork with code execution and network access. Requires agent-browser, Chromium, and DuckDB; install them on first use if absent. dev3000 is optional and local-target only.
+description: "Automate landing-page QA matrices (eventing, address/serviceability paths, URL param persistence) against staging/prod with agent-browser, writing JSONL results queryable in DuckDB. Use when a QA sheet asks for SessionID-per-cell sign-off across browser/device combos, or manual matrix checks should become scripted runs."
+compatibility: Requires agent-browser, Chromium, and DuckDB; install them on first use if absent. dev3000 is optional and local-target only.
 ---
 
 # QA Matrix Automation
 
 Replaces the "paste a SessionID in every cell" QA sheet pattern with scripted `agent-browser` runs against staging/prod and structured result rows a human (or duckdb) can query instead of scrolling a spreadsheet.
 
-## Claude Cowork bootstrap
+## First-run bootstrap
 
-Before the first run, check whether `agent-browser`, Chromium, and DuckDB are available. In a Cowork code-execution sandbox, install missing dependencies with:
+Before the first run, check whether `agent-browser`, Chromium, and DuckDB are available. Install missing dependencies with:
 
 ```bash
 npm install -g agent-browser

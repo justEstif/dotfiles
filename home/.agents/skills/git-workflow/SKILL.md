@@ -1,6 +1,6 @@
 ---
 name: "git-workflow"
-description: "End-to-end git workflow for coding agents on this machine: wtm worktrees, scoped commit messages (`<scope>: <description>` — NEVER Conventional Commits feat:/fix:/chore:), commit-as-you-work cadence, small-PR contract (~300–500 lines, split bigger) with gh-stack stacked PRs, and a scar-tissue rule-append loop. Use for ANY git or GitHub operation — branching, worktrees, committing, pushing, PRs — and whenever a git/PR mistake needs capturing as a rule."
+description: "Git/GitHub workflow on this machine: wtm worktrees, scoped commit messages (`<scope>: <description>`, never Conventional Commits), commit-as-you-work cadence, small-PR contract with gh-stack. Use when branching, creating worktrees, committing, pushing, or opening/updating PRs — and when a git/PR mistake needs capturing as a scar-tissue rule."
 ---
 
 # Git workflow
