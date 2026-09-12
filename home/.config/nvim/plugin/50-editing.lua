@@ -129,6 +129,28 @@ now(function()
 			-- resize windows: <C-Arrow Keys>
 			windows = true,
 		},
+		autocommands = { basic = false },
+	})
+
+	local group = vim.api.nvim_create_augroup("BasicAutocommands", {})
+	vim.api.nvim_create_autocmd("TextYankPost", {
+		group = group,
+		callback = function()
+			vim.hl.hl_op()
+		end,
+		desc = "Highlight yanked text",
+	})
+	vim.api.nvim_create_autocmd("TermOpen", {
+		group = group,
+		pattern = "term://*",
+		callback = function(event)
+			vim.schedule(function()
+				if vim.api.nvim_get_current_buf() == event.buf then
+					vim.cmd("startinsert")
+				end
+			end)
+		end,
+		desc = "Start builtin terminal in Insert mode",
 	})
 end)
 
