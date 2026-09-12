@@ -10,9 +10,8 @@
       "directTools": true
     },
     "excalidraw": {
-      "type": "http",
-      "url": "https://mcp.excalidraw.com/mcp",
-      "auth": false
+      "command": "npx",
+      "args": ["-y", "mcp-excalidraw-server"]
     }
   }
 }
