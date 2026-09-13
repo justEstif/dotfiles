@@ -16,7 +16,7 @@ import * as os from "node:os";
 import * as path from "node:path";
 
 const BANNED_FILES = ["README.md", "CHANGELOG.md", "INSTALLATION_GUIDE.md", "QUICK_REFERENCE.md", "CONTRIBUTING.md"];
-const ALLOWED_FIELDS = new Set(["name", "description", "license", "compatibility", "metadata", "allowed-tools"]);
+const ALLOWED_FIELDS = new Set(["name", "description", "license", "compatibility", "metadata", "allowed-tools", "disable-model-invocation"]);
 const useTable = process.argv.includes("--table") || process.stdout.isTTY;
 
 type Severity = "error" | "warning";
