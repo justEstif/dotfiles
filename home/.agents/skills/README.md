@@ -6,11 +6,10 @@ Personal agent skills organized by activation intent. This file is a navigation 
 
 | Cluster              | Use when                                                                                                         | Skills                                                                                       |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Meta / System        | Managing agent behavior, plans, loops, or the skill library itself                                               | `skill-creator`, `find-skills`, `plan`, `loop-engineering`                                   |
+| Meta / System        | Managing agent behavior, plans, loops, or the skill library itself                                               | `find-skills`, `plan`, `loop-engineering`                                   |
 | Think / Decide       | The user needs structured thinking, pushback, goals, strategy, systems analysis, comparison, or decision support | `goal-setting`, `product-strategy`, `systems-thinking`                                       |
-| Communicate          | Crafting content that lands with audiences — messages, pitches, landing pages, stakeholder alignment             | `craft-message`                                                                              |
 | Agent Style          | Governing how the agent itself writes, formats, and frames its output                                            | `output-style`, `argue-position`                           |
-| Build / Design       | Changing software systems, artifacts, architecture, tests, web UIs, or repo/agent guardrails                     | `tdd`, `software-design`, `repo-guardrails`, `modern-web-guidance`, `diagram-design`, `typst-doc` |
+| Build / Design       | Changing software systems, artifacts, architecture, tests, web UIs, or repo/agent guardrails                     | `tdd`, `software-design`, `modern-web-guidance`, `diagram-design`, `typst-doc` |
 | Tools / Integrations | Operating a specific external tool, platform, or CLI                                                             | `github`, `npm-publish`, `fallow`                                                            |
 | Archived             | Older, superseded, or invalid skill folders moved out of discovery                                               | `_skills-archive/pk`, `_skills-archive/thought-partner`, `_skills-archive/playground`        |
 
@@ -20,7 +19,6 @@ Personal agent skills organized by activation intent. This file is a navigation 
 
 | Skill              | What it does                                                     | Activate when                                                                                                                |
 | ------------------ | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `skill-creator`    | Builds, reviews, validates, and improves agent skills.           | Creating/reviewing skills, auditing prompts, checking description drift, applying skill-quality rubric.                      |
 | `find-skills`      | Finds and installs skills from the open ecosystem.               | User asks whether a skill exists, how to add capability, or wants skill discovery/installation.                              |
 | `plan`             | Creates lightweight ignored Markdown plans.                      | Complex, ambiguous, risky, or multi-session work needs preserved context/rationale.                                          |
 | `loop-engineering` | Designs recurring agent loops with state, isolation, and checks. | Replacing repeated prompting with scheduled/goal-driven automation, worktrees, durable state, connectors, and maker/checker. |
@@ -32,12 +30,6 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | `goal-setting`     | Turns vague intent into honest, stable, detailed, falsifiable, incremental goals.  | Defining success, choosing direction, prioritizing open-ended work, avoiding scope drift, recovering motivation, or clarifying what the user is actually trying to accomplish.    |
 | `product-strategy` | Evaluates product/app direction before and after MVP.                              | Build-or-not decisions, MVP success criteria, product north stars, core-tech leverage, defining constraints, roadmap prioritization, post-MVP pivots, RICE, or opportunity trees. |
 | `systems-thinking` | Analyzes organizational, technical, and strategic problems as interacting systems. | Feedback loops, hidden dependencies, legacy constraints, unknown unknowns, repeated failures, causal loops, debt cascades, or change resistance.                                  |
-
-### Communicate
-
-| Skill           | What it does                                                               | Activate when                                                                                                                                                                                                                         |
-| --------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `craft-message` | Makes messages land with audiences and drafts interpersonal communication. | Landing pages, pitches, stakeholder buy-in, proposal framing, or any email/Slack/text where audience shaping or situational strategy matters — disagreements, negotiations, bad news, feedback, apologies, cold outreach, delegation. |
 
 ### Agent Style
 
@@ -52,7 +44,6 @@ Personal agent skills organized by activation intent. This file is a navigation 
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `tdd`                 | Guides red-green-refactor test-first development.                                                                           | Building behavior, fixing bugs, or writing integration tests using TDD.                                                                                                             |
 | `software-design`     | Finds deepening opportunities and designs better modules/APIs.                                                              | Architecture, refactoring, module boundaries, testability, deep modules, shallow modules, or codebase design quality.                                                               |
-| `repo-guardrails`     | Designs deterministic repo feedback loops — CI, linters, hooks, custom rules, branch protection, logging, and agent safety. | Hardening a repo for agents, reducing AI code drift, encoding design rules as checks, or setting up guardrail loops.                                                                |
 | `modern-web-guidance` | Steers frontend work toward modern baseline web platform APIs and accessibility/performance patterns.                       | HTML/CSS/client-side JS tasks involving dialogs, popovers, forms, CSS, View Transitions, browser APIs, a11y, or Core Web Vitals.                                                    |
 | `diagram-design`     | Creates branded diagrams (39 types) as standalone HTML/SVG/PNG.                                                            | Architecture, flowchart, sequence, ER, timeline, Gantt, Wardley, Sankey diagrams, or redrawing .drawio/Mermaid sources; diagram figures, not interactive apps.                       |
 | `typst-doc`           | Generates consistently-styled PDF documents with Typst.                                                                     | Reports, specs, status updates, slide decks, diagrams, Gantt charts, CVs — composed/paginated documents needing real layout (ToC, page numbers, figures, math) that compile to PDF. |
@@ -84,7 +75,7 @@ These are intentionally outside active skill discovery in `~/.agents/skills-arch
 ## Naming Standards
 
 - Use lowercase hyphenated names: `output-style`, not `Output Style` or `output_style`.
-- Prefer domain/action names over clever names when the skill is broad: `software-design`, `craft-message`.
+- Prefer domain/action names over clever names when the skill is broad: `software-design`, `goal-setting`.
 - Keep short tool names when the tool itself is the activation keyword: `github`, `fallow`.
 - Avoid renames unless they materially improve activation. Renames break user muscle memory and may break references.
 - Do not encode clusters into folder names unless the agent platform supports nested skill discovery.
@@ -128,13 +119,11 @@ Precedence: explicit goals/success criteria → `goal-setting`; product/app stra
 
 | If the user asks…                                                               | Prefer           | Why                                                                                                                         |
 | ------------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| "Make this message land," "get stakeholder buy-in," "pre-align this proposal"   | `craft-message`  | The deliverable is content crafted for a specific audience.                                                                 |
-| "Help me write this email/Slack/text," "how should I phrase this to my manager" | `craft-message`  | Audience shaping + situational strategy are both part of crafting communication. See `references/situational-composing.md`. |
 | "Make this scannable," "simplify this," "cut the fluff"                         | `output-style`   | The issue is how the agent writes and formats its output.                                                                   |
 | "Stop over-formatting," "sound natural," "less corporate," "write like a human" | `output-style`   | The problem is formatting excess and robotic tone in agent output.                                                          |
 | "Argue for/against X," "defend this position," "make the case for X"            | `argue-position` | The task involves contested topics requiring balanced framing.                                                              |
 
-Precedence: audience-crafted content → `craft-message`; agent output formatting/tone → `output-style`; contested topic framing → `argue-position`.
+Precedence: agent output formatting/tone → `output-style`; contested topic framing → `argue-position`.
 
 ### Build / design / loop skills
 
@@ -142,13 +131,12 @@ Precedence: audience-crafted content → `craft-message`; agent output formattin
 | ------------------------------------------------------------------------------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | "Use TDD," "red-green-refactor," "write the failing test first"                                         | `tdd`                 | The work is implementing behavior through tests.                                                                             |
 | "Review this architecture," "find refactors," "design this module/API," "make this more testable"       | `software-design`     | The work is diagnosis and module/interface design.                                                                           |
-| "Harden this repo," "add CI/linters/hooks," "turn rules into checks," "reduce AI drift"                 | `repo-guardrails`     | The work is making repo feedback deterministic and enforceable.                                                              |
 | "Set up a recurring agent workflow," "design a loop," "scheduled triage," "automate this agent process" | `loop-engineering`    | The work is the control system around agents over time.                                                                      |
 | "Modern frontend," "popover/dialog/forms/CSS/browser API/a11y/performance"                              | `modern-web-guidance` | The work should use modern platform APIs and web-specific guidance.                                                          |
 | "Build an interactive playground/demo/HTML artifact"                                                    | `micro-app`           | The deliverable is a polished local-first artifact.                                                                          |
 | "Make a PDF/report/spec/Gantt/CV," "printable document," "needs a TOC or page numbers"                  | `typst-doc`           | The deliverable is a composed, paginated document compiled to PDF — cheaper than HTML when no runtime interaction is needed. |
 
-Precedence: explicit test-first implementation → `tdd`; deterministic repo guardrails → `repo-guardrails`; agent loop/control-system design → `loop-engineering`; architectural diagnosis/design → `software-design`; frontend platform task → `modern-web-guidance`; standalone diagram → `diagram-design`; composed/print document → `typst-doc`.
+Precedence: explicit test-first implementation → `tdd`; agent loop/control-system design → `loop-engineering`; architectural diagnosis/design → `software-design`; frontend platform task → `modern-web-guidance`; standalone diagram → `diagram-design`; composed/print document → `typst-doc`.
 
 ## Quality Pass Queue
 
@@ -160,20 +148,14 @@ Precedence: explicit test-first implementation → `tdd`; deterministic repo gua
 
 Run validation for one skill:
 
-```bash
-/Users/ebeyene/.agents/skills/skill-creator/scripts/validate-skill /Users/ebeyene/.agents/skills/<skill-name>
-```
-
-Run validation for all active skill directories:
+Skill validation now lives in pi-shelf:
 
 ```bash
-for d in /Users/ebeyene/.agents/skills/*; do
-  [ -d "$d" ] && [ -f "$d/SKILL.md" ] && /Users/ebeyene/.agents/skills/skill-creator/scripts/validate-skill "$d"
-done
+bun ~/Documents/projects/pi-shelf/tools/validate_skills.ts ~/Documents/projects/pi-shelf/skills/
 ```
 
 List valid active skill entry points:
 
 ```bash
-find /Users/ebeyene/.agents/skills -maxdepth 2 -name SKILL.md -print | sort
+find /home/estifanos/.agents/skills -maxdepth 2 -name SKILL.md -print | sort
 ```
