@@ -127,3 +127,43 @@ export function registerSkillBashGate(
 	});
 	return tracker;
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Gate taxonomy (this library is machine-side policy; pi-shelf keeps only its
+// own input suggester):
+//
+//   hard gate        block a matching bash command while a condition holds
+//   skill gate       block once + auto-queue a REQUIRED skill load (steer)
+//   suggest gate     never block; mention an OPTIONAL skill to the model once
+//                    per session — the model must not load it unless asked
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface SkillSuggestGateOptions extends SkillLoadTrackerOptions {
+	gateName?: string;
+	matches: (command: string) => boolean;
+	suggestion?: string;
+}
+
+/** Non-blocking: on the first matching command with the skill not loaded,
+ *  steer-mention it to the model. Never blocks, fires once per session. */
+export function registerSkillSuggestGate(
+	pi: ExtensionAPI,
+	options: SkillSuggestGateOptions,
+): SkillLoadTracker {
+	const tracker = createSkillLoadTracker(pi, options);
+	let fired = false;
+	registerBashGate(pi, {
+		name: options.gateName ?? `${options.name}-suggest`,
+		matches: options.matches,
+		check: () => {
+			if (fired || tracker.isLoaded()) return;
+			fired = true;
+			pi.sendUserMessage(
+				options.suggestion ??
+					`[skill-gate] the ${options.name} skill may help with this command. If it fits, offer it to the user in one short sentence; otherwise say nothing. Do not load it unless asked.`,
+				{ deliverAs: "steer" },
+			);
+		},
+	});
+	return tracker;
+}
