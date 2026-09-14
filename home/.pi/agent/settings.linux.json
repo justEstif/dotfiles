@@ -1,7 +1,7 @@
 {
   "theme": "omarchy-system",
   "lastChangelogVersion": "0.85.1",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
@@ -19,10 +19,13 @@
   "packages": [
     "npm:pi-hermes-memory",
     "npm:pi-mcp-adapter",
-    "https://github.com/ayghri/i-have-adhd"
+    "https://github.com/ayghri/i-have-adhd",
+    "git:github.com/justEstif/pi-shelf",
+    "npm:@ff-labs/pi-fff"
   ],
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
   "treeFilterMode": "no-tools",
-  "tuiMode": "fullscreen"
+  "tuiMode": "fullscreen",
+  "enableSkillCommands": true
 }
