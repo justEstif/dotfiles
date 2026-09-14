@@ -34,6 +34,7 @@ pi = "latest"
 docker-cli = "latest"                    # Docker client; daemon is Colima (macOS) or system Docker (Linux)
 hunk = "latest"
 "npm:@fission-ai/openspec" = "latest"
+"npm:knap" = "latest"
 
 [settings]
 experimental = true
