@@ -99,17 +99,11 @@ run = '''
 git -C "$HOME/.nb/nb-vault" config user.name "$(git config -f "$HOME/.gitconfig-personal" user.name)"
 git -C "$HOME/.nb/nb-vault" config user.email "$(git config -f "$HOME/.gitconfig-personal" user.email)"
 bun install --frozen-lockfile --cwd "$HOME/.nb/nb-vault"
-bun "$HOME/.nb/nb-vault/_system/validate-vault.ts"
+mise -C "$HOME/.nb/nb-vault" run validate
 agent_dir="$HOME/.config/pi-agents/vault"
 mkdir -p "$agent_dir"
 ln -sfn "$HOME/.nb/nb-vault/pi-agent/settings.json" "$agent_dir/settings.json"
 ln -sfn "$HOME/.nb/nb-vault/pi-agent/mcp.json" "$agent_dir/mcp.json"
-nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-move.nb-plugin" --force >/dev/null 2>&1 || true
-nb plugin install "$HOME/.nb/nb-vault/_plugins/work-log.nb-plugin" --force >/dev/null 2>&1 || true
-nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-bookmark.nb-plugin" --force >/dev/null 2>&1 || true
-nb plugin install "$HOME/.nb/nb-vault/_plugins/vault-todo.nb-plugin" --force >/dev/null 2>&1 || true
-nb plugin install "$HOME/.nb/nb-vault/_plugins/agent.nb-plugin" --force >/dev/null 2>&1 || true
-nb plugin install "$HOME/.nb/nb-vault/_plugins/gui.nb-plugin" --force >/dev/null 2>&1 || true
 git -C "$HOME/.nb/nb-vault" config hook.hk-pre-push.command 'test "${HK:-1}" = "0" || PATH="$HOME/.local/share/mise/shims:$PATH" hk run pre-push --from-hook'
 yes | nb notebooks delete home --force >/dev/null 2>&1 || true  # nb recreates an empty home on some mutating commands
 nb use nb-vault >/dev/null
