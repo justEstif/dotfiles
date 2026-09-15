@@ -18,7 +18,9 @@
   "packages": [
     "npm:pi-hermes-memory",
     "npm:pi-mcp-adapter@2.11.0",
-    "https://github.com/ayghri/i-have-adhd"
+    "https://github.com/ayghri/i-have-adhd",
+    "git:github.com/justEstif/pi-shelf",
+    "npm:@ff-labs/pi-fff"
   ],
   "theme": "one-dark",
   "prompts": ["~/Documents/spectrum/.pi/prompts"],
