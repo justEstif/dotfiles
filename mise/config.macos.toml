@@ -30,7 +30,6 @@ colima = "latest"       # lightweight Docker-compatible VM/daemon
 "brew:coreutils" = "latest" # GNU coreutils (Linux ships these natively)
 "brew:w3m" = "latest"       # TUI browser for `nb browse`
 "brew:grep" = "latest"      # GNU grep (Linux ships this natively)
-"brew:tldraw" = "latest"
 
 [bootstrap.user]
 login_shell = "/opt/homebrew/bin/fish"
