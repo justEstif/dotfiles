@@ -64,4 +64,5 @@ Rules appended when this skill is violated. One concise rule per violation; keep
 - Never run `git commit` before the verification command in the same chain has actually reported green; a failed check mid-chain silently ships a broken commit — verify, then commit.
 - Piping a gate command through `head`/`tail`/other filters masks the gate's exit code — `&&` then chains on the filter's status, not the gate's. Run gates bare (or check `${PIPESTATUS[0]}`) before committing on their result.
 - Check `git ls-files <path>` after the first commit touching a new directory; a global `~/.gitignore` rule (`**/*openspec*`) can exclude whole directories and produce empty "scaffold" commits.
+- In an nb notebook with auto-sync enabled, staging files can trigger an automatic `[nb] Initialize` commit; inspect HEAD immediately after staging and amend its subject before continuing.
 - The pre-commit hook failing after `git commit -q` still leaves a broken HEAD when the message was printed from a chained earlier command; always end the chain with `git log --oneline -1 && git status --short` so failure is visible before moving on.
