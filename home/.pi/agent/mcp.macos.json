@@ -24,11 +24,6 @@
         "Authorization": "${POSTMAN_MCP_TOKEN}"
       }
     },
-    "excalidraw": {
-      "type": "http",
-      "url": "https://mcp.excalidraw.com/mcp",
-      "auth": false
-    },
     "rootly": {
       "url": "https://mcp.rootly.com/mcp-codemode"
     },
