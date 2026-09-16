@@ -8,10 +8,6 @@
         "Z_AI_MODE": "ZAI"
       },
       "directTools": true
-    },
-    "excalidraw": {
-      "command": "npx",
-      "args": ["-y", "mcp-excalidraw-server"]
     }
   }
 }
