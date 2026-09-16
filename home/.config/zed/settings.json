@@ -9,20 +9,25 @@
 {
   "cli_default_open_behavior": "new_window",
   "prettier": {
-    "allowed": true
+    "allowed": true,
+  },
+  "title_bar": {
+    "show_sign_in": false,
+    "show_user_picture": false,
+    "show_user_menu": false,
   },
   "proxy": "",
   "terminal": {
-    "copy_on_select": true
+    "copy_on_select": true,
   },
   "project_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "outline_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "disable_ai": true,
   "show_edit_predictions": false,
@@ -33,80 +38,75 @@
   "code_actions_on_format": {
     "source.organizeImports": true,
     "source.fixAll.eslint": true,
-    "source.removeUnusedImports": true
+    "source.removeUnusedImports": true,
   },
   "languages": {
     "Markdown": {
-      "show_edit_predictions": false
-    },
-    "SQL": {
-      "formatter": {
-        "external": {
-          "command": "sql-formatter",
-          "arguments": ["--language", "spark"]
-        }
-      }
+      "show_edit_predictions": false,
+      "soft_wrap": "bounded",
+      "preferred_line_length": 80,
+      "wrap_guides": [80],
     },
     "JavaScript": {
       "format_on_save": "on",
       "formatter": {
         "external": {
           "command": "prettier",
-          "arguments": ["--stdin-filepath", "{buffer_path}"]
-        }
-      }
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
+        },
+      },
     },
     "TypeScript": {
       "format_on_save": "on",
       "formatter": {
         "external": {
           "command": "prettier",
-          "arguments": ["--stdin-filepath", "{buffer_path}"]
-        }
-      }
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
+        },
+      },
     },
     "TSX": {
       "format_on_save": "on",
       "formatter": {
         "external": {
           "command": "prettier",
-          "arguments": ["--stdin-filepath", "{buffer_path}"]
-        }
-      }
-    }
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
+        },
+      },
+    },
   },
   "indent_guides": {
-    "enabled": true
+    "enabled": true,
   },
   "minimap": {
-    "thumb": "hover"
+    "thumb": "hover",
   },
   "show_whitespaces": "none",
   "tab_size": 2,
   "git_panel": {
     "dock": "left",
-    "sort_by_path": false
+    "sort_by_path": false,
   },
   "git": {
     "inline_blame": {
-      "enabled": false
-    }
+      "enabled": false,
+    },
   },
   "toolbar": {
     "agent_review": false,
     "quick_actions": false,
-    "breadcrumbs": false
+    "breadcrumbs": false,
   },
   "scrollbar": {
     "axes": {
       "vertical": false,
-      "horizontal": false
+      "horizontal": false,
     },
     "git_diff": false,
-    "cursors": true
+    "cursors": true,
   },
   "gutter": {
-    "runnables": true
+    "runnables": true,
   },
   "buffer_line_height": "standard",
   "ui_font_family": "Aporetic Sans Mono",
