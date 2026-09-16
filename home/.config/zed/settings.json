@@ -7,6 +7,22 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "pi-acp": {
+      "type": "registry",
+    },
+  },
+  "agent": {
+    "sidebar_side": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "calls": {
+    "mute_on_join": true,
+  },
+  "edit_predictions": {
+    "mode": "subtle",
+  },
   "cli_default_open_behavior": "new_window",
   "prettier": {
     "allowed": true,
@@ -24,9 +40,11 @@
     "dock": "left",
   },
   "outline_panel": {
+    "button": true,
     "dock": "left",
   },
   "collaboration_panel": {
+    "button": false,
     "dock": "left",
   },
   "disable_ai": true,
@@ -85,7 +103,7 @@
   "tab_size": 2,
   "git_panel": {
     "dock": "left",
-    "sort_by_path": false,
+    "sort_by": "path",
   },
   "git": {
     "inline_blame": {
