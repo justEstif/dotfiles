@@ -6,17 +6,17 @@ _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [tools]
 newrelic-cli = "latest"
-awscli = "latest"                        # AWS CLI
-duckdb = "latest"                        # in-process analytical SQL
-colima = "latest"                        # lightweight Docker-compatible VM/daemon
+awscli = "latest"       # AWS CLI
+duckdb = "latest"       # in-process analytical SQL
+colima = "latest"       # lightweight Docker-compatible VM/daemon
 
 [dotfiles]
-"~/.gitconfig"                  = { source = "~/dotfiles/home/.gitconfig.macos" }
+"~/.gitconfig" = { source = "~/dotfiles/home/.gitconfig.macos" }
 "~/.config/ghostty/macos.conf" = {}
-"~/.config/herdr/config.toml"  = {}
-"~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
-"~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
-"~/.pi/agent/themes"           = {}
+"~/.config/herdr/config.toml" = {}
+"~/.pi/agent/settings.json" = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
+"~/.pi/agent/mcp.json" = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
+"~/.pi/agent/themes" = {}
 
 # macOS-only packages installed via Homebrew during `mise bootstrap`.
 # mise pours these into /opt/homebrew and coexists with a real brew install.
@@ -24,12 +24,13 @@ colima = "latest"                        # lightweight Docker-compatible VM/daem
 # that Linux already ships or that behave best as brew formulae.
 [bootstrap.packages]
 "brew:fish" = "latest"      # login shell (activated by bootstrap.mise_shell_activate)
-"brew:btop"      = "latest"   # resource monitor (aqua backend is Linux-only)
-"brew:podman"    = "latest"   # container engine
-"brew:ollama"    = "latest"   # local LLM runner
-"brew:coreutils" = "latest"   # GNU coreutils (Linux ships these natively)
-"brew:w3m"       = "latest"   # TUI browser for `nb browse`
-"brew:grep"      = "latest"   # GNU grep (Linux ships this natively)
+"brew:btop" = "latest"      # resource monitor (aqua backend is Linux-only)
+"brew:podman" = "latest"    # container engine
+"brew:ollama" = "latest"    # local LLM runner
+"brew:coreutils" = "latest" # GNU coreutils (Linux ships these natively)
+"brew:w3m" = "latest"       # TUI browser for `nb browse`
+"brew:grep" = "latest"      # GNU grep (Linux ships this natively)
+"brew:tldraw" = "latest"
 
 [bootstrap.user]
 login_shell = "/opt/homebrew/bin/fish"
