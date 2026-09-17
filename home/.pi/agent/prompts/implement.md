@@ -1,12 +1,12 @@
 ---
-description: Full implementation workflow - scout gathers context, planner creates plan, worker implements
+description: Scout, plan, implement, and independently verify a bounded task
+argument-hint: "<task>"
 ---
-Use the subagent tool with the chain parameter to execute this workflow:
+Use the subagent tool with the chain parameter for this workflow:
 
-1. First, use the "scout" agent to find all code relevant to: $@
-2. Then, use the "planner" agent to create an implementation plan for "$@" using the context from the previous step (use {previous} placeholder)
-3. Finally, use the "worker" agent to implement the plan from the previous step (use {previous} placeholder)
+1. `scout`: find the code, conventions, tests, and constraints relevant to `$@`.
+2. `planner`: produce a bounded implementation plan for `$@` using `{previous}`.
+3. `worker`: implement and test the plan from `{previous}`.
+4. `verifier`: independently prove the implementation from `{previous}` works and matches `$@`.
 
-Execute this as a chain, passing output between steps via {previous}.
-
-Done means: the implementation passes the repo's lint/tests and the worker reports what it ran to verify. Keep going until that's true — don't stop after a first pass.
+Pass each result with `{previous}`. Return the verifier's evidence and verdict. If the verdict is **Not ready**, report the blocker instead of claiming completion.
