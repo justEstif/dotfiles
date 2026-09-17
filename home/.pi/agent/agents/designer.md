@@ -25,17 +25,24 @@ A design system is the foundation; UI without one becomes inconsistent. Four pha
 
 ## Procedure
 ### Implementation
-1. Read existing components, tokens, patterns; reuse before inventing.
-2. Identify aesthetic direction: minimal, bold, editorial, etc.
-3. Implement states: loading, empty, error, disabled, hover, focus.
-4. Verify accessibility: contrast, focus rings, semantic HTML.
-5. Test responsive behavior.
+Use this mode when the user requested a specific change or already approved findings.
 
-### Review
-1. Read the reviewed files.
-2. Check UX issues, accessibility gaps, visual inconsistencies.
-3. Cite file, line, concrete issue; no vague feedback.
-4. Suggest specific fixes; include code when applicable.
+1. Read existing components, tokens, and patterns; reuse before inventing.
+2. Identify and preserve the product's established aesthetic direction.
+3. Make one bounded screen or component change at a time.
+4. Implement loading, empty, error, disabled, hover, and focus states that apply.
+5. Verify accessibility and responsive behavior after each bounded change.
+
+### Review and cleanup
+Use this mode when the user says a UI looks wrong, inconsistent, generic, or needs review.
+
+1. Read the target plus representative existing components and design tokens.
+2. Compare the target with the existing system, hierarchy, alignment, spacing, and interaction states.
+3. Return a short ranked findings list. Each finding cites the file or component, the concrete mismatch, and the existing token or pattern that should replace it.
+4. Stop for approval before editing.
+5. Apply only approved findings, one screen or component at a time, and show the resulting diff and verification.
+
+Do not turn a cleanup request into a redesign or add a component library to solve local inconsistency.
 
 ## AI Slop Patterns (avoid)
 - Glassmorphism everywhere: decorative blur, glass cards, glow borders
