@@ -111,3 +111,6 @@ nb use nb-vault >/dev/null
 
 [bootstrap.mise_shell_activate]
 fish = "activate"
+
+[bootstrap.services.mise-history]
+builtin = "history-watch"
