@@ -59,6 +59,7 @@ Rules appended when this skill is violated. One concise rule per violation; keep
 
 - Never set a feature branch upstream to `origin/main`; push first with explicit `HEAD:refs/heads/<feature>` and verify the destination before proceeding.
 - Before any `wtm` invocation, read `references/wtm.md` and run from the bare repository root.
+- For `wtm create --from`, use the updated local base branch (for example `main`), not `origin/main`; wtm interprets the latter as a remote branch name and rejects it.
 - Never disable hooks to bypass a miscounting PR-size gate; refresh the clean local base ref or pause before recommitting normally.
 - Before `git add` on a branch cut from a main checkout kept dirty with files from another PR, run `git status` and stage only that branch's files by explicit path; bundled unrelated files silently move work between PRs (#30/#31).
 - Never run `git commit` before the verification command in the same chain has actually reported green; a failed check mid-chain silently ships a broken commit — verify, then commit.
