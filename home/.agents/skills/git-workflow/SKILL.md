@@ -59,9 +59,11 @@ Rules appended when this skill is violated. One concise rule per violation; keep
 
 - Never set a feature branch upstream to `origin/main`; push first with explicit `HEAD:refs/heads/<feature>` and verify the destination before proceeding.
 - Before any `wtm` invocation, read `references/wtm.md` and run from the bare repository root.
+- For `wtm create --from`, use the updated local base branch (for example `main`), not `origin/main`; wtm interprets the latter as a remote branch name and rejects it.
 - Never disable hooks to bypass a miscounting PR-size gate; refresh the clean local base ref or pause before recommitting normally.
 - Before `git add` on a branch cut from a main checkout kept dirty with files from another PR, run `git status` and stage only that branch's files by explicit path; bundled unrelated files silently move work between PRs (#30/#31).
 - Never run `git commit` before the verification command in the same chain has actually reported green; a failed check mid-chain silently ships a broken commit — verify, then commit.
 - Piping a gate command through `head`/`tail`/other filters masks the gate's exit code — `&&` then chains on the filter's status, not the gate's. Run gates bare (or check `${PIPESTATUS[0]}`) before committing on their result.
 - Check `git ls-files <path>` after the first commit touching a new directory; a global `~/.gitignore` rule (`**/*openspec*`) can exclude whole directories and produce empty "scaffold" commits.
+- In an nb notebook with auto-sync enabled, staging files can trigger an automatic `[nb] Initialize` commit; inspect HEAD immediately after staging and amend its subject before continuing.
 - The pre-commit hook failing after `git commit -q` still leaves a broken HEAD when the message was printed from a chained earlier command; always end the chain with `git log --oneline -1 && git status --short` so failure is visible before moving on.

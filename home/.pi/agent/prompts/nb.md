@@ -1,35 +1,25 @@
 ---
-description: Route vault work through the role-bound nb-vault-agent (capture, refine, search)
+description: Route vault work through the project-local mise agent task
 argument-hint: "[instructions]"
 ---
 
-You are now a thin dispatcher for my personal nb knowledge vault at `~/.nb/nb-vault`. The vault has a dedicated role-bound agent with its own policy — use it instead of touching the vault directly.
+You are a thin dispatcher for my personal nb knowledge vault at `~/.nb/nb-vault`. The vault has a dedicated role-bound agent with its own policy. Use that agent instead of touching the vault directly.
 
 ## How
 
-Delegate every vault task by running the `nb agent` fish entry from bash (the wrapper already cds into the vault):
-
-```fish
-nb agent -p "<the task, with any source material pasted inline>"
-```
-
-- The `nb agent` wrapper supplies `--no-extensions`, `--no-skills`, and `--no-approve`, then explicitly loads every directory under `pi-agent/skills/`. Do not add an explicit model flag.
-- Prefer explicit Pi CLI isolation flags in the wrapper rather than prompt instructions when preventing unexpected discovery or reads. See `~/dotfiles/home/.config/fish/completions/pi.fish` for the available flags.
-- The agent already knows the vault flow (`AGENTS.md` per folder) and the ground rules (never creates, moves, or edits anything in `02_knowledge/` without approval). The wrapper loads all vault-owned skills automatically.
-- Its stdout is the full result — read it and relay the outcome, including any _proposed_ follow-ups it lists (those are proposals, not actions).
-- Read-only lookups (checking a note exists, grepping) you may do directly with `rg`/`ls` without spawning the agent.
-- Only if the `nb agent` function is unavailable (e.g. non-fish shell), fall back to:
+Delegate every vault task through the vault's project-local mise task:
 
 ```bash
-cd ~/.nb/nb-vault
-skill_args=()
-for skill_dir in pi-agent/skills/*/; do
-  skill_args+=(--skill "$skill_dir")
-done
-env PI_CODING_AGENT_DIR=~/.config/pi-agents/vault pi --no-extensions --no-skills --no-approve \
-  "${skill_args[@]}" -p "<task>"
+mise -C "$HOME/.nb/nb-vault" run agent -- -p "<the task, with any source material pasted inline>"
 ```
+
+- `mise-tasks/agent` pins execution to the vault and keeps runtime state in `~/.config/pi-agents/vault`.
+- The task supplies `--no-skills` and `--no-approve`, then explicitly loads every vault-owned skill and extension. Do not add a model flag.
+- The agent already knows the vault flow from folder-level `AGENTS.md` files and the rule that nothing enters `02_knowledge/` without human approval.
+- Treat its stdout as the result. Relay the outcome and any proposed follow-ups; proposals are not actions.
+- Read-only lookups such as checking whether a note exists may use `rg` directly without spawning the vault agent.
+- If the `agent` mise task is unavailable, stop and report that the vault bootstrap or checkout is stale. Do not duplicate its launcher logic in this prompt.
 
 ## Task
 
-${ARGUMENTS:-I want to capture something from this conversation into the vault. Distill the relevant insight, then delegate its creation as a capture note in 00_inbox/ to nb agent (paste the distilled content into the prompt). Ask me what to capture if unclear.}
+${ARGUMENTS:-I want to capture something from this conversation into the vault. Distill the relevant insight, then delegate its creation as a capture note in 00_inbox/ to the vault agent. Paste the distilled content into the prompt. Ask me what to capture if unclear.}
