@@ -15,6 +15,7 @@ Use the subagent tool to route `${@:-the user's next task}` to exactly one focus
 - `verifier` — prove finished work functions and matches scope
 - `documenter` — create or refresh project documentation
 - `lesson-capturer` — retain one durable lesson
+- `teacher` — teach or verify learning of a topic via chunking and active recall
 - `publisher` — commit and push the current task only
 
 If no task was supplied, show this menu and stop. If one task clearly matches, state the selected agent in one sentence and dispatch it. If genuinely ambiguous, ask one clarifying question; default to `clarifier` if ambiguity remains.
