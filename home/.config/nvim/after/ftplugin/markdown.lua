@@ -42,4 +42,3 @@ end
 if vim.fn.exists(":Glow") == 0 then
 	vim.api.nvim_create_user_command("Glow", glow_split, {})
 end
-vim.keymap.set("n", "<Leader>mg", glow_split, { buffer = true, desc = "Toggle glow split reader" })
