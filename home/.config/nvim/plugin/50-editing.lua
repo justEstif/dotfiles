@@ -145,7 +145,7 @@ now(function()
 		pattern = "term://*",
 		callback = function(event)
 			vim.schedule(function()
-				if vim.api.nvim_get_current_buf() == event.buf then
+				if vim.api.nvim_get_current_buf() == event.buf and not vim.b[event.buf].terminal_normal_mode then
 					vim.cmd("startinsert")
 				end
 			end)
