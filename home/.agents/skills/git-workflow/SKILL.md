@@ -67,3 +67,4 @@ Rules appended when this skill is violated. One concise rule per violation; keep
 - Check `git ls-files <path>` after the first commit touching a new directory; a global `~/.gitignore` rule (`**/*openspec*`) can exclude whole directories and produce empty "scaffold" commits.
 - In an nb notebook with auto-sync enabled, staging files can trigger an automatic `[nb] Initialize` commit; inspect HEAD immediately after staging and amend its subject before continuing.
 - The pre-commit hook failing after `git commit -q` still leaves a broken HEAD when the message was printed from a chained earlier command; always end the chain with `git log --oneline -1 && git status --short` so failure is visible before moving on.
+- The Bash tool does not support a `workdir` parameter; always prefix worktree commands with an explicit `cd /path/to/worktree &&` so edits cannot land in the main checkout.
