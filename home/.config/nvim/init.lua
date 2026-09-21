@@ -1,10 +1,6 @@
 -- Plugin manager: vim.pack (built into Neovim 0.12+). Clones on first run;
 -- state is pinned in nvim-pack-lock.json. Update with :lua vim.pack.update().
-vim.pack.add({
-	"https://github.com/nvim-mini/mini.nvim",
-	"https://github.com/nvim-tree/nvim-tree.lua",
-	"https://github.com/nvim-tree/nvim-web-devicons",
-})
+vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
 
 -- Shared state + helpers. init.lua runs first, so these are ready for every
 -- plugin/ file.
@@ -19,4 +15,3 @@ end
 _G.Config.later = function(f)
 	safely("later", f)
 end
-
