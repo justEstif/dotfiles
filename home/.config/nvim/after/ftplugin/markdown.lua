@@ -43,20 +43,3 @@ if vim.fn.exists(":Glow") == 0 then
 	vim.api.nvim_create_user_command("Glow", glow_split, {})
 end
 vim.keymap.set("n", "<Leader>mg", glow_split, { buffer = true, desc = "Toggle glow split reader" })
-
--- :Daily [today|tomorrow|yesterday|next monday|prev|next|+7|-3] — opens or
--- creates the daily note via the language server's jump command.
-Config.later(function()
-	local group = vim.api.nvim_create_augroup("markdown_oxide_daily", { clear = true })
-	vim.api.nvim_create_autocmd("LspAttach", {
-		group = group,
-		callback = function(args)
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			if client and client.name == "markdown_oxide" and vim.fn.exists(":Daily") == 0 then
-				vim.api.nvim_create_user_command("Daily", function(opts)
-					vim.lsp.buf.execute_command({ command = "jump", arguments = { opts.args } })
-				end, { desc = "Open daily note (natural language)", nargs = "*" })
-			end
-		end,
-	})
-end)
