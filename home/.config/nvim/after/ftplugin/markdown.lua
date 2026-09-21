@@ -30,11 +30,13 @@ local function glow_split()
 	vim.cmd.wincmd("l")
 	local glow_win = vim.api.nvim_get_current_win()
 	local width = math.floor(vim.api.nvim_win_get_width(glow_win) * 0.9)
-	local file = vim.fn.shellescape(vim.api.nvim_buf_get_name(markdown_buf))
+	local file_path = vim.api.nvim_buf_get_name(markdown_buf)
+	local file = vim.fn.shellescape(file_path)
 	vim.g.__glow_buf = vim.api.nvim_create_buf(false, true)
 	local glow_buf = vim.g.__glow_buf
 	vim.api.nvim_set_current_buf(glow_buf)
 	vim.cmd("terminal " .. glow .. " -w " .. width .. " " .. file)
+	vim.api.nvim_buf_set_name(glow_buf, "glow://" .. vim.fn.fnamemodify(file_path, ":t"))
 	vim.bo[glow_buf].filetype = "glow"
 
 	local sync_group = vim.api.nvim_create_augroup("MarkdownGlowSync", { clear = true })
