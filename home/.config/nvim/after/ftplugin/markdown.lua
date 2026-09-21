@@ -11,8 +11,7 @@ vim.opt_local.formatoptions:remove({ "r", "o" }) -- don't auto-continue list mar
 
 -- Vertical split running glow on the current file. Editor left, rendered
 -- reader right; cursor always native in nvim. Rerun to close/reopen.
-local glow = vim.fn.exepath("glow") ~= "" and vim.fn.exepath("glow")
-	or vim.fn.expand("~/.local/share/mise/installs/glow/latest/glow_3.0.0_Linux_x86_64/glow")
+local glow = vim.fn.exepath("glow")
 
 local function glow_split()
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
