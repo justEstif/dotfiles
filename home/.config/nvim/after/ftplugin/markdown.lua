@@ -35,7 +35,9 @@ local function glow_split()
 	vim.g.__glow_buf = vim.api.nvim_create_buf(false, true)
 	local glow_buf = vim.g.__glow_buf
 	vim.api.nvim_set_current_buf(glow_buf)
-	vim.cmd("terminal " .. glow .. " -w " .. width .. " " .. file)
+	vim.cmd("terminal GLOW_TUI=false " .. glow .. " -w " .. width .. " " .. file)
+	vim.b[glow_buf].terminal_normal_mode = true
+	vim.cmd.stopinsert()
 	vim.api.nvim_buf_set_name(glow_buf, "glow://" .. vim.fn.fnamemodify(file_path, ":t"))
 	vim.bo[glow_buf].filetype = "glow"
 
