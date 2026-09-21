@@ -3,6 +3,10 @@ abbr -a lz lazygit
 abbr -a l ls -1hA # ls column view, hidden files
 abbr -a killnode "killall -9 node" # kill all node apps
 
+function add_date
+    date '+%Y-%m-%d'
+end
+
 set -l os (uname)
 
 if test "$os" = Linux
