@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "0.85.1",
-  "hideThinkingBlock": true,
+  "lastChangelogVersion": "0.86.1",
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
@@ -23,7 +23,9 @@
     "npm:@ff-labs/pi-fff"
   ],
   "theme": "one-dark",
-  "prompts": ["~/Documents/spectrum/.pi/prompts"],
+  "prompts": [
+    "~/Documents/spectrum/.pi/prompts"
+  ],
   "terminal": {
     "showTerminalProgress": true
   },
