@@ -34,6 +34,9 @@ pi = "latest"
 docker-cli = "latest"                    # Docker client; daemon is Colima (macOS) or system Docker (Linux)
 hunk = "latest"
 
+[env]
+ZK_NOTEBOOK_DIR = "{{env.HOME}}/Documents/zk-vault"
+
 [settings]
 experimental = true
 idiomatic_version_file_enable_tools = ["node"]

@@ -18,6 +18,7 @@ _G.Config.leader_group_clues = {
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
 	{ mode = "n", keys = "<Leader>p", desc = "+Packages" },
+	{ mode = "n", keys = "<Leader>z", desc = "+Zk" },
 }
 
 -- Create `<Leader>` mappings
@@ -59,6 +60,26 @@ nmap_leader("fv", "<Cmd>Pick visit_paths<CR>", "Frecency")
 
 -- p is for 'packages'
 nmap_leader("pu", "<Cmd>packupdate<CR>", "Update plugins (vim.pack)")
+
+-- z is for 'zk'
+nmap_leader("zl", "<Cmd>ZkNotes<CR>", "List notes")
+nmap_leader("zs", function()
+	vim.ui.input({ prompt = "Search notes: " }, function(query)
+		if query and query ~= "" then
+			require("zk.commands").get("ZkMatch")({ match = { query } })
+		end
+	end)
+end, "Search notes")
+nmap_leader("zc", function()
+	vim.ui.input({ prompt = "Note title: " }, function(title)
+		if title and title ~= "" then
+			require("zk.commands").get("ZkNew")({ dir = "00_inbox", group = "inbox", title = title })
+		end
+	end)
+end, "Create note")
+nmap_leader("zd", function()
+	require("zk.commands").get("ZkNew")({ dir = "daily", group = "daily", date = "today" })
+end, "Daily note")
 
 -- 0.13: structural Treesitter selection. In Visual mode, expand/adjust the
 -- selection to syntax-tree nodes; repeat to grow to sibling nodes.
