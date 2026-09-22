@@ -55,6 +55,10 @@
     "zen-mode.nvim": {
       "rev": "8564ce6d29ec7554eb9df578efa882d33b3c23a7",
       "src": "https://github.com/folke/zen-mode.nvim"
+    },
+    "zk-nvim": {
+      "rev": "4c68bb86ec8eb7792add310288beaddcb85cd492",
+      "src": "https://github.com/zk-org/zk-nvim"
     }
   }
 }
