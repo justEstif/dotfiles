@@ -35,7 +35,6 @@ local langs = {
 		"svelte",
 		"tailwindcss",
 		"gopls",
-		"markdown_oxide",
 	},
 
 	ensure_installed = {
@@ -48,7 +47,6 @@ local langs = {
 		"templ",
 		"stylua",
 		"eslint",
-		"markdown_oxide",
 	},
 }
 
@@ -68,6 +66,21 @@ later(function()
 end)
 
 vim.lsp.enable(langs.lsp)
+
+later(function()
+	add({ "https://github.com/zk-org/zk-nvim" })
+	require("zk").setup({
+		picker = "minipick",
+		lsp = {
+			config = {
+				name = "zk",
+				cmd = { "zk", "lsp" },
+				filetypes = { "markdown" },
+			},
+			auto_attach = { enabled = true },
+		},
+	})
+end)
 
 later(function()
 	add({ "https://github.com/stevearc/conform.nvim" })
