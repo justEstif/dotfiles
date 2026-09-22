@@ -66,7 +66,7 @@ nmap_leader("zl", "<Cmd>ZkNotes<CR>", "List notes")
 nmap_leader("zs", function()
 	vim.ui.input({ prompt = "Search notes: " }, function(query)
 		if query and query ~= "" then
-			require("zk.commands").get("ZkMatch")({ match = { query } })
+			require("zk.commands").get("ZkNotes")({ sort = { "modified" }, match = { query } })
 		end
 	end)
 end, "Search notes")
