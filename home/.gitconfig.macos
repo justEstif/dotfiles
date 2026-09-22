@@ -10,3 +10,5 @@
 
 [url "git@github-justEstif:justEstif"]
   insteadOf = git@github.com:justEstif
+[includeIf "gitdir:~/Documents/zk-vault/"]
+	path = /Users/ebeyene/.gitconfig-personal
