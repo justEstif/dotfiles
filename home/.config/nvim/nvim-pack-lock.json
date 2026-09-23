@@ -32,6 +32,10 @@
       "rev": "ef009ae60769935a4eced9b3d545ae6013d3d271",
       "src": "https://github.com/olimorris/onedarkpro.nvim"
     },
+    "orgmode": {
+      "rev": "d9cd82d732cf4322100cf2c4c57b285c870bd893",
+      "src": "https://github.com/nvim-orgmode/orgmode"
+    },
     "quicker.nvim": {
       "rev": "4a6883cb13fe097a20a046eb55f6dffd239276e3",
       "src": "https://github.com/stevearc/quicker.nvim"

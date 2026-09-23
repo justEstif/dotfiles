@@ -62,6 +62,16 @@ nmap_leader("fv", "<Cmd>Pick visit_paths<CR>", "Frecency")
 nmap_leader("pu", "<Cmd>packupdate<CR>", "Update plugins (vim.pack)")
 
 -- z is for 'zk'
+nmap_leader("za", "<Cmd>Org agenda<CR>", "Org agenda")
+nmap_leader("zt", function()
+	local notebook_dir = vim.env.ZK_NOTEBOOK_DIR
+	if not notebook_dir or notebook_dir == "" then
+		vim.notify("ZK_NOTEBOOK_DIR is not set; cannot open tasks.org", vim.log.levels.ERROR)
+		return
+	end
+
+	vim.cmd.edit(vim.fn.fnameescape(notebook_dir .. "/tasks.org"))
+end, "Tasks")
 nmap_leader("zl", "<Cmd>ZkNotes<CR>", "List notes")
 nmap_leader("zs", function()
 	vim.ui.input({ prompt = "Search notes: " }, function(query)
