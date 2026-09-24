@@ -9,10 +9,10 @@ glow = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "npm:agent-browser" = 'latest'           # browser, but cli
 "npm:defuddle" = "latest"                # clean markdown + metadata extraction for bookmarks
-"github:xwmx/nb" = "latest"              # portable Git-backed notes and bookmarks
-"github:jgm/pandoc" = "latest"            # universal document converter
-typst = "0.14.2"                         # fancy markdown
-neovim = "nightly"                        # editor ($EDITOR)
+zk = "latest"
+"github:jgm/pandoc" = "latest"           # universal document converter
+typst = "0.15.1"                         # fancy markdown
+neovim = "nightly"                       # editor ($EDITOR)
 fzf = "latest"                           # multi-select picker for interactive wtm cleanup
 delta = "latest"                         # git syntax-highlighting pager
 act = "latest"                           # run GitHub Actions locally
@@ -45,6 +45,9 @@ dotfiles.default_mode = "symlink"
 
 [settings.upgrade]
 auto_prune = false
+
+[settings.github]
+credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 
 # --- mise self-management (explicit sources; these live outside home/) ---
 [dotfiles]
