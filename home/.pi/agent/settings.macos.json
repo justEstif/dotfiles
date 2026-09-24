@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "0.86.1",
-  "hideThinkingBlock": false,
+  "lastChangelogVersion": "0.87.0",
+  "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
