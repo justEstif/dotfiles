@@ -23,13 +23,14 @@ colima = "latest"       # lightweight Docker-compatible VM/daemon
 # Kept here (not in [tools]) because they are container/daemon or GNU tools
 # that Linux already ships or that behave best as brew formulae.
 [bootstrap.packages]
-"brew:fish" = "latest"      # login shell (activated by bootstrap.mise_shell_activate)
-"brew:btop" = "latest"      # resource monitor (aqua backend is Linux-only)
-"brew:podman" = "latest"    # container engine
-"brew:ollama" = "latest"    # local LLM runner
-"brew:coreutils" = "latest" # GNU coreutils (Linux ships these natively)
-"brew:w3m" = "latest"       # TUI browser for `nb browse`
-"brew:grep" = "latest"      # GNU grep (Linux ships this natively)
+"brew:fish" = "latest"        # login shell (activated by bootstrap.mise_shell_activate)
+"brew:btop" = "latest"        # resource monitor (aqua backend is Linux-only)
+"brew:podman" = "latest"      # container engine
+"brew:ollama" = "latest"      # local LLM runner
+"brew:coreutils" = "latest"   # GNU coreutils (Linux ships these natively)
+"brew:w3m" = "latest"         # TUI browser for `nb browse`
+"brew:grep" = "latest"        # GNU grep (Linux ships this natively)
+"brew-cask:okular" = "latest" # pdf
 
 [bootstrap.user]
 login_shell = "/opt/homebrew/bin/fish"
