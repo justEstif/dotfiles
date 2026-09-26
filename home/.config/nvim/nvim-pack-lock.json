@@ -36,10 +36,6 @@
       "rev": "228aabdb1b9cc74f0c0ccec88e79873857236e49",
       "src": "https://github.com/tiagovla/scope.nvim"
     },
-    "todotxt.nvim": {
-      "rev": "1344867f9c03bb8eb36f0316d03a9ac3951dec78",
-      "src": "https://github.com/phrmendes/todotxt.nvim"
-    },
     "ts-comments.nvim": {
       "rev": "a59d6092213447450191122c9346f309161504cb",
       "src": "https://github.com/folke/ts-comments.nvim"
