@@ -15,7 +15,7 @@ colima = "latest"       # lightweight Docker-compatible VM/daemon
 "~/.config/ghostty/macos.conf" = {}
 "~/.config/herdr/config.toml" = {}
 "~/.pi/agent/settings.json" = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
-"~/.pi/agent/mcp.json" = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
+"~/.pi/agent/mcp-adapter.json" = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
 "~/.pi/agent/themes" = {}
 
 # macOS-only packages installed via Homebrew during `mise bootstrap`.
