@@ -65,11 +65,11 @@ nmap_leader("pu", "<Cmd>packupdate<CR>", "Update plugins (vim.pack)")
 nmap_leader("zt", function()
 	local notebook_dir = vim.env.ZK_NOTEBOOK_DIR
 	if not notebook_dir or notebook_dir == "" then
-		vim.notify("ZK_NOTEBOOK_DIR is not set; cannot open todo.txt", vim.log.levels.ERROR)
+		vim.notify("ZK_NOTEBOOK_DIR is not set; cannot open todo.md", vim.log.levels.ERROR)
 		return
 	end
 
-	vim.cmd.edit(vim.fn.fnameescape(notebook_dir .. "/todo.txt"))
+	vim.cmd.edit(vim.fn.fnameescape(notebook_dir .. "/todo.md"))
 end, "Tasks")
 nmap_leader("zl", "<Cmd>ZkNotes<CR>", "List notes")
 nmap_leader("zs", function()
