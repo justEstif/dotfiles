@@ -71,14 +71,14 @@ nmap_leader("zt", function()
 
 	vim.cmd.edit(vim.fn.fnameescape(notebook_dir .. "/todo.md"))
 end, "Tasks")
-nmap_leader("zl", "<Cmd>ZkNotes<CR>", "List notes")
-nmap_leader("zs", function()
-	vim.ui.input({ prompt = "Search notes: " }, function(query)
-		if query and query ~= "" then
-			require("zk.commands").get("ZkNotes")({ sort = { "modified" }, match = { query } })
-		end
-	end)
-end, "Search notes")
+nmap_leader("zl", function()
+	local notebook_dir = vim.env.ZK_NOTEBOOK_DIR
+	if not notebook_dir or notebook_dir == "" then
+		vim.notify("ZK_NOTEBOOK_DIR is not set; cannot list notes", vim.log.levels.ERROR)
+		return
+	end
+	require("mini.pick").builtin.files({}, { source = { cwd = notebook_dir } })
+end, "List notes")
 nmap_leader("zc", function()
 	vim.ui.input({ prompt = "Note title: " }, function(title)
 		if title and title ~= "" then
