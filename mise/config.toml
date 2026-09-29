@@ -33,6 +33,7 @@ docker-cli = "latest"                    # Docker client; daemon is Colima (macO
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/Documents/zk-vault"
+TODO_FILE ="{{env.HOME}}/Documents/zk-vault/todo.md"
 
 [settings]
 experimental = true

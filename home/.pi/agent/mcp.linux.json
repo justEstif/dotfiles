@@ -7,7 +7,7 @@
         "Z_AI_API_KEY": "${ZAI_API_KEY}",
         "Z_AI_MODE": "ZAI"
       },
-      "directTools": true
+      "exposure": "direct"
     }
   }
 }

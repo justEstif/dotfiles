@@ -1,5 +1,5 @@
 {
-  "theme": "omarchy-system",
+  "theme": "system",
   "lastChangelogVersion": "0.87.1",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "off",
@@ -16,9 +16,9 @@
   "terminal": {
     "showImages": false
   },
+  "defaultTools": ["+codemode"],
   "packages": [
     "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter",
     "https://github.com/ayghri/i-have-adhd",
     "git:github.com/justEstif/pi-shelf",
     "npm:@ff-labs/pi-fff"

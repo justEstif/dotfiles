@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "0.87.1",
-  "hideThinkingBlock": true,
+  "lastChangelogVersion": "0.99.1",
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
@@ -17,12 +17,12 @@
   },
   "packages": [
     "npm:pi-hermes-memory",
-    "npm:pi-mcp-adapter@2.11.0",
     "https://github.com/ayghri/i-have-adhd",
     "git:github.com/justEstif/pi-shelf",
     "npm:@ff-labs/pi-fff"
   ],
-  "theme": "one-dark",
+  "theme": "system",
+  "defaultTools": ["+codemode"],
   "prompts": [
     "~/Documents/spectrum/.pi/prompts"
   ],
