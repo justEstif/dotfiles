@@ -17,6 +17,7 @@ colima = "latest"       # lightweight Docker-compatible VM/daemon
 "~/.pi/agent/settings.json" = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
 "~/.pi/agent/mcp.json" = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
 "~/.pi/agent/themes" = {}
+"~/Library/Fonts/ComicCodeLigatures-Regular.otf" = { source = "~/dotfiles/home/.local/share/fonts/ComicCodeLigatures-Regular.otf" }
 
 # macOS-only packages installed via Homebrew during `mise bootstrap`.
 # mise pours these into /opt/homebrew and coexists with a real brew install.
