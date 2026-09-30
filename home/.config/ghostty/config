@@ -8,7 +8,7 @@ config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 
 # ---- Font -------------------------------------------------------------------
 
-font-family = "Aporetic Sans Mono"
+font-family = "Comic Code Ligatures"
 font-style = Regular
 
 # ---- Shell ------------------------------------------------------------------
