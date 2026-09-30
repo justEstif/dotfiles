@@ -21,7 +21,7 @@
     "git:github.com/justEstif/pi-shelf",
     "npm:@ff-labs/pi-fff"
   ],
-  "theme": "system",
+  "theme": "one-dark",
   "defaultTools": ["+codemode"],
   "prompts": [
     "~/Documents/spectrum/.pi/prompts"
