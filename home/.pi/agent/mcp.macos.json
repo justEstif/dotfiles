@@ -28,6 +28,14 @@
     "newrelic": {
       "type": "http",
       "url": "https://mcp.newrelic.com/mcp/"
+    },
+    "databricks-sql": {
+      "type": "http",
+      "url": "https://redventures-rv-spectrum-databricks-production-production-rt00zg.cloud.databricks.com/api/2.0/mcp/sql",
+      "headers": {
+        "Authorization": "!databricks auth token spectrum-production | jq -r '\"Bearer \" + .access_token'"
+      },
+      "description": "Run governed SQL queries against the Red Ventures Databricks workspace"
     }
   }
 }
