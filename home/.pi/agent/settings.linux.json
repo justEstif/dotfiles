@@ -1,6 +1,6 @@
 {
   "theme": "one-dark",
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "1.0.0",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
@@ -16,7 +16,9 @@
   "terminal": {
     "showImages": false
   },
-  "defaultTools": ["+codemode"],
+  "defaultTools": [
+    "+codemode"
+  ],
   "packages": [
     "npm:pi-hermes-memory",
     "https://github.com/ayghri/i-have-adhd",
