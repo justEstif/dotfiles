@@ -32,6 +32,7 @@ node = "26.10.0"                                   # newer than the shared 22.12
 "~/.config/omarchy/shell.json" = {}
 "~/.config/ghostty/linux.conf" = {}
 "~/.pi/agent/settings.json"    = { source = "~/dotfiles/home/.pi/agent/settings.linux.json" }
+"~/.pi/agent/themes"           = {}
 "~/.pi/agent/mcp.json"         = { source = "~/dotfiles/home/.pi/agent/mcp.linux.json" }
 
 # Omarchy (Arch Linux) system packages installed during `mise bootstrap`.
