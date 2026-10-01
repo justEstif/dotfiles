@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "0.99.1",
-  "hideThinkingBlock": false,
+  "lastChangelogVersion": "1.0.0",
+  "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
@@ -22,7 +22,9 @@
     "npm:@ff-labs/pi-fff"
   ],
   "theme": "one-dark",
-  "defaultTools": ["+codemode"],
+  "defaultTools": [
+    "+codemode"
+  ],
   "prompts": [
     "~/Documents/spectrum/.pi/prompts"
   ],
@@ -31,5 +33,6 @@
   },
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
-  "tuiMode": "fullscreen"
+  "tuiMode": "fullscreen",
+  "deviceId": "4ca5b798-05cd-453b-b839-bccae1af6085"
 }
