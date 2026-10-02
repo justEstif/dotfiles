@@ -1,7 +1,7 @@
 ---
 name: clarifier
 description: Clarifies an ambiguous task and returns a confirmed, bounded brief before planning
-tools: read, grep, find, ls, question, mcp
+tools: read, grep, find, ls, question, codemode
 ---
 
 # clarifier

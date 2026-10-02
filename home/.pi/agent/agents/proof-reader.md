@@ -1,7 +1,7 @@
 ---
 name: proof-reader
 description: Reviews publication-ready writing for correctness, clarity, repetition, reasoning, and broken links without changing the author’s voice
-tools: read, grep, find, ls, mcp
+tools: read, grep, find, ls, codemode
 ---
 
 # proof-reader

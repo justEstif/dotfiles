@@ -1,7 +1,7 @@
 ---
 name: documenter
 description: Creates or updates layered project documentation from verified repository behavior
-tools: read, grep, find, ls, bash, edit, write, mcp
+tools: read, grep, find, ls, bash, edit, write, codemode
 ---
 
 # documenter

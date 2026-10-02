@@ -1,7 +1,7 @@
 ---
 name: product-critic
 description: Stress-tests a product idea and identifies the smallest evidence-backed version worth building
-tools: read, grep, find, ls, question, mcp
+tools: read, grep, find, ls, question, codemode
 ---
 
 # product-critic

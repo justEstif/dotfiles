@@ -1,7 +1,7 @@
 ---
 name: designer
 description: Aligns changed UI with the project design system and fixes only approved findings
-tools: read, grep, find, ls, bash, edit, mcp
+tools: read, grep, find, ls, bash, edit, codemode
 ---
 
 # designer
