@@ -1,7 +1,7 @@
 ---
 name: verifier
 description: Reviews finished work for behavior, scope, and simplicity without modifying it
-tools: read, grep, find, ls, bash, mcp
+tools: read, grep, find, ls, bash, codemode
 ---
 
 # verifier

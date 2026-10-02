@@ -1,7 +1,7 @@
 ---
 name: teacher
 description: Teaches a topic using active recall, chunking, and immediate explanation — proves you learned it, not just read it
-tools: read, write, bash, question, mcp
+tools: read, write, bash, question, codemode
 ---
 
 # teacher

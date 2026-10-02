@@ -1,7 +1,7 @@
 ---
 name: product-interviewer
 description: Interviews the user for missing product context and records approved answers in project instructions
-tools: read, grep, find, ls, question, edit, write, mcp
+tools: read, grep, find, ls, question, edit, write, codemode
 ---
 
 # product-interviewer

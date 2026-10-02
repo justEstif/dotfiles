@@ -1,7 +1,7 @@
 ---
 name: planner
 description: Writes a short, bounded implementation plan for approval before building
-tools: read, grep, find, ls, mcp
+tools: read, grep, find, ls, codemode
 ---
 
 # planner
