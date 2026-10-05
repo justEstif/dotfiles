@@ -30,11 +30,11 @@ pitchfork = "latest"                     # manage background and delayed agent c
 hk = "latest"                            # fast local git hooks and project lints
 pi = "latest"
 docker-cli = "latest"                    # Docker client; daemon is Colima (macOS) or system Docker (Linux)
-"github:justEstif/mdview" = "0.1.1"
+"github:justEstif/mdview" = "latest"
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/Documents/zk-vault"
-TODO_FILE ="{{env.HOME}}/Documents/zk-vault/todo.md"
+TODO_FILE = "{{env.HOME}}/Documents/zk-vault/todo.md"
 
 [settings]
 experimental = true
