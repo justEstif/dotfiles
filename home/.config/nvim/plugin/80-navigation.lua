@@ -34,7 +34,10 @@ now(function()
 	files.setup({
 		-- Let Neovim 0.13's built-in dir.lua handle `:edit <dir>` (and the
 		-- `,ft` tree). mini.files is only opened explicitly via `,fd` / `,ff`.
-		options = { use_as_default_explorer = false },
+		options = {
+		  use_as_default_explorer = true,
+		  permanent_delete = false
+		},
 		mappings = {
 			go_in = "L",
 			go_in_plus = "l",
