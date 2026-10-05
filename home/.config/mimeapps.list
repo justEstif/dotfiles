@@ -6,6 +6,5 @@ x-scheme-handler/about=brave-browser.desktop
 x-scheme-handler/unknown=brave-browser.desktop
 x-scheme-handler/mailto=HEY.desktop
 x-scheme-handler/tldraw-offline=tldraw-offline.desktop
-application/pdf=org.kde.okular.desktop
 
 [Added Associations]

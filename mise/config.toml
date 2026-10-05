@@ -71,12 +71,6 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 "~/.gitconfig-personal" = { mode = "symlink" }
 "~/.gitignore" = { mode = "symlink" }
 "~/.local/share/fonts" = {}
-"~/.nbrc/nb-vault" = { block = '''
-export NB_AUTO_SYNC="1"
-export NB_DEFAULT_EXTENSION="md"
-export NB_EDITOR="nvim"
-export NB_FOLDERS_FIRST="1"
-''' }
 "~/.pi/agent/APPEND_SYSTEM.md" = {}
 "~/.pi/agent/i-have-adhd.json" = {}
 "~/.pi/agent/agents" = {}
@@ -92,23 +86,7 @@ export NB_FOLDERS_FIRST="1"
 
 [bootstrap.repos]
 "~/dotfiles" = { url = "git@github.com:justEstif/dotfiles.git", ref = "main" }
-"~/.nb/nb-vault" = { url = "git@github-justEstif:justEstif/nb-vault.git", ref = "main" }
 
-[tasks.bootstrap]
-description = "Configure the nb knowledge vault"
-run = '''
-git -C "$HOME/.nb/nb-vault" config user.name "$(git config -f "$HOME/.gitconfig-personal" user.name)"
-git -C "$HOME/.nb/nb-vault" config user.email "$(git config -f "$HOME/.gitconfig-personal" user.email)"
-bun install --frozen-lockfile --cwd "$HOME/.nb/nb-vault"
-mise -C "$HOME/.nb/nb-vault" run validate
-agent_dir="$HOME/.config/pi-agents/vault"
-mkdir -p "$agent_dir"
-ln -sfn "$HOME/.nb/nb-vault/pi-agent/settings.json" "$agent_dir/settings.json"
-ln -sfn "$HOME/.nb/nb-vault/pi-agent/mcp.json" "$agent_dir/mcp.json"
-git -C "$HOME/.nb/nb-vault" config hook.hk-pre-push.command 'test "${HK:-1}" = "0" || PATH="$HOME/.local/share/mise/shims:$PATH" hk run pre-push --from-hook'
-yes | nb notebooks delete home --force >/dev/null 2>&1 || true  # nb recreates an empty home on some mutating commands
-nb use nb-vault >/dev/null
-'''
 
 [bootstrap.mise_shell_activate]
 fish = "activate"
