@@ -29,7 +29,13 @@ end)
 
 later(function()
 	local snippets = require("mini.snippets")
-	snippets.setup()
+	snippets.setup({
+		snippets = {
+			function()
+				return { { prefix = "date", body = os.date("%Y%m%d"), desc = "Today's date (YYYYMMDD)" } }
+			end,
+		},
+	})
 	-- Start LSP server for snippet integration
 	snippets.start_lsp_server()
 end)
