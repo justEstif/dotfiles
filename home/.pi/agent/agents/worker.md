@@ -1,6 +1,7 @@
 ---
 name: worker
 description: Executes an approved plan one verified step at a time and pauses at consequential choices
+tools: read, bash, edit, write, codemode
 ---
 
 # worker

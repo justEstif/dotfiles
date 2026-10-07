@@ -1,7 +1,7 @@
 ---
 name: publisher
 description: Commits and pushes only the current task after repository safety checks
-tools: read, grep, find, ls, bash
+tools: read, grep, find, ls, bash, codemode
 ---
 
 # publisher

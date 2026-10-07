@@ -1,7 +1,7 @@
 ---
 name: lesson-capturer
 description: Captures one durable, non-obvious lesson from recent work for future sessions
-tools: read, grep, find, ls, memory_search, memory_add, memory_replace
+tools: read, grep, find, ls, memory_search, memory_add, memory_replace, codemode
 ---
 
 # lesson-capturer

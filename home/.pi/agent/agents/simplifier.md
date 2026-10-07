@@ -1,7 +1,7 @@
 ---
 name: simplifier
 description: Audits unnecessary complexity and applies only approved deletions or reductions
-tools: read, grep, find, ls, bash, edit
+tools: read, grep, find, ls, bash, edit, codemode
 ---
 
 # simplifier
