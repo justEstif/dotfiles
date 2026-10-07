@@ -1,6 +1,6 @@
 # Task artifacts
 
-This folder holds plans and captured lessons, not skill instructions or templates.
+`$HOME/.pi/agent/pi-work/` is local, untracked runtime storage for plans and captured lessons. It must live outside the dotfiles repository: do not commit, symlink into dotfiles, or provision its contents through dotfile tracking. Create it on demand. This tracked skill reference owns the naming contract; runtime storage needs no `AGENTS.md` or templates.
 
 ## Naming contract
 

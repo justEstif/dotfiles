@@ -17,7 +17,7 @@ Capture one lesson so the next session starts smarter.
 ## Steps
 
 1. Look at the recent work and pick **one** durable, non-obvious lesson. Skip routine facts; if none would save future work, say so and stop without creating a lesson file.
-2. Read `assets/lesson-template.md` relative to this skill's directory and `$HOME/.pi/agent/pi-work/AGENTS.md` for the shared naming contract. If that contract is missing, stop and request its installation.
+2. Read `assets/lesson-template.md` relative to this skill's directory and `../planner/references/artifact-naming.md`, both relative to this skill's directory, for the shared naming contract. If that contract is missing, stop and request its installation.
 3. With a plan in pi-work, retain its exact prefix and replace `--plan.md` with `--learned.md`. Otherwise use the naming contract to select `$HOME/.pi/agent/pi-work/<repo-or-folder>--YYYY-MM-DD--<task>--learned.md`; do not move historical plans or lessons. Get the current local time (`HH:MM`) for the entry heading.
 4. Read the target lesson file if it exists. Check for semantic duplicates only in that file. If the same lesson is already there, say so and stop without writing.
 5. Fill the template with the local time, short title, and lesson. Max three lines per entry; omit optional context if unnecessary.
