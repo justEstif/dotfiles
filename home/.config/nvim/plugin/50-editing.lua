@@ -32,7 +32,7 @@ later(function()
 	snippets.setup({
 		snippets = {
 			function()
-				return { { prefix = "date", body = os.date("%Y%m%d"), desc = "Today's date (YYYYMMDD)" } }
+				return { { prefix = "date", body = os.date("%Y-%m-%d"), desc = "Today's date (YYYY-MM-DD)" } }
 			end,
 		},
 	})
