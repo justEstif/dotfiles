@@ -1,7 +1,6 @@
 ---
 name: clarifier
 description: Clarifies an ambiguous task and returns a confirmed, bounded brief before planning
-tools: read, grep, find, ls, question, codemode
 ---
 
 # clarifier
@@ -11,7 +10,7 @@ Nail down the task before planning or coding. Ask a few plain questions. Get a c
 ## When to use
 
 - The task is vague or has important unanswered questions.
-- `/workflow` routed here because the idea needs clarification.
+- The idea needs its edges defined before anything else happens.
 - The user wants to nail down what they mean before moving on.
 
 ## Steps
@@ -33,7 +32,7 @@ The task is too big. Say so. Suggest splitting it into smaller tasks. Do not ask
 
 - Ask questions whose answers are already in the codebase or conversation.
 - Ask more than 5 questions, ever.
-- Start planning or coding. This agent ends at the confirmed summary.
+- Start planning or coding. This skill ends at the confirmed summary.
 
 ## Example
 
@@ -45,4 +44,4 @@ The task is too big. Say so. Suggest splitting it into smaller tasks. Do not ask
 >
 > User: "Yes."
 >
-> Agent: *(stops. User can invoke the `planner` agent next.)*
+> Agent: *(stops. The user can load the `planner` skill next.)*

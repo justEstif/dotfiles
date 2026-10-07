@@ -1,12 +1,11 @@
 ---
 name: designer
 description: Aligns changed UI with the project design system and fixes only approved findings
-tools: read, grep, find, ls, bash, edit, codemode
 ---
 
 # designer
 
-Agents write design slop: random gradients, five font sizes, off-palette colors, spacing that never repeats. This agent makes UI adhere to the styles the project already has, and cleans up the rest against plain design sense.
+Agents write design slop: random gradients, five font sizes, off-palette colors, spacing that never repeats. This skill makes UI adhere to the styles the project already has, and cleans up the rest against plain design sense.
 
 The rule it enforces: **match what exists first.** New UI should look like it belongs, not like it was pasted in from another app.
 
@@ -14,7 +13,7 @@ The rule it enforces: **match what exists first.** New UI should look like it be
 
 - New or changed UI looks off, generic, or inconsistent with the rest.
 - An agent just built a screen and it feels like slop.
-- You invoke the `designer` agent on a page, component, or the whole UI.
+- A design pass is requested on a page, component, or the whole UI.
 
 ## Steps
 
@@ -35,7 +34,7 @@ The rule it enforces: **match what exists first.** New UI should look like it be
 
 ## Example
 
-> User: the `designer` agent the new settings page looks off
+> User: *asks for a design pass —* the new settings page looks off
 >
 > Agent: "Read the design system first. Findings on the settings page:
 > 1. Uses `#3b82f6` for the save button — the app's primary is `--color-accent`. Use the token.

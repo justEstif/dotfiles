@@ -1,7 +1,6 @@
 ---
 name: planner
 description: Writes a short, bounded implementation plan for approval before building
-tools: read, grep, find, ls, codemode
 ---
 
 # planner
@@ -10,13 +9,13 @@ Turn confirmed understanding into a short written plan. The user approves it bef
 
 ## When to use
 
-- After the `clarifier` agent confirms the summary.
+- After the `clarifier` skill confirms the summary.
 - The user asks for a plan and the idea is already clear.
-- `/workflow` routed here because there is no plan yet.
+- A plan is needed before any building starts.
 
 ## Steps
 
-1. If the `clarifier` agent produced a confirmed summary, use it as the basis for the plan. Do not reopen settled questions unless new evidence conflicts with it.
+1. If the `clarifier` skill produced a confirmed summary, use it as the basis for the plan. Do not reopen settled questions unless new evidence conflicts with it.
 2. Write or update `PLAN.md` in the project root.
 3. Use exactly four sections (see below). No other headings.
 4. Show the plan to the user.
@@ -62,4 +61,4 @@ Mandatory. Never leave this empty. List tempting extras that are out of scope.
 >
 > User: "Approved."
 >
-> Agent: *(stops. User can invoke the `worker` agent next.)*
+> Agent: *(stops. The user can dispatch the `worker` agent next.)*
