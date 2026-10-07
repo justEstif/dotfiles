@@ -1,6 +1,7 @@
 ---
 name: verifier
 description: Reviews finished work for behavior, scope, and simplicity without modifying it
+thinking: high
 tools: read, grep, find, ls, bash, codemode
 ---
 

@@ -1,7 +1,10 @@
 ---
 name: worker
 description: Executes an approved plan one verified step at a time and pauses at consequential choices
-tools: read, bash, edit, write, codemode
+thinking: high
+defaultContext: fresh
+defaultReads: plan.md, context.md
+tools: read, grep, find, ls, bash, edit, write, contact_supervisor, codemode
 ---
 
 # worker
