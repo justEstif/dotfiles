@@ -16,13 +16,13 @@ Turn confirmed understanding into a short written plan. The user approves it bef
 ## Steps
 
 1. If the `clarifier` skill produced a confirmed summary, use it as the basis for the plan. Do not reopen settled questions unless new evidence conflicts with it.
-2. Write or update `PLAN.md` in the project root.
+2. Write or update the plan in `$HOME/.pi/agent/pi-plans/`, not in the project root.
 3. Use exactly four sections (see below). No other headings.
 4. Show the plan to the user.
 5. **Stop and ask** for approval. Do not implement until they approve.
 6. If any step feels big, split it or cut it. Do not nest sub-steps.
 
-## PLAN.md format
+## Plan format
 
 ### What we're doing
 
@@ -55,7 +55,7 @@ Mandatory. Never leave this empty. List tempting extras that are out of scope.
 
 ## Example interaction
 
-> Agent: *(writes PLAN.md, shows it)*
+> Agent: *(writes the plan in `$HOME/.pi/agent/pi-plans/`, shows it)*
 >
 > "Here is the plan. Four sections: what we're doing, steps, what we're not doing, how we'll know it works. Approve this before I build?"
 >
