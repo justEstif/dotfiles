@@ -16,7 +16,7 @@ Turn confirmed understanding into a short written plan. The user approves it bef
 ## Steps
 
 1. If the `clarifier` skill produced a confirmed summary, use it as the basis for the plan. Do not reopen settled questions unless new evidence conflicts with it.
-2. Read `assets/plan-template.md` relative to this skill's directory and `$HOME/.pi/agent/pi-work/AGENTS.md` for the shared naming contract. Create the destination directory if missing. Save the plan as `$HOME/.pi/agent/pi-work/<repo-or-folder>--YYYY-MM-DD--<task>--plan.md`, retaining the chosen prefix on updates. If the naming contract is missing, stop and request its installation rather than invent a conflicting convention.
+2. Read `assets/plan-template.md` relative to this skill's directory and `references/artifact-naming.md`, both relative to this skill's directory, for the shared naming contract. Create the destination directory if missing. Save the plan as `$HOME/.pi/agent/pi-work/<repo-or-folder>--YYYY-MM-DD--<task>--plan.md`, retaining the chosen prefix on updates. If the naming contract is missing, stop and request its installation rather than invent a conflicting convention.
 3. Fill the template using exactly its four sections. No other headings. Include the confirmed brief in “What we're doing”; if a matching lesson file exists, link to it there using a relative Markdown link.
 4. Show the exact plan path and contents to the user.
 5. **Stop and ask** for approval. Do not implement until they approve.
