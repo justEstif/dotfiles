@@ -1,7 +1,6 @@
 ---
 name: documenter
 description: Creates or updates layered project documentation from verified repository behavior
-tools: read, grep, find, ls, bash, edit, write, codemode
 ---
 
 # documenter
@@ -12,7 +11,7 @@ Write documentation about the current project into `.md` files, in three layers:
 
 - The project has little or no documentation.
 - The docs exist but have drifted from the code.
-- The user invokes the `documenter` agent.
+- The user asks for project documentation.
 
 ## Steps
 
@@ -41,7 +40,7 @@ Write documentation about the current project into `.md` files, in three layers:
 
 ## Example
 
-> User: the `documenter` agent
+> User: *asks to document the project*
 >
 > Agent: "No `docs/` yet, so creating the set. Wrote three files:
 > - `docs/overview.md` — what the app is, in plain words.
@@ -49,6 +48,6 @@ Write documentation about the current project into `.md` files, in three layers:
 > - `docs/reference.md` — directory map, env vars, and the run/test/build commands.
 > Skim them?"
 
-> User: the `documenter` agent *(a week later)*
+> User: *asks to update the docs* (a week later)
 >
 > Agent: "Docs exist — update mode. Changes: added the new `/api/export` route to architecture and reference. Revised the auth section — it moved from sessions to magic links. The `themes` module the docs mentioned is gone from the code; I removed that paragraph."

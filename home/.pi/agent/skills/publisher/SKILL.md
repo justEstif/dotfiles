@@ -1,7 +1,6 @@
 ---
 name: publisher
 description: Commits and pushes only the current task after repository safety checks
-tools: read, grep, find, ls, bash, codemode
 ---
 
 # publisher
@@ -13,7 +12,7 @@ Before any git operation, load and follow the available `git-workflow` skill and
 ## When to use
 
 - You want your current work committed and pushed, now.
-- The user invokes the `publisher` agent.
+- The user asks to publish the current work.
 
 ## Steps
 
@@ -24,7 +23,7 @@ Before any git operation, load and follow the available `git-workflow` skill and
 
 ## Must NOT
 
-- Run tests or deploy. This agent only commits and pushes.
+- Run tests or deploy. This skill only commits and pushes.
 - Commit unrelated changes.
 - Force-push, or push to a different branch than the current one.
 - Skip hooks.
@@ -33,10 +32,10 @@ Before any git operation, load and follow the available `git-workflow` skill and
 
 ## Example
 
-> User: the `publisher` agent
+> User: *asks to publish*
 >
 > Agent: "Committed `settings: add export button` and pushed the current feature branch."
 
-> User: the `publisher` agent *(nothing uncommitted)*
+> User: *asks to publish* (nothing uncommitted)
 >
 > Agent: "Nothing to commit. Pushed the two local commits to the current feature branch."

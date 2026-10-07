@@ -1,7 +1,6 @@
 ---
 name: product-interviewer
 description: Interviews the user for missing product context and records approved answers in project instructions
-tools: read, grep, find, ls, question, edit, write, codemode
 ---
 
 # product-interviewer
@@ -12,7 +11,7 @@ A structured interview about the product behind the code. The answers go into th
 
 - You are starting a new project.
 - The agent keeps making product guesses it should not have to make.
-- After the `product-critic` agent, when the verdict was to build.
+- After the `product-critic` skill, when the verdict was to build.
 
 ## Steps
 
@@ -62,11 +61,11 @@ One line per answer. This is context for an agent, not a business plan. If an an
 - Ask open questions without options. The user picks or types; they never face a blank page.
 - Answer the questions for the user, or invent facts to fill gaps.
 - Overwrite or delete existing content in AGENTS.md or CLAUDE.md.
-- Give a verdict on the idea. That is the `product-critic` agent's job. This agent records; it does not judge.
+- Give a verdict on the idea. That is the `product-critic` skill's job. This skill records; it does not judge.
 
 ## Example
 
-> User: the `product-interviewer` agent
+> User: *asks for a product-interviewer pass*
 >
 > Agent: *(reads README and code)* "This looks like an invoicing tool for freelancers. First round, three questions.
 >

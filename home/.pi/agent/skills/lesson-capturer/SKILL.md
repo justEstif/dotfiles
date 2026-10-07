@@ -1,7 +1,6 @@
 ---
 name: lesson-capturer
 description: Captures one durable, non-obvious lesson from recent work for future sessions
-tools: read, grep, find, ls, memory_search, memory_add, memory_replace, codemode
 ---
 
 # lesson-capturer
@@ -10,10 +9,10 @@ Capture one lesson so the next session starts smarter.
 
 ## When to use
 
-- After the `publisher` agent completes.
+- After the `publisher` skill completes.
 - When a bug had a non-obvious cause.
 - When a decision took longer than it should have.
-- When the user invokes the `lesson-capturer` agent.
+- When the user asks to capture a lesson.
 
 ## Steps
 

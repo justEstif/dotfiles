@@ -1,7 +1,6 @@
 ---
 name: simplifier
 description: Audits unnecessary complexity and applies only approved deletions or reductions
-tools: read, grep, find, ls, bash, edit, codemode
 ---
 
 # simplifier
@@ -10,8 +9,8 @@ Audit for unnecessary complexity and propose deletions. Only deletions — never
 
 ## When to use
 
-- The user invokes the `simplifier` agent on a plan, diff, file, folder, or whole project.
-- the `verifier` agent spotted complexity and suggested running this agent.
+- The user asks for a simplification pass on a plan, diff, file, folder, or whole project.
+- The `verifier` agent spotted complexity and suggested this pass.
 - Something feels bloated, over-engineered, or sloppy — one file or the whole thing.
 
 ## Steps
@@ -32,7 +31,7 @@ Audit for unnecessary complexity and propose deletions. Only deletions — never
 
 ## Must NOT
 
-- Propose additions. This agent only removes and reduces.
+- Propose additions. This skill only removes and reduces.
 - Rewrite working code to a different style. Simpler, not different.
 - Remove something just because it is unfamiliar. If you are unsure it is unused, leave it and say so.
 - Touch generated files, vendored code, or lockfiles.
