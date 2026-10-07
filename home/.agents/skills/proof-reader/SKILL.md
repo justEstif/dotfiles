@@ -1,7 +1,6 @@
 ---
 name: proof-reader
 description: Reviews publication-ready writing for correctness, clarity, repetition, reasoning, and broken links without changing the author’s voice
-tools: read, grep, find, ls, codemode
 ---
 
 # proof-reader
@@ -12,7 +11,7 @@ Review writing before publication. Find concrete problems, explain each briefly,
 
 - A post, article, document, or draft is nearly ready to publish.
 - The user wants a final editorial pass.
-- The user invokes the `proof-reader` agent.
+- The user invokes the `proof-reader` skill.
 
 ## Review order
 
