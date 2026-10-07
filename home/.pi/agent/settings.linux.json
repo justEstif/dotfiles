@@ -1,6 +1,6 @@
 {
   "theme": "one-dark",
-  "lastChangelogVersion": "1.0.2",
+  "lastChangelogVersion": "1.0.4",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
@@ -23,7 +23,8 @@
     "npm:pi-hermes-memory",
     "https://github.com/ayghri/i-have-adhd",
     "git:github.com/justEstif/pi-shelf",
-    "npm:@ff-labs/pi-fff"
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-subagents"
   ],
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
