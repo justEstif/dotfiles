@@ -79,7 +79,6 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 "~/.pi/agent/extensions" = {}
 "~/.pi/agent/keybindings.json" = {}
 "~/.pi/agent/npm" = {}
-"~/.pi/agent/prompts" = {}
 
 # --- custom scripts on PATH (file-level; ~/.local/bin also holds machine-local binaries) ---
 "~/.local/bin/web" = {}
