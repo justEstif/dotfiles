@@ -5,9 +5,9 @@ license: MIT (pstack, by poteto)
 
 ### Opening a PR
 
-Invoked at the end of every other playbook. The whole step runs on local [git-workflow](../../git-workflow/SKILL.md): scoped commits `<scope>: <description>`, never Conventional Commits; wtm worktrees; gh-stack for stacks.
+Runs at `task`'s Stage 5 after the publish gate, or when the user asks to open a PR. The whole step runs on local [git-workflow](../../git-workflow/SKILL.md): scoped commits `<scope>: <description>`, never Conventional Commits; wtm worktrees; gh-stack for stacks.
 
-**Worktree.** Work from a wtm worktree off the base branch (git-workflow step 2). Subagents inherit it. Multiple subagents on the same branch each get their own worktree, or `git fetch && git reset --hard origin/<branch>` between them. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from the base, redo minimally.
+**Worktree.** Work from a wtm worktree off the base branch (git-workflow step 2). Subagents inherit it. Multiple subagents on the same branch each get their own worktree. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from the base, redo minimally.
 
 **Commits.** Commit liberally, in scoped format. Rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit. New commit when separable. Commit bodies don't restate the subject.
 
