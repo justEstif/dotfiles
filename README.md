@@ -97,3 +97,4 @@ express runtime branching.
   / `~/.pi/agent/`, then `rm -rf omp pi` and drop the matching `.gitignore` lines.
 - Fish mise-activation is owned by `[bootstrap.mise_shell_activate]` (a managed
   block in `config.fish`); the old manual `conf.d/mise.fish` is gone.
+- Several skills in `home/.agents/skills` are adapted from pstack: https://github.com/cursor/plugins/tree/main/pstack
