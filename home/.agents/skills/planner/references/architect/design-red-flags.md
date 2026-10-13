@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/architect
-license: MIT (pstack, by poteto)
----
-
 # Design red flags
 
 Screen every candidate before synthesis. A red flag is a reason to revise or reject the shape.

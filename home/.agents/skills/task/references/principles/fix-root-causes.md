@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-fix-root-causes
-license: MIT (pstack, by poteto)
----
-
 # Fix Root Causes
 
 When debugging, do not fix symptoms. Trace every problem to its root cause and fix it there.

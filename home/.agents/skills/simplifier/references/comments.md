@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/no-comments
-license: MIT (pstack, by poteto)
----
-
 # No comments
 
 Run Comment Sicko ([comment-sicko.md](comment-sicko.md)) — a read-only subagent if one is available, else a fresh self-pass in a clean context. Act on accepted findings.

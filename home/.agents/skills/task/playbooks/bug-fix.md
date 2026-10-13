@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/poteto-mode
-license: MIT (pstack, by poteto)
----
-
 ### Bug fix
 
 **You own this task. Plan, review, verify.** Delegate investigation and the fix to subagents, stay in the lead.

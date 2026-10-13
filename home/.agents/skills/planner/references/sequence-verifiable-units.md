@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-sequence-verifiable-units
-license: MIT (pstack, by poteto)
----
-
 # Sequence work into verifiable units
 
 Order work as a sequence of small units, each ending in a state you can check, and don't advance until the current one is green.

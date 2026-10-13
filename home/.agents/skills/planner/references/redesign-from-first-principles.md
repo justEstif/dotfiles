@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-redesign-from-first-principles
-license: MIT (pstack, by poteto)
----
-
 # Redesign From First Principles
 
 When integrating a change, don't bolt it onto the existing design. Redesign as if the requirement had been a foundational assumption from the start.

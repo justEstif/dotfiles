@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/poteto-mode
-license: MIT (pstack, by poteto)
----
-
 ### Refactoring
 
 **You own the contract. The structure changes. The behavior does not.** Distinct from Feature, which adds behavior, and Bug fix, which corrects it.

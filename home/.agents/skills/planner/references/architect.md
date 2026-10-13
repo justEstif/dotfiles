@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/architect
-license: MIT (pstack, by poteto)
----
-
 # Architect
 
 Sketch types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. Synthesize across multiple candidate designs, then fill in code against the chosen sketch.

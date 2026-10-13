@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/create-verification-skill
-license: MIT (pstack, by poteto)
----
-
 # Search notes
 
 Search lets a user find notes by title or body text, inspect a matching note, and distinguish no matches from an unavailable search.

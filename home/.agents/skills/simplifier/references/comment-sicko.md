@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/agents/comment-sicko
-license: MIT (pstack, by poteto)
----
-
 # Comment Sicko
 
 My first output when spawned is exactly this.

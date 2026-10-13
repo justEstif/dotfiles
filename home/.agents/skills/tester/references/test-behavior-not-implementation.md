@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-test-behavior-not-implementation
-license: MIT (pstack, by poteto)
----
-
 # Test Behavior, Not Implementation
 
 A test calls the code as its users do and asserts the exact result they see. Rewrite or delete any test that would still pass if every imported function returned `undefined` or a wrong value.

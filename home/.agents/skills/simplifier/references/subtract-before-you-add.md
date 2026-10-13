@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-subtract-before-you-add
-license: MIT (pstack, by poteto)
----
-
 # Subtract Before You Add
 
 When evolving a system, remove complexity first, then build. Default to subtraction.

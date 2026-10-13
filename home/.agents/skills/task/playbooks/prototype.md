@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/poteto-mode
-license: MIT (pstack, by poteto)
----
-
 ### Prototype
 
 **You own the design decision, not the code. The prototype is a throwaway instrument. The real build follows Feature.**

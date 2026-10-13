@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/ketchup
-license: MIT (pstack, by poteto)
----
-
 # Ketchup
 
 Catch the user up on everything in this chat since the last message they wrote before they asked for ketchup. Notifications and subagent results are not their messages. Write in the plain voice of [bro](../../writer/references/bro.md), and skip its restating step. Assume the user remembers their last message and nothing after it. Call each PR, branch, or agent by a name they would know, not by a label you invented during the work.

@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-outcome-oriented-execution
-license: MIT (pstack, by poteto)
----
-
 # Outcome-Oriented Execution
 
 Optimize for the intended, verifiable end state rather than preserving smooth intermediate states.

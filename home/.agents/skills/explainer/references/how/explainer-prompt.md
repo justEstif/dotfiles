@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/how
-license: MIT (pstack, by poteto)
----
-
 # Explainer Prompt Template
 
 Build the explainer subagent's prompt from this template. Fill in the placeholders.

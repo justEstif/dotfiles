@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-attack-the-premise
-license: MIT (pstack, by poteto)
----
-
 # Attack the Premise
 
 When two or more fixes that share one premise have failed the same gate, suspect the premise, not the fixes.

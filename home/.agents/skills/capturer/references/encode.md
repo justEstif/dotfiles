@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/correct
-license: MIT (pstack, by poteto)
----
-
 # Correct
 
 The operator keeps correcting agents in this repo for the same mistakes. Change the repo so the next agent can't make them.

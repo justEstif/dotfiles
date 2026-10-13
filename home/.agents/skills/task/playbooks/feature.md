@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/poteto-mode
-license: MIT (pstack, by poteto)
----
-
 ### Feature
 
 **You own the design. Plan, review, verify.** Delegate implementation. Stay in the lead.

@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-prove-it-works
-license: MIT (pstack, by poteto)
----
-
 # Prove It Works
 
 Verify every task output by checking the real thing directly. Do not infer from proxies, self-reports, or "it compiles."
