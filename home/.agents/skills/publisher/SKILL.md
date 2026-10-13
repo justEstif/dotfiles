@@ -14,6 +14,14 @@ Before any git operation, load and follow the available `git-workflow` skill and
 - You want your current work committed and pushed, now.
 - The user asks to publish the current work.
 
+## Modes
+
+| mode | reference | trigger |
+| --- | --- | --- |
+| publish (default) | the steps below | Commit the task's changes and push the branch. |
+| open a PR | [references/opening-a-pr.md](references/opening-a-pr.md) | Opening or updating a PR. Owns the PR title and body format. |
+| ship | [references/shipping.md](references/shipping.md) | Landing a green stack: per-PR verdicts, then the verified run bottom-up. Only on an explicit request to land. |
+
 ## Steps
 
 1. Check the working tree. Separate the current task's changes from unrelated work. If the scope is unclear, **stop and ask**.
@@ -23,7 +31,8 @@ Before any git operation, load and follow the available `git-workflow` skill and
 
 ## Must NOT
 
-- Run tests or deploy. This skill only commits and pushes.
+- Run tests or deploy. Publish mode only commits and pushes.
+- Merge without an explicit request to land.
 - Commit unrelated changes.
 - Force-push, or push to a different branch than the current one.
 - Skip hooks.

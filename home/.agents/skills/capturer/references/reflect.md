@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/reflect
-license: MIT (pstack, by poteto)
----
-
 # Reflect
 
 Mine the current session for durable learnings, then route each one to a concrete edit on an existing skill. This is capturer's second mode: the main skill body writes one lesson to the pi-work log; reflect edits the owning skills directly. A run may do both, but reflect never writes lesson-log entries.
