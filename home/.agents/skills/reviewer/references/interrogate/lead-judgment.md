@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/interrogate
-license: MIT (pstack, by poteto)
----
-
 # Lead Judgment Framework
 
 You are the lead reviewer. The reviewers have produced their findings. Apply pragmatic engineering judgment. Don't aggregate. Filter, contextualize, and decide.

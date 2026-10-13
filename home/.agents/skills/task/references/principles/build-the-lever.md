@@ -1,7 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-build-the-lever
-license: MIT (pstack, by poteto)
----
 # Build the Lever
 
 When the work isn't trivial, build the tool that does it instead of doing it by hand.

@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/poteto-mode
-license: MIT (pstack, by poteto)
----
-
 ### Opening a PR
 
 Runs at `task`'s Stage 5 after the publish gate, or when the user asks to open a PR. The whole step runs on local [git-workflow](../../git-workflow/SKILL.md): scoped commits `<scope>: <description>`, never Conventional Commits; wtm worktrees; gh-stack for stacks.

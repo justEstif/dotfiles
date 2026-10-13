@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/benchmark-checklist
-license: MIT (pstack, by poteto)
----
-
 # Benchmark checklist
 
 Use this when you produce a performance number: a PR's before and after, a regression claim, a hillclimb harness, or a library or config choice. It is the full procedure [explain-the-number](explain-the-number.md) demands before a measured number may be trusted or acted on. Answer each question with evidence from a run, not a guess about the code.

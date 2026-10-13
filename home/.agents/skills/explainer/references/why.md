@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/why
-license: MIT (pstack, by poteto)
----
-
 # Why
 
 Investigate the motivation and intent behind code. The companion [how](how.md) skill answers what the code does and how it works. `why` answers what forces led to its shape.

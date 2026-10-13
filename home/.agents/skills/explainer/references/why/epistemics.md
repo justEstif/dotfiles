@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/why
-license: MIT (pstack, by poteto)
----
-
 # Epistemics
 
 How to reason about confidence when evidence is historical, fragmentary, and sometimes contradictory, and how to tell the user without flattening it into false certainty. Code shows what it does, not *why it exists*. The why lives in commits, PRs, tickets, docs, and conversations, all incomplete, biased, and sometimes missing. Pretending otherwise produces confident-sounding guesses that mislead the user.

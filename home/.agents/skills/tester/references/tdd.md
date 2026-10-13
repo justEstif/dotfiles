@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/tdd
-license: MIT (pstack, by poteto)
----
-
 # TDD Bug Fix
 
 When fixing a bug with a clear, cheap test path, make the broken behavior executable before changing production code. The goal is a focused regression test that fails before the fix and passes after it — the canonical verifiable-unit bracket from [sequence-verifiable-units](../../planner/references/sequence-verifiable-units.md): failing test first, then the fix on top.

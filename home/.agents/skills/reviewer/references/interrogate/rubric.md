@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/interrogate
-license: MIT (pstack, by poteto)
----
-
 # Review Rubric
 
 Review through whichever lenses are relevant. Not every lens applies to every change.

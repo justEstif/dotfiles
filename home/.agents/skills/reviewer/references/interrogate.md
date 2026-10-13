@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/interrogate
-license: MIT (pstack, by poteto)
----
-
 # Interrogate
 
 Spawn N independent reviewers on the same model, each in a fresh context with a distinct lens, to adversarially review code changes. The adversarial signal comes from independent fresh contexts and genuinely different review questions, not reviewer count. The deliverable is a synthesized verdict. Do NOT auto-apply changes.

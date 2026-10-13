@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/show-me-your-work
-license: MIT (pstack, by poteto)
----
-
 # Show me your work
 
 Keep one canonical log. Every row points at evidence a reviewer can resolve — per [prove-it-works](../../tester/references/prove-it-works.md), the trail is only as good as the pointers.

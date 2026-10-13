@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/recall
-license: MIT (pstack, by poteto)
----
-
 # Recall
 
 **Before you start or resume work, you rebuild the user's recent working context and hand back a tight capsule of where things stand now and what to do next.**

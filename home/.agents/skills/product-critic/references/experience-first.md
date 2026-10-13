@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-experience-first
-license: MIT (pstack, by poteto)
----
-
 # Experience First
 
 When implementation convenience conflicts with user delight, choose delight.

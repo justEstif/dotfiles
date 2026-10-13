@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/principle-foundational-thinking
-license: MIT (pstack, by poteto)
----
-
 # Foundational Thinking
 
 **Structural decisions** protect option value. **Code-level decisions** protect simplicity.

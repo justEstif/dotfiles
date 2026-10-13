@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/interrogate
-license: MIT (pstack, by poteto)
----
-
 # Reviewer Prompt Template
 
 Build each reviewer subagent's prompt from this template, filling in the placeholders.

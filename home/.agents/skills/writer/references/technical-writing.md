@@ -1,8 +1,3 @@
----
-source: https://github.com/cursor/plugins/tree/main/pstack/skills/technical-writing
-license: MIT (pstack, by poteto)
----
-
 # Technical writing
 
 Write so a tired engineer understands on the first read. Apply all four layers.
