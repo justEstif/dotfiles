@@ -13,6 +13,17 @@ Audit for unnecessary complexity and propose deletions. Only deletions — never
 - The `verifier` agent spotted complexity and suggested this pass.
 - Something feels bloated, over-engineered, or sloppy — one file or the whole thing.
 
+## Modes and principles
+
+| reference | trigger |
+| --- | --- |
+| [references/comments.md](references/comments.md) | Audit comments, commented-out code, and lint or type suppressions in a scope. Runs [references/comment-sicko.md](references/comment-sicko.md) as a read-only pass. |
+| [references/subtract-before-you-add.md](references/subtract-before-you-add.md) | Sequencing an addition or rewrite: remove dead weight first. |
+| [references/laziness-protocol.md](references/laziness-protocol.md) | Diff size or the urge to add a layer: smallest change, bias to deletion. |
+| [references/minimize-reader-load.md](references/minimize-reader-load.md) | Code hard to trace: count layers and hidden state, collapse wrappers. |
+
+For JS/TS codebases, run the `fallow` skill for dead code and hotspots before hunting by hand.
+
 ## Steps
 
 1. Read the target. If it is the whole codebase, first get the lay of the land — file tree, entry points, dependencies, what is actually used.
