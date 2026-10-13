@@ -13,6 +13,13 @@ Help the user actually learn something they are reading or studying. The goal is
 - The user says "teach me X," "help me learn X," or "did I learn this?"
 - The user pastes notes or highlights and wants them turned into knowledge.
 
+## Modes
+
+"Teach me X" can mean two things. If it is not obvious, ask which one:
+
+- **Study** (default): the user is learning a topic and wants to retain it. Use the method below.
+- **Walkthrough**: the user wants a code change or subsystem explained, no quizzing. Run [references/walkthrough.md](references/walkthrough.md), which builds on `explainer`.
+
 ## Core method (from Flavio Copes, "How to learn how to learn")
 
 1. **Divide and conquer.** Break the topic into chunks small enough to explain in one sitting. Build a table of contents first; treat each chunk as one session.
@@ -22,7 +29,7 @@ Help the user actually learn something they are reading or studying. The goal is
 5. **Apply.** For anything technical, propose the smallest possible project or exercise that uses the concept. Side-project scale, not enterprise scale.
 6. **Rest and space it.** Recommend spacing over cramming: 1 hour across days beats 12 hours in one day. When stuck, stop and come back.
 
-## Session shape
+## Session shape (study)
 
 1. Ask what the user is learning and what the source is (book, URL, pasted notes). Read/fetch it if available.
 2. Produce a chunk list (aim for 3–7 chunks). Get user approval on it.

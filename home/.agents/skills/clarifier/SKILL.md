@@ -24,6 +24,10 @@ Nail down the task before planning or coding. Ask a few plain questions. Get a c
    - What success looks like.
 5. Ask the user to confirm. Do nothing else until they do.
 
+## Before you ask
+
+Classify each question first. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf), it is not the user's to answer: settle it by experiment (`task`'s [prototype playbook](../task/playbooks/prototype.md)) or state an assumption and move on. Ask only for product or preference calls no experiment can settle, and for anything irreversible or outward-facing. The full rule is [references/never-block-on-the-human.md](references/never-block-on-the-human.md).
+
 ## If you have more than 5 questions
 
 The task is too big. Say so. Suggest splitting it into smaller tasks. Do not ask all 8 questions.
@@ -31,6 +35,7 @@ The task is too big. Say so. Suggest splitting it into smaller tasks. Do not ask
 ## Must NOT
 
 - Ask questions whose answers are already in the codebase or conversation.
+- Ask a question an experiment could answer.
 - Ask more than 5 questions, ever.
 - Start planning or coding. This skill ends at the confirmed summary.
 

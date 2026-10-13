@@ -13,6 +13,27 @@ Turn confirmed understanding into a short written plan. The user approves it bef
 - The user asks for a plan and the idea is already clear.
 - A plan is needed before any building starts.
 
+## Modes
+
+The default is the one-page plan below. Two larger shapes have their own reference:
+
+| mode | reference | trigger |
+| --- | --- | --- |
+| design contract | [references/architect.md](references/architect.md) | New module, core types, or code crossing a function boundary, where jumping to code would lock in the wrong shape. Sketch types, signatures, and boundaries first; the contract feeds the one-page plan. |
+| program plan | [references/program-plan.md](references/program-plan.md) | Work spanning phases or stacked PRs. The one-page cap is lifted only here; each phase still ends in a verifiable unit. |
+
+Design principles the modes apply, read when the trigger matches:
+
+| principle | trigger |
+| --- | --- |
+| [foundational-thinking](references/foundational-thinking.md) | Before writing logic: core types and data structures first. |
+| [model-the-domain](references/model-the-domain.md) | Stateful or heavily branching code, shape assumptions repeated across files. |
+| [type-system-discipline](references/type-system-discipline.md) | Designing types or signatures: make illegal states unrepresentable. |
+| [boundary-discipline](references/boundary-discipline.md) | Validation, error handling, framework adapters: guards at boundaries, pure core. |
+| [redesign-from-first-principles](references/redesign-from-first-principles.md) | Integrating a new requirement into an existing design. |
+| [exhaust-the-design-space](references/exhaust-the-design-space.md) | Novel interaction or architecture with no precedent: 2-3 competing prototypes. |
+| [sequence-verifiable-units](references/sequence-verifiable-units.md) | Multi-step work: each unit ends in a state you can check. |
+
 ## Steps
 
 1. If the `clarifier` skill produced a confirmed summary, use it as the basis for the plan. Do not reopen settled questions unless new evidence conflicts with it.
@@ -28,7 +49,7 @@ Use `assets/plan-template.md` for the four required sections and their placehold
 
 ## Must NOT
 
-- Exceed one page. If longer, split the task into multiple plans.
+- Exceed one page outside program-plan mode. If longer, split the task or switch modes.
 - Add headings beyond the four sections.
 - Start implementing. The plan ends at approval.
 

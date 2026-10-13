@@ -25,6 +25,8 @@ Write documentation about the current project into `.md` files, in three layers:
    - `docs/reference.md` — **The details.** Directories and key files, config and environment, how to run, test, and build.
 4. Show a short summary of what you wrote or changed. In update mode, say what was added, what was revised, and anything that looks removed from the code.
 
+Hold every file to `writer`'s [technical-writing](../writer/references/technical-writing.md) standard, then its [unslop](../writer/references/unslop.md) rules.
+
 ## Keeping it in sync
 
 - Match the docs to the code as it is now — not the git history, not a changelog.

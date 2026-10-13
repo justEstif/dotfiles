@@ -13,6 +13,8 @@ Honest pushback on a product idea before anyone writes code. The goal is not to 
 - You are about to start building and have not answered the hard questions.
 - Someone asks "is this worth building?"
 
+Ground the pushback in [references/experience-first.md](references/experience-first.md): delight over implementation convenience; fewer things, polished.
+
 ## Steps
 
 1. Read the idea. Look at any notes, code, or links that exist.
