@@ -17,7 +17,7 @@ Answer "how does this work" and "why is it this way" from evidence in the repo, 
 
 | mode | reference | trigger |
 | --- | --- | --- |
-| how | [references/how.md](references/how.md) | Map the mechanism: explorers read, one explainer writes it up. Prompt: [references/how/explainer-prompt.md](references/how/explainer-prompt.md). |
+| how | [references/how.md](references/how.md) | Map the mechanism: explorers read, one explainer writes it up. |
 | why | [references/why.md](references/why.md) | Reconstruct rationale from commits, PRs, docs, and the `web` skill. |
 | investigation | [references/investigation.md](references/investigation.md) | A question whose deliverable is a cited answer, not a change. |
 

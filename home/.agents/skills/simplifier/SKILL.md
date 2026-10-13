@@ -13,16 +13,11 @@ Audit for unnecessary complexity and propose deletions. Only deletions — never
 - The `verifier` agent spotted complexity and suggested this pass.
 - Something feels bloated, over-engineered, or sloppy — one file or the whole thing.
 
-## Modes and principles
+## Comments mode
 
-| reference | trigger |
-| --- | --- |
-| [references/comments.md](references/comments.md) | Audit comments, commented-out code, and lint or type suppressions in a scope. Runs [references/comment-sicko.md](references/comment-sicko.md) as a read-only pass. |
-| [references/subtract-before-you-add.md](references/subtract-before-you-add.md) | Sequencing an addition or rewrite: remove dead weight first. |
-| [references/laziness-protocol.md](references/laziness-protocol.md) | Diff size or the urge to add a layer: smallest change, bias to deletion. |
-| [references/minimize-reader-load.md](references/minimize-reader-load.md) | Code hard to trace: count layers and hidden state, collapse wrappers. |
+To audit comments, commented-out code, and lint or type suppressions in a scope, run [references/comments.md](references/comments.md). Same approval rules as below.
 
-For JS/TS codebases, run the `fallow` skill for dead code and hotspots before hunting by hand.
+For JS/TS codebases, run the `fallow` skill for dead code and hotspots before hunting by hand. A quick test for hard-to-trace code: if a reader can't answer "where does this value come from?" in 30 seconds, a layer is in the way.
 
 ## Steps
 

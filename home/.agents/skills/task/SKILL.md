@@ -52,26 +52,22 @@ These govern behavior inside Stage 3. They never add a gate.
 
 ### Triggers
 
-Name each principle that shaped a decision and the choice it changed. Cite only references you read this session.
+Name each reference that shaped a decision and the choice it changed. Cite only references you read this session.
 
-- Nontrivial change, architecture decision, or "are we sure?" → `explainer` ([how](../explainer/references/how.md)).
-- A "which approach" or "what should this do" fork → classify it per `clarifier`'s [Before you ask](../clarifier/SKILL.md#before-you-ask). An observable fact gets a [prototype](playbooks/prototype.md), not a question.
-- Any code → name the data shape first ([model-the-domain](../planner/references/model-the-domain.md)).
-- Code crossing a function boundary → `planner`'s [design contract](../planner/references/architect.md) before implementing.
-- Parallel fan-out → [swarm](references/dispatch/swarm.md) for coverage, races, and exploration; [arena](references/dispatch/arena.md) for bakeoffs with base selection and grafting.
-- Contested design, or before any push → `reviewer` ([interrogate](../reviewer/references/interrogate.md)).
-- Nontrivial multi-step → the throughput checkpoint ([feature](playbooks/feature.md) step 3).
-- Any prose you write, the reply included → `writer` ([unslop](../writer/references/unslop.md)); docs, PR bodies, commit messages → [technical-writing](../writer/references/technical-writing.md). Prose the user wrote stays as written.
-- Before review → `simplifier`'s [comments](../simplifier/references/comments.md) mode.
-- Driving a real UI → `agent-browser`; run CLIs and TUIs directly. For bugs, reproduce on the same surface first.
-- Measuring or reporting a number → `tester`'s [benchmark](../tester/references/benchmark-checklist.md) before acting on it.
-- Before calling it done → `tester`'s [prove it](../tester/references/prove-it-works.md).
-- Debugging → [fix-root-causes](references/principles/fix-root-causes.md); two fixes on one premise failed → [attack-the-premise](references/principles/attack-the-premise.md).
-- Repetitive edits → [build-the-lever](references/principles/build-the-lever.md). Migrations → [outcome-oriented-execution](references/principles/outcome-oriented-execution.md) and [migrate-callers-then-delete-legacy-apis](references/principles/migrate-callers-then-delete-legacy-apis.md). Retried steps → [make-operations-idempotent](references/principles/make-operations-idempotent.md).
-- Parallel writers → [separate-before-serializing-shared-state](references/principles/separate-before-serializing-shared-state.md). Context filling up → [guard-the-context-window](references/principles/guard-the-context-window.md).
-- PR-status request → poll `gh pr view <pr> --json state,mergedAt,mergeStateStatus,statusCheckRollup,autoMergeRequest` after each event. Opening a PR never starts a watch loop.
-- A skill is broken mid-task → note it in the reply and fix it as a separate `skills:` commit in dotfiles. Don't silently work around it.
-- Long or unattended work ("going to bed", "run until X") → keep a [decision log](references/decision-log.md).
+- **Nontrivial change or "are we sure?"** Run `explainer`'s [how](../explainer/references/how.md) first.
+- **A "which approach" or "what should this do" fork.** Classify it per `clarifier`'s [Before you ask](../clarifier/SKILL.md#before-you-ask). An observable fact gets a [prototype](playbooks/prototype.md), not a question.
+- **New module, core types, or a public interface.** Sketch it with `planner`'s [design contract](../planner/references/architect.md) before implementing.
+- **Parallel fan-out.** Use [swarm](references/dispatch/swarm.md) for coverage and exploration, [arena](references/dispatch/arena.md) for a bakeoff between competing implementations.
+- **Contested design.** Run `reviewer`'s [interrogate](../reviewer/references/interrogate.md).
+- **Prose you write, the reply included.** Follow `writer`. Prose the user wrote stays as written.
+- **Before review.** Run `simplifier`'s [comments](../simplifier/references/comments.md) mode.
+- **Driving a real UI.** Use `agent-browser`; run CLIs and TUIs directly. For bugs, reproduce on the same surface first.
+- **Measuring or reporting a number.** Run `tester`'s [benchmark](../tester/references/benchmark-checklist.md) before acting on it.
+- **Before calling it done.** Prove it per [`tester`](../tester/SKILL.md).
+- **Repetitive edits.** Build the script or codemod instead ([build-the-lever](references/build-the-lever.md)).
+- **PR-status request.** Poll `gh pr view <pr> --json state,mergedAt,mergeStateStatus,statusCheckRollup,autoMergeRequest` after each event. Opening a PR never starts a watch loop.
+- **A skill is broken mid-task.** Note it in the reply and fix it as a separate `skills:` commit in dotfiles. Don't silently work around it.
+- **Long or unattended work** ("going to bed", "run until X"). Keep a [decision log](references/decision-log.md).
 
 ### Autonomy
 

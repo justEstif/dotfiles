@@ -20,13 +20,13 @@ Before spawning reviewers, state the intent in one clear paragraph from the user
 
 Launch all reviewers in a single message as read-only pi subagents when subagent dispatch is available; otherwise run them as sequential fresh inline passes. Default to three reviewers on the same model, one per lens:
 
-- **Correctness** — bugs, edge cases, error handling, state and concurrency, idempotency, security. Leans on the rubric's Correctness, Root Causes vs. Symptoms, and Security sections.
-- **Behavior** — does the change, called through its public surface the way users call it, do what the intent states; behavior tests, integration paths, verification gaps. Leans on the rubric's Root Causes vs. Symptoms, Structural Integrity, and Verification sections.
-- **Slop** — agent-tell bloat: speculative generality, dead code, comments doing the architecture's job, missed dramatic simplifications. Leans on the rubric's Complexity Budget plus the whole code-quality lens.
+- **Correctness** — bugs, edge cases, error handling, state and concurrency, idempotency, security.
+- **Behavior** — does the change, called through its public surface the way users call it, do what the intent states; behavior tests, integration paths, verification gaps.
+- **Slop** — agent-tell bloat: speculative generality, dead code, comments doing the architecture's job, missed dramatic simplifications.
 
 Add a lens (and a reviewer) when the change calls for it; keep every lens distinct.
 
-Read [interrogate/reviewer-prompt.md](interrogate/reviewer-prompt.md) and fill in the same template for every reviewer with the stated intent, the diff or file contents, the rubric from [interrogate/rubric.md](interrogate/rubric.md), and the code-quality lens from [interrogate/code-quality-review.md](interrogate/code-quality-review.md), naming the reviewer's lens as its primary emphasis.
+Read [interrogate/reviewer-prompt.md](interrogate/reviewer-prompt.md) and fill in the same template for every reviewer with the stated intent, the diff or file contents, the checks in [interrogate/rubric.md](interrogate/rubric.md), naming the reviewer's lens as its primary emphasis.
 
 ## Step 4, Synthesize
 

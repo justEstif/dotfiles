@@ -17,9 +17,9 @@ Runs at `task`'s Stage 5 after the publish gate, or when the user asks to open a
 - `## Scope`: always. 1–3 short items on what it covers and what it deliberately leaves out (a follow-up, a known gap). No symbols, paths, or file-by-file essay.
 - `## Tradeoffs`: only rejected alternatives a reviewer would otherwise ask about. Skip when there was no real choice.
 - `## Blast Radius`: 1–2 sentences on who or what it touches and why that is safe or risky. If main is red, state the cost of leaving it red.
-- `## Verification`: 1–3 bullets, each a real run path and its outcome. Perf: one primary number with its unit, `before → after`, and a link to the arena or swarm directory for the rest. No sample-size methodology, swarm recitals, or metric tables.
+- `## Verification`: 1–3 bullets, each a real run path and its outcome. Perf: one primary number with its unit, `before → after`. Link the full runs instead of pasting methodology or metric tables.
 
-After the sections, attach videos or screenshots when they prove a claim. Full SHAs, swarm or arena lane recitals, lever-correction essays, file-by-file checklists, and "CLEAN" verdicts go in a linked artifact, not the body.
+After the sections, attach videos or screenshots when they prove a claim. Full SHAs, file-by-file checklists, and verdict logs go in a linked artifact, not the body.
 
 **Forge.** GitHub CLI (`gh`) only, for create, edit, view, and every other PR operation. Do not require Graphite (`gt`) or any other forge CLI.
 
@@ -29,4 +29,4 @@ After the sections, attach videos or screenshots when they prove a claim. Full S
 
 **Watch.** Opening a PR does not start a watch loop. Post the URL and keep building. Finish the phase or stack first. Check PR status only when the user asks, by polling `gh pr view <pr> --json state,mergedAt,mergeStateStatus,statusCheckRollup,autoMergeRequest` after each event. Push back when feedback drifts from intent.
 
-A subagent that opens a PR runs [interrogate](../../reviewer/references/interrogate.md) on the diff, [unslop](../../writer/references/unslop.md), and [comments](../../simplifier/references/comments.md), and posts the URL. It returns to the parent without watching the PR.
+A subagent opens a PR only when the user approved that PR at the publish gate. It posts the URL and returns without watching the PR.

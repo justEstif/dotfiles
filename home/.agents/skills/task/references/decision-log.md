@@ -1,6 +1,6 @@
 # Show me your work
 
-Keep one canonical log. Every row points at evidence a reviewer can resolve — per [prove-it-works](../../tester/references/prove-it-works.md), the trail is only as good as the pointers.
+Keep one canonical log. Every row points at evidence a reviewer can resolve — per [prove-it-works](../../tester/SKILL.md), the trail is only as good as the pointers.
 
 ## The format
 
@@ -44,28 +44,11 @@ Commit it only when the work is ambitious enough that a reviewer needs the trail
 ## Rules
 
 - Append-only. A wrong call gets a new row that supersedes it. Never edit or delete history.
-- Prefer evidence produced by committed scripts over hand-made one-offs ([encode-lessons-in-structure](../../capturer/references/encode-lessons-in-structure.md)).
+- Prefer evidence produced by committed scripts over hand-made one-offs ([encode-lessons-in-structure](../../capturer/references/encode.md)).
 
-## Audit the log against the transcript
+## Before handing back
 
-At the end of the run, before handing back, check the log told the truth. Read this run's transcript (pi session storage; `session_search` locates it). Don't glob across other projects' or other sessions' transcripts. That reads unrelated private chats. Walk this run's rows against what actually happened. Each stretch of them begins at one of this run's `start` rows, or at the first row if this run created the log, and ends at the next `start` row of another run:
-
-- Check that every row maps to a real decision or action.
-- Check that each row's evidence resolves and shows what the row claims.
-- A fork, pivot, or abandoned approach that shaped the work but isn't logged is a gap. Add it.
-
-Correct the log, not the story. The audit never edits or removes a row, even an invented one. When a row records neither a real decision nor a real action, or its claim or evidence is wrong, add a row that supersedes it with what actually happened and a pointer that resolves. This audit does not check rows outside this run's stretches. If this run's own work shows one of them is wrong, supersede it like any wrong call.
-
-## Independent fresh-context review of the trail
-
-Before handing back, spawn a reviewer that did none of the work — a fresh-context subagent (pi subagent dispatch if available), else a fresh pass in a new context. Self-review is not a substitute. The reviewer reads the audit trail and the run's transcript, then flags what the user should pay attention to. Not a redo of the work, a scan for what's suboptimal or risky.
-
-- Decisions logged with weak or absent evidence.
-- Verification steps skipped or claimed without proof in the transcript.
-- Choices that look risky in hindsight (premature, scope-creeping, papering over a symptom).
-- Gaps the user would otherwise miss on a casual skim.
-
-Every reply for a run that produced a trail ends with an "Attention" section. Lead with a reviewer line of its own (`reviewed by fresh-context reviewer`), then list each flag pointing to specific rows or moments. "No flags" is a valid value. The reviewer line is not.
+Reread this run's rows against what actually happened. A fork or pivot that shaped the work but isn't logged is a gap: add it. A wrong row gets a superseding row, never an edit. End the reply with an **Attention** list naming rows with weak evidence or risky calls the user should look at, or "no flags".
 
 ## Reviewing the trail
 
