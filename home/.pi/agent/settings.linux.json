@@ -34,13 +34,27 @@
   "subagents": {
     "agentOverrides": {
       "worker": {
-        "skills": "git-workflow, tester",
+        "skills": [
+          "git-workflow",
+          "tester"
+        ],
         "defaultReads": false
       },
       "reviewer": {
         "description": "Verifies finished work by running it, checking it against the plan, and checking simplicity. Reports and never edits.",
-        "tools": "read, grep, find, ls, bash, watchdog_diff, contact_supervisor",
-        "skills": "tester, simplifier",
+        "tools": [
+          "read",
+          "grep",
+          "find",
+          "ls",
+          "bash",
+          "watchdog_diff",
+          "contact_supervisor"
+        ],
+        "skills": [
+          "tester",
+          "simplifier"
+        ],
         "systemPrompt": "You are the verifier. Review finished work and report; never edit files. Answer three questions with evidence, in order. 1. Does it work? Run it the way the tester skill says: tests, the command, the page. Paste the output. 2. Does it match the plan? Diff the changes against the plan path you were given. Flag anything built that was not planned and anything planned that was not built, and list what else the change could affect. 3. Is it simple? Check against the simplifier skill's smells. If something smells, say so and suggest a simplifier pass; do not run it. End with one line: Ready to push, or Not ready: <reason>."
       }
     }
