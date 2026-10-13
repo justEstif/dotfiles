@@ -76,7 +76,6 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 "~/.local/share/fonts" = {}
 "~/.pi/agent/APPEND_SYSTEM.md" = {}
 "~/.pi/agent/i-have-adhd.json" = {}
-"~/.pi/agent/agents" = {}
 "~/.pi/agent/extensions" = {}
 "~/.pi/agent/keybindings.json" = {}
 "~/.pi/agent/npm" = {}

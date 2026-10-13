@@ -10,7 +10,7 @@ Audit for unnecessary complexity and propose deletions. Only deletions, never ad
 ## When to use
 
 - The user asks for a simplification pass on a plan, diff, file, folder, or whole project.
-- The `verifier` agent spotted complexity and suggested this pass.
+- A verifier pass spotted complexity and suggested this pass.
 - Something feels bloated, over-engineered, or sloppy, one file or the whole thing.
 
 ## Comments mode
