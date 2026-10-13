@@ -26,7 +26,7 @@ Run one task through the stages below. This skill orchestrates; each loaded skil
 This chat runs the playbook; the worker implements. Match the work to a [playbook](#playbooks), or design one with [figure-it-out](references/figure-it-out.md) when none fits or the effort is large or cross-cutting. Open the todo list with the playbook's steps copied verbatim; a step you skip stays with `skip: <reason>`.
 
 1. Dispatch `worker` with the plan path, confirmed constraints, exact repo and cwd, edit boundaries, and the playbook step it owns. Fan-out steps (arena, swarm, interrogate) are run from this chat, since the worker has no subagent tool.
-2. Dispatch a fresh, read-only `verifier` against the worker's result and the actual changed files. Wait for its verdict.
+2. Dispatch a fresh verifier, a subagent that can run commands but never edits, against the worker's result and the actual changed files. Wait for its verdict.
 3. If verification fails, send the concrete findings to `worker` and verify again. Never advance on a failed or missing verdict. Infrastructure failures, or changes needing unapproved scope, stop and go to the user.
 
 Local commits in scoped format are allowed and expected here (`git-workflow`'s commit-as-you-work). Push, PR, and merge steps in any playbook wait for Stage 5.
