@@ -1,6 +1,7 @@
 ---
 name: task
 description: "Run one task end to end: clarify, plan, implement with verification, capture, publish — approval gates after clarify, plan, and publish only; stages 3–4 run unattended under poteto-mode rigor (playbook-matched execution, unslopped prose, verified work). Entry point for a task or approved plan path, poteto-mode / 'work poteto-style' requests, and every playbook trigger: investigation (read-only how does X work / why was Y built / are we sure / should we do X or Y), bug fix (reproduce, root-cause, fix a defect), perf issue (measured slowness vs baseline), hillclimb (sustained improvement of one metric against a target), feature (new behavior from a named data shape), refactoring (behavior-preserving reshape), prototype (throwaway sketch to settle a design or empirical fork), multi-phase or multi-PR plan, session pickup (resume a prior agent's in-flight work), pause safely (clean checkpoint to resume from), opening a PR, shipping (land a green stack with independent per-PR verdicts) — and 'figure it out': design an auditable bespoke playbook for a large migration, ambitious multi-part change, or work a human reviews after stepping away, when no narrower playbook fits."
+disable-model-invocation: true
 source: https://github.com/cursor/plugins/tree/main/pstack
 license: MIT (pstack, by poteto)
 ---
