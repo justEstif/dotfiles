@@ -1,6 +1,6 @@
 ---
 name: capturer
-description: Captures one durable, non-obvious lesson from completed work for future sessions
+description: Captures one durable, non-obvious lesson from completed work for future sessions; on "reflect" (or a request to mine the session for learnings and improve skills), reviews the pi session transcript through judgment, tooling, and divergent lenses and routes each accepted learning as a concrete edit into the owning skill — direct file edit, or skill_manage for pi-managed skills
 ---
 
 # capturer
@@ -13,6 +13,10 @@ Capture one lesson so the next session starts smarter.
 - When a bug had a non-obvious cause.
 - When a decision took longer than it should have.
 - When the user asks to capture a lesson.
+
+## Reflect mode (session learnings → skill edits)
+
+When the user says "reflect" or asks to mine the session for learnings and route them into skills, run `references/reflect.md` instead of the lesson-log steps below: locate the pi session transcript, review it through the three lenses, synthesize Accepted / Rejected / Backlog, and apply approved edits to the owning skills — direct file edit, or `skill_manage` for pi-managed skills. Reflect never writes to the pi-work lesson log, and its own rules (including its approval gate for skill edits) live in that file. Ported from pstack `reflect` (MIT, by poteto).
 
 ## Steps
 
