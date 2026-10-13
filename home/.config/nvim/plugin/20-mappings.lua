@@ -90,8 +90,6 @@ nmap_leader("zd", function()
 	require("zk.commands").get("ZkNew")({ dir = "daily", group = "daily", date = "today" })
 end, "Daily note")
 
--- 0.13: structural Treesitter selection. In Visual mode, expand/adjust the
--- selection to syntax-tree nodes; repeat to grow to sibling nodes.
 vim.keymap.set("v", "gs", function()
 	vim.treesitter.select()
 end, { desc = "Treesitter structural select" })
