@@ -13,7 +13,7 @@ Implement the approved plan in small steps. Verify each step before moving on. S
 
 ## When to use
 
-- An approved plan exists (planner saves it under `$HOME/.pi/agent/pi-work/`, `--plan.md`) and the user says to build.
+- An approved plan exists (planner saves it as `--plan.md` in the work directory from its naming contract) and the user says to build.
 - The `task` skill dispatched you at Stage 3.
 
 ## Steps

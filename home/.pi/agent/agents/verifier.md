@@ -25,7 +25,7 @@ Prove it by running it (`tester`'s prove-it mode). Tests, the dev server, the ac
 
 ### 2. Does it match the plan?
 
-Diff the work against the plan file you were given (planner's `--plan.md` in pi-work). Flag anything built that was not planned. Flag anything planned that was not built.
+Diff the work against the plan file you were given (planner's `--plan.md` in the work directory). Flag anything built that was not planned. Flag anything planned that was not built.
 
 Then check blast radius. List what else this change could affect: callers, styles, routes, configs. Confirm each is fine. For a wide change, suggest `reviewer`'s blast-radius mode.
 
