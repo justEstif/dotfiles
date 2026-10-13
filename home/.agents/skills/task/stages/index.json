@@ -1,0 +1,58 @@
+{
+  "$comment": "Stage list for the task skill. One row per stage. gate: the approval-gate question; null means the stage runs unattended (Stages 3-4). skills: names resolved against sibling skill dirs (../<name>/SKILL.md) or paths relative to this skill's root. dispatch: subagent role names carried in the SKILL.md body, not on-disk skills. playbooks: files under playbooks/. Rendered and validated by scripts/stages.mjs. Editing stages means editing this file, never the SKILL.md body.",
+  "stages": [
+    {
+      "id": 1,
+      "name": "Clarify",
+      "gate": "Ask the user to confirm the brief. Until they do, stop. Do not build anything.",
+      "skills": ["clarifier"],
+      "dispatch": [],
+      "playbooks": []
+    },
+    {
+      "id": 2,
+      "name": "Plan",
+      "gate": "Approve this plan and start implementation?",
+      "skills": ["planner"],
+      "dispatch": [],
+      "playbooks": []
+    },
+    {
+      "id": 3,
+      "name": "Implement and verify",
+      "gate": null,
+      "skills": ["references/figure-it-out.md"],
+      "dispatch": ["worker", "verifier"],
+      "playbooks": [
+        "investigation.md",
+        "bug-fix.md",
+        "feature.md",
+        "refactoring.md",
+        "prototype.md",
+        "perf-issue.md",
+        "hillclimb.md",
+        "multi-phase-plan.md",
+        "opening-a-pr.md",
+        "session-pickup.md",
+        "pause-safely.md",
+        "shipping.md"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Capture",
+      "gate": null,
+      "skills": ["capturer"],
+      "dispatch": [],
+      "playbooks": []
+    },
+    {
+      "id": 5,
+      "name": "Publish",
+      "gate": "Show the proposed publication scope and ask for approval before any commit or push.",
+      "skills": ["publisher", "git-workflow"],
+      "dispatch": [],
+      "playbooks": []
+    }
+  ]
+}
