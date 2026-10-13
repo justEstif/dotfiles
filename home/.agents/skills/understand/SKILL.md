@@ -9,13 +9,13 @@ license: MIT (pstack, by poteto)
 
 The 5 pstack understanding skills by poteto (MIT), ported from the Cursor pstack plugin into `references/`. Bodies are the source skills' text; only Cursor machinery was adapted (spawn syntax → pi subagents, MCP discovery → local evidence, Cursor transcript paths → pi session storage, image-gen → pi codemode / tldraw-offline). Read the matched reference, not all of them.
 
-| member | reference | trigger |
-| --- | --- | --- |
-| how | references/how.md | "How does X work", walkthrough before changing something, where-should-this-live. |
-| why | references/why.md | "Why is X this way", "why we picked Y", design rationale, postmortems. |
-| teach | references/teach.md | "Teach me this", "help me really understand X", explain a change or subsystem. |
-| recall | references/recall.md | "Recall my work on X", "where did I leave off", rebuild context across past sessions. |
-| ketchup | references/ketchup.md | Catch the user up on this one chat since their last message. |
+| member  | reference             | trigger                                                                               |
+| ------- | --------------------- | ------------------------------------------------------------------------------------- |
+| how     | references/how.md     | "How does X work", walkthrough before changing something, where-should-this-live.     |
+| why     | references/why.md     | "Why is X this way", "why we picked Y", design rationale, postmortems.                |
+| teach   | references/teach.md   | "Teach me this", "help me really understand X", explain a change or subsystem.        |
+| recall  | references/recall.md  | "Recall my work on X", "where did I leave off", rebuild context across past sessions. |
+| ketchup | references/ketchup.md | Catch the user up on this one chat since their last message.                          |
 
 ## Bundle rules
 
