@@ -25,7 +25,7 @@ The default is the one-page plan below. Two larger shapes have their own referen
 ## Steps
 
 1. If the `clarifier` skill produced a confirmed summary, use it as the basis for the plan. Do not reopen settled questions unless new evidence conflicts with it.
-2. Read `assets/plan-template.md` relative to this skill's directory and `references/artifact-naming.md`, both relative to this skill's directory, for the shared naming contract. Create the destination directory if missing. Save the plan as `$HOME/.pi/agent/pi-work/<repo-or-folder>--YYYY-MM-DD--<task>--plan.md`, retaining the chosen prefix on updates. If the naming contract is missing, stop and request its installation rather than invent a conflicting convention.
+2. Read `assets/plan-template.md` relative to this skill's directory and `references/artifact-naming.md`, both relative to this skill's directory, for the shared naming contract. Create the destination directory if missing. Save the plan in the work directory the contract names, as `<repo-or-folder>--YYYY-MM-DD--<task>--plan.md`, retaining the chosen prefix on updates. If the naming contract is missing, stop and request its installation rather than invent a conflicting convention.
 3. Fill the template using exactly its four sections. No other headings. Include the confirmed brief in “What we're doing”; if a matching lesson file exists, link to it there using a relative Markdown link.
 4. Show the exact plan path and contents to the user.
 5. **Stop and ask** for approval. Do not implement until they approve.
@@ -50,7 +50,7 @@ Use `assets/plan-template.md` for the four required sections and their placehold
 
 ## Example interaction
 
-> Agent: *(writes the plan in `$HOME/.pi/agent/pi-work/`, shows its exact path and contents)*
+> Agent: *(writes the plan in the work directory, shows its exact path and contents)*
 >
 > "Here is the plan. Four sections: what we're doing, steps, what we're not doing, how we'll know it works. Approve this before I build?"
 >

@@ -20,7 +20,7 @@ Open a todolist with one entry per phase before launching anything.
 
 ## Phase B: Fan out
 
-Spawn all N workers as pi subagents in a single message when subagent dispatch is available; otherwise run the workers as sequential fresh inline passes. When a worker must work from a non-default branch, give it its own worktree on that branch so workers never share writable state.
+Spawn all N workers as subagents in a single message when subagent dispatch is available; otherwise run the workers as sequential fresh inline passes. When a worker must work from a non-default branch, give it its own worktree on that branch so workers never share writable state.
 
 Every brief stands alone. Include the goal, scope, exact slice or race arm, how to verify, and what to report. Reports use `PASS`, `ISSUES`, or `BLOCKED` with evidence. A worker that can prove a defect reports `ISSUES` and lists every issue it can prove, not only the first.
 

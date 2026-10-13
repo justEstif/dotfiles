@@ -48,4 +48,4 @@ Keep implementation details out of the map. Name only user paths, stable handles
 
 ## Port note
 
-This is a worked example from the upstream source. `control-notes` is the example's generated verification harness CLI; in a pi repo, a generated `verify-<app>` skill drives the browser through the local `agent-browser` skill and ships its own helper scripts the same way.
+This is a worked example from the upstream source. `control-notes` is the example's generated verification harness CLI; in your repo, a generated `verify-<app>` skill drives the browser through the local `agent-browser` skill and ships its own helper scripts the same way.

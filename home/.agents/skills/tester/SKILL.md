@@ -18,7 +18,7 @@ Show that the work does what it claims, on the real artifact, with evidence. A s
 
 - **Prove it on the real thing.** Run the command, load the page, drive the CLI. Paste the actual output. Commit the proof artifact only when the work is large enough that a reviewer needs it, alongside `task`'s [decision log](../task/references/decision-log.md).
 - **A fix starts with a failing test** when a cheap local test target exists. The test fails before the fix and passes after.
-- **Verify skills are repo-scoped.** Generate them at `.pi/skills/verify-<app>/` in the project, never in `~/.agents/skills/`. Browser recipes go through `agent-browser`.
+- **Verify skills are repo-scoped.** Generate them in the project's own skills directory (`.agents/skills/verify-<app>/`, the cross-harness default), never in the user-level skills directory. Browser recipes go through `agent-browser`.
 - **The `verifier` agent applies these rules.** This skill holds the procedures it runs.
 
 ## Modes

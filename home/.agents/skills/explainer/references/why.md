@@ -12,11 +12,11 @@ State your reading of the target and the question; the user can redirect. Then g
 
 ## 2. Investigate
 
-Size the search to the question. A single commit whose PR states the reason needs nothing more. Otherwise send one read-only pi subagent per source that exists here (or one fresh inline pass each), all carrying the anchor:
+Size the search to the question. A single commit whose PR states the reason needs nothing more. Otherwise send one read-only subagent per source that exists here (or one fresh inline pass each), all carrying the anchor:
 
 - Source control: commits, PRs, reviews, issues via `gh`.
 - In-repo docs: ADRs, design docs, READMEs.
-- pi session transcripts under `~/.pi/agent/sessions/<slug>/`, searched with `rg`: the agent's own earlier reasoning.
+- Session transcripts, if the harness keeps them, searched with `rg`: the agent's own earlier reasoning.
 - The web via the `web` skill: upstream issues, changelogs, postmortems.
 
 Investigators quote verbatim with exact locations, record what they searched (an empty search is a finding), and gather without concluding.

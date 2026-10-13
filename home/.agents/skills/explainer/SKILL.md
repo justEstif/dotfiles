@@ -24,7 +24,7 @@ Answer "how does this work" and "why is it this way" from evidence in the repo, 
 ## Rules
 
 - **why's confidence language is governed by [references/why/epistemics.md](references/why/epistemics.md).** When another skill reuses why's findings, the hedges are findings, not style. Never flatten them.
-- **Spawns are pi subagents** when dispatch is available, else one inline pass per role in a fresh context. Explorers and investigators never write.
+- **Spawns are subagents** when dispatch is available, else one inline pass per role in a fresh context. Explorers and investigators never write.
 - Teaching the user a topic belongs to `teacher`; this skill explains code to whoever needs it, including the agent itself before a change.
 
 ## Must NOT

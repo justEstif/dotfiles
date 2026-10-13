@@ -17,7 +17,7 @@ Run one task through the stages below. This skill orchestrates; each loaded skil
 
 ## Stage 2 — Plan
 
-1. Load `planner` and follow it using the confirmed brief. Do not reopen settled questions. planner picks its mode (one-page, design contract, program plan) and saves the plan under `$HOME/.pi/agent/pi-work/` using its naming contract.
+1. Load `planner` and follow it using the confirmed brief. Do not reopen settled questions. planner picks its mode (one-page, design contract, program plan) and saves the plan in the work directory its naming contract defines.
 2. Show the exact plan path and contents.
 3. Gate: ask "Approve this plan and start implementation?" Stop and wait. Approval authorizes Stage 3, not publication. If the user asked for planning only, stop after approval.
 
@@ -81,7 +81,7 @@ Name each reference that shaped a decision and the choice it changed. Cite only 
 
 ### Subagents
 
-Dispatch through pi's subagent mechanism when available; otherwise run the pass inline in a fresh context. References that prescribe their own dispatch shape (how, why, arena, swarm, architect, interrogate) keep it. Every fan-out runs one model with varied briefs and isolates each parallel writer in its own worktree.
+Dispatch through the harness's subagent mechanism when available; otherwise run the pass inline in a fresh context. References that prescribe their own dispatch shape (how, why, arena, swarm, architect, interrogate) keep it. Every fan-out runs one model with varied briefs and isolates each parallel writer in its own worktree.
 
 Give delegates file pointers, not context dumps. You own every subagent's work: review the diff and write your own summary. A second opinion is the same prompt run again in a fresh context.
 

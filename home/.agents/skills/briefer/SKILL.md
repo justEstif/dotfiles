@@ -19,7 +19,7 @@ Keep work continuous across messages, sessions, and agents. The read side rebuil
 | mode | reference | trigger |
 | --- | --- | --- |
 | ketchup | [references/ketchup.md](references/ketchup.md) | Summarize this one chat since the user's last message. |
-| recall | [references/recall.md](references/recall.md) | Rebuild context across past pi sessions plus live repo state. |
+| recall | [references/recall.md](references/recall.md) | Rebuild context across past sessions plus live repo state. |
 | pickup | [references/session-pickup.md](references/session-pickup.md) | Resume one specific prior session's in-flight work. |
 | pause | [references/pause-safely.md](references/pause-safely.md) | Checkpoint in-flight work so pickup can resume it. |
 

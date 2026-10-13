@@ -5,8 +5,8 @@ The plan is the deliverable. Do not implement. Execution starts only on the user
 1. When the change is one or two files with an obvious approach, skip this mode and write the one-page plan.
 2. Settle open questions by [prototype](../../task/playbooks/prototype.md) before writing. Keep each prototype's branch, SHA, and screenshots for the plan. Ask the user only about product or preference calls no run can settle, per `clarifier`'s [Before you ask](../../clarifier/SKILL.md#before-you-ask).
 3. Explore in subagents or fresh passes that return file pointers, conventions, test commands, and entry points, not dumps.
-4. Save the plan under `$HOME/.pi/agent/pi-work/` with planner's naming contract, using the skeleton below.
-5. Validate every skill and path the plan names: `node ~/.agents/scripts/check-skill-links.mjs` and `node ~/.agents/skills/task/scripts/stages.mjs` for skills; check repo paths directly.
+4. Save the plan in the work directory from planner's [naming contract](artifact-naming.md), using the skeleton below.
+5. Validate every skill and path the plan names: run the `task` skill's stage validator (`stages.mjs`) and any link checker the skills repo provides; check repo paths directly.
 6. Show the plan path and stop for approval.
 
 ## Skeleton

@@ -18,7 +18,7 @@ Before spawning reviewers, state the intent in one clear paragraph from the user
 
 ## Step 3, Spawn Reviewers
 
-Launch all reviewers in a single message as read-only pi subagents when subagent dispatch is available; otherwise run them as sequential fresh inline passes. Default to three reviewers on the same model, one per lens:
+Launch all reviewers in a single message as read-only subagents when subagent dispatch is available; otherwise run them as sequential fresh inline passes. Default to three reviewers on the same model, one per lens:
 
 - **Correctness** — bugs, edge cases, error handling, state and concurrency, idempotency, security.
 - **Behavior** — does the change, called through its public surface the way users call it, do what the intent states; behavior tests, integration paths, verification gaps.

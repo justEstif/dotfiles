@@ -13,13 +13,13 @@ Every candidate works the same task; each gets a deliberately varied brief. The 
 
 ## Phase B: Fan out
 
-Spawn all N candidates as pi subagents in a single message when subagent dispatch is available; otherwise run one fresh inline pass per candidate, sequentially, so each starts from a clean context. Each gets the task, its varied brief, the path to the shared grounding, its own output path, and instructions to produce the artifact and a short rationale naming the alternatives it considered and what it rejected.
+Spawn all N candidates as subagents in a single message when subagent dispatch is available; otherwise run one fresh inline pass per candidate, sequentially, so each starts from a clean context. Each gets the task, its varied brief, the path to the shared grounding, its own output path, and instructions to produce the artifact and a short rationale naming the alternatives it considered and what it rejected.
 
 If a candidate produces no output, proceed with N-1 and note the dropout.
 
 ## Phase C: Cross-judge
 
-After all Phase B candidates complete, spawn one read-only judge as an independent fresh-context pass — a pi subagent when available, else a fresh inline pass. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. Its value is independence: a context that never watched the candidates being written and holds no stake in any of them. It runs in parallel with your reading in Phase D. Don't spawn it while candidates are still writing.
+After all Phase B candidates complete, spawn one read-only judge as an independent fresh-context pass — a subagent when available, else a fresh inline pass. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. Its value is independence: a context that never watched the candidates being written and holds no stake in any of them. It runs in parallel with your reading in Phase D. Don't spawn it while candidates are still writing.
 
 ## Phase D: Pick a base
 
