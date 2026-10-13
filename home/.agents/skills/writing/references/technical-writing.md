@@ -7,6 +7,8 @@ license: MIT (pstack, by poteto)
 
 Write so a tired engineer understands on the first read. Apply all four layers.
 
+For a doc the user wrote, these layers are a standard to review against, not a license to rewrite. Route it through the `proof-reader` skill, which flags and asks.
+
 Three rules sit above the layers:
 
 - **Cut every word that does no work.** If the sentence survives without a word, the word goes. "In order to" is "to". "It is important to note that" is nothing.

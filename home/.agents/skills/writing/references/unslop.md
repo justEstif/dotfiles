@@ -7,6 +7,8 @@ license: MIT (pstack, by poteto)
 
 Edit text to remove AI patterns. Scan for the patterns below, then rewrite. Preserve meaning and match the intended tone.
 
+Scope is text the agent wrote. When a diff or file mixes in prose the user wrote, rewrite only the agent's lines and leave the user's prose untouched; if it needs review, that is the `proof-reader` skill's job.
+
 ## Patterns to detect and fix
 
 Rule numbers are stable ids that other skills cite. A removed rule leaves a gap.

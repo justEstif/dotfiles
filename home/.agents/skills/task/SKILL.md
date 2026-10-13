@@ -64,9 +64,9 @@ Remaining triggers:
 - Parallel fan-out → the [swarm](../fanout/references/swarm.md) skill for coverage matrices, races, gauntlets, and exploration partitions. Use [arena](../fanout/references/arena.md) for design or code bakeoffs with base selection and grafting.
 - Contested design → the [interrogate](../fanout/references/interrogate.md) skill before shipping.
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3, [playbooks/feature.md](playbooks/feature.md)).
-- Any prose surface, your reply to the user included → the [unslop](../writing/references/unslop.md) skill. Write the reply per Writing the reply. Authoring or editing SKILL.md files goes through pi's skill_manage, not a ported skill.
-- Docs, RFCs, readmes, PR descriptions, or commit messages → the [technical-writing](../writing/references/technical-writing.md) skill.
-- Before commit → [unslop](../writing/references/unslop.md) over the diff.
+- Any prose surface you write, your reply to the user included → the [unslop](../writing/references/unslop.md) skill. Write the reply per Writing the reply. Authoring or editing SKILL.md files goes through pi's skill_manage, not a ported skill.
+- Docs, RFCs, readmes, PR descriptions, or commit messages you write → the [technical-writing](../writing/references/technical-writing.md) skill.
+- Before commit → [unslop](../writing/references/unslop.md) over the agent-written lines in the diff. Prose the user wrote stays as written.
 - Before review → the [no-comments](../writing/references/no-comments.md) skill.
 - Driving a real surface → [agent-browser](../agent-browser/SKILL.md) for browser and web UIs; run CLIs and TUIs directly. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
 - Running a benchmark, measuring perf yourself, or reporting a speedup or regression you measured → the [benchmark-checklist](../rigor/references/benchmark-checklist.md) skill before you report or act on the number.
