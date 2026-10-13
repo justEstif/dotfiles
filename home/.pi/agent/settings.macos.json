@@ -1,10 +1,12 @@
 {
-  "lastChangelogVersion": "1.0.3",
+  "lastChangelogVersion": "1.2.0",
   "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-6-sol",
-  "enabledModels": ["openai-codex/gpt-6-*"],
+  "enabledModels": [
+    "openai-codex/gpt-6-*"
+  ],
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
@@ -18,12 +20,15 @@
     "npm:pi-subagents"
   ],
   "theme": "one-dark",
-  "defaultTools": ["+codemode"],
+  "defaultTools": [
+    "+codemode"
+  ],
   "terminal": {
     "showTerminalProgress": true
   },
   "collapseChangelog": true,
   "enableInstallTelemetry": false,
   "tuiMode": "fullscreen",
-  "deviceId": "4ca5b798-05cd-453b-b839-bccae1af6085"
+  "deviceId": "4ca5b798-05cd-453b-b839-bccae1af6085",
+  "treeFilterMode": "no-tools"
 }
