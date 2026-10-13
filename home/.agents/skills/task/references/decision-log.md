@@ -1,6 +1,6 @@
 # Show me your work
 
-Keep one canonical log. Every row points at evidence a reviewer can resolve — per [prove-it-works](../../tester/SKILL.md), the trail is only as good as the pointers.
+Keep one canonical log. Every row points at evidence a reviewer can resolve. Per [prove-it-works](../../tester/SKILL.md), the trail is only as good as the pointers.
 
 ## The format
 

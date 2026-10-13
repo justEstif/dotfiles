@@ -1,6 +1,6 @@
 ---
 name: task
-description: Runs a task end to end — clarify, plan, implement and verify, capture, publish — with approval gates after clarify, after plan, and before push
+description: Runs a task end to end through clarify, plan, implement and verify, capture, and publish, with approval gates after clarify, after plan, and before push
 disable-model-invocation: true
 ---
 
@@ -10,18 +10,18 @@ Run one task through the stages below. This skill orchestrates; each loaded skil
 
 [stages/index.json](stages/index.json) holds the stage list (id, name, gate, skills, playbooks). `node scripts/stages.mjs` renders it and checks every named skill and playbook exists. Change a stage there first, then this body.
 
-## Stage 1 — Clarify
+## Stage 1. Clarify
 
 1. Load `clarifier` and follow it fully, including its rule to classify each question before asking.
 2. Gate: ask the user to confirm the brief. Until they do, stop. Do not build anything.
 
-## Stage 2 — Plan
+## Stage 2. Plan
 
 1. Load `planner` and follow it using the confirmed brief. Do not reopen settled questions. planner picks its mode (one-page, design contract, program plan) and saves the plan in the work directory its naming contract defines.
 2. Show the exact plan path and contents.
 3. Gate: ask "Approve this plan and start implementation?" Stop and wait. Approval authorizes Stage 3, not publication. If the user asked for planning only, stop after approval.
 
-## Stage 3 — Implement and verify
+## Stage 3. Implement and verify
 
 This chat runs the playbook; the worker implements. Match the work to a [playbook](#playbooks), or design one with [figure-it-out](references/figure-it-out.md) when none fits or the effort is large or cross-cutting. Open the todo list with the playbook's steps copied verbatim; a step you skip stays with `skip: <reason>`.
 
@@ -31,12 +31,12 @@ This chat runs the playbook; the worker implements. Match the work to a [playboo
 
 Local commits in scoped format are allowed and expected here (`git-workflow`'s commit-as-you-work). Push, PR, and merge steps in any playbook wait for Stage 5.
 
-## Stage 4 — Capture
+## Stage 4. Capture
 
 1. Load `capturer` and follow it. Capture one durable lesson if one exists; otherwise say no capture is warranted.
 2. Show the destination and exactly what was added.
 
-## Stage 5 — Publish
+## Stage 5. Publish
 
 1. Load `publisher` and the `git-workflow` references it requires. Run read-only safety checks: separate task changes from unrelated work, check the branch and remote.
 2. Gate: show the commits and the proposed push or PR scope, and ask for approval before any push, PR, or merge. Earlier approvals do not count.

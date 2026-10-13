@@ -46,7 +46,7 @@ Use `assets/plan-template.md` for the four required sections and their placehold
 > **What we're NOT doing**
 > - No theme customization beyond light/dark
 > - No per-page theme overrides
-> - No settings page — just the header toggle
+> - No settings page, just the header toggle
 
 ## Example interaction
 

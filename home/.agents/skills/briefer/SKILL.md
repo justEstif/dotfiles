@@ -1,6 +1,6 @@
 ---
 name: briefer
-description: Rebuilds working context — catches the user up, recalls past sessions, resumes in-flight work, and checkpoints work before pausing
+description: Rebuilds working context by catching the user up, recalling past sessions, resuming in-flight work, and checkpointing work before a pause
 ---
 
 # briefer

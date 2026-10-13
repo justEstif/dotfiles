@@ -17,23 +17,23 @@ A structured interview about the product behind the code. The answers go into th
 
 1. Read the project first: README, AGENTS.md or CLAUDE.md, the code. Note what is already answered. Never ask something the project already tells you.
 2. Pick the question areas that fit this project from the list below. Write the actual questions yourself, tuned to this specific product. Do not copy the samples word for word.
-3. Ask in rounds of **3 to 5 questions**. Every question comes with **answer options**: 3 to 5 specific, plausible answers drawn from this project, plus a way to type a custom one. "I don't know" is always one of the options — it is a valid answer, recorded as an open question, never pushed past twice. If your environment has a tool for multiple-choice questions, use it. Otherwise letter the options (a, b, c). Wait for answers before the next round. Stop after about 4 rounds, or earlier if the user says enough.
+3. Ask in rounds of **3 to 5 questions**. Every question comes with **answer options**: 3 to 5 specific, plausible answers drawn from this project, plus a way to type a custom one. "I don't know" is always one of the options. It is a valid answer, recorded as an open question, never pushed past twice. If your environment has a tool for multiple-choice questions, use it. Otherwise letter the options (a, b, c). Wait for answers before the next round. Stop after about 4 rounds, or earlier if the user says enough.
 4. Draft a **Product context** section in plain markdown. Show it to the user.
-5. **Stop and ask** before writing anything. Then add the section to AGENTS.md — or CLAUDE.md if that is what the project uses. If neither exists, create AGENTS.md. Never delete what is already there; if the section exists, update it.
+5. **Stop and ask** before writing anything. Then add the section to AGENTS.md, or CLAUDE.md if that is what the project uses. If neither exists, create AGENTS.md. Never delete what is already there; if the section exists, update it.
 
 ## Question areas
 
 Pick what fits. Skip what does not. Add areas this project needs that are not listed.
 
-- **Demand** — Is there enough customer demand for this? Are people already searching for it, and where? How easy is it to get someone to sign up?
-- **Customer** — Who exactly is this for? Where do they spend their time? Who pays, and is that the same person who uses it?
-- **Business model** — What is the pricing? Can price times realistic volume produce revenue worth the effort? One-time or recurring, and why?
-- **Founder fit** — Is this an industry or category you want to be in for years? What is your unfair advantage here?
-- **Status quo** — What do people use today instead, even badly? What would make them switch?
-- **Distribution** — How will the first 100 people find it? What channel do you already have?
-- **Scope** — What is in the first version? What is deliberately out?
-- **Risks** — What is most likely to kill this? Which single assumption, if wrong, ends the project?
-- **Success** — What does "working" look like in six months? What number would tell you to stop?
+- **Demand.** Is there enough customer demand for this? Are people already searching for it, and where? How easy is it to get someone to sign up?
+- **Customer.** Who exactly is this for? Where do they spend their time? Who pays, and is that the same person who uses it?
+- **Business model.** What is the pricing? Can price times realistic volume produce revenue worth the effort? One-time or recurring, and why?
+- **Founder fit.** Is this an industry or category you want to be in for years? What is your unfair advantage here?
+- **Status quo.** What do people use today instead, even badly? What would make them switch?
+- **Distribution.** How will the first 100 people find it? What channel do you already have?
+- **Scope.** What is in the first version? What is deliberately out?
+- **Risks.** What is most likely to kill this? Which single assumption, if wrong, ends the project?
+- **Success.** What does "working" look like in six months? What number would tell you to stop?
 
 ## The artifact
 
@@ -70,7 +70,7 @@ One line per answer. This is context for an agent, not a business plan. If an an
 > Agent: *(reads README and code)* "This looks like an invoicing tool for freelancers. First round, three questions.
 >
 > 1) Who is the one freelancer you are building this for?
->    a) designers  b) developers  c) writers  d) me — I need this  e) someone else
+>    a) designers  b) developers  c) writers  d) me, I need this  e) someone else
 >
 > 2) What do they use today to send invoices?
 >    a) Google Docs templates  b) a tool like FreshBooks  c) their accountant  d) I don't know  e) something else
@@ -80,4 +80,4 @@ One line per answer. This is context for an agent, not a business plan. If an an
 >
 > User: *(picks a, a, d)*
 >
-> Agent: *(two more rounds, then)* "Here is the Product context section I would add to AGENTS.md — pricing is listed under open questions. Want me to write it?"
+> Agent: *(two more rounds, then)* "Here is the Product context section I would add to AGENTS.md. Pricing is listed under open questions. Want me to write it?"

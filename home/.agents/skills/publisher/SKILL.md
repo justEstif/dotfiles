@@ -37,7 +37,7 @@ Before any git operation, load and follow the available `git-workflow` skill and
 - Force-push, or push to a different branch than the current one.
 - Skip hooks.
 - Amend commits that are already on the remote.
-- Commit files that look like secrets — `.env`, keys, credentials. Warn instead.
+- Commit files that look like secrets: `.env`, keys, credentials. Warn instead.
 
 ## Example
 

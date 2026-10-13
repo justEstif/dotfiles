@@ -1,6 +1,6 @@
 ---
 name: writer
-description: Holds agent-written prose to a standard — cuts AI tells, structures docs, PR bodies, and commit messages, and restates jargon plainly
+description: Holds agent-written prose to a standard that cuts AI tells, structures docs, PR bodies, and commit messages, and restates jargon plainly
 ---
 
 # writer

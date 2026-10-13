@@ -31,6 +31,6 @@ wtm cleanup --dry-run    # then without --dry-run
 ## Pitfalls
 
 - Always run from the bare repo root (the dir containing `.git/`).
-- Always quote worktree names — unquoted `/` creates nested directories.
+- Always quote worktree names. Unquoted `/` creates nested directories.
 - Prefer `--no-shell` in agent sessions; plain `create` opens a nested interactive fish.
 - Do not use raw `git worktree` commands unless `wtm` is unavailable.

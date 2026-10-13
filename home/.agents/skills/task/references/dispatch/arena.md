@@ -8,7 +8,7 @@ Every candidate works the same task; each gets a deliberately varied brief. The 
 
 1. State the artifact each candidate is producing.
 2. Derive the rubric, 3-6 concrete gradeable criteria for what success looks like on *this* task. It is the picker's tool in Phase D. Candidates only see the task.
-3. Pick the runners. All runners use the same model; the variation lives in the briefs. Give each runner a deliberately varied brief — a distinct approach, constraint emphasis, or design direction — so the candidates explore the space instead of converging on the first safe shape. Spawn more runners when the arena covers multiple design directions; two is the floor for judgment-sensitive artifacts.
+3. Pick the runners. All runners use the same model; the variation lives in the briefs. Give each runner a deliberately varied brief, with a distinct approach, constraint emphasis, or design direction, so the candidates explore the space instead of converging on the first safe shape. Spawn more runners when the arena covers multiple design directions; two is the floor for judgment-sensitive artifacts.
 4. Give each candidate its own output location (a git worktree where possible, otherwise `/tmp/arena-<slug>/candidate-<n>/`), per separate-before-serializing-shared-state.
 
 ## Phase B: Fan out
@@ -19,7 +19,7 @@ If a candidate produces no output, proceed with N-1 and note the dropout.
 
 ## Phase C: Cross-judge
 
-After all Phase B candidates complete, spawn one read-only judge as an independent fresh-context pass — a subagent when available, else a fresh inline pass. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. Its value is independence: a context that never watched the candidates being written and holds no stake in any of them. It runs in parallel with your reading in Phase D. Don't spawn it while candidates are still writing.
+After all Phase B candidates complete, spawn one read-only judge as an independent fresh-context pass, a subagent when available, else a fresh inline pass. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. Its value is independence: a context that never watched the candidates being written and holds no stake in any of them. It runs in parallel with your reading in Phase D. Don't spawn it while candidates are still writing.
 
 ## Phase D: Pick a base
 

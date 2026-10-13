@@ -1,6 +1,6 @@
 ---
 name: explainer
-description: Explains how code works and why it is that way, from cited evidence — walkthroughs before a change, design rationale, read-only investigations
+description: Explains how code works and why it is that way from cited evidence, for walkthroughs before a change, design rationale, and read-only investigations
 ---
 
 # explainer

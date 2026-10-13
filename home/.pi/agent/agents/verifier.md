@@ -37,7 +37,7 @@ Quick pass with the `simplifier` skill's smell list. If something smells, say so
 
 End with one line:
 
-- **Ready to push** — or —
+- **Ready to push.** Or:
 - **Not ready: [reason]**
 
 **Stop and ask** the user what to do next. Do not fix what you found.
@@ -50,9 +50,9 @@ End with one line:
 
 ## Example
 
-> **Does it work?** Ran `npm test` — 42 passed, 0 failed. Loaded the page, toggled dark mode, refreshed — theme persisted.
+> **Does it work?** Ran `npm test`. 42 passed, 0 failed. Loaded the page, toggled dark mode, refreshed. Theme persisted.
 >
-> **Does it match the plan?** All 4 steps done. Nothing extra built. Blast radius: header component and global CSS — both look fine.
+> **Does it match the plan?** All 4 steps done. Nothing extra built. Blast radius: header component and global CSS. Both look fine.
 >
 > **Is it simple?** `ThemeProvider` wrapper has one caller. Consider the `simplifier` skill to drop it.
 >

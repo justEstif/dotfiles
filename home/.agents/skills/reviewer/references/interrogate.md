@@ -20,9 +20,9 @@ Before spawning reviewers, state the intent in one clear paragraph from the user
 
 Launch all reviewers in a single message as read-only subagents when subagent dispatch is available; otherwise run them as sequential fresh inline passes. Default to three reviewers on the same model, one per lens:
 
-- **Correctness** — bugs, edge cases, error handling, state and concurrency, idempotency, security.
-- **Behavior** — does the change, called through its public surface the way users call it, do what the intent states; behavior tests, integration paths, verification gaps.
-- **Slop** — agent-tell bloat: speculative generality, dead code, comments doing the architecture's job, missed dramatic simplifications.
+- **Correctness.** Bugs, edge cases, error handling, state and concurrency, idempotency, security.
+- **Behavior.** Does the change, called through its public surface the way users call it, do what the intent states; behavior tests, integration paths, verification gaps.
+- **Slop.** Agent-tell bloat: speculative generality, dead code, comments doing the architecture's job, missed dramatic simplifications.
 
 Add a lens (and a reviewer) when the change calls for it; keep every lens distinct.
 

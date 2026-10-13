@@ -20,9 +20,9 @@ Implement the approved plan in small steps. Verify each step before moving on. S
 
 1. Take the first unfinished step from the plan file you were given.
 2. Implement it with the smallest change that works.
-3. Verify it. Run it, run the test, load the page — whatever fits.
+3. Verify it. Run it, run the test, load the page, whatever fits.
 4. Commit the step in scoped format (`git-workflow`'s commit-as-you-work). Never push.
-5. Report in 2–3 sentences: what changed, how you verified it.
+5. Report in 2-3 sentences: what changed, how you verified it.
 6. Mark the step done in the plan file.
 7. If the next step has a fork, classify it (below). Otherwise continue. Repeat from step 1.
 

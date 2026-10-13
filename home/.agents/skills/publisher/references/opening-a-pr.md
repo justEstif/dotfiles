@@ -12,12 +12,12 @@ Runs at `task`'s Stage 5 after the publish gate, or when the user asks to open a
 
 **Descriptions.** The PR body is a one-minute briefing, not a lab notebook, for a reviewer who has the diff. It says why the change exists, what it leaves out, what it could break, and how you proved it works. Write short, simple sentences with few identifiers, no walls of text. The body becomes the squash commit body, so keep that commit under about 40 lines. Start from [assets/pr-body-template.md](../assets/pr-body-template.md): `##` headings in its order, dropping a section with nothing to say. Per section:
 
-- `## Why`: the problem and approach, 1–3 short sentences. No SHAs, rebase genealogy, or "based on main" preamble.
-- `## What changed`: 1–3 short bullets. Name a real symbol or path only when it carries the change. Name both sides of a rename or retarget.
-- `## Scope`: always. 1–3 short items on what it covers and what it deliberately leaves out (a follow-up, a known gap). No symbols, paths, or file-by-file essay.
+- `## Why`: the problem and approach, 1-3 short sentences. No SHAs, rebase genealogy, or "based on main" preamble.
+- `## What changed`: 1-3 short bullets. Name a real symbol or path only when it carries the change. Name both sides of a rename or retarget.
+- `## Scope`: always. 1-3 short items on what it covers and what it deliberately leaves out (a follow-up, a known gap). No symbols, paths, or file-by-file essay.
 - `## Tradeoffs`: only rejected alternatives a reviewer would otherwise ask about. Skip when there was no real choice.
-- `## Blast Radius`: 1–2 sentences on who or what it touches and why that is safe or risky. If main is red, state the cost of leaving it red.
-- `## Verification`: 1–3 bullets, each a real run path and its outcome. Perf: one primary number with its unit, `before → after`. Link the full runs instead of pasting methodology or metric tables.
+- `## Blast Radius`: 1-2 sentences on who or what it touches and why that is safe or risky. If main is red, state the cost of leaving it red.
+- `## Verification`: 1-3 bullets, each a real run path and its outcome. Perf: one primary number with its unit, `before → after`. Link the full runs instead of pasting methodology or metric tables.
 
 After the sections, attach videos or screenshots when they prove a claim. Full SHAs, file-by-file checklists, and verdict logs go in a linked artifact, not the body.
 

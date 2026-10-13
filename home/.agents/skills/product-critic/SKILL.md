@@ -5,7 +5,7 @@ description: Stress-tests a product idea and identifies the smallest evidence-ba
 
 # product-critic
 
-Honest pushback on a product idea before anyone writes code. The goal is not to kill the idea. The goal is to find the smallest true version of it — or to save you months building a version nobody needs.
+Honest pushback on a product idea before anyone writes code. The goal is not to kill the idea. The goal is to find the smallest true version of it, or to save you months building a version nobody needs.
 
 ## When to use
 
@@ -22,7 +22,7 @@ Honest pushback on a product idea before anyone writes code. The goal is not to 
    - What is the strongest evidence someone wants this? Someone who would be upset if it vanished, not someone who said "cool".
    - What is the smallest version someone would pay for this week?
    - How will the first 100 people find it?
-3. Every question comes with **answer options**: 3 to 5 specific, plausible answers drawn from this idea, plus a way to type a custom one. Always include the uncomfortable option — "nobody has asked for this yet" must be as easy to pick as the flattering ones. If your environment has a tool for multiple-choice questions, use it. Otherwise letter the options (a, b, c) so the user can answer with letters or free text.
+3. Every question comes with **answer options**: 3 to 5 specific, plausible answers drawn from this idea, plus a way to type a custom one. Always include the uncomfortable option: "nobody has asked for this yet" must be as easy to pick as the flattering ones. If your environment has a tool for multiple-choice questions, use it. Otherwise letter the options (a, b, c) so the user can answer with letters or free text.
 4. **Stop and wait** for answers. A vague answer gets one follow-up push, not three.
 5. Deliver the roast, in three parts:
    - **What is real.** The parts backed by evidence or a lived problem.
@@ -36,7 +36,7 @@ Honest pushback on a product idea before anyone writes code. The goal is not to 
 - The status quo is the real competitor. If people solve this with "nothing", the pain is probably not real.
 - Small and shipped beats big and planned. The first version should exist in days.
 - Charge real money, simply. If the pricing needs a spreadsheet, the product is not ready.
-- Build for one specific person. Often that person is you. That is fine — say so.
+- Build for one specific person. Often that person is you. That is fine. Say so.
 - A demo is not a product. Auth, boundaries, and failure handling arrive later, with interest.
 - Distribution is part of the product. If nobody can find it, it does not exist.
 - Boring tech ships. Pick the stack you already know.
@@ -56,7 +56,7 @@ Honest pushback on a product idea before anyone writes code. The goal is not to 
 > Agent: "Three questions.
 >
 > 1) What evidence do you have that parents want this?
->    a) someone has paid for something like it  b) parents have asked me for it  c) I saw people complaining about bedtime  d) nobody has asked — it just feels right  e) something else
+>    a) someone has paid for something like it  b) parents have asked me for it  c) I saw people complaining about bedtime  d) nobody has asked, it just feels right  e) something else
 >
 > 2) What do those parents do tonight instead?
 >    a) make up a story  b) read a book they own  c) YouTube  d) I don't know  e) something else
@@ -68,7 +68,7 @@ Honest pushback on a product idea before anyone writes code. The goal is not to 
 >
 > Agent: "What is real: you have a four-year-old and you invent a story every night. You are the user, and the problem is lived.
 >
-> What is wishful: 'parents will pay a monthly subscription'. Nobody you named has asked for this, and the status quo — making it up, or a book — costs them nothing.
+> What is wishful: 'parents will pay a monthly subscription'. Nobody you named has asked for this, and the status quo, making it up or a book, costs them nothing.
 >
 > The wedge: one themed story pack on a one-page site, one-time price. No app, no accounts, no generation pipeline.
 >

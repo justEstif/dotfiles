@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Adversarially reviews a change before shipping and maps its blast radius — what it could break, where, and why
+description: Adversarially reviews a change before shipping and maps its blast radius, meaning what it could break, where, and why
 ---
 
 # reviewer

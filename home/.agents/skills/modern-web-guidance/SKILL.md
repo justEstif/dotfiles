@@ -20,7 +20,7 @@ Run a search before starting non-trivial work, or whenever you're about to hand-
 
 Do **not** trigger for backend (SQL, ORMs, API routes), CI/CD, Docker, or generic local scripts (Python/Go tooling).
 
-## How to use — search then retrieve
+## How to use: search then retrieve
 
 The CLI runs locally (no network needed at query time, no API keys, no telemetry unless enabled). Invoke it through `npx`.
 
@@ -64,7 +64,7 @@ Returns the markdown guide: implementation steps, real code, gotchas, fallbacks,
 
 - **Check before hand-rolling.** If a standardized pattern likely exists, search before writing a custom implementation.
 - **Guides are framework-agnostic.** Adapt to the project's stack (plain HTML, Alpine, React, etc.).
-- **Don't hallucinate guides.** Only use what `retrieve` returns — they are the preferred local standard.
+- **Don't hallucinate guides.** Only use what `retrieve` returns. They are the preferred local standard.
 - **Respect Baseline.** Guides assume Baseline *widely available* features need no fallback. For newer features, follow the guide's fallback advice unless the project has an explicit browser-support policy.
 - **Suggest a policy when you spot a cue**: a restricted runtime (Electron/Tauri), excluded targets, polyfill/bundle hesitation. Propose documenting it in `AGENTS.md`.
 
@@ -72,9 +72,9 @@ Returns the markdown guide: implementation steps, real code, gotchas, fallbacks,
 
 If a project defines a policy (e.g. in `AGENTS.md`), honor it over the guide's defaults. Examples:
 
-- *"Do not implement fallbacks."* — exploratory cutting-edge prototypes.
-- *"Safari 17.4+"* — internal macOS/Tauri tools.
-- *"Custom fallbacks ≤ 20 LOC, no external deps."* — minimize bundle size.
+- *"Do not implement fallbacks."* for exploratory cutting-edge prototypes.
+- *"Safari 17.4+"* for internal macOS/Tauri tools.
+- *"Custom fallbacks ≤ 20 LOC, no external deps."* to minimize bundle size.
 
 If no policy exists and the work is non-trivial, ask the user what targets matter before adding fallback code.
 
