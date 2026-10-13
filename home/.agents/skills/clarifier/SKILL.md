@@ -26,7 +26,7 @@ Nail down the task before planning or coding. Ask a few plain questions. Get a c
 
 ## Before you ask
 
-Classify each question first. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf), it is not the user's to answer: settle it by experiment (`task`'s [prototype playbook](../task/playbooks/prototype.md)) or state an assumption and move on. Ask only for product or preference calls no experiment can settle, and for anything irreversible or outward-facing. The full rule is [references/never-block-on-the-human.md](references/never-block-on-the-human.md).
+Classify each question first. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf), it is not the user's to answer: settle it by experiment (`task`'s [prototype playbook](../task/playbooks/prototype.md)) or state an assumption and move on. Ask only for product or preference calls no experiment can settle, and for anything irreversible or outward-facing.
 
 ## If you have more than 5 questions
 

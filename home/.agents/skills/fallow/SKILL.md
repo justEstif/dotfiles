@@ -7,7 +7,7 @@ compatibility: "Requires `fallow` CLI. Install: `npm install -g fallow`"
 # Fallow
 
 Codebase intelligence for TypeScript and JavaScript. Two layers:
-- **Static** (free): what is connected to what — dead code, complexity, hotspots
+- **Static** (free): what is connected to what. Dead code, complexity, hotspots
 - **Runtime** (paid): what actually ran in production
 
 ## Decision tree
@@ -39,36 +39,36 @@ fallow health                             # Full report: score, complexity, hots
 fallow health --targets --format json     # Ranked refactoring targets with agent evidence
 fallow health --hotspots                  # Files that are both complex AND frequently changed
 fallow health --complexity                # Functions exceeding cyclomatic/cognitive thresholds
-fallow health --score                     # Single 0–100 grade (A/B/C/D/F)
+fallow health --score                     # Single 0-100 grade (A/B/C/D/F)
 fallow health --changed-since main        # Scope to PR diff
 ```
 
 ### CI regression gates
 ```bash
-# On main branch — save baseline
+# On main branch, save baseline
 fallow dead-code --save-regression-baseline
 
-# On each PR — fail if issues grew
+# On each PR, fail if issues grew
 fallow dead-code --fail-on-regression
 fallow dead-code --fail-on-regression --tolerance 2%   # Allow small fluctuation
 ```
 
 ## Non-obvious behaviors
 
-**`--targets` is designed for agents.** `fallow health --targets --format json` returns ranked refactoring candidates with priority scores, effort estimates (low/medium/high), contributing factors, and structured evidence. Use this as your starting point before deciding what to refactor — don't just eyeball complexity scores.
+**`--targets` is designed for agents.** `fallow health --targets --format json` returns ranked refactoring candidates with priority scores, effort estimates (low/medium/high), contributing factors, and structured evidence. Use this as your starting point before deciding what to refactor. Don't just eyeball complexity scores.
 
-**Hotspot ≠ most complex.** A file with complexity 80 that nobody touches is low priority. A file with complexity 30 changed every sprint is where bugs live. The hotspot score is `normalized_churn × normalized_complexity` — the agent won't derive this weighting alone. Always run `--hotspots` before picking refactoring targets.
+**Hotspot ≠ most complex.** A file with complexity 80 that nobody touches is low priority. A file with complexity 30 changed every sprint is where bugs live. The hotspot score is `normalized_churn × normalized_complexity`. The agent won't derive this weighting alone. Always run `--hotspots` before picking refactoring targets.
 
-**Trace before deleting.** Before removing something fallow flags as unused, run `--trace <file:export>`. Fallow can miss dynamic imports, `require()` strings, or framework magic (Next.js pages, Angular decorators). Trace output shows exactly what edges it found — or didn't.
+**Trace before deleting.** Before removing something fallow flags as unused, run `--trace <file:export>`. Fallow can miss dynamic imports, `require()` strings, or framework magic (Next.js pages, Angular decorators). Trace output shows exactly what edges it found, or didn't.
 
-**`--changed-since` scopes analysis without losing graph context.** Fallow still builds the full module graph — it just filters output to changed files. Safe to use in PR checks without missing cross-file dead code.
+**`--changed-since` scopes analysis without losing graph context.** Fallow still builds the full module graph. It just filters output to changed files. Safe to use in PR checks without missing cross-file dead code.
 
 ## Recommended agent workflow
 
-1. **Orient**: `fallow health --score` — get the headline grade
-2. **Find dead weight**: `fallow dead-code --format json` — unused files/exports/deps
-3. **Find risk**: `fallow health --hotspots` — complex files with high churn
-4. **Get ranked targets**: `fallow health --targets --format json` — agent-ready evidence
+1. **Orient**: `fallow health --score` gets the headline grade
+2. **Find dead weight**: `fallow dead-code --format json` finds unused files/exports/deps
+3. **Find risk**: `fallow health --hotspots` lists complex files with high churn
+4. **Get ranked targets**: `fallow health --targets --format json` returns agent-ready evidence
 5. **Trace surprises**: `fallow dead-code --trace <file:export>` for anything that looks wrong
 6. **Act**: delete dead code, refactor hotspots starting from highest-priority targets
 
@@ -79,7 +79,7 @@ fallow dead-code --fail-on-regression --tolerance 2%   # Allow small fluctuation
   **Instead:** Run `fallow dead-code --trace <file:export>` and inspect the edges. If no edges exist AND no framework convention applies, then delete.
 
 - **NEVER rank refactoring targets by complexity score alone**
-  **Why:** Complexity without churn = stable risk. The hotspot formula weights both — a medium-complexity file touched every sprint outranks a high-complexity file nobody touches.
+  **Why:** Complexity without churn = stable risk. The hotspot formula weights both. A medium-complexity file touched every sprint outranks a high-complexity file nobody touches.
   **Instead:** Use `--hotspots` or `--targets` which apply the weighted formula.
 
 - **NEVER run fallow health without `--format json` when consuming output in an agent loop**

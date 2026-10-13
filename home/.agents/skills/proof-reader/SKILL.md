@@ -21,12 +21,12 @@ Read `references/voice.md` if it exists; it lists choices the author makes on pu
 
 ## Review order
 
-1. **Correctness** — spelling, typos, punctuation, grammar, and malformed sentences.
-2. **Clarity** — ambiguous wording and sentences a reader would misread or have to reread.
-3. **Repetition** — repeated words, phrases, or ideas that blur the point rather than build emphasis.
-4. **Reasoning** — contradictions, unsupported conclusions, weak transitions, and claims that do not follow from the evidence.
-5. **Facts** — statements that appear false, outdated, or unverifiable. Distinguish verified errors from claims that need a source.
-6. **Links** — empty URLs, placeholders, malformed links, and links whose destination does not match the label. Check destinations when tools allow it.
+1. **Correctness.** Spelling, typos, punctuation, grammar, and malformed sentences.
+2. **Clarity.** Ambiguous wording and sentences a reader would misread or have to reread.
+3. **Repetition.** Repeated words, phrases, or ideas that blur the point rather than build emphasis.
+4. **Reasoning.** Contradictions, unsupported conclusions, weak transitions, and claims that do not follow from the evidence.
+5. **Facts.** Statements that appear false, outdated, or unverifiable. Distinguish verified errors from claims that need a source.
+6. **Links.** Empty URLs, placeholders, malformed links, and links whose destination does not match the label. Check destinations when tools allow it.
 
 ## Fix vs. flag
 
@@ -37,14 +37,14 @@ Read `references/voice.md` if it exists; it lists choices the author makes on pu
 
 List findings in document order. For each finding, include:
 
-- **Location** — heading, paragraph, line, or a short quote.
-- **Problem** — one direct sentence.
+- **Location.** Heading, paragraph, line, or a short quote.
+- **Problem.** One direct sentence.
 - **Fix** (mechanical) or **Question** (substantive).
 
 Group findings as:
 
-1. **Must fix** — objective errors, broken links, contradictions, or factual problems.
-2. **Reader may stumble** — places a reader will misread or reread. At most five, most important first; a long list invites accepting changes in bulk.
+1. **Must fix.** Objective errors, broken links, contradictions, or factual problems.
+2. **Reader may stumble.** Places a reader will misread or reread. At most five, most important first; a long list invites accepting changes in bulk.
 
 If there are no findings, say: **No publication-blocking issues found.**
 

@@ -3,16 +3,11 @@
 **You own the design. Plan, review, verify.** Delegate implementation. Stay in the lead.
 
 1. [how](../../explainer/references/how.md) over the affected subsystem.
-2. [architect](../../planner/references/architect.md) for parallel design exploration.
-3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
-   - **Blocking first steps.** Gates run before fan-out.
-   - **Independent workstreams.** Disjoint files, services, or layers parallelize. Shared writes serialize.
-   - **Shared mutable state.** Default to splitting the target ([separate-before-serializing-shared-state](../references/principles/separate-before-serializing-shared-state.md)). Serialize only for real invariants.
-   - **Smallest safe decomposition.** If one worker is best, name why.
-4. Delegate code-writing to a subagent with a specific scope (file paths, named data shape and its organizing structure per [model-the-domain](../../planner/references/model-the-domain.md), a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). When the implementation admits multiple valid shapes (error handling, abstraction layer, test structure), delegate via [arena](../references/dispatch/arena.md) instead so the runners surface the alternatives and the cross-judge guards the pick. Mandatory: no skip-with-reason escape, and [laziness protocol](../../simplifier/references/laziness-protocol.md) does not override it (the gain is review separation, not lines saved). A subagent forbidden to spawn satisfies this by owning the diff directly with the same review separation. No "standing by" reply that waits on a nested agent. Comments per Comments (see the [task SKILL.md](../SKILL.md)). Surgical edits, re-ground against the source for upstream-derived files. Port shared-primitive improvements to all consumers and verify each. Commit liberally.
+2. If the work adds a new module, core types, or a public interface, the approved plan carries a [design contract](../../planner/references/architect.md). Implement against it.
+3. For nontrivial multi-step work, write the throughput checkpoint as todo items: what must run first, which workstreams are independent (disjoint files or layers), what shared state forces serializing, and why the decomposition you chose is the smallest safe one. Mark an item `n/a: <reason>` rather than dropping it.
+4. Name the data shape before writing logic: a state machine over scattered booleans, a table over branching, one typed model over repeated shape assumptions. Hand implementation to `worker` with file paths, that shape, and success criteria. Surgical edits. Port shared-primitive changes to every consumer and verify each. Commit as you go.
 5. Verify on the matching surface (agent-browser for browser and web UIs; run the CLI directly). "Inconclusive" or wrong-surface is not a pass. Flag it.
-6. Rebase into small, ordered commits. Stack follow-ups.
-   Use [sequence-verifiable-units](../../planner/references/sequence-verifiable-units.md), building, verifying, and committing each small unit before the next.
+6. Rebase into small, ordered commits, each one a unit that builds and passes on its own. Stack follow-ups.
 7. If the design is contested, [interrogate](../../reviewer/references/interrogate.md) before shipping.
 8. At Stage 5, after the publish gate, run [opening-a-pr](../../publisher/references/opening-a-pr.md).
 

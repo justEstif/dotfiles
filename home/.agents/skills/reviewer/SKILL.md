@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Adversarially reviews a change before shipping and maps its blast radius — what it could break, where, and why
+description: Adversarially reviews a change before shipping and maps its blast radius, meaning what it could break, where, and why
 ---
 
 # reviewer
@@ -20,7 +20,7 @@ Find what is wrong with a change before it ships. Report a verdict; the user dec
 | interrogate | [references/interrogate.md](references/interrogate.md) | Adversarial multi-lens review with independent reviewers and a synthesized verdict. |
 | blast radius | [references/blast-radius.md](references/blast-radius.md) | Trace callers, consumers, and runtime paths a change reaches; rank what could break. |
 
-Sidecars under `references/interrogate/` (reviewer prompt, rubric, code-quality review, lead judgment) belong to interrogate.
+Sidecars under `references/interrogate/` (rubric, lead judgment) and the reviewer prompt in `assets/reviewer-prompt.md` belong to interrogate.
 
 ## Rules
 

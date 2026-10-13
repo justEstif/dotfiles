@@ -1,6 +1,6 @@
 ---
 name: task
-description: Runs a task end to end — clarify, plan, implement and verify, capture, publish — with approval gates after clarify, after plan, and before push
+description: Runs a task end to end through clarify, plan, implement and verify, capture, and publish, with approval gates after clarify, after plan, and before push
 disable-model-invocation: true
 ---
 
@@ -10,18 +10,18 @@ Run one task through the stages below. This skill orchestrates; each loaded skil
 
 [stages/index.json](stages/index.json) holds the stage list (id, name, gate, skills, playbooks). `node scripts/stages.mjs` renders it and checks every named skill and playbook exists. Change a stage there first, then this body.
 
-## Stage 1 — Clarify
+## Stage 1. Clarify
 
 1. Load `clarifier` and follow it fully, including its rule to classify each question before asking.
 2. Gate: ask the user to confirm the brief. Until they do, stop. Do not build anything.
 
-## Stage 2 — Plan
+## Stage 2. Plan
 
-1. Load `planner` and follow it using the confirmed brief. Do not reopen settled questions. planner picks its mode (one-page, design contract, program plan) and saves the plan under `$HOME/.pi/agent/pi-work/` using its naming contract.
+1. Load `planner` and follow it using the confirmed brief. Do not reopen settled questions. planner picks its mode (one-page, design contract, program plan) and saves the plan in the work directory its naming contract defines.
 2. Show the exact plan path and contents.
 3. Gate: ask "Approve this plan and start implementation?" Stop and wait. Approval authorizes Stage 3, not publication. If the user asked for planning only, stop after approval.
 
-## Stage 3 — Implement and verify
+## Stage 3. Implement and verify
 
 This chat runs the playbook; the worker implements. Match the work to a [playbook](#playbooks), or design one with [figure-it-out](references/figure-it-out.md) when none fits or the effort is large or cross-cutting. Open the todo list with the playbook's steps copied verbatim; a step you skip stays with `skip: <reason>`.
 
@@ -31,12 +31,12 @@ This chat runs the playbook; the worker implements. Match the work to a [playboo
 
 Local commits in scoped format are allowed and expected here (`git-workflow`'s commit-as-you-work). Push, PR, and merge steps in any playbook wait for Stage 5.
 
-## Stage 4 — Capture
+## Stage 4. Capture
 
 1. Load `capturer` and follow it. Capture one durable lesson if one exists; otherwise say no capture is warranted.
 2. Show the destination and exactly what was added.
 
-## Stage 5 — Publish
+## Stage 5. Publish
 
 1. Load `publisher` and the `git-workflow` references it requires. Run read-only safety checks: separate task changes from unrelated work, check the branch and remote.
 2. Gate: show the commits and the proposed push or PR scope, and ask for approval before any push, PR, or merge. Earlier approvals do not count.
@@ -52,26 +52,22 @@ These govern behavior inside Stage 3. They never add a gate.
 
 ### Triggers
 
-Name each principle that shaped a decision and the choice it changed. Cite only references you read this session.
+Name each reference that shaped a decision and the choice it changed. Cite only references you read this session.
 
-- Nontrivial change, architecture decision, or "are we sure?" → `explainer` ([how](../explainer/references/how.md)).
-- A "which approach" or "what should this do" fork → classify it per `clarifier`'s [Before you ask](../clarifier/SKILL.md#before-you-ask). An observable fact gets a [prototype](playbooks/prototype.md), not a question.
-- Any code → name the data shape first ([model-the-domain](../planner/references/model-the-domain.md)).
-- Code crossing a function boundary → `planner`'s [design contract](../planner/references/architect.md) before implementing.
-- Parallel fan-out → [swarm](references/dispatch/swarm.md) for coverage, races, and exploration; [arena](references/dispatch/arena.md) for bakeoffs with base selection and grafting.
-- Contested design, or before any push → `reviewer` ([interrogate](../reviewer/references/interrogate.md)).
-- Nontrivial multi-step → the throughput checkpoint ([feature](playbooks/feature.md) step 3).
-- Any prose you write, the reply included → `writer` ([unslop](../writer/references/unslop.md)); docs, PR bodies, commit messages → [technical-writing](../writer/references/technical-writing.md). Prose the user wrote stays as written.
-- Before review → `simplifier`'s [comments](../simplifier/references/comments.md) mode.
-- Driving a real UI → `agent-browser`; run CLIs and TUIs directly. For bugs, reproduce on the same surface first.
-- Measuring or reporting a number → `tester`'s [benchmark](../tester/references/benchmark-checklist.md) before acting on it.
-- Before calling it done → `tester`'s [prove it](../tester/references/prove-it-works.md).
-- Debugging → [fix-root-causes](references/principles/fix-root-causes.md); two fixes on one premise failed → [attack-the-premise](references/principles/attack-the-premise.md).
-- Repetitive edits → [build-the-lever](references/principles/build-the-lever.md). Migrations → [outcome-oriented-execution](references/principles/outcome-oriented-execution.md) and [migrate-callers-then-delete-legacy-apis](references/principles/migrate-callers-then-delete-legacy-apis.md). Retried steps → [make-operations-idempotent](references/principles/make-operations-idempotent.md).
-- Parallel writers → [separate-before-serializing-shared-state](references/principles/separate-before-serializing-shared-state.md). Context filling up → [guard-the-context-window](references/principles/guard-the-context-window.md).
-- PR-status request → poll `gh pr view <pr> --json state,mergedAt,mergeStateStatus,statusCheckRollup,autoMergeRequest` after each event. Opening a PR never starts a watch loop.
-- A skill is broken mid-task → note it in the reply and fix it as a separate `skills:` commit in dotfiles. Don't silently work around it.
-- Long or unattended work ("going to bed", "run until X") → keep a [decision log](references/decision-log.md).
+- **Nontrivial change or "are we sure?"** Run `explainer`'s [how](../explainer/references/how.md) first.
+- **A "which approach" or "what should this do" fork.** Classify it per `clarifier`'s [Before you ask](../clarifier/SKILL.md#before-you-ask). An observable fact gets a [prototype](playbooks/prototype.md), not a question.
+- **New module, core types, or a public interface.** Sketch it with `planner`'s [design contract](../planner/references/architect.md) before implementing.
+- **Parallel fan-out.** Use [swarm](references/dispatch/swarm.md) for coverage and exploration, [arena](references/dispatch/arena.md) for a bakeoff between competing implementations.
+- **Contested design.** Run `reviewer`'s [interrogate](../reviewer/references/interrogate.md).
+- **Prose you write, the reply included.** Follow `writer`. Prose the user wrote stays as written.
+- **Before review.** Run `simplifier`'s [comments](../simplifier/references/comments.md) mode.
+- **Driving a real UI.** Use `agent-browser`; run CLIs and TUIs directly. For bugs, reproduce on the same surface first.
+- **Measuring or reporting a number.** Run `tester`'s [benchmark](../tester/references/benchmark-checklist.md) before acting on it.
+- **Before calling it done.** Prove it per [`tester`](../tester/SKILL.md).
+- **Repetitive edits.** Build the script or codemod instead ([build-the-lever](references/build-the-lever.md)).
+- **PR-status request.** Poll `gh pr view <pr> --json state,mergedAt,mergeStateStatus,statusCheckRollup,autoMergeRequest` after each event. Opening a PR never starts a watch loop.
+- **A skill is broken mid-task.** Note it in the reply and fix it as a separate `skills:` commit in dotfiles. Don't silently work around it.
+- **Long or unattended work** ("going to bed", "run until X"). Keep a [decision log](references/decision-log.md).
 
 ### Autonomy
 
@@ -85,7 +81,7 @@ Name each principle that shaped a decision and the choice it changed. Cite only 
 
 ### Subagents
 
-Dispatch through pi's subagent mechanism when available; otherwise run the pass inline in a fresh context. References that prescribe their own dispatch shape (how, why, arena, swarm, architect, interrogate) keep it. Every fan-out runs one model with varied briefs and isolates each parallel writer in its own worktree.
+Dispatch through the harness's subagent mechanism when available; otherwise run the pass inline in a fresh context. References that prescribe their own dispatch shape (how, why, arena, swarm, architect, interrogate) keep it. Every fan-out runs one model with varied briefs and isolates each parallel writer in its own worktree.
 
 Give delegates file pointers, not context dumps. You own every subagent's work: review the diff and write your own summary. A second opinion is the same prompt run again in a fresh context.
 

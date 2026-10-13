@@ -28,7 +28,7 @@ Review whether the code achieves this intent well. Do NOT question the intent it
 
 ## Instructions
 
-Review the code through every lens in the rubric and the code-quality lens above that you find relevant. Do not force lenses that don't apply. A simple bug fix does not need paragraphs about architectural integrity.
+Review the code through your lens plus the rubric checks above that apply. Do not force lenses that don't apply. A simple bug fix does not need paragraphs about architectural integrity.
 
 For each finding, provide:
 

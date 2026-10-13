@@ -2,7 +2,7 @@
 
 The operator keeps correcting agents in this repo for the same mistakes. Change the repo so the next agent can't make them.
 
-Assume every contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Design the repo so a change that looks right from one file is right for the whole repo — the repo-level application of [encode-lessons-in-structure](encode-lessons-in-structure.md): a recurring correction becomes structure, not a repeated instruction.
+Assume every contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Design the repo so a change that looks right from one file is right for the whole repo, the repo-level application of [encode-lessons-in-structure](encode.md): a recurring correction becomes structure, not a repeated instruction.
 
 ## Find the mistake classes
 

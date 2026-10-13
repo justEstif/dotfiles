@@ -7,7 +7,7 @@ description: "Browser automation on this machine: web page inspection, scraping,
 
 Fast browser automation CLI (Chrome via CDP, no Playwright). `AGENT_BROWSER_EXECUTABLE_PATH` is platform-managed by the user's mise config: Google Chrome on macOS and Brave on Omarchy/Linux. Use that environment variable as-is; only discover another installed Chromium browser if the configured executable is unavailable. For eventing or tracking QA, record the exact browser because privacy protections can change observed traffic.
 
-The chrome-devtools MCP server was deliberately removed from pi mcp.json — do not re-add it; use agent-browser instead.
+The chrome-devtools MCP server was deliberately removed from pi mcp.json. Do not re-add it; use agent-browser instead.
 
 ## Start here
 
@@ -21,6 +21,6 @@ agent-browser skills list                 # specialized skills (electron, slack,
 
 ## Pitfalls
 
-- Use a named session (`export AGENT_BROWSER_SESSION=...`) — the default session is shared.
+- Use a named session (`export AGENT_BROWSER_SESSION=...`). The default session is shared.
 - Refs (`@eN`) go stale after any page change; re-snapshot before the next interaction.
 - To automate the user's running Brave: fully kill it and relaunch with `--remote-debugging-port=9222`.

@@ -5,30 +5,25 @@ description: Audits unnecessary complexity and applies only approved deletions o
 
 # simplifier
 
-Audit for unnecessary complexity and propose deletions. Only deletions — never additions. Works at any scope: a plan, a diff, a file, or the entire codebase. Nothing gets applied without approval.
+Audit for unnecessary complexity and propose deletions. Only deletions, never additions. Works at any scope: a plan, a diff, a file, or the entire codebase. Nothing gets applied without approval.
 
 ## When to use
 
 - The user asks for a simplification pass on a plan, diff, file, folder, or whole project.
 - The `verifier` agent spotted complexity and suggested this pass.
-- Something feels bloated, over-engineered, or sloppy — one file or the whole thing.
+- Something feels bloated, over-engineered, or sloppy, one file or the whole thing.
 
-## Modes and principles
+## Comments mode
 
-| reference | trigger |
-| --- | --- |
-| [references/comments.md](references/comments.md) | Audit comments, commented-out code, and lint or type suppressions in a scope. Runs [references/comment-sicko.md](references/comment-sicko.md) as a read-only pass. |
-| [references/subtract-before-you-add.md](references/subtract-before-you-add.md) | Sequencing an addition or rewrite: remove dead weight first. |
-| [references/laziness-protocol.md](references/laziness-protocol.md) | Diff size or the urge to add a layer: smallest change, bias to deletion. |
-| [references/minimize-reader-load.md](references/minimize-reader-load.md) | Code hard to trace: count layers and hidden state, collapse wrappers. |
+To audit comments, commented-out code, and lint or type suppressions in a scope, run [references/comments.md](references/comments.md). Same approval rules as below.
 
-For JS/TS codebases, run the `fallow` skill for dead code and hotspots before hunting by hand.
+For JS/TS codebases, run the `fallow` skill for dead code and hotspots before hunting by hand. A quick test for hard-to-trace code: if a reader can't answer "where does this value come from?" in 30 seconds, a layer is in the way.
 
 ## Steps
 
-1. Read the target. If it is the whole codebase, first get the lay of the land — file tree, entry points, dependencies, what is actually used.
+1. Read the target. If it is the whole codebase, first get the lay of the land: file tree, entry points, dependencies, what is actually used.
 2. Hunt for these smells:
-   - Dead code — unused files, exports, functions, imports
+   - Dead code: unused files, exports, functions, imports
    - Abstractions with one caller, or layers that only pass data through
    - Config options nobody asked for
    - Dependencies that replace a few lines of code
@@ -51,9 +46,9 @@ For JS/TS codebases, run the `fallow` skill for dead code and hotspots before hu
 ## Example output
 
 > Can be less (ranked):
-> 1. Delete `src/utils/legacy/` — 4 files, zero imports. Lose: nothing.
-> 2. Delete `ThemeProvider` abstraction — one consumer, a hook does it. Lose: nothing.
-> 3. Remove `theme-config.json` — two values, inline them. Lose: nothing.
-> 4. Drop the `clsx` dependency — used once, template literal works. Lose: nothing.
+> 1. Delete `src/utils/legacy/`. 4 files, zero imports. Lose: nothing.
+> 2. Delete `ThemeProvider` abstraction. One consumer, a hook does it. Lose: nothing.
+> 3. Remove `theme-config.json`. Two values, inline them. Lose: nothing.
+> 4. Drop the `clsx` dependency. Used once, template literal works. Lose: nothing.
 >
 > Which should I apply? For a big sweep I go one batch at a time and run tests between.
