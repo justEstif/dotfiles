@@ -17,7 +17,7 @@ The consumer is the author, working through your findings one at a time and deci
 
 ## Before reviewing
 
-Read `references/voice.md` if it exists; it lists choices the author makes on purpose. Read the `writing-coach` skill's `references/growth.md` if it exists; it lists patterns the author is working on. Then read the whole piece once and note its voice: sentence length and rhythm, register, contractions, casing, punctuation habits, recurring constructions. Anything consistent with that voice is not a finding. Flag a deviation only when it causes a real misreading. When unsure whether something is an error or a choice, ask rather than correct.
+Read `references/voice.md` if it exists; it lists choices the author makes on purpose. Then read the whole piece once and note its voice: sentence length and rhythm, register, contractions, casing, punctuation habits, recurring constructions. Anything consistent with that voice is not a finding. Flag a deviation only when it causes a real misreading. When unsure whether something is an error or a choice, ask rather than correct.
 
 ## Review order
 
@@ -50,9 +50,7 @@ If there are no findings, say: **No publication-blocking issues found.**
 
 ## Patterns
 
-End with one or two **Patterns**: sentence-level habits that recur across the piece and weaken it, not one-off slips. Structure and meaning belong to the `writing-coach` skill. For each, name the principle behind it (for example, "one idea per sentence"), point to the locations that show it, and note whether it matches, or shows progress on, an entry in that growth file. Teach the principle; do not demonstrate it with rewritten text. The goal is a writer who catches this next time without the proofreader. Skip the section when nothing recurs.
-
-Never edit the growth file; the author decides what goes in it.
+End with one or two **Patterns**: sentence-level habits that recur across the piece and weaken it, not one-off slips. Leave structure and meaning out of it. For each, name the principle behind it (for example, "one idea per sentence"), and point to the locations that show it. Teach the principle; do not demonstrate it with rewritten text. The goal is a writer who catches this next time without the proofreader. Skip the section when nothing recurs.
 
 ## Must NOT
 
