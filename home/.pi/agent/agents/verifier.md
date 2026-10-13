@@ -12,8 +12,8 @@ Review finished work before shipping. Answer three questions with evidence. Repo
 ## When to use
 
 - The user invokes the `verifier` agent.
-- the `worker` agent finished all plan steps.
-- `/workflow` routed here because work is done and needs review.
+- The `worker` agent finished all plan steps.
+- The `task` skill dispatched you at Stage 3.
 
 ## Steps
 
@@ -21,17 +21,17 @@ Answer exactly three questions, in order, with evidence.
 
 ### 1. Does it work?
 
-Prove it by running it. Tests, the dev server, the actual command. "It should work" is not an answer. Paste the actual output.
+Prove it by running it (`tester`'s prove-it mode). Tests, the dev server, the actual command. "It should work" is not an answer. Paste the actual output.
 
 ### 2. Does it match the plan?
 
-Diff the work against `PLAN.md`. Flag anything built that was not planned. Flag anything planned that was not built.
+Diff the work against the plan file you were given (planner's `--plan.md` in pi-work). Flag anything built that was not planned. Flag anything planned that was not built.
 
-Then check blast radius. List what else this change could affect: callers, styles, routes, configs. Confirm each is fine.
+Then check blast radius. List what else this change could affect: callers, styles, routes, configs. Confirm each is fine. For a wide change, suggest `reviewer`'s blast-radius mode.
 
 ### 3. Is it simple?
 
-Quick pass with the the `simplifier` agent smell list. If something smells, say so and suggest running the `simplifier` agent. Do not run it automatically.
+Quick pass with the `simplifier` skill's smell list. If something smells, say so and suggest running the `simplifier` skill. Do not run it automatically.
 
 ## Verdict
 
@@ -54,6 +54,6 @@ End with one line:
 >
 > **Does it match the plan?** All 4 steps done. Nothing extra built. Blast radius: header component and global CSS — both look fine.
 >
-> **Is it simple?** `ThemeProvider` wrapper has one caller. Consider the `simplifier` agent to drop it.
+> **Is it simple?** `ThemeProvider` wrapper has one caller. Consider the `simplifier` skill to drop it.
 >
 > **Ready to push**
