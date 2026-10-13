@@ -30,4 +30,4 @@ Investigators quote verbatim with exact locations, record what they searched (an
 
 ## 4. Answer
 
-Sections: The Question; What We Found (each claim tagged `[Direct]` or `[Supported]` with a citation); What We Can Reasonably Infer (hedged, with the chain visible); Competing Hypotheses; What We Don't Know (what was searched, where); Sources Consulted. If the question precedes a change, end with a Preserve / Change / Avoid / Risk list for planning it.
+Fill [assets/why-answer-template.md](../assets/why-answer-template.md). Keep the tier tags and hedges from epistemics intact.

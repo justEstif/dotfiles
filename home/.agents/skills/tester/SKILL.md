@@ -27,7 +27,7 @@ Show that the work does what it claims, on the real artifact, with evidence. A s
 | --- | --- | --- |
 | behavior tests | [references/test-behavior-not-implementation.md](references/test-behavior-not-implementation.md) | Call the code as its users do; delete tests that assert internals or use weak matchers. |
 | benchmark | [references/benchmark-checklist.md](references/benchmark-checklist.md) | Before trusting or reporting a measured number: find what limits it, rule out that it measured something else. |
-| create verify skill | [references/create-verification-skill.md](references/create-verification-skill.md) | Generate a project skill that drives and proves the app. Example: [feature-map-example/](references/create-verification-skill/feature-map-example/). |
+| create verify skill | [references/create-verification-skill.md](references/create-verification-skill.md) | Generate a project skill that drives and proves the app. Template: [assets/verify-skill-template.md](assets/verify-skill-template.md); example map: [assets/feature-map-example/](assets/feature-map-example/). |
 | maintain verify skill | [references/maintain-verification-skill.md](references/maintain-verification-skill.md) | Audit a generated verify skill whose feature map drifted. |
 
 ## Must NOT

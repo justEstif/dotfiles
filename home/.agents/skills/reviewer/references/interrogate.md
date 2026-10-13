@@ -26,7 +26,7 @@ Launch all reviewers in a single message as read-only subagents when subagent di
 
 Add a lens (and a reviewer) when the change calls for it; keep every lens distinct.
 
-Read [interrogate/reviewer-prompt.md](interrogate/reviewer-prompt.md) and fill in the same template for every reviewer with the stated intent, the diff or file contents, the checks in [interrogate/rubric.md](interrogate/rubric.md), naming the reviewer's lens as its primary emphasis.
+Read [assets/reviewer-prompt.md](../assets/reviewer-prompt.md) and fill in the same template for every reviewer with the stated intent, the diff or file contents, the checks in [interrogate/rubric.md](interrogate/rubric.md), naming the reviewer's lens as its primary emphasis.
 
 ## Step 4, Synthesize
 

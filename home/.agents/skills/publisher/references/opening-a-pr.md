@@ -10,7 +10,7 @@ Runs at `task`'s Stage 5 after the publish gate, or when the user asks to open a
 
 **Titles.** Scoped subject `<scope>: <description>`, no trailing period. Scope is the area, such as `task` or `playbooks`. Subject is short, imperative, and names a real symbol when one carries the change, for example `task: retarget opening-a-pr trigger`. Never Conventional Commits (`feat:`, `fix:`, `chore:`, `feat(scope):` are all out).
 
-**Descriptions.** The PR body is a one-minute briefing, not a lab notebook, for a reviewer who has the diff. It says why the change exists, what it leaves out, what it could break, and how you proved it works. Write short, simple sentences with few identifiers, no walls of text. The body becomes the squash commit body, so keep that commit under about 40 lines. Use `##` headings, not bold lead-ins, in this order, and drop a section with nothing to say:
+**Descriptions.** The PR body is a one-minute briefing, not a lab notebook, for a reviewer who has the diff. It says why the change exists, what it leaves out, what it could break, and how you proved it works. Write short, simple sentences with few identifiers, no walls of text. The body becomes the squash commit body, so keep that commit under about 40 lines. Start from [assets/pr-body-template.md](../assets/pr-body-template.md): `##` headings in its order, dropping a section with nothing to say. Per section:
 
 - `## Why`: the problem and approach, 1–3 short sentences. No SHAs, rebase genealogy, or "based on main" preamble.
 - `## What changed`: 1–3 short bullets. Name a real symbol or path only when it carries the change. Name both sides of a rename or retarget.

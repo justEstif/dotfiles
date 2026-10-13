@@ -6,7 +6,7 @@ Keep one canonical log. Every row points at evidence a reviewer can resolve — 
 
 A single TSV file, one row per decision. Cells stay single-line. Evidence is a pointer, not prose.
 
-Copy `decision-log-template.tsv` (the header row) to start a clean log. Columns:
+Copy `assets/decision-log-template.tsv` (the header row) to start a clean log. Columns:
 
 - **ts.** ISO8601 timestamp.
 - **phase.** The phase or workstream.

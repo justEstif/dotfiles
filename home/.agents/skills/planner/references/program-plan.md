@@ -5,31 +5,9 @@ The plan is the deliverable. Do not implement. Execution starts only on the user
 1. When the change is one or two files with an obvious approach, skip this mode and write the one-page plan.
 2. Settle open questions by [prototype](../../task/playbooks/prototype.md) before writing. Keep each prototype's branch, SHA, and screenshots for the plan. Ask the user only about product or preference calls no run can settle, per `clarifier`'s [Before you ask](../../clarifier/SKILL.md#before-you-ask).
 3. Explore in subagents or fresh passes that return file pointers, conventions, test commands, and entry points, not dumps.
-4. Save the plan in the work directory from planner's [naming contract](artifact-naming.md), using the skeleton below.
+4. Save the plan in the work directory from planner's [naming contract](artifact-naming.md), from [assets/program-plan-template.md](../assets/program-plan-template.md).
 5. Validate every skill and path the plan names: run the `task` skill's stage validator (`stages.mjs`) and any link checker the skills repo provides; check repo paths directly.
 6. Show the plan path and stop for approval.
-
-## Skeleton
-
-```markdown
-# <Program> plan
-
-<Under ten lines: what changes, for whom, and the PR ids in order.>
-
-## PRs
-
-### <PR id>: <scoped title>
-
-- **Depends on:** <PR id, or "none, branches from main">
-- **Files:** <globs this PR may touch>
-- **Change:** <one to three sentences>
-- **Verify:** <the unit command, the real-surface check (agent-browser or the CLI), and the perf number if one applies, each with its pass predicate>
-- **Review gate:** <"interaction change: user reviews screenshots before merge", or "none">
-
-## Risks
-
-<What could break, and the one fact that makes each risk acceptable.>
-```
 
 ## Rules
 
