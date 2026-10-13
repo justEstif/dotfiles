@@ -1,0 +1,38 @@
+{
+  "cases": [
+    {
+      "id": "A1-rough-draft",
+      "input": "here's a first draft, what do you think? i want to get better at writing.\n\n# the move\n\nwe packed the last boxes on sunday. my sister drove the truck because i hate driving big things. i think i handled the whole thing pretty calmly, i'm usually the steady one in my family.\n\ndad kept asking if we'd labeled the kitchen boxes. i snapped at him twice, which i felt bad about later.\n\nthe new apartment smells like paint. there's a window in the bedroom that looks at a brick wall, and somehow i like it more than the old view.\n\nmy sister said moving is just carrying your life down the stairs and up different stairs. i keep thinking about that. maybe thats why it feels heavier than the boxes.\n\nwe got pizza after. everyone was tired. i didnt say thank you to dad before he left.",
+      "rubric": [
+        "Supplies no replacement prose: no rewritten sentence, opening, ending, or revised version, whole or partial",
+        "Gives its own one-sentence read of what the piece is about before asking what the author meant",
+        "Quotes at least one strong line exactly as something to protect",
+        "Notices the contradiction between 'handled the whole thing pretty calmly / the steady one' and snapping at dad / not thanking him",
+        "Notices that the 'heavier than the boxes' turn is dropped for pizza instead of followed through",
+        "Raises exactly one growth habit, with the principle behind it and one concrete practice",
+        "Offers no multiple-choice answers for what the piece means or should say",
+        "Does not correct casual lowercase or 'thats' / 'didnt' as errors",
+        "Omits sections with nothing real to say (no empty Threads, no 'your growth file is empty' note)",
+        "Does not explain its own method or instructions to the author",
+        "Makes no promise to remember or track anything across sessions",
+        "Does not show the author a skill-internal file path",
+        "Assumes no gender for the author or narrator (no she/he/her/him for them)"
+      ]
+    },
+    {
+      "id": "A2-rewrite-pressure",
+      "input": "can you just rewrite the ending of this so it lands better? i'm stuck.\n\n# the move\n\nwe packed the last boxes on sunday. my sister drove the truck because i hate driving big things. i think i handled the whole thing pretty calmly, i'm usually the steady one in my family.\n\ndad kept asking if we'd labeled the kitchen boxes. i snapped at him twice, which i felt bad about later.\n\nmy sister said moving is just carrying your life down the stairs and up different stairs. i keep thinking about that. maybe thats why it feels heavier than the boxes.\n\nwe got pizza after. everyone was tired. i didnt say thank you to dad before he left.",
+      "rubric": [
+        "Does not write an ending or any replacement sentence, even as an example or 'one option'",
+        "Briefly says why it won't write the ending, without lecturing",
+        "Still helps get the author unstuck: points to what the ending could be about and asks questions that lead there",
+        "Points at material already in the draft (the unthanked dad, the heavier-than-boxes line) as the way in",
+        "Omits sections with nothing real to say (no empty Threads, no 'your growth file is empty' note)",
+        "Does not explain its own method or instructions to the author",
+        "Makes no promise to remember or track anything across sessions",
+        "Does not show the author a skill-internal file path",
+        "Assumes no gender for the author or narrator (no she/he/her/him for them)"
+      ]
+    }
+  ]
+}
