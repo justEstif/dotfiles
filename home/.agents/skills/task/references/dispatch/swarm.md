@@ -20,7 +20,7 @@ Open a todolist with one entry per phase before launching anything.
 
 ## Phase B: Fan out
 
-Spawn all N workers as pi subagents in a single message when subagent dispatch is available; otherwise run the workers as sequential fresh inline passes. When a worker must work from a non-default branch, give it its own worktree on that branch so workers never share writable state.
+Spawn all N workers as subagents in a single message when subagent dispatch is available; otherwise run the workers as sequential fresh inline passes. When a worker must work from a non-default branch, give it its own worktree on that branch so workers never share writable state.
 
 Every brief stands alone. Include the goal, scope, exact slice or race arm, how to verify, and what to report. Reports use `PASS`, `ISSUES`, or `BLOCKED` with evidence. A worker that can prove a defect reports `ISSUES` and lists every issue it can prove, not only the first.
 
@@ -28,7 +28,7 @@ If a worker drops out, proceed with N-1 and note it.
 
 ## Phase C: Aggregate
 
-Read the terminal results. Drop a result that does not record the SHAs and method its brief names, and respawn that worker once. After a second miss, record a gap. A gap does not count as a pass. For coverage, every required slice needs a result. For a race, apply the selection rule declared up front. Use first pass, rank all, or best-of. Do not paste raw worker dumps; keep the bulk out of the parent context, per [guard-the-context-window](../principles/guard-the-context-window.md).
+Read the terminal results. Drop a result that does not record the SHAs and method its brief names, and respawn that worker once. After a second miss, record a gap. A gap does not count as a pass. For coverage, every required slice needs a result. For a race, apply the selection rule declared up front. Use first pass, rank all, or best-of. Do not paste raw worker dumps; keep the bulk out of the parent context, per guard-the-context-window.
 
 Keep a compact result table, one-line evidenced issues, and explicit gaps or dropouts.
 

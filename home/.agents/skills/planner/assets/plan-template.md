@@ -1,6 +1,6 @@
 ### What we're doing
 
-2–4 sentences. Plain language. What and why.
+2-4 sentences. Plain language. What and why.
 
 ### Steps
 
@@ -12,4 +12,4 @@ Mandatory. Never leave this empty. List tempting extras that are out of scope.
 
 ### How we'll know it works
 
-1–3 plain checks. Things you can actually try, like "toggle the switch, refresh, theme persists".
+1-3 plain checks. Things you can actually try, like "toggle the switch, refresh, theme persists".

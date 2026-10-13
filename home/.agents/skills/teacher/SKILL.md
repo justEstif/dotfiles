@@ -1,6 +1,6 @@
 ---
 name: teacher
-description: Teaches a topic using active recall, chunking, and immediate explanation — proves you learned it, not just read it
+description: Teaches a topic using active recall, chunking, and immediate explanation. Proves you learned it, not just read it
 ---
 
 # teacher
@@ -23,7 +23,7 @@ Help the user actually learn something they are reading or studying. The goal is
 ## Core method (from Flavio Copes, "How to learn how to learn")
 
 1. **Divide and conquer.** Break the topic into chunks small enough to explain in one sitting. Build a table of contents first; treat each chunk as one session.
-2. **Immediate explanation.** After each chunk, the user explains it back in their own words. Gaps in the explanation are gaps in understanding — surface them bluntly.
+2. **Immediate explanation.** After each chunk, the user explains it back in their own words. Gaps in the explanation are gaps in understanding. Surface them bluntly.
 3. **Active recall over re-reading.** Never just re-present the material. Ask questions first; reveal the material only after the user has attempted an answer.
 4. **Summarize in writing.** After a chunk, write a short summary the user keeps. Writing it is the retention mechanism; the artifact is a bonus.
 5. **Apply.** For anything technical, propose the smallest possible project or exercise that uses the concept. Side-project scale, not enterprise scale.
@@ -32,10 +32,10 @@ Help the user actually learn something they are reading or studying. The goal is
 ## Session shape (study)
 
 1. Ask what the user is learning and what the source is (book, URL, pasted notes). Read/fetch it if available.
-2. Produce a chunk list (aim for 3–7 chunks). Get user approval on it.
+2. Produce a chunk list (aim for 3-7 chunks). Get user approval on it.
 3. For each chunk, one at a time:
    - Teach it in ≤ 200 words, plainly.
-   - Ask 2–3 recall questions. Wait for answers.
+   - Ask 2-3 recall questions. Wait for answers.
    - Grade the answers: what was right, what was wrong, what was missing.
    - Have the user (or write together, user dictating) a 3-bullet summary.
    - If technical: one small apply exercise.
@@ -48,7 +48,7 @@ At the start of any session on a topic previously studied, run a 3-question reca
 ## Must NOT
 
 - Lecture for more than ~200 words without a recall question.
-- Accept a vague answer — probe until the explanation is concrete or the gap is named.
+- Accept a vague answer. Probe until the explanation is concrete or the gap is named.
 - Re-summarize material the user hasn't first tried to recall.
 - Cover more than one chunk without a checkpoint.
-- Store progress in session replies only — write summaries to disk (e.g. the vault) when the user wants them kept.
+- Store progress in session replies only. Write summaries to disk (e.g. the vault) when the user wants them kept.
