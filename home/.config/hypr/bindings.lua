@@ -32,6 +32,7 @@
 -- SUPER+CTRL+RETURN herdr binding removed.
 hl.unbind("SUPER + RETURN")
 hl.unbind("SUPER + CTRL + RETURN")
+hl.unbind("SUPER + ALT + RETURN")
 o.bind("SUPER + RETURN", "Herdr", { omarchy = "terminal-herdr" })
 
 -- Omarchy Cleaner: unbind packaged defaults for removed apps (2026-08-16)
