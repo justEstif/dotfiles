@@ -14,7 +14,7 @@ workstation on Linux (Omarchy) **or** macOS.
     config.toml          # shared:  [tools][env][settings][dotfiles][bootstrap.*]
     config.linux.toml    # Linux-only  (auto-loaded on Linux)
     config.macos.toml    # macOS-only  (auto-loaded on macOS)
-  omp/ pi/     # live runtime state (sessions, dbs, auth.json) — gitignored, retained
+  pi/          # live Pi runtime state (sessions, auth.json) — gitignored, retained
 ```
 
 mise reads its global config from `~/.config/mise/`, which symlinks into `mise/`.
@@ -83,18 +83,18 @@ Platform configs load automatically — `mise config` should list `config.toml`
 ## Platform-specific config
 
 File-level platform splits live in `config.linux.toml` / `config.macos.toml`
-(`[dotfiles]` sources: ghostty `<os>.conf`, omp `config.<os>.yml`, pi
-`settings/mcp.<os>.json`; macOS also manages a One Dark Pi theme). Platform **env vars / PATH** go in those files'
+(`[dotfiles]` sources: ghostty `<os>.conf`, pi `settings/mcp.<os>.json`;
+macOS also manages a One Dark Pi theme). Platform **env vars / PATH** go in those files'
 `[env]`; platform **runtime logic** (e.g. fish clipboard detection in
 `abbr.fish` / `pcp.fish`) stays as shell conditionals — mise config can't
 express runtime branching.
 
 ## Notes
 
-- `omp/` and `pi/` hold live runtime state reached via `~/.omp/*` and
-  `~/.pi/agent/{sessions,auth.json}` symlinks — gitignored, intentionally
-  not migrated. To de-symlink later, physically move the real files into `~/.omp/`
-  / `~/.pi/agent/`, then `rm -rf omp pi` and drop the matching `.gitignore` lines.
+- `pi/` holds live runtime state reached via `~/.pi/agent/{sessions,auth.json}`
+  symlinks — gitignored, intentionally not migrated. To de-symlink later,
+  physically move the real files into `~/.pi/agent/`, then remove `pi/` and
+  its `.gitignore` entry.
 - Fish mise-activation is owned by `[bootstrap.mise_shell_activate]` (a managed
   block in `config.fish`); the old manual `conf.d/mise.fish` is gone.
 - Several skills in `home/.agents/skills` are adapted from pstack: https://github.com/cursor/plugins/tree/main/pstack
