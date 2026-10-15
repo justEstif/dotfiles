@@ -17,8 +17,6 @@ colima = "latest"       # lightweight Docker-compatible VM/daemon
 "~/.pi/agent/settings.json" = { source = "~/dotfiles/home/.pi/agent/settings.macos.json" }
 "~/.pi/agent/mcp.json" = { source = "~/dotfiles/home/.pi/agent/mcp.macos.json" }
 "~/.pi/agent/themes" = {}
-"~/.omp/agent/config.yml" = { source = "~/dotfiles/home/.omp/agent/config.macos.yml" }
-"~/.omp/agent/mcp.json" = { source = "~/dotfiles/home/.omp/agent/mcp.macos.json" }
 "~/Library/Fonts/ComicCodeLigatures-Regular.otf" = { source = "~/dotfiles/home/.local/share/fonts/ComicCodeLigatures-Regular.otf", mode = "copy" }
 
 # macOS-only packages installed via Homebrew during `mise bootstrap`.
