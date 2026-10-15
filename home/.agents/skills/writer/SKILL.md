@@ -15,11 +15,11 @@ The standard for prose the agent writes: replies, docs, RFCs, readmes, PR descri
 
 ## Modes
 
-| mode | reference | trigger |
-| --- | --- | --- |
-| unslop | [references/unslop.md](references/unslop.md) | Cut AI tells: AI vocabulary, filler, hedging, vague attribution, chatbot phrases, sycophancy, em dashes, "not just X but Y". |
-| technical | [references/technical-writing.md](references/technical-writing.md) | Docs, RFCs, readmes, PR bodies, commit messages: Diátaxis structure, Google developer style, Global English. |
-| plain | [references/bro.md](references/bro.md) | Restate the last message in plain human language, no jargon. |
+| mode      | reference                                                          | trigger                                                                                                                      |
+| --------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| unslop    | [references/unslop.md](references/unslop.md)                       | Cut AI tells: AI vocabulary, filler, hedging, vague attribution, chatbot phrases, sycophancy, em dashes, "not just X but Y". |
+| technical | [references/technical-writing.md](references/technical-writing.md) | Docs, RFCs, readmes, PR bodies, commit messages: Diátaxis structure, Google developer style, Global English.                 |
+| plain     | [references/bro.md](references/bro.md)                             | Restate the last message in plain human language, no jargon.                                                                 |
 
 ## Rules
 
