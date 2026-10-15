@@ -31,8 +31,8 @@ pi = "latest"
 "github:backnotprop/plannotator" = { version = "latest", matching_regex = "^plannotator-(darwin|linux)-", bin = "plannotator" }
 docker-cli = "latest"                    # Docker client; daemon is Colima (macOS) or system Docker (Linux)
 "github:justEstif/mdview" = "latest"
-"github:can1357/oh-my-pi" = "latest"
 cloudflared = "latest"
+"aqua:anomalyco/opencode" = "latest"  # native binary; npm package requires blocked postinstall
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/Documents/zk-vault"
