@@ -93,5 +93,8 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 [bootstrap.mise_shell_activate]
 fish = "activate"
 
+[tasks.bootstrap]
+run = "bash ~/dotfiles/scripts/install-herdr-plugins.sh"
+
 [bootstrap.services.mise-history]
 builtin = "history-watch"
