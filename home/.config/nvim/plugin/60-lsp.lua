@@ -23,6 +23,7 @@ local langs = {
 		markdown = { formatter = "prettier" },
 		svelte = { formatter = "prettier", linter = "eslint" },
 		templ = { formatter = "templ" },
+		rust = { formatter = "rustfmt" },
 		toml = { formatter = "taplo" },
 		typescript = { formatter = "prettier", linter = "eslint" },
 		typescriptreact = { formatter = "prettier", linter = "eslint" },
@@ -35,6 +36,7 @@ local langs = {
 		"svelte",
 		"tailwindcss",
 		"gopls",
+		"rust_analyzer",
 	},
 
 	ensure_installed = {

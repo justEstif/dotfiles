@@ -2,7 +2,7 @@
 node = "lts"
 bun = "latest"
 go = "latest"
-rust = "latest"
+rust = { version = "latest", components = ["rust-analyzer", "rust-src"] }
 usage = "latest"
 lazygit = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
