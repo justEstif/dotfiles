@@ -2,8 +2,7 @@
 .lasso/
 .beans/
 
-# Live pi/omp runtime state retained under legacy package dirs (not migrated)
-/omp/
+# Live pi runtime state retained under legacy package dir (not migrated)
 /pi/
 
 # Stray local cruft at repo root (not part of any package)
@@ -21,7 +20,6 @@ home/.agents/skills/dist/
 
 # Agent/tool generated files
 home/.agents/.skill-lock.json
-home/.omp/agent/*.lock
 home/.config/zed/prompts/prompts-library-db.0.mdb
 
 # Debug/log output
