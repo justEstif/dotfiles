@@ -104,16 +104,64 @@ async function search(
 // --- Extract ---
 
 async function extract(url: string, opts: { maxLines?: number; raw?: boolean }): Promise<void> {
-  const res = await fetch(url, {
-    headers: {
-      Accept: "text/html,application/xhtml+xml,text/plain,*/*;q=0.1",
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-    },
-  });
-  if (!res.ok) throw new Error(`Fetch returned ${res.status} ${res.statusText}`);
+  const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36";
+  const CHROME_UA = UA + " (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+  const tryFetch = async (u: string): Promise<Response> =>
+    fetch(u, {
+      redirect: "follow",
+      headers: {
+        Accept: "text/html,application/xhtml+xml,text/plain,*/*;q=0.1",
+        "User-Agent": u.includes("reddit") ? CHROME_UA : UA,
+      },
+    });
+
+  // Mirror/proxy chain for sites that block plain fetches or serve a JS challenge
+  let url_ = url;
+  let res = await tryFetch(url_);
+  let firstBody = res.ok ? await res.text() : "";
+  const isReddit = /(^|\.)reddit\.com$/.test(new URL(url).hostname);
+  const looksBlocked =
+    !res.ok ||
+    isReddit ||
+    firstBody.includes("Prove your humanity") ||
+    (firstBody.includes("solution") && firstBody.length < 12_000 && !firstBody.includes("<article"));
+  if (looksBlocked) {
+    const mirrors: Array<(u: URL) => string> = [
+      (u) => (u.hostname === "x.com" || u.hostname === "twitter.com") ? `https://api.fxtwitter.com${u.pathname.replace(/\.(json)$/, "")}` : "",
+      (u) => (u.hostname === "x.com" || u.hostname === "twitter.com") ? `https://fixupx.com${u.pathname}` : "",
+      (u) => `https://r.jina.ai/${u.href}`,
+    ];
+    const u = new URL(url);
+    for (const mk of mirrors) {
+      const alt = mk(u);
+      if (!alt) continue;
+      try {
+        const r2 = await fetch(alt, { redirect: "follow", headers: { "User-Agent": alt.includes("reddit") ? CHROME_UA : UA, Accept: "text/html,application/json,*/*" } });
+        const body = r2.ok ? await r2.text() : "";
+        if (r2.ok && !body.includes("Prove your humanity")) {
+          res = new Response(body, { status: r2.status, headers: r2.headers });
+          url_ = alt;
+          break;
+        }
+      } catch {
+        // next mirror
+      }
+    }
+  }
+  const stillBlocked =
+    !res.ok ||
+    (firstBody && url_ === url && (firstBody.includes("Prove your humanity") || firstBody.includes("<title>Reddit</title>")));
+  if (stillBlocked && /(^|\.)reddit\.com$/.test(new URL(url).hostname)) {
+    throw new Error(
+      "Reddit blocks server fetches entirely now (challenge wall, 403 JSON). Use `web social` for X, or fetch Reddit in the agent-browser skill.",
+    );
+  }
+  if (!res.ok) {
+    throw new Error(`Fetch returned ${res.status} ${res.statusText} (mirrors exhausted)`);
+  }
 
   const contentType = res.headers.get("content-type") ?? "";
-  const text = await res.text();
+  const text = url_ === url && firstBody ? firstBody : await res.text();
 
   let title = url;
   let markdown = text;
@@ -122,9 +170,16 @@ async function extract(url: string, opts: { maxLines?: number; raw?: boolean }):
     const { parseHTML } = await import("linkedom");
     const { Defuddle } = await import("defuddle/node");
     const { document } = parseHTML(text);
-    const result = await Defuddle(document, url, { markdown: true });
-    markdown = result.contentMarkdown ?? result.content;
-    title = result.title || url;
+    try {
+      const result = await Defuddle(document, url_, { markdown: true });
+      markdown = result.contentMarkdown ?? result.content;
+      title = result.title || url;
+    } catch (e) {
+      // Defuddle re-fetches for some extractors (reddit RSS etc); fall back to page text
+      const { document: d2 } = parseHTML(text);
+      title = d2.querySelector("title")?.textContent?.trim() || url;
+      markdown = d2.body ? (d2.body.textContent ?? "").replace(/\n{3,}/g, "\n\n").trim() : text.slice(0, 50_000);
+    }
   } else if (contentType.includes("text/plain")) {
     markdown = text;
   } else if (!opts.raw) {
@@ -373,6 +428,22 @@ async function socialUser(handle: string, opts: { limit: number; json?: boolean 
   );
 }
 
+
+// Watchlist management: web social follow <handle>
+async function follow(handles: string[]): void {
+  if (!handles.length) {
+    console.error("Error: at least one handle required");
+    process.exit(1);
+  }
+  const { appendFileSync, mkdirSync } = await import("node:fs");
+  const dir = join(homedir(), ".config/web");
+  mkdirSync(dir, { recursive: true });
+  const file = join(dir, "social-watchlist.txt");
+  const clean = handles.map((h) => h.replace(/^@/, "").trim()).filter(Boolean);
+  appendFileSync(file, clean.join("\n") + "\n");
+  console.log(`Added to ${file}: ${clean.map((h) => "@" + h).join(", ")}`);
+}
+
 // --- CLI ---
 
 const USAGE = `web — self-hosted SearXNG CLI (web search + web fetch + X social)
@@ -387,6 +458,7 @@ Social subcommands (X/Twitter):
   web social user <handle>                Recent posts (x.com HTML, no login)
   web social news [--limit n] [--hours h] Ranked posts from watchlist (~/.config/web/social-watchlist.txt)
   web social search <query>               Real X search (needs cookies, see auth.json "x")
+  web social follow <handle> [<handle>]   Add handles to the news watchlist
   shared: --limit <n> (default 10) --json
 
 Options:
@@ -478,6 +550,8 @@ try {
         process.exit(1);
       }
       await socialSearch(query, { limit: Number(subFlag("--limit") ?? 10), json: subHas("--json") });
+    } else if (sub === "follow") {
+      await follow(subPositional);
     } else {
       console.error(`Unknown social subcommand: ${sub ?? "(none)"}\n`);
       console.error(USAGE);
