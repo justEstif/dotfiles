@@ -25,7 +25,7 @@ Capture one lesson so the next session starts smarter.
 ## Lesson mode
 
 1. After completed work passes verification, decide whether one durable lesson exists. If none does, say no capture is warranted and stop.
-2. Write one lesson to the matching `<prefix>--learned.md` in `~/.agents/work/`, following the naming contract in planner's [references/artifact-naming.md](../../planner/references/artifact-naming.md), using the entry format in `assets/lesson-template.md`.
+2. Write one lesson to the matching `<prefix>--learned.md` in `~/.agents/work/`, following the naming contract in planner's [references/artifact-naming.md](../planner/references/artifact-naming.md), using the entry format in `assets/lesson-template.md`.
 3. Link the paired plan and lesson artifacts to each other with relative Markdown links when both exist.
 4. Show the destination path and exactly what was added.
 
