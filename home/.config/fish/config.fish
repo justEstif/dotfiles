@@ -2,3 +2,6 @@
 mise activate fish | source
 # <<< mise:activate <<<
 
+
+# Hermes Agent command
+fish_add_path "$HOME/.local/bin"
