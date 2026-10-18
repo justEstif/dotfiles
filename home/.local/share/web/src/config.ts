@@ -42,18 +42,3 @@ export function authHeader(cfg: SearxConfig): Record<string, string> {
   return {};
 }
 
-export interface XConfig {
-  authToken?: string;
-  ct0?: string;
-  bearer?: string;
-  searchQueryId?: string;
-}
-
-export function loadXConfig(): XConfig {
-  try {
-    const auth = JSON.parse(readFileSync(join(homedir(), ".pi/agent/auth.json"), "utf-8"));
-    return auth.x ?? {};
-  } catch {
-    return {};
-  }
-}
