@@ -3,8 +3,8 @@
 // Modules live in src/: config, search, extract, social/.
 import { search } from "./src/search.js";
 import { extract } from "./src/extract.js";
-import { socialPost, socialNews, socialSearch, socialUser } from "./src/social/commands.js";
-import { follow } from "./src/social/profile.js";
+import { socialPost, socialNews, socialUser } from "./src/social/x/commands.js";
+import { follow } from "./src/social/x/profile.js";
 
 // --- CLI ---
 
@@ -19,7 +19,6 @@ Social subcommands (X/Twitter):
   web social post <status-url>            Full post with metrics (via fxtwitter, no login)
   web social user <handle>                Recent posts (x.com HTML, no login)
   web social news [--limit n] [--hours h] Ranked posts from watchlist (~/.config/web/social-watchlist.txt)
-  web social search <query>               Real X search (needs cookies, see auth.json "x")
   web social follow <handle> [<handle>]   Add handles to the news watchlist
   shared: --limit <n> (default 10) --json
 
@@ -105,13 +104,6 @@ try {
         hours: subFlag("--hours") ? Number(subFlag("--hours")) : undefined,
         json: subHas("--json"),
       });
-    } else if (sub === "search") {
-      const query = subPositional.slice(1).join(" ") || subArgs.filter((a) => !a.startsWith("-") && a !== "search").join(" ");
-      if (!query) {
-        console.error('Error: query required (quote multi-word queries)');
-        process.exit(1);
-      }
-      await socialSearch(query, { limit: Number(subFlag("--limit") ?? 10), json: subHas("--json") });
     } else if (sub === "follow") {
       await follow(subPositional);
     } else {
