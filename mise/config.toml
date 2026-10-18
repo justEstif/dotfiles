@@ -32,6 +32,8 @@ docker-cli = "latest"                    # Docker client; daemon is Colima (macO
 "github:justEstif/mdview" = "latest"
 cloudflared = "latest"
 "aqua:anomalyco/opencode" = "latest"  # native binary; npm package requires blocked postinstall
+pnpm = "12.14.0"
+android-sdk = "latest"
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/Documents/zk-vault"
