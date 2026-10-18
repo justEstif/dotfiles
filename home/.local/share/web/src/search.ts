@@ -1,4 +1,4 @@
-import { loadConfig, authHeader } from "./config.js";
+import { loadConfig } from "./config.js";
 
 export async function search(
   query: string,
@@ -9,10 +9,9 @@ export async function search(
   url.searchParams.set("q", query);
   url.searchParams.set("format", "json");
   if (opts.category) url.searchParams.set("categories", opts.category);
-  if (cfg.engines?.length) url.searchParams.set("engines", cfg.engines.join(","));
 
   const res = await fetch(url.toString(), {
-    headers: { Accept: "application/json", ...authHeader(cfg) },
+    headers: { Accept: "application/json" },
   });
   if (!res.ok) throw new Error(`SearXNG returned ${res.status} ${res.statusText}`);
 
