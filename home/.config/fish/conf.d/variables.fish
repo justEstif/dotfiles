@@ -2,6 +2,7 @@
 fish_add_path ~/.local/share/mise/shims
 
 set -gx EDITOR nvim
+set -gx VISUAL nvim
 set -gx TERM xterm-256color
 set -gx COLORTERM truecolor
 set fish_greeting
