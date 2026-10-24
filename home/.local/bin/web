@@ -1,3 +1,7 @@
 #!/bin/sh
 # web — self-hosted SearXNG CLI (bun). See ~/dotfiles/home/.local/share/web/cli.ts
-exec bun "$HOME/.local/share/web/cli.ts" "$@"
+# Fall back to the mise shim path: some runners (e.g. sanitized Hermes tool envs)
+# have ~/.local/bin on PATH but not ~/.local/share/mise/shims, so plain `bun` 404s.
+BUN="$(command -v bun 2>/dev/null)"
+[ -n "$BUN" ] || BUN="$HOME/.local/share/mise/shims/bun"
+exec "$BUN" "$HOME/.local/share/web/cli.ts" "$@"
