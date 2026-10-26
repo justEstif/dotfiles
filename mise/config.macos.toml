@@ -9,7 +9,6 @@ newrelic-cli = "latest"
 awscli = "latest"                                                                                                               # AWS CLI
 duckdb = "latest"                                                                                                               # in-process analytical SQL
 colima = "latest"                                                                                                               # lightweight Docker-compatible VM/daemon
-"github:backnotprop/plannotator" = { version = "latest", matching_regex = "^plannotator-(darwin|linux)-", bin = "plannotator" }
 
 [dotfiles]
 "~/.gitconfig" = { source = "~/dotfiles/home/.gitconfig.macos" }
