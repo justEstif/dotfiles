@@ -4,3 +4,9 @@
 [user]
   name = justEstif
   email = 95101485+justEstif@users.noreply.github.com
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/estifanos/.local/share/mise/installs/gh/2.103.2/gh_2.103.2_linux_amd64/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/estifanos/.local/share/mise/installs/gh/2.103.2/gh_2.103.2_linux_amd64/bin/gh auth git-credential

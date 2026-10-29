@@ -1,7 +1,7 @@
 {
   "theme": "one-dark",
-  "lastChangelogVersion": "1.3.0",
-  "hideThinkingBlock": true,
+  "lastChangelogVersion": "1.4.0",
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
