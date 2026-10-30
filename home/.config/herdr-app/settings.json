@@ -1,0 +1,16 @@
+{
+  "zoom": 1.1,
+  "font": "Comic Code Ligatures",
+  "theme": "atom-one-dark",
+  "colors": {
+    "accent": "#61afef",
+    "surface": "#21252b",
+    "canvas": "#282c34",
+    "selected": "#3e4451",
+    "border": "#3e4451"
+  },
+  "sounds": {
+    "enabled": false
+  },
+  "minimum_contrast": 1.0
+}
