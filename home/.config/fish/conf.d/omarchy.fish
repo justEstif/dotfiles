@@ -52,15 +52,7 @@ type -q opencode; and abbr -a c 'opencode --auto'
 type -q claude; and abbr -a cx 'printf "\033[2J\033[3J\033[H" && claude --permission-mode bypassPermissions'
 type -q codex; and abbr -a cy 'codex -s danger-full-access -a never'
 type -q docker; and abbr -a d docker
-abbr -a h herdr
 abbr -a mup 'MISE_MINIMUM_RELEASE_AGE=0 mise up'
-
-# Herdr dev layouts (formerly tmux's tdl/tdl c aliases — herdr replaces tmux).
-# Target real binaries: abbreviations can't expand inside `herdr pane run`,
-# so these must name actual commands (pi/codex via mise), not abbrs like c/cx.
-abbr -a ic 'hdl pi'
-abbr -a ix 'hdl codex'
-abbr -a icx 'hdl pi codex'
 
 # Git
 abbr -a g git
@@ -264,7 +256,7 @@ end
 # size`) atomically replace files, severing mise dotfiles symlinks. One cheap
 # stat per prompt on the known target; heal-mise-dotfiles sweeps all drift.
 function __omarchy_heal_dotfiles --on-event fish_prompt
-    if not test -L ~/.config/ghostty/config; and type -q heal-mise-dotfiles
+    if not test -L ~/.config/hypr/looknfeel.lua; and type -q heal-mise-dotfiles
         heal-mise-dotfiles >/dev/null 2>&1
     end
 end
