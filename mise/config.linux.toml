@@ -19,7 +19,6 @@ node = "26.12.0"                                   # newer than the shared 22.12
 "~/.local/bin/heal-mise-dotfiles" = {}
 "~/.config/omarchy/hooks/font-set.d/heal-mise-dotfiles" = { source = "~/dotfiles/home/.local/bin/heal-mise-dotfiles" }
 "~/.config/btop/btop.conf" = {}
-"~/.config/herdr/config.toml" = {}
 "~/.config/hypr/autostart.lua" = {}
 "~/.config/hypr/bindings.lua" = {}
 "~/.config/hypr/hyprland.lua" = {}
