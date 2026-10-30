@@ -61,6 +61,8 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 "~/.config/gh/config.yml" = {}
 "~/.config/ghostty/config" = {}
 "~/.config/glow" = {}
+"~/.config/herdr-app/keys.json" = {}
+"~/.config/herdr-app/settings.json" = {}
 "~/.config/lazygit" = {}
 "~/.config/mise/config.linux.toml" = "~/dotfiles/mise/config.linux.toml"
 "~/.config/mise/config.macos.toml" = "~/dotfiles/mise/config.macos.toml"
@@ -74,16 +76,16 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 "~/.gitconfig" = { mode = "symlink" }
 "~/.gitconfig-personal" = { mode = "symlink" }
 "~/.gitignore" = { mode = "symlink" }
-"~/.local/share/fonts" = {}
-"~/.pi/agent/APPEND_SYSTEM.md" = {}
-"~/.pi/agent/i-have-adhd.json" = {}
-"~/.pi/agent/extensions" = {}
-"~/.pi/agent/keybindings.json" = {}
-"~/.pi/agent/npm" = {}
 
 # --- custom scripts on PATH (file-level; ~/.local/bin also holds machine-local binaries) ---
 "~/.local/bin/web" = {}
+"~/.local/share/fonts" = {}
 "~/.local/share/web" = {}
+"~/.pi/agent/APPEND_SYSTEM.md" = {}
+"~/.pi/agent/extensions" = {}
+"~/.pi/agent/i-have-adhd.json" = {}
+"~/.pi/agent/keybindings.json" = {}
+"~/.pi/agent/npm" = {}
 "~/AGENTS.md" = {}
 
 [bootstrap.repos]
