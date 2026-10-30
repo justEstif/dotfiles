@@ -256,7 +256,7 @@ end
 # size`) atomically replace files, severing mise dotfiles symlinks. One cheap
 # stat per prompt on the known target; heal-mise-dotfiles sweeps all drift.
 function __omarchy_heal_dotfiles --on-event fish_prompt
-    if not test -L ~/.config/hypr/looknfeel.lua; and type -q heal-mise-dotfiles
+    if not test -L ~/.config/ghostty/config; and type -q heal-mise-dotfiles
         heal-mise-dotfiles >/dev/null 2>&1
     end
 end
