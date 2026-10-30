@@ -29,10 +29,9 @@ repo pieces ride on top of it:
 | Piece | Where | Notes |
 |---|---|---|
 | fish port of omarchy bash env | `home/.config/fish/conf.d/omarchy.fish` | aliases/fns from `/usr/share/omarchy/default/bash/` — omarchy ships bash only |
-| herdr layouts | `home/.config/fish/functions/hdl.fish` | `hdl`/`hds`/`hdlm`/`hsl`; herdr replaced zellij+tmux (`SUPER+CTRL+RETURN`, `SUPER+SHIFT+T`) |
 | terminal | `home/.config/ghostty/` | omarchy base (theme-follow, `async-backend=epoll`) + Aporetic font + fish integration. Theme follows `omarchy theme set`; macOS falls back to a static theme |
 | editor | `home/.config/nvim/` | personal mini.nvim config + omarchy's OSC52 remote clipboard (`lua/omarchy/`, `plugin/55-clipboard.lua`) |
-| desktop configs | `config.linux.toml` `[dotfiles]` | hypr override files (`input.lua` = caps→ctrl), `omarchy/shell.json`, herdr config, btop, mimeapps |
+| desktop configs | `config.linux.toml` `[dotfiles]` | hypr override files (`input.lua` = caps→ctrl), `omarchy/shell.json`, btop, mimeapps |
 | fonts | `home/.local/share/fonts/aporetic/` | Aporetic Sans Mono everywhere; sans-serif fontconfig alias in `conf.d/50-aporetic-default.conf` (separate file — `omarchy font set` rewrites its own `fonts.conf`) |
 | git | `home/.gitconfig` | consolidated (absorbed omarchy's XDG config); `~/.gitconfig` precedence beats any recreated `~/.config/git/config` |
 

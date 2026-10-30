@@ -8,7 +8,7 @@
 # NOT ported (intentionally):
 #   - bash ssh() reconnect wrapper (bash-specific terminal disarm internals)
 #   - kitty icat ff preview branch (kitty isn't a terminal here)
-#   - tmux layout fns tdl/tds/tdlm/tsl + alias t (tmux removed; herdr replaces)
+#   - tmux layout fns tdl/tds/tdlm/tsl + alias t (tmux removed; the Herdr app replaces it)
 # =============================================================================
 
 # This config is shared across machines; only load it on Omarchy Linux.
