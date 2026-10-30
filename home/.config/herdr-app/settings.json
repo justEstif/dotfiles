@@ -12,5 +12,6 @@
   "sounds": {
     "enabled": false
   },
-  "minimum_contrast": 1.0
+  "minimum_contrast": 1,
+  "ui_font": "Comic Code Ligatures"
 }
