@@ -1,13 +1,11 @@
 {
   "theme": "one-dark",
   "lastChangelogVersion": "1.4.0",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
-  "enabledModels": [
-    "zai/*"
-  ],
+  "enabledModels": ["zai/*"],
   "quietStartup": true,
   "compaction": {
     "reserveTokens": 60000,
@@ -16,9 +14,7 @@
   "terminal": {
     "showImages": false
   },
-  "defaultTools": [
-    "+codemode"
-  ],
+  "defaultTools": ["+codemode"],
   "packages": [
     "npm:pi-hermes-memory",
     "https://github.com/ayghri/i-have-adhd",
