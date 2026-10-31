@@ -60,7 +60,6 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 "~/.config/fish" = {}
 "~/.config/gh/config.yml" = {}
 "~/.config/ghostty/config" = {}
-"~/.config/glow" = {}
 "~/.config/herdr-app/keys.json" = {}
 "~/.config/herdr-app/settings.json" = {}
 "~/.config/lazygit" = {}
