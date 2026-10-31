@@ -50,7 +50,7 @@ hl.config ({
 -- })
 
 -- App-specific touchpad scroll speeds.
--- o.window("(Alacritty|kitty|foot)", { scroll_touchpad = 1.5 })
+-- o.window("(kitty|foot)", { scroll_touchpad = 1.5 })
 -- o.window("com.mitchellh.ghostty", { scroll_touchpad = 0.2 })
 
 -- Enable touchpad gestures for changing workspaces.
