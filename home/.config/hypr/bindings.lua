@@ -28,6 +28,9 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 
+-- Hex voice dictation: tap to start, tap again to stop and paste.
+o.bind("SUPER + H", "Hex dictate", "hex dictation toggle")
+
 -- SUPER+RETURN opens the Herdr app (default terminal binding replaced);
 -- SUPER+CTRL+RETURN herdr binding removed.
 hl.unbind("SUPER + RETURN")
