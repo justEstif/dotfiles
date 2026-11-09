@@ -6,9 +6,10 @@ _.path = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [tools]
 newrelic-cli = "latest"
-awscli = "latest"                                                                                                               # AWS CLI
-duckdb = "latest"                                                                                                               # in-process analytical SQL
-colima = "latest"                                                                                                               # lightweight Docker-compatible VM/daemon
+awscli = "latest"       # AWS CLI
+duckdb = "latest"       # in-process analytical SQL
+colima = "latest"       # lightweight Docker-compatible VM/daemon
+codex = "latest"
 
 [dotfiles]
 "~/.gitconfig" = { source = "~/dotfiles/home/.gitconfig.macos" }
