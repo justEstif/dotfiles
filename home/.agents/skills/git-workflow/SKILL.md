@@ -1,6 +1,6 @@
 ---
 name: "git-workflow"
-description: "Git/GitHub workflow on this machine: wtm worktrees, scoped commit messages (`<scope>: <description>`, never Conventional Commits), commit-as-you-work cadence, small-PR contract with gh-stack. Use when branching, creating worktrees, committing, pushing, or opening/updating PRs, and when a git/PR mistake needs capturing as a scar-tissue rule."
+description: "Git/GitHub workflow on this machine: herdr worktrees, scoped commit messages (`<scope>: <description>`, never Conventional Commits), commit-as-you-work cadence, small-PR contract with gh-stack. Use when branching, creating worktrees, committing, pushing, or opening/updating PRs, and when a git/PR mistake needs capturing as a scar-tissue rule."
 ---
 
 # Git workflow
@@ -12,7 +12,7 @@ description: "Git/GitHub workflow on this machine: wtm worktrees, scoped commit 
 3. **COMMIT AS YOU WORK**: after every completed subtask and every green test/lint/build run, commit in scoped format. **MANDATORY READ `references/scoped-commits.md`** before writing any commit message. Clean tree before declaring any task done. NEVER accumulate a dirty state for later. Why: large dirty states become huge unreviewable PRs and can't be reset when something goes wrong.
 4. **PUSH & PR THE CHUNK**: push branch, open PR with the body format in `publisher`'s [opening-a-pr](../publisher/references/opening-a-pr.md), via `gh pr create`; see gh reference below for CI checks and advanced queries. One PR = one logical purpose. NEVER commit or push directly to main. Each PR buildable, testable, mergeable standalone.
 5. **STACK WHEN NEEDED**: if a feature can't fit one independently useful PR, use gh-stack: `gh stack init` (bottom-up), `gh stack add <branch>` per layer, `gh stack submit` to push and create/update PRs, `gh stack sync`/`rebase` to keep aligned. Resolve conflicts before requesting review; merge bottom-up.
-6. **SCAR TISSUE**: whenever this skill is violated (huge PR, skipped commits, wrong format, wrong wtm invocation), append one concise rule to the Scar Tissue section below immediately.
+6. **SCAR TISSUE**: whenever this skill is violated (huge PR, skipped commits, wrong format, wrong worktree invocation), append one concise rule to the Scar Tissue section below immediately.
 
 ## Commit format (Scoped Commits)
 
@@ -29,13 +29,14 @@ GitHub operations go through the `gh` CLI (it knows it natively. Never install/u
 
 All three load via MANDATORY READ triggers in the procedure above:
 
-- `references/wtm.md` covers the wtm worktree CLI (fish invocation, commands, pitfalls, `wtm skills get core --full`)
+- `references/herdr-worktrees.md` covers the herdr worktree flow (creation with explicit base, open/remove, pitfalls)
+- `references/wtm.md` covers deleting legacy wtm worktrees only
 - `references/scoped-commits.md` covers commit message format, scope derivation, examples
 - `references/github.md` covers gh CLI patterns (PR checks, CI runs, `gh api`, JSON output)
 
 ## Environment quirks
 
-- **wtm**: must run via `fish -lc 'wtm ...'`. Direct bash hits an inactive mise shim; details in `references/wtm.md`.
+- wtm is retired (archived at `~/retired`); its legacy worktrees are removed with plain `git worktree remove` — see `references/wtm.md`.
 - `~/dotfiles` repo has symlink/mise-bootstrap/mise-drift quirks: **MANDATORY READ `references/dotfiles.md`** before git operations inside `~/dotfiles`.
 
 ## Pitfalls
