@@ -1,36 +1,19 @@
-# wtm worktree reference
+# wtm: legacy cleanup only
 
-wtm is a fish CLI for the "bare repo + sibling worktree directories" workflow (bare `.git/` root, worktrees under it). Run every command from the bare repository root.
+wtm is retired (moved to `~/retired/wtm`). herdr worktrees replace it — see
+`references/herdr-worktrees.md`. This note only covers deleting worktrees that
+wtm already created.
 
-This file is a discovery stub. Before running wtm commands beyond `create`, load the version-matched usage guide:
+wtm used a bare-repo layout: bare `.git/` root with worktree directories
+sibling to it. Old worktrees still open fine in Herdr (Open worktree lists all
+of `git worktree list`).
 
-```bash
-wtm skills get core --full    # layout, core loop, command reference, conventions, pitfalls
-```
-
-## Shell requirement
-
-wtm is configured as a Fish function on this machine. From Pi's Bash tool, always invoke it through Fish:
+To delete legacy worktrees, the archived copy still runs if sourced:
 
 ```bash
-fish -lc 'wtm list'
-fish -lc 'wtm create "feature-x" --from main --no-shell'
+git worktree remove [--force] <path>   # preferred, plain git
+# or, from the bare repo root, with the archived functions on the path:
+fish -c 'source ~/retired/wtm/functions/*.fish; and wtm delete <name>'
 ```
 
-Calling `wtm` directly from Bash can hit the inactive `mise` shim and fail with `No version is set for shim: wtm`.
-
-## Quick reference
-
-```fish
-wtm list
-wtm create "feature-x" --from main --no-shell   # always quote the name
-wtm delete feature-x
-wtm cleanup --dry-run    # then without --dry-run
-```
-
-## Pitfalls
-
-- Always run from the bare repo root (the dir containing `.git/`).
-- Always quote worktree names. Unquoted `/` creates nested directories.
-- Prefer `--no-shell` in agent sessions; plain `create` opens a nested interactive fish.
-- Do not use raw `git worktree` commands unless `wtm` is unavailable.
+Then prune: `git worktree prune` in the repo.
