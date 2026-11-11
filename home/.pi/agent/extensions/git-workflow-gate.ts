@@ -5,7 +5,7 @@ import { registerBashGate, registerSkillBashGate } from "./lib/gates.ts";
 /** Max additions+deletions allowed on a branch vs its base. */
 export const PR_LINE_BUDGET = 500;
 
-const GIT_WORKFLOW_RE = /\b(?:git|gh|wtm)(?=\s)/;
+const GIT_WORKFLOW_RE = /\b(?:git|gh)(?=\s)/;
 const PUSH_RE = /\bgit\s+push\b|\bgh\s+(?:pr\s+create|stack\s+submit)\b/;
 const COMMIT_RE = /\bgit\s+commit\b/;
 
