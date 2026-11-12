@@ -1,33 +1,18 @@
 {
   "mcpServers": {
-    "atlassian": {
-      "type": "http",
-      "url": "https://mcp.atlassian.com/v1/mcp/authv2"
-    },
-    "monarch": {
-      "type": "http",
-      "url": "https://mcp.monarch.cohesionapps.com/mcp"
-    },
     "figma": {
       "url": "http://127.0.0.1:3845/mcp"
     },
     "next-devtools": {
       "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "next-devtools-mcp@latest"
+      ]
     },
-    "postman": {
+    "executor": {
       "type": "http",
-      "url": "https://mcp.postman.com/mcp",
-      "headers": {
-        "Authorization": "${POSTMAN_MCP_TOKEN}"
-      }
-    },
-    "rootly": {
-      "url": "https://mcp.rootly.com/mcp-codemode"
-    },
-    "newrelic": {
-      "type": "http",
-      "url": "https://mcp.newrelic.com/mcp/"
+      "url": "http://127.0.0.1:4312/mcp"
     }
   }
 }
