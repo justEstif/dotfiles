@@ -16,6 +16,7 @@ later(function()
 			source_func = "omnifunc",
 			auto_setup = false,
 		},
+		delay = { completion = 30 },
 	})
 	-- Set up LSP part of completion
 	local on_attach = function(args)
