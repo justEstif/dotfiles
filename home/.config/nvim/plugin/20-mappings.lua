@@ -60,7 +60,6 @@ nmap_leader("fd", "<Cmd>lua MiniFiles.open()<CR>", "Directory (mini.files)")
 nmap_leader("ff", "<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", "File directory (mini.files)")
 nmap_leader("fh", "<Cmd>Pick help<CR>", "Help")
 nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
-nmap_leader("fv", "<Cmd>Pick visit_paths<CR>", "Frecency")
 
 -- p is for 'packages'
 nmap_leader("pu", "<Cmd>packupdate<CR>", "Update plugins (vim.pack)")
