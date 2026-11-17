@@ -163,8 +163,5 @@ end)
 
 later(function()
 	require("mini.extra").setup()
-end)
-
-later(function()
 	require("mini.misc").setup()
 end)
