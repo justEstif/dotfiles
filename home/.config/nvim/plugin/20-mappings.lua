@@ -34,11 +34,16 @@ local xmap_leader = function(suffix, rhs, desc, opts)
 end
 
 -- a is for 'agent' (copy context to clipboard)
+local copy_context = function(text, loc)
+	vim.fn.setreg("+", text)
+	vim.notify("Copied " .. loc)
+end
+
 nmap_leader("ac", function()
 	local loc = vim.fn.expand("%:p") .. ":" .. vim.api.nvim_win_get_cursor(0)[1]
-	vim.fn.setreg("+", loc)
-	vim.notify("Copied " .. loc)
+	copy_context(loc, loc)
 end, "Copy location")
+
 xmap_leader("ac", function()
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "x", false)
 	vim.schedule(function()
@@ -46,8 +51,7 @@ xmap_leader("ac", function()
 		local start_l, end_l = vim.fn.line("'<"), vim.fn.line("'>")
 		local lines = vim.api.nvim_buf_get_lines(0, start_l - 1, end_l, false)
 		local loc = file .. ":" .. start_l .. (end_l ~= start_l and ("-" .. end_l) or "")
-		vim.fn.setreg("+", loc .. "\n" .. table.concat(lines, "\n"))
-		vim.notify("Copied " .. loc)
+		copy_context(loc .. "\n" .. table.concat(lines, "\n"), loc)
 	end)
 end, "Copy selection")
 
