@@ -1,3 +1,7 @@
+# Mask secret values in output mise captures (mise run tasks, its logs).
+# Does NOT mask `mise env` / `mise exec`: never print those.
+redactions = ["*SECRET*", "*TOKEN*", "*PASSWORD*", "*_KEY", "*_CERT"]
+
 [tools]
 node = "lts"
 bun = "latest"
@@ -31,6 +35,7 @@ cloudflared = "latest"
 pnpm = "12.14.0"
 android-sdk = "latest"
 gh = { version = "latest", minimum_release_age = "0s", lazy = true }
+pi = "latest"
 
 [env]
 ZK_NOTEBOOK_DIR = "{{env.HOME}}/Documents/wiki"
