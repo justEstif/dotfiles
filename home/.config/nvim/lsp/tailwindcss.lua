@@ -17,9 +17,8 @@ return {
 		"postcss.config.cjs",
 		"postcss.config.mjs",
 		"postcss.config.ts",
-		".git",
-		"package.json",
 	},
+	workspace_required = true,
 	init_options = {
 		userLanguages = {
 			eelixir = "html-eex",

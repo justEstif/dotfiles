@@ -154,6 +154,3 @@ later(function()
 	require("scope").setup()
 end)
 
-later(function()
-	require("mini.visits").setup()
-end)
