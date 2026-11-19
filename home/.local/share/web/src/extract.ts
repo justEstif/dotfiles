@@ -1,3 +1,4 @@
+import { assertPublicUrl } from "./guard.js";
 import { policyFor, type SitePolicy } from "./sites.js";
 
 function uaForUrl(u: string, policy: SitePolicy | undefined): string {
@@ -12,22 +13,31 @@ const GENERIC_BLOCK_MARKERS = ["Prove your humanity"];
 
 export async function extract(
   url: string,
-  opts: { maxLines?: number; raw?: boolean },
+  opts: { maxLines?: number; raw?: boolean; allowPrivate?: boolean },
 ): Promise<void> {
+  if (!opts.allowPrivate) await assertPublicUrl(url);
+
   const hostname = new URL(url).hostname;
   const policy = policyFor(hostname);
-  const tryFetch = async (u: string): Promise<Response> =>
-    fetch(u, {
-      redirect: "follow",
-      headers: {
-        Accept: "text/html,application/xhtml+xml,text/plain,*/*;q=0.1",
-        "User-Agent": uaForUrl(u, policy),
-      },
-    });
+  // Manual redirect following so the guard re-checks every hop.
+  const guardedFetch = async (u: string, accept: string): Promise<Response> => {
+    let current = u;
+    for (let hops = 0; ; hops++) {
+      if (!opts.allowPrivate) await assertPublicUrl(current, "redirect target");
+      const r = await fetch(current, {
+        redirect: "manual",
+        headers: { Accept: accept, "User-Agent": uaForUrl(new URL(current), policy) },
+      });
+      if (hops >= 10 || ![301, 302, 303, 307, 308].includes(r.status)) return r;
+      const loc = r.headers.get("location");
+      if (!loc) return r;
+      current = new URL(loc, current).toString();
+    }
+  };
 
   // Mirror/proxy chain for sites that block plain fetches or serve a JS challenge
   let url_ = url;
-  let res = await tryFetch(url_);
+  let res = await guardedFetch(url, "text/html,application/xhtml+xml,text/plain,*/*;q=0.1");
   let firstBody = res.ok ? await res.text() : "";
   const blockMarkers = [...GENERIC_BLOCK_MARKERS, ...(policy?.blockMarkers ?? [])];
   const looksBlocked =
@@ -42,10 +52,7 @@ export async function extract(
     ];
     for (const alt of mirrors) {
       try {
-        const r2 = await fetch(alt, {
-          redirect: "follow",
-          headers: { "User-Agent": uaForUrl(alt, policy), Accept: "text/html,application/json,*/*" },
-        });
+        const r2 = await guardedFetch(alt, "text/html,application/json,*/*");
         const body = r2.ok ? await r2.text() : "";
         if (r2.ok && !body.includes("Prove your humanity")) {
           res = new Response(body, { status: r2.status, headers: r2.headers });
