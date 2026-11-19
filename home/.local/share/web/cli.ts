@@ -27,6 +27,7 @@ Options:
           --json             Output raw JSON
   extract: --max-lines <n>   Truncate output after n lines
            --raw             Skip Defuddle extraction, return raw response body
+           --allow-private   Allow localhost/private-network targets (refused by default)
   -h, --help                 Show this help`;
 
 const args = process.argv.slice(2);
@@ -66,6 +67,7 @@ try {
     await extract(url, {
       maxLines: flag("--max-lines") ? Number(flag("--max-lines")) : undefined,
       raw: has("--raw"),
+      allowPrivate: has("--allow-private") || process.env.WEB_ALLOW_PRIVATE === "1",
     });
   } else if (cmd === "social") {
     const sub = positional[0];
