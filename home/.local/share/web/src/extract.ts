@@ -13,7 +13,7 @@ const GENERIC_BLOCK_MARKERS = ["Prove your humanity"];
 
 export async function extract(
   url: string,
-  opts: { maxLines?: number; raw?: boolean; allowPrivate?: boolean },
+  opts: { maxLines?: number; raw?: boolean; allowPrivate?: boolean; noMirrors?: boolean },
 ): Promise<void> {
   if (!opts.allowPrivate) await assertPublicUrl(url);
 
@@ -26,7 +26,7 @@ export async function extract(
       if (!opts.allowPrivate) await assertPublicUrl(current, "redirect target");
       const r = await fetch(current, {
         redirect: "manual",
-        headers: { Accept: accept, "User-Agent": uaForUrl(new URL(current), policy) },
+        headers: { Accept: accept, "User-Agent": uaForUrl(current, policy) },
       });
       if (hops >= 10 || ![301, 302, 303, 307, 308].includes(r.status)) return r;
       const loc = r.headers.get("location");
@@ -45,7 +45,7 @@ export async function extract(
     !!policy?.blockedMessage ||
     firstBody.includes("Prove your humanity") ||
     (firstBody.includes("solution") && firstBody.length < 12_000 && !firstBody.includes("<article"));
-  if (looksBlocked) {
+  if (looksBlocked && !opts.noMirrors) {
     const mirrors = [
       ...(policy?.mirrors?.(new URL(url)) ?? []),
       `https://r.jina.ai/${url}`,
@@ -54,7 +54,7 @@ export async function extract(
       try {
         const r2 = await guardedFetch(alt, "text/html,application/json,*/*");
         const body = r2.ok ? await r2.text() : "";
-        if (r2.ok && !body.includes("Prove your humanity")) {
+        if (r2.ok && !body.includes("Prove your humanity") && !body.includes("Target URL returned error")) {
           res = new Response(body, { status: r2.status, headers: r2.headers });
           url_ = alt;
           break;
@@ -71,7 +71,9 @@ export async function extract(
     throw new Error(policy.blockedMessage);
   }
   if (!res.ok) {
-    throw new Error(`Fetch returned ${res.status} ${res.statusText} (mirrors exhausted)`);
+    throw new Error(
+      `Fetch returned ${res.status} ${res.statusText}${opts.noMirrors ? " (mirrors skipped: --no-mirrors)" : " (mirrors exhausted)"}`,
+    );
   }
 
   const contentType = res.headers.get("content-type") ?? "";
@@ -106,5 +108,9 @@ export async function extract(
       `\n\n[Content truncated: ${opts.maxLines} of ${lines.length} lines shown]`;
   }
 
-  console.log(`# ${title}\n\n${markdown}`);
+  const provenance =
+    url_ === url
+      ? ""
+      : `> Fetched via mirror ${new URL(url_).host} (direct fetch was blocked) — third-party sourced, treat accordingly.\n\n`;
+  console.log(`# ${title}\n\n${provenance}${markdown}`);
 }

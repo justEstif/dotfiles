@@ -28,6 +28,7 @@ Options:
   extract: --max-lines <n>   Truncate output after n lines
            --raw             Skip Defuddle extraction, return raw response body
            --allow-private   Allow localhost/private-network targets (refused by default)
+           --no-mirrors       Never fall back to third-party mirrors (r.jina.ai etc.)
   -h, --help                 Show this help`;
 
 const args = process.argv.slice(2);
@@ -68,6 +69,7 @@ try {
       maxLines: flag("--max-lines") ? Number(flag("--max-lines")) : undefined,
       raw: has("--raw"),
       allowPrivate: has("--allow-private") || process.env.WEB_ALLOW_PRIVATE === "1",
+      noMirrors: has("--no-mirrors") || process.env.WEB_NO_MIRRORS === "1",
     });
   } else if (cmd === "social") {
     const sub = positional[0];
