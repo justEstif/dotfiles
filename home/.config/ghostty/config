@@ -23,9 +23,6 @@ window-padding-y = 14
 confirm-close-surface = false
 resize-overlay = never
 gtk-toolbar-style = flat
-# Herdr is the primary multiplexer; Ghostty stays usable as a basic
-# standalone terminal with its own native tabs/splits as backup.
-
 # ---- Cursor + SSH terminfo --------------------------------------------------
 # (all shell integration options must be passed together)
 cursor-style = "block"
