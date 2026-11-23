@@ -46,3 +46,4 @@ abbr -a tvf 'tv files'       # pick a file (frecency-ranked)
 abbr -a tvd 'tv dirs'        # pick a directory
 abbr -a tvg 'tv git-commits' # browse commits
 abbr -a tvh 'tv history'     # shell history
+abbr -a chief-pi "hc run --bg --name chief-of-staff --cwd (pwd) chief-of-staff" # launch pi chief-of-staff agent here
