@@ -35,6 +35,7 @@ cursor-style = "block"
 cursor-style-blink = false
 shell-integration-features = no-cursor,ssh-env
 
+# NOTE: think we can clean up here
 # ---- Keyboard bindings ------------------------------------------------------
 # Disable Ghostty's native multiplexing shortcuts; use Herdr instead.
 keybind = super+t=unbind
