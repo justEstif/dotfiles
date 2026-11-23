@@ -4,5 +4,5 @@
     "ctrl+g",
     "ctrl+shift+g"
   ],
-  "app.message.dequeue": "alt+escape"
+  "app.message.dequeue": "alt+q"
 }
