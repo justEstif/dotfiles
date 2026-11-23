@@ -1,6 +1,8 @@
 local add = vim.pack.add
 local now, later = Config.now, Config.later
 
+-- TODO need to figure out how to make more use of this.
+-- also has the nvim team made this better
 later(function()
 	add({ "https://github.com/stevearc/quicker.nvim" })
 	local quicker = require("quicker")

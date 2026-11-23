@@ -18,7 +18,6 @@ _G.Config.leader_group_clues = {
 	{ mode = "n", keys = "<Leader>f", desc = "+Files" },
 	{ mode = "n", keys = "<Leader>l", desc = "+Lsp" },
 	{ mode = "n", keys = "<Leader>p", desc = "+Packages" },
-	{ mode = "n", keys = "<Leader>z", desc = "+Zk" },
 }
 
 -- Create `<Leader>` mappings
@@ -63,35 +62,6 @@ nmap_leader("f*", "<cmd>Pick grep pattern='<cword>'<cr>", "Grep under cursor")
 
 -- p is for 'packages'
 nmap_leader("pu", "<Cmd>packupdate<CR>", "Update plugins (vim.pack)")
-
--- z is for 'zk'
-nmap_leader("zt", function()
-	local notebook_dir = vim.env.ZK_NOTEBOOK_DIR
-	if not notebook_dir or notebook_dir == "" then
-		vim.notify("ZK_NOTEBOOK_DIR is not set; cannot open todo.md", vim.log.levels.ERROR)
-		return
-	end
-
-	vim.cmd.edit(vim.fn.fnameescape(notebook_dir .. "/todo.md"))
-end, "Tasks")
-nmap_leader("zl", function()
-	local notebook_dir = vim.env.ZK_NOTEBOOK_DIR
-	if not notebook_dir or notebook_dir == "" then
-		vim.notify("ZK_NOTEBOOK_DIR is not set; cannot list notes", vim.log.levels.ERROR)
-		return
-	end
-	require("mini.pick").builtin.files({}, { source = { cwd = notebook_dir } })
-end, "List notes")
-nmap_leader("zc", function()
-	vim.ui.input({ prompt = "Note title: " }, function(title)
-		if title and title ~= "" then
-			require("zk.commands").get("ZkNew")({ dir = "00_inbox", group = "inbox", title = title })
-		end
-	end)
-end, "Create note")
-nmap_leader("zd", function()
-	require("zk.commands").get("ZkNew")({ dir = "daily", group = "daily", date = "today" })
-end, "Daily note")
 
 vim.keymap.set("v", "gs", function()
 	vim.treesitter.select()

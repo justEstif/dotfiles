@@ -62,6 +62,7 @@ later(function()
 	})
 end)
 
+-- TODO check if this is built-in now
 later(function()
 	add({ "https://github.com/folke/ts-comments.nvim" })
 	require("ts-comments").setup()
@@ -131,7 +132,7 @@ now(function()
 		mappings = {
 			basic = true,
 			-- cursor moves with Alt-<hjkl> in Insert, Command, Terminal mode
-			move_with_alt = true,
+			move_with_alt = false,
 			-- switch windows: <C-hjkl>
 			-- resize windows: <C-Arrow Keys>
 			windows = true,
@@ -146,18 +147,6 @@ now(function()
 			vim.hl.hl_op()
 		end,
 		desc = "Highlight yanked text",
-	})
-	vim.api.nvim_create_autocmd("TermOpen", {
-		group = group,
-		pattern = "term://*",
-		callback = function(event)
-			vim.schedule(function()
-				if vim.api.nvim_get_current_buf() == event.buf and not vim.b[event.buf].terminal_normal_mode then
-					vim.cmd("startinsert")
-				end
-			end)
-		end,
-		desc = "Start builtin terminal in Insert mode",
 	})
 end)
 

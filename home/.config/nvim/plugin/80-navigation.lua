@@ -1,5 +1,4 @@
-local now, later = Config.now, Config.later
-local add = vim.pack.add
+local now, later = Config.now, Config.later local add = vim.pack.add
 
 -- Picker keymaps (mini.pick, configured below). ui_select routes through
 -- mini.pick via pick.ui_select.
@@ -9,6 +8,8 @@ later(function()
 		vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)
 	end
 
+  -- TODO always feel like i don't have the full mini.nvim features understood
+  -- might need to go through the docs and get this figured out
 	local pick = require("mini.pick")
 
 	pick.setup({
@@ -32,8 +33,6 @@ end)
 now(function()
 	local files = require("mini.files")
 	files.setup({
-		-- Let Neovim 0.13's built-in dir.lua handle `:edit <dir>` (and the
-		-- `,ft` tree). mini.files is only opened explicitly via `,fd` / `,ff`.
 		options = {
 		  use_as_default_explorer = true,
 		  permanent_delete = false
