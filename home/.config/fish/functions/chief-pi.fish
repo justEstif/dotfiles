@@ -1,7 +1,4 @@
-function chief-pi --description "Attach to (or launch) the chief-of-staff pi agent here"
-    if hc get chief-of-staff &>/dev/null
-        hc attach chief-of-staff
-    else
-        hc run --bg --name chief-of-staff --cwd (pwd) chief-of-staff
-    end
+function chief-pi --description "Launch a fresh chief-of-staff pi agent here (identity baked into system prompt)"
+    set -l name "chief-"(date +%H%M%S)
+    hc run --bg --name $name --cwd (pwd) chief-of-staff
 end
