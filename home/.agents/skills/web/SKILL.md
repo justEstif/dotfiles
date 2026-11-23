@@ -6,7 +6,7 @@ description: "Search the web and fetch web pages as clean markdown via the self-
 # web, a SearXNG web search & web fetch CLI
 
 `web` is on PATH at `~/.local/bin/web` (bun script: `~/.local/share/web/cli.ts`, mise-dotfiles-symlinked from ~/dotfiles).
-Config lives in `~/.pi/agent/auth.json` under `"searxng"` (`baseUrl`, optional `user`/`pass`/`engines`).
+Config resolves in order: `WEB_SEARX_BASE_URL` env, `$WEB_CONFIG` file, `~/.config/web/config.json`, legacy `~/.pi/agent/auth.json` under `"searxng"` (`baseUrl`).
 
 ## When to Use
 
@@ -24,11 +24,15 @@ Config lives in `~/.pi/agent/auth.json` under `"searxng"` (`baseUrl`, optional `
    - HTML → markdown via Defuddle (title as `# <title>` heading).
    - `--raw` skips extraction and returns the raw response body (use for non-HTML or when Defuddle mangles content).
    - `--max-lines` truncates long pages to keep context small.
+   - `--allow-private` permits localhost/private-network targets; refused by default (SSRF guard, re-checked on every redirect hop).
+   - `--no-mirrors` never falls back to third-party mirrors (r.jina.ai); when a mirror served the page, output opens with a `> Fetched via mirror <host>` provenance line.
 3. **Help:** `web --help`
 
 ## Pitfalls
 
 - Zero results with failed engines raises an engine-failure error. Retry or change category; the instance may be rate-limited by upstream engines.
+- Extract refuses loopback/private/link-local/cloud-metadata targets by default (SSRF guard). Pass `--allow-private` or set `WEB_ALLOW_PRIVATE=1` if a local URL is intended.
+- Output starting `> Fetched via mirror <host>` was served by a third-party mirror (direct fetch was blocked) — weigh trust accordingly.
 - Extract on non-HTML content types falls back to raw text truncated to 50 KB.
 - The CLI exits 1 with a message on stderr for any failure. Surface that error rather than guessing.
 
