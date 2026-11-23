@@ -1,6 +1,6 @@
 ---
-name: plan
-command: pi
+name: planner
+command: pi --append-system-prompt /home/estifanos/.config/herdr-core/templates/planner.md
 description: "Planning operator. Turns ambiguous or multi-step work into a phased implementation plan, delivered inline. Does not implement."
 ---
 
