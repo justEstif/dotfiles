@@ -64,6 +64,7 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 "~/.config/ghostty/config" = {}
 "~/.config/herdr-app/keys.json" = {}
 "~/.config/herdr-app/settings.json" = {}
+"~/.config/herdr-core/stress-driver2.sh" = {}
 "~/.config/herdr-core/templates" = {}
 "~/.config/lazygit" = {}
 "~/.config/mise/config.linux.toml" = "~/dotfiles/mise/config.linux.toml"
