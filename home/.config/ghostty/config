@@ -40,7 +40,7 @@ keybind = alt+shift+enter=csi:13;4u
 mouse-scroll-multiplier = 0.95
 
 # Larger scrollback (default 50 MB); compression keeps memory flat
-scrollback-limit = 200 MB
+scrollback-limit-bytes = 200000000
 
 # Copy text as soon as you select it (Linux convention)
 copy-on-select = clipboard
