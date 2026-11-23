@@ -490,3 +490,8 @@ complete -c bun -n "__fish_seen_subcommand_from repl" -s "c" -l "config" -r -d "
 complete -c bun -n "__fish_seen_subcommand_from repl" -l "cwd" -r -d "Absolute path to resolve files & entry points from"
 complete -c bun -n "__fish_seen_subcommand_from repl" -l "env-file" -r -d "Load environment variables from the specified file(s)"
 complete -c bun -n "__fish_seen_subcommand_from repl" -l "no-env-file" -d "Disable automatic loading of .env files" -f
+
+# Restore path completion after `bun test` (the -f on the bins/scripts rule disables it globally).
+complete -c bun -n '__fish_seen_subcommand_from test' -a '(__fish_complete_path)'
+# Path completion for `bun build`, `bun run <file>`, and `bun ./file.ts`.
+complete -c bun -n '__fish_seen_subcommand_from build run; or not __fish_use_subcommand' -a '(__fish_complete_path)'
