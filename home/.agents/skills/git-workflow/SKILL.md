@@ -15,7 +15,6 @@ description: "Git/GitHub workflow on this machine: herdr worktrees for edit work
 
 ## Environment quirks
 
-- wtm is retired (archived at `~/retired`); delete its legacy worktrees with plain `git worktree remove`.
 - **`~/dotfiles` repo**: **READ `references/dotfiles.md`** before any git operation inside it (symlink/mise-bootstrap/mise-drift quirks).
 
 ## Scar Tissue
@@ -23,9 +22,7 @@ description: "Git/GitHub workflow on this machine: herdr worktrees for edit work
 Rules appended when this skill is violated. One concise rule per violation; keep entries specific.
 
 - Never set a feature branch upstream to `origin/main`; push first with explicit `HEAD:refs/heads/<feature>` and verify the destination before proceeding.
-- For `wtm create --from`, use the updated local base branch (for example `main`), not `origin/main`; wtm interprets the latter as a remote branch name and rejects it. (Legacy machines only — wtm is retired.)
-- Never disable hooks to bypass a miscounting PR-size gate; refresh the clean local base ref or pause before recommitting normally.
-- Before `git add` on a branch cut from a main checkout kept dirty with files from another PR, run `git status` and stage only that branch's files by explicit path; bundled unrelated files silently move work between PRs (#30/#31).
+- Before `git add`, run `git status` and stage only this task's files by explicit path; unrelated dirty files silently ride into the commit.
 - Never run `git commit` before the verification command in the same chain has actually reported green; a failed check mid-chain silently ships a broken commit. Verify, then commit.
 - Piping a gate command through `head`/`tail`/other filters masks the gate's exit code. `&&` then chains on the filter's status, not the gate's. Run gates bare (or check `${PIPESTATUS[0]}`) before committing on their result.
 - Check `git ls-files <path>` after the first commit touching a new directory; a global `~/.gitignore` rule (`**/*openspec*`) can exclude whole directories and produce empty "scaffold" commits.

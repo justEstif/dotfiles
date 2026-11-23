@@ -1,12 +1,11 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { resolve } from "node:path";
-import { registerBashGate, registerSkillBashGate } from "./lib/gates.ts";
+import { registerBashGate } from "./lib/gates.ts";
 
 /** Max additions+deletions allowed on a branch vs its base. */
 export const PR_LINE_BUDGET = 500;
 
-const GIT_WORKFLOW_RE = /\b(?:git|gh)(?=\s)/;
-const PUSH_RE = /\bgit\s+push\b|\bgh\s+(?:pr\s+create|stack\s+submit)\b/;
+const PUSH_RE = /\bgit\s+push\b|\bgh\s+pr\s+create\b/;
 const COMMIT_RE = /\bgit\s+commit\b/;
 
 async function git(
@@ -73,20 +72,6 @@ async function stagedLines(pi: ExtensionAPI, cwd: string): Promise<number | null
 }
 
 export default function (pi: ExtensionAPI) {
-	registerSkillBashGate(pi, {
-		name: "git-workflow",
-		gateName: "git-workflow-gate",
-		paths: [
-			resolve(
-				process.env.HOME ?? "~",
-				".agents/skills/git-workflow/SKILL.md",
-			),
-		],
-		matches: (command) => GIT_WORKFLOW_RE.test(command),
-		loadInstructions:
-			"Continue the interrupted task. Read every mandatory reference relevant to the intended command before retrying it.",
-	});
-
 	registerBashGate(pi, {
 		name: "pr-size-advisory",
 		matches: (command) => COMMIT_RE.test(command) || PUSH_RE.test(command),
@@ -100,7 +85,7 @@ export default function (pi: ExtensionAPI) {
 				const wouldBe = committed + staged;
 				if (wouldBe > PR_LINE_BUDGET && committed <= PR_LINE_BUDGET) {
 					ctx.ui.notify(
-						`PR size advisory: this commit would push the branch diff to ${wouldBe} changed lines (>${PR_LINE_BUDGET} budget; already committed: ${committed}). Consider starting a stacked branch off HEAD.`,
+						`PR size advisory: this commit would push the branch diff to ${wouldBe} changed lines (>${PR_LINE_BUDGET} budget; already committed: ${committed}). Consider splitting the work into a separate branch, or justify the oversized diff in the PR body.`,
 						"warning",
 					);
 				}
@@ -110,7 +95,7 @@ export default function (pi: ExtensionAPI) {
 			const lines = await committedLines(pi, ctx.cwd);
 			if (lines === null || lines <= PR_LINE_BUDGET) return;
 			ctx.ui.notify(
-				`PR size advisory: branch diff is ${lines} changed lines (>${PR_LINE_BUDGET} budget). Consider splitting it into stacked PRs, or justify the oversized PR before publishing.`,
+				`PR size advisory: branch diff is ${lines} changed lines (>${PR_LINE_BUDGET} budget). Consider splitting it into separate branches, or justify the oversized PR in its body.`,
 				"warning",
 			);
 		},
