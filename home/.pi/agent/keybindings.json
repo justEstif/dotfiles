@@ -1,6 +1,8 @@
 {
+  "$schema": "https://pi.dev/schemas/keybindings.schema.json",
   "app.editor.external": [
     "ctrl+g",
     "ctrl+shift+g"
-  ]
+  ],
+  "app.message.dequeue": "alt+escape"
 }

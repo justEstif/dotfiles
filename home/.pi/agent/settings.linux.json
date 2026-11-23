@@ -1,20 +1,21 @@
 {
   "theme": "one-dark",
-  "lastChangelogVersion": "1.5.2",
-  "hideThinkingBlock": true,
+  "lastChangelogVersion": "1.6.0",
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "off",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
   "enabledModels": [
     "zai/*"
   ],
-  "quietStartup": true,
+  "quietStartup": "header",
   "compaction": {
     "reserveTokens": 60000,
     "keepRecentTokens": 10000
   },
   "terminal": {
-    "showImages": false
+    "showImages": false,
+    "showTerminalProgress": true
   },
   "defaultTools": [
     "+codemode"
@@ -28,5 +29,6 @@
   "enableInstallTelemetry": false,
   "treeFilterMode": "no-tools",
   "tuiMode": "fullscreen",
-  "enableSkillCommands": true
+  "enableSkillCommands": true,
+  "fullscreenExitOutput": "transcript"
 }
