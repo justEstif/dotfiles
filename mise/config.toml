@@ -59,7 +59,6 @@ credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
 [dotfiles]
 "~/.agents/scripts" = {}
 "~/.agents/skills" = {}
-"~/.agents/skills-archive" = {}
 "~/.config/fish" = {}
 "~/.config/gh/config.yml" = {}
 "~/.config/ghostty/config" = {}
