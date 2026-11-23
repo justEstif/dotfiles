@@ -1,66 +1,29 @@
 ---
-name: "git-workflow"
-description: "Git/GitHub workflow on this machine: herdr worktrees, scoped commit messages (`<scope>: <description>`, never Conventional Commits), commit-as-you-work cadence, small-PR contract with gh-stack. Use when branching, creating worktrees, committing, pushing, or opening/updating PRs, and when a git/PR mistake needs capturing as a scar-tissue rule."
+name: git-workflow
+description: "Git/GitHub workflow on this machine: herdr worktrees for edit work, scoped commit messages (`<scope>: <description>`, never Conventional Commits), commit-as-you-work, gh CLI not MCP. Use when branching, creating worktrees, committing, pushing, opening/updating PRs, or when a git/PR mistake needs capturing as a scar-tissue rule."
 ---
 
 # Git workflow
 
-## Procedure
+## Rules
 
-1. **SIZE FIRST**: before editing, estimate blast radius (files + rough lines). If the work cannot fit one PR-sized chunk (~300-500 hand-written lines), decompose into chunks now and decide stack order (foundations first, vertical user-meaningful slices). No code edits before the chunk plan exists.
-2. **ONE CHUNK = ONE WORKTREE = ONE PR**: create a herdr worktree per chunk. **MANDATORY READ `references/herdr-worktrees.md`** before creating/removing one. Never mix chunks in one worktree. Read-only inspection may use the current checkout; editing requires a worktree. (Legacy wtm worktrees still exist in some repos; `references/wtm.md` covers deleting them.)
-3. **COMMIT AS YOU WORK**: after every completed subtask and every green test/lint/build run, commit in scoped format. **MANDATORY READ `references/scoped-commits.md`** before writing any commit message. Clean tree before declaring any task done. NEVER accumulate a dirty state for later. Why: large dirty states become huge unreviewable PRs and can't be reset when something goes wrong.
-4. **PUSH & PR THE CHUNK**: push branch, open PR with the body format in `publisher`'s [opening-a-pr](../publisher/references/opening-a-pr.md), via `gh pr create`; see gh reference below for CI checks and advanced queries. One PR = one logical purpose. NEVER commit or push directly to main. Each PR buildable, testable, mergeable standalone.
-5. **STACK WHEN NEEDED**: if a feature can't fit one independently useful PR, use gh-stack: `gh stack init` (bottom-up), `gh stack add <branch>` per layer, `gh stack submit` to push and create/update PRs, `gh stack sync`/`rebase` to keep aligned. Resolve conflicts before requesting review; merge bottom-up.
-6. **SCAR TISSUE**: whenever this skill is violated (huge PR, skipped commits, wrong format, wrong worktree invocation), append one concise rule to the Scar Tissue section below immediately.
-
-## Commit format (Scoped Commits)
-
-- Subject: `<scope>: <description>`. Short imperative, scope derived from files/paths changed and the repo's existing log conventions (e.g. `auth:`, `cli:`, `net/http:`). Multi-scope → general or comma-separated scope, or `treewide`.
-- Optional body after a blank line explaining the change; optional trailers (e.g. `Jira-Ticket: PROJ-123`) after the body.
-- NEVER use Conventional Commits (`feat:`, `fix:`, `chore:`, `feat(scope):`, `!`). Why: the user explicitly rejects this style; instead use `<scope>: <description>`.
-- Reverts, merges, and other special commits may keep default git formatting. Don't force a scope on them.
-
-## gh CLI
-
-GitHub operations go through the `gh` CLI (it knows it natively. Never install/use a GitHub MCP, it costs ~20k context tokens for the same feature set). For PR checks, CI run debugging, `gh api` queries, and JSON output patterns: **MANDATORY READ `references/github.md`** before running non-trivial gh commands.
-
-## References
-
-All three load via MANDATORY READ triggers in the procedure above:
-
-- `references/herdr-worktrees.md` covers the herdr worktree flow (creation with explicit base, open/remove, pitfalls)
-- `references/wtm.md` covers deleting legacy wtm worktrees only
-- `references/scoped-commits.md` covers commit message format, scope derivation, examples
-- `references/github.md` covers gh CLI patterns (PR checks, CI runs, `gh api`, JSON output)
+1. **Editing in a repo? Use a herdr worktree** unless it's read-only inspection of the current checkout. One chunk of work per worktree. Read `references/herdr-worktrees.md` before creating or removing one.
+2. **Commit as you work**: after every completed subtask and every green test/lint/build run. Clean tree before declaring a task done. Never accumulate dirty state.
+3. **Scoped commits**: subject `<scope>: <description>` — short, imperative, scope from files/paths. NEVER Conventional Commits (`feat:`, `fix:`, `chore:`). Never bundle unrelated changes in one commit or PR. Special commits (reverts, merges) keep default formatting.
+4. **Push**: feature branches with explicit `HEAD:refs/heads/<feature>` if needed; never push directly to a protected default branch.
+5. **PRs via `gh` CLI** — never a GitHub MCP (costs ~20k context tokens for the same features).
 
 ## Environment quirks
 
-- wtm is retired (archived at `~/retired`); its legacy worktrees are removed with plain `git worktree remove` — see `references/wtm.md`.
-- `~/dotfiles` repo has symlink/mise-bootstrap/mise-drift quirks: **MANDATORY READ `references/dotfiles.md`** before git operations inside `~/dotfiles`.
-
-## Pitfalls
-
-- NEVER bundle unrelated changes in one commit or PR (features + formatting, deps + logic, drive-by cleanup). Why: reviewers can't isolate risk; instead split into separate commits/PRs.
-- NEVER push a branch whose total diff exceeds the PR budget without splitting first. Why: it defeats review; instead split into stacked PRs. If a large diff is unavoidable (migration, generated output), justify it in the PR body.
-- Merge stacks bottom-up only; NEVER let an upper PR depend on unrelated changes hidden in a lower one.
-- Prefer vertical user-meaningful slices over horizontal layer PRs. A "refactor everything" PR can't be reviewed or merged independently.
-
-## Verification
-
-1. `git log --oneline -1` shows a scoped subject (`<scope>: <description>`) with no conventional-commit prefix.
-2. `git status` is clean when the task is declared done.
-3. Each pushed branch's total diff vs its base is ≤~500 lines or justified in the PR body.
-4. Every PR body states one logical purpose and lists tests/risks.
-5. Stacked PRs: `gh stack view` shows coherent layers; lower PRs merge before upper ones.
+- wtm is retired (archived at `~/retired`); delete its legacy worktrees with plain `git worktree remove`.
+- **`~/dotfiles` repo**: **READ `references/dotfiles.md`** before any git operation inside it (symlink/mise-bootstrap/mise-drift quirks).
 
 ## Scar Tissue
 
 Rules appended when this skill is violated. One concise rule per violation; keep entries specific.
 
 - Never set a feature branch upstream to `origin/main`; push first with explicit `HEAD:refs/heads/<feature>` and verify the destination before proceeding.
-- Before any `wtm` invocation, read `references/wtm.md` and run from the bare repository root.
-- For `wtm create --from`, use the updated local base branch (for example `main`), not `origin/main`; wtm interprets the latter as a remote branch name and rejects it.
+- For `wtm create --from`, use the updated local base branch (for example `main`), not `origin/main`; wtm interprets the latter as a remote branch name and rejects it. (Legacy machines only — wtm is retired.)
 - Never disable hooks to bypass a miscounting PR-size gate; refresh the clean local base ref or pause before recommitting normally.
 - Before `git add` on a branch cut from a main checkout kept dirty with files from another PR, run `git status` and stage only that branch's files by explicit path; bundled unrelated files silently move work between PRs (#30/#31).
 - Never run `git commit` before the verification command in the same chain has actually reported green; a failed check mid-chain silently ships a broken commit. Verify, then commit.
