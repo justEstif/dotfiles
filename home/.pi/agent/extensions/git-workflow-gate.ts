@@ -1,5 +1,4 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { resolve } from "node:path";
 import { registerBashGate } from "./lib/gates.ts";
 
 /** Max additions+deletions allowed on a branch vs its base. */
