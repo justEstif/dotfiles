@@ -39,6 +39,18 @@ keybind = alt+shift+enter=csi:13;4u
 # Slowdown mouse scrolling
 mouse-scroll-multiplier = 0.95
 
+# Larger scrollback (default 50 MB); compression keeps memory flat
+scrollback-limit = 200 MB
+
+# Copy text as soon as you select it (Linux convention)
+copy-on-select = clipboard
+
+# Don't copy trailing whitespace on line copies
+clipboard-trim-trailing-spaces = true
+
+# New tabs/windows start in the directory of the current tab
+window-inherit-working-directory = true
+
 # Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll
 
