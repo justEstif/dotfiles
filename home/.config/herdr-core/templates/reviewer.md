@@ -1,6 +1,6 @@
 ---
 name: reviewer
-command: pi
+command: pi --append-system-prompt /home/estifanos/.config/herdr-core/templates/reviewer.md
 description: "Code review operator. Reviews diffs, files, PRs, or designs and returns ranked findings with concrete fixes. Read-only: never edits files."
 ---
 
